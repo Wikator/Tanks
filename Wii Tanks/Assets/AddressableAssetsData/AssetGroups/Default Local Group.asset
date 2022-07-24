@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 11cabf887a26393468f5db22744beff1
+  m_SerializeEntries:
+  - m_GUID: cd4d7020429cde74db076ffa72495419
+    m_Address: GreenExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5892436366fa5734785d6a2923af016b
+    m_Address: Brown
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9f4f53368ced9d8488230f01ef9348a0
+    m_Address: Cyan
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0673791246efe56478a50f5ba5d5cf43
+    m_Address: Green
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 4133a540639476a40aa79adcaf82a1b2
+    m_Address: Purple
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3a309c26fbfa2f04297627c31cba989f
+    m_Address: Red
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2d8f3aa0be0eea440b981ced1ab90b11
+    m_Address: Yellow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 7aefcf9a8ce8d1749a12b9fac05638d4
+    m_Address: Pawn
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fd6c0662f3d60b34ebcbd285d687b4f0
+    m_Address: YellowNormalBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f48c3c5b121b2b846a9e31c4553670be
+    m_Address: BrownNormalBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dba986ea9a28117499047571a2b244d3
+    m_Address: GreenNormalBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 77efcfbf8ee9d3d489ba7d5c084a08b7
+    m_Address: RedNormalBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0d87f9c280eb2db47a378fe3649f200d
+    m_Address: CyanNormalBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a6b7a20442d69a14cbbe72297740c946
+    m_Address: BrownExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f5325a8ea6f8b1b4cbf599d059609a7a
+    m_Address: YellowExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f41e40c31928a1048ad359794ad8b7d6
+    m_Address: CyanExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cb8b536cb90b3944eb2e2d5c78123947
+    m_Address: RedExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6ecd5af803af95043b03f4a178edaa38
+    m_Address: PurpleExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2f2db464a5d9aa94aa5013c0733f9719
+    m_Address: PurpleNormalBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5ff93de60d094a6419deae1768ff2036, type: 2}
+    - {fileID: 11400000, guid: 940c069793c6b1845b9c8059ee5c0578, type: 2}
