@@ -15,7 +15,8 @@ public sealed class DestroyItself : NetworkBehaviour
     public override void OnSpawnServer(NetworkConnection connection)
     {
         base.OnSpawnServer(connection);
-        if (destroyOnSpawn) StartCoroutine(DespawnItselfDeleyed());
+        if (destroyOnSpawn)
+            StartCoroutine(DespawnItselfDeleyed());
     }
 
     public IEnumerator DespawnItselfDeleyed()

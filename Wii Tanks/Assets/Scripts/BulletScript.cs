@@ -1,6 +1,7 @@
 using FishNet.Connection;
 using FishNet.Managing.Logging;
 using FishNet.Object;
+using System.Collections;
 using UnityEngine;
 
 public sealed class BulletScript : NetworkBehaviour
@@ -22,13 +23,28 @@ public sealed class BulletScript : NetworkBehaviour
         base.OnSpawnServer(connection);
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.velocity = transform.forward * moveSpeed;
+        StartCoroutine(TurnOnCollider());
     }
 
     void Update()
     {
-        if (ricochetCount > 0)
+        if (ricochetCount >= 0 || rigidBody.velocity == Vector3.zero)
             return;
 
+        Despawn();
+    }
+
+    private IEnumerator TurnOnCollider()
+    {
+        yield return new WaitForSeconds(0.07f);
+        gameObject.GetComponent<SphereCollider>().enabled = true;
+    }
+
+    private IEnumerator DespawnItself()
+    {
+        rigidBody.velocity = Vector3.zero;
+        GetComponent<SphereCollider>().enabled = false;
+        yield return new WaitForSeconds(0.6f);
         Despawn();
     }
 
@@ -48,7 +64,8 @@ public sealed class BulletScript : NetworkBehaviour
             {
                 if (collision.gameObject != player.controlledPawn.gameObject)
                 {
-                    player.PointScored(1);
+                    if (GameManager.Instance.TryGetComponent(out DeathmatchGameMode deathmatchGameMode))
+                        deathmatchGameMode.PointScored(player.controlledPawn.controllingPlayer, 1);
                 }
             }
 
@@ -58,7 +75,7 @@ public sealed class BulletScript : NetworkBehaviour
 
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            Despawn();
+            StartCoroutine(DespawnItself());
         }
     }
 }

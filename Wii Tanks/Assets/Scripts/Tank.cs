@@ -53,7 +53,7 @@ public abstract class Tank : NetworkBehaviour
     public Transform bulletSpawn, bulletEmpty;
 
     [HideInInspector]
-    public GameObject bullet;
+    public GameObject bullet, pointer;
 
     [HideInInspector]
     [SyncVar]
@@ -69,6 +69,7 @@ public abstract class Tank : NetworkBehaviour
 
     private bool isSubscribed = false;
 
+    private GameMode gameModeManager;
     private CharacterController controller;
     private Transform explosionEmpty;
     private GameObject explosion, turret;
@@ -80,6 +81,7 @@ public abstract class Tank : NetworkBehaviour
         base.OnStartClient();
         cam = Camera.main;
         ammoCount = maxAmmo;
+        gameModeManager = GameManager.Instance.gameObject.GetComponent<GameMode>();
         controller = GetComponent<CharacterController>();
         turret = transform.GetChild(0).gameObject;
         bulletSpawn = turret.transform.GetChild(0).transform;
@@ -94,6 +96,7 @@ public abstract class Tank : NetworkBehaviour
         base.OnStartServer();
         cam = Camera.main;
         ammoCount = maxAmmo;
+        gameModeManager = GameManager.Instance.gameObject.GetComponent<GameMode>();
         controller = GetComponent<CharacterController>();
         turret = transform.GetChild(0).gameObject;
         bulletSpawn = turret.transform.GetChild(0).transform;
@@ -139,8 +142,8 @@ public abstract class Tank : NetworkBehaviour
 
     public void GameOver()
     {
-        controllingPlayer.PointScored(-1);
-        controllingPlayer.StartRespawn(1.5f);
+        //Destroy(pointer);
+        gameModeManager.OnKilled(controllingPlayer);
         Spawn(Instantiate(explosion, transform.position, transform.rotation, explosionEmpty));
         Despawn();
     }
@@ -162,7 +165,7 @@ public abstract class Tank : NetworkBehaviour
         moveAxis = Input.GetAxis("Vertical");
         rotateAxis = Input.GetAxis("Horizontal");
 
-        Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
+        Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
 
         data = new MoveData(moveAxis, rotateAxis, hit.point);
     }
@@ -193,6 +196,8 @@ public abstract class Tank : NetworkBehaviour
 
         turret.transform.LookAt(data.TurretLookDirection, Vector3.up);
         turret.transform.localEulerAngles = new Vector3(0, turret.transform.localEulerAngles.y, 0);
+
+        //pointer.transform.position = data.TurretLookDirection;
     }
 
     [Reconcile]

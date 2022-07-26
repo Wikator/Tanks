@@ -10,8 +10,14 @@ public sealed class GameManager : NetworkBehaviour
     [SyncObject]
     public readonly SyncList<PlayerNetworking> players = new();
 
+    //[SyncObject]
+    //public readonly SyncList<GameObject> spawns = new();
+
     [SyncObject]
-    public readonly SyncList<GameObject> spawns = new();
+    public readonly SyncList<PlayerNetworking> greenTeam = new();
+
+    [SyncObject]
+    public readonly SyncList<PlayerNetworking> redTeam = new();
 
     [HideInInspector]
     [SyncVar]
@@ -20,15 +26,16 @@ public sealed class GameManager : NetworkBehaviour
     [SyncVar]
     public int playersReady = 0;
 
+    [SyncVar]
+    public string gameMode = "None";
+
+    [SyncVar]
+    private bool gameModeChosen = false;
+
 
     private void Awake()
     {
         Instance = this;
-
-        for (int i = 1; i < 11; i++)
-        {
-            spawns.Add(GameObject.Find("Spawn" + i.ToString()));
-        }
     }
 
     private void Update()
@@ -37,7 +44,35 @@ public sealed class GameManager : NetworkBehaviour
             return;
 
         canStart = players.All(player => player.isReady);
+
+        if (gameMode != "None")
+        {
+            foreach (PlayerNetworking player in players)
+            {
+                if (!player.gameModeChosen)
+                {
+                    player.GameModeChosen(player.Owner, gameMode);
+                    player.gameModeChosen = true;
+                }
+            }
+
+            if (!gameModeChosen)
+            {
+                gameModeChosen = true;
+
+                switch (gameMode)
+                {
+                    case "Deathmatch":
+                        gameObject.AddComponent<DeathmatchGameMode>();
+                        break;
+                    case "Elimination":
+                        gameObject.AddComponent<EliminationGameMode>();
+                        break;
+                }
+            }
+        }
     }
+
 
     [ServerRpc(RequireOwnership = false)]
     public void StartGame()
@@ -45,10 +80,22 @@ public sealed class GameManager : NetworkBehaviour
         if (!canStart)
             return;
 
+        /*if (gameObject.TryGetComponent(out EliminationGameMode eliminationGameMode))
+        {
+            eliminationGameMode.SetTeams();
+        }*/
+
         for (int i = 0; i < players.Count; i++)
         {
             players[i].StartGame();
         }
+
+        /*if (gameObject.TryGetComponent(out EliminationGameMode eliminationGameMode))
+        {
+            eliminationGameMode.waitingForNewRound = false;
+        }*/
+
+        gameObject.GetComponent<EliminationGameMode>().waitingForNewRound = false;
     }
 
     [ServerRpc(RequireOwnership = false)]

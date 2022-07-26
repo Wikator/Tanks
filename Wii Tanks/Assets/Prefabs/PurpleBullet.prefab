@@ -98,7 +98,7 @@ SphereCollider:
   m_GameObject: {fileID: 2456512010136705151}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -159,7 +159,7 @@ MonoBehaviour:
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 7
+  _prefabId: 1
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects: []

@@ -10,17 +10,14 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public static PlayerNetworking Instance { get; private set; }
 
     [SyncVar]
-    public string username;
+    public string username, color;
 
     [SyncVar]
     public Tank controlledPawn;
 
-    [field: SyncVar]
-    public string color;
-
     [HideInInspector]
     [SyncVar]
-    public bool isReady;
+    public bool isReady, gameModeChosen = false;
 
     [HideInInspector]
     [SyncVar]
@@ -39,6 +36,16 @@ public sealed class PlayerNetworking : NetworkBehaviour
         base.OnStopServer();
         color = "None";
         GameManager.Instance.players.Remove(this);
+
+        if (GameManager.Instance.greenTeam.Contains(this))
+        {
+            GameManager.Instance.greenTeam.Remove(this);
+        }
+
+        if (GameManager.Instance.redTeam.Contains(this))
+        {
+            GameManager.Instance.redTeam.Remove(this);
+        }
     }
 
     public override void OnStartClient()
@@ -52,25 +59,16 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
         UIManager.Instance.Init();
 
-        UIManager.Instance.Show<LobbyView>();
+        UIManager.Instance.Show<GameModesView>();
     }
 
     public void StartGame()
     {
-        int randomNumber = Random.Range(0, 10);
-        if (GameManager.Instance.spawns[randomNumber].GetComponent<Spawn>().isOccupied)
-        {
-            StartGame();
-        }
-        else
-        {
-            GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pawn").WaitForCompletion(), GameManager.Instance.spawns[randomNumber].transform.position, Quaternion.identity, transform);
-            GameManager.Instance.spawns[randomNumber].GetComponent<Spawn>().isOccupied = true;
-            controlledPawn = playerInstance.GetComponent<Tank>();
-            controlledPawn.controllingPlayer = this;
-            Spawn(playerInstance, Owner);
-            TargetPlayerSpawned(Owner);
-        }
+        GameObject playerInstance = GameManager.Instance.gameObject.GetComponent<GameMode>().FindSpawnPosition(color);
+        controlledPawn = playerInstance.GetComponent<Tank>();
+        controlledPawn.controllingPlayer = this;
+        Spawn(playerInstance, Owner);
+        TargetPlayerSpawned(Owner);
     }
 
     public void StopGame()
@@ -86,8 +84,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
         yield return new WaitForSeconds(time);
         StartGame();
     }
-
-    public void PointScored(int numberOfPoints) => score += numberOfPoints;
 
     public void StartRespawn(float time) => StartCoroutine(Respawn(time));
 
@@ -114,4 +110,18 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
     [TargetRpc]
     private void TargetPlayerSpawned(NetworkConnection network) => UIManager.Instance.Show<MainView>();
+
+    [TargetRpc]
+    public void GameModeChosen(NetworkConnection network, string gameMode)
+    {
+        switch (gameMode)
+        {
+            case "Deathmatch":
+                UIManager.Instance.Show<DeathmatchLobbyView>();
+                break;
+            case "Elimination":
+                UIManager.Instance.Show<EliminationLobbyView>();
+                break;
+        }
+    }
 }

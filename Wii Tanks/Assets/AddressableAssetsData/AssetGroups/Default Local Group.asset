@@ -93,6 +93,10 @@ MonoBehaviour:
     m_Address: PurpleNormalBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: a3d5da7b773dadb47800716878d2f6f0
+    m_Address: Pointer
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
   m_SchemaSet:
