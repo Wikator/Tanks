@@ -1,3 +1,4 @@
+using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Linq;
@@ -80,22 +81,14 @@ public sealed class GameManager : NetworkBehaviour
         if (!canStart)
             return;
 
-        /*if (gameObject.TryGetComponent(out EliminationGameMode eliminationGameMode))
-        {
-            eliminationGameMode.SetTeams();
-        }*/
 
         for (int i = 0; i < players.Count; i++)
         {
             players[i].StartGame();
         }
 
-        /*if (gameObject.TryGetComponent(out EliminationGameMode eliminationGameMode))
-        {
+        if (gameObject.TryGetComponent(out EliminationGameMode eliminationGameMode))
             eliminationGameMode.waitingForNewRound = false;
-        }*/
-
-        gameObject.GetComponent<EliminationGameMode>().waitingForNewRound = false;
     }
 
     [ServerRpc(RequireOwnership = false)]

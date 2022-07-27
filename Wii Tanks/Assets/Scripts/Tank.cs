@@ -143,6 +143,7 @@ public abstract class Tank : NetworkBehaviour
     public void GameOver()
     {
         //Destroy(pointer);
+        controllingPlayer.controlledPawn = null;
         gameModeManager.OnKilled(controllingPlayer);
         Spawn(Instantiate(explosion, transform.position, transform.rotation, explosionEmpty));
         Despawn();

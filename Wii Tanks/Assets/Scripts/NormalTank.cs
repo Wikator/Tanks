@@ -16,7 +16,7 @@ public class NormalTank : Tank
     private void Fire()
     {
         StopAllCoroutines();
-        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty.transform);
         Spawn(bulletInstance);
         bulletInstance.GetComponent<BulletScript>().player = controllingPlayer;
         ammoCount--;

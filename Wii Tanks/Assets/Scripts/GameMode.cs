@@ -7,8 +7,7 @@ using UnityEngine;
 public abstract class GameMode : NetworkBehaviour
 {
     [SyncObject]
-    public readonly SyncDictionary<string, List<GameObject>> spawns = new();
-
+    public readonly SyncDictionary<string, List<GameObject>> spawns = new();   
 
     public virtual void OnKilled(PlayerNetworking controllingLayer)
     {

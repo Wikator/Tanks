@@ -7,17 +7,15 @@ using UnityEngine.AddressableAssets;
 
 public sealed class EliminationGameMode : GameMode
 {
-    /*
-    [SyncObject]
-    public readonly SyncList<PlayerNetworking> greenTeam = new();
 
-    [SyncObject]
-    public readonly SyncList<PlayerNetworking> redTeam = new();
-    */
+    /*public List<PlayerNetworking> greenTeam = new();
+    public List<PlayerNetworking> redTeam = new();*/
 
-    [HideInInspector]
+
+    //[HideInInspector]
     //[SyncVar]
     public bool waitingForNewRound = true;
+
 
     private void Awake()
     {
@@ -55,6 +53,9 @@ public sealed class EliminationGameMode : GameMode
 
     private void Update()
     {
+        Debug.Log("Green " + GameManager.Instance.greenTeam.Count);
+        Debug.Log("Red " + GameManager.Instance.redTeam.Count);
+
         if (waitingForNewRound)
             return;
 
@@ -71,6 +72,10 @@ public sealed class EliminationGameMode : GameMode
 
         if (!playerLives && GameManager.Instance.greenTeam.Count != 0)
         {
+            foreach (PlayerNetworking player in GameManager.Instance.redTeam)
+            {
+                PointScored(player, 1);
+            }
             StartCoroutine(NewRound());
             return;
         }
@@ -86,8 +91,13 @@ public sealed class EliminationGameMode : GameMode
             }
         }
 
+
         if (!playerLives && GameManager.Instance.redTeam.Count != 0)
         {
+            foreach (PlayerNetworking player in GameManager.Instance.greenTeam)
+            {
+                PointScored(player, 1);
+            }
             StartCoroutine(NewRound());
             return;
         }
@@ -108,34 +118,6 @@ public sealed class EliminationGameMode : GameMode
         }
 
         yield return new WaitForSeconds(2.0f);
-
         GameManager.Instance.StartGame();
     }
-
-    /*public void AddToList(string color, bool Add, PlayerNetworking player)
-    {
-        switch (color)
-        {
-            case "Green":
-                if (Add)
-                {
-                    greenTeam.Add(player);
-                }
-                else
-                {
-                    greenTeam.Remove(player);
-                }
-                break;
-            case "Red":
-                if (Add)
-                {
-                    redTeam.Add(player);
-                }
-                else
-                {
-                    redTeam.Remove(player);
-                }
-                break;
-        }
-    }*/
 }

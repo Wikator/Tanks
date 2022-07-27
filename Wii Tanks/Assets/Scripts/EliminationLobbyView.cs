@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
+using FishNet.Object;
 
 public sealed class EliminationLobbyView : View
 {
@@ -25,7 +26,7 @@ public sealed class EliminationLobbyView : View
         foreach (Button button in colorButtons)
         {
             button.onClick.AddListener(() => PlayerNetworking.Instance.ChangeColor(button.name));
-            button.onClick.AddListener(() => SetTeams(button.name));
+            button.onClick.AddListener(() => PlayerNetworking.Instance.SetTeams(button.name));
         }
 
         //if (InstanceFinder.IsHost)
@@ -42,24 +43,7 @@ public sealed class EliminationLobbyView : View
         base.Init();
     }
 
-    private void SetTeams(string color)
-    {
-        switch (color)
-        {
-            case "Green":
-                if (GameManager.Instance.redTeam.Contains(PlayerNetworking.Instance))
-                    GameManager.Instance.redTeam.Remove(PlayerNetworking.Instance);
 
-                GameManager.Instance.greenTeam.Add(PlayerNetworking.Instance);
-                break;
-            case "Red":
-                if (GameManager.Instance.greenTeam.Contains(PlayerNetworking.Instance))
-                    GameManager.Instance.greenTeam.Remove(PlayerNetworking.Instance);
-
-                GameManager.Instance.redTeam.Add(PlayerNetworking.Instance);
-                break;
-        }
-    }
 
     private void Update()
     {

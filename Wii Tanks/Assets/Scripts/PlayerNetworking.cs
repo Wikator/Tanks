@@ -91,6 +91,29 @@ public sealed class PlayerNetworking : NetworkBehaviour
     [ServerRpc]
     public void ChangeColor(string colorName) => color = colorName;
 
+    [ServerRpc]
+    public void SetTeams(string color)
+    {
+        switch (color)
+        {
+            case "Green":
+                if (GameManager.Instance.redTeam.Contains(this))
+                    GameManager.Instance.redTeam.Remove(this);
+
+                if (!GameManager.Instance.greenTeam.Contains(this))
+                    GameManager.Instance.greenTeam.Add(this);
+
+                break;
+            case "Red":
+                if (GameManager.Instance.greenTeam.Contains(this))
+                    GameManager.Instance.greenTeam.Remove(this);
+
+                if (!GameManager.Instance.redTeam.Contains(this))
+                    GameManager.Instance.redTeam.Add(this);
+                break;
+        }
+    }
+
 
     [ServerRpc]
     public void ServerSetIsReady(bool value)
