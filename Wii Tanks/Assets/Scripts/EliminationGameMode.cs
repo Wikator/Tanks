@@ -30,14 +30,14 @@ public sealed class EliminationGameMode : GameMode
     {
         int randomNumber = Random.Range(0, 3);
         //Cursor.visible = false;
-        if (FindObjectOfType<GameMode>().spawns[color][randomNumber].GetComponent<Spawn>().isOccupied)
+        if (spawns[color][randomNumber].GetComponent<Spawn>().isOccupied)
         {
             return FindSpawnPosition(color);
         }
         else
         {
-            GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pawn").WaitForCompletion(), FindObjectOfType<GameMode>().spawns[color][randomNumber].transform.position, Quaternion.identity, transform);
-            FindObjectOfType<GameMode>().spawns[color][randomNumber].GetComponent<Spawn>().isOccupied = true;
+            GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pawn").WaitForCompletion(), spawns[color][randomNumber].transform.position, Quaternion.identity, transform);
+            spawns[color][randomNumber].GetComponent<Spawn>().isOccupied = true;
             return playerInstance;
             //playerInstance.GetComponent<Tank>().pointer = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pointer").WaitForCompletion(), playerInstance.transform.position, Quaternion.identity);
         }
