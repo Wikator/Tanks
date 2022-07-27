@@ -81,7 +81,7 @@ public abstract class Tank : NetworkBehaviour
         base.OnStartClient();
         cam = Camera.main;
         ammoCount = maxAmmo;
-        gameModeManager = GameManager.Instance.gameObject.GetComponent<GameMode>();
+        gameModeManager = FindObjectOfType<GameMode>();
         controller = GetComponent<CharacterController>();
         turret = transform.GetChild(0).gameObject;
         bulletSpawn = turret.transform.GetChild(0).transform;
@@ -96,7 +96,7 @@ public abstract class Tank : NetworkBehaviour
         base.OnStartServer();
         cam = Camera.main;
         ammoCount = maxAmmo;
-        gameModeManager = GameManager.Instance.gameObject.GetComponent<GameMode>();
+        gameModeManager = FindObjectOfType<GameMode>();
         controller = GetComponent<CharacterController>();
         turret = transform.GetChild(0).gameObject;
         bulletSpawn = turret.transform.GetChild(0).transform;

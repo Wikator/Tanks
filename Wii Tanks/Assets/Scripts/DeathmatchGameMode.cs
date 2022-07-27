@@ -27,14 +27,14 @@ public sealed class DeathmatchGameMode : GameMode
     {
         int randomNumber = Random.Range(0, 10);
         //Cursor.visible = false;
-        if (GameManager.Instance.gameObject.GetComponent<GameMode>().spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied)
+        if (FindObjectOfType<GameMode>().spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied)
         {
             return FindSpawnPosition(color);
         }
         else
         {
-            GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pawn").WaitForCompletion(), GameManager.Instance.gameObject.GetComponent<GameMode>().spawns["NoTeams"][randomNumber].transform.position, Quaternion.identity, transform);
-            GameManager.Instance.gameObject.GetComponent<GameMode>().spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied = true;
+            GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pawn").WaitForCompletion(), FindObjectOfType<GameMode>().spawns["NoTeams"][randomNumber].transform.position, Quaternion.identity, transform);
+            FindObjectOfType<GameMode>().spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied = true;
             return playerInstance;
             //playerInstance.GetComponent<Tank>().pointer = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pointer").WaitForCompletion(), playerInstance.transform.position, Quaternion.identity);
         }

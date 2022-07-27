@@ -64,8 +64,8 @@ public sealed class BulletScript : NetworkBehaviour
             {
                 if (collision.gameObject != player.controlledPawn.gameObject)
                 {
-                    if (GameManager.Instance.TryGetComponent(out DeathmatchGameMode deathmatchGameMode))
-                        deathmatchGameMode.PointScored(player.controlledPawn.controllingPlayer, 1);
+                    if (GameManager.Instance.gameMode == "Deathmatch")
+                        FindObjectOfType<GameMode>().PointScored(player.controlledPawn.controllingPlayer, 1);
                 }
             }
 

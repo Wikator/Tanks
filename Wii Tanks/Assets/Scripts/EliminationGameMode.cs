@@ -8,12 +8,9 @@ using UnityEngine.AddressableAssets;
 public sealed class EliminationGameMode : GameMode
 {
 
-    /*public List<PlayerNetworking> greenTeam = new();
-    public List<PlayerNetworking> redTeam = new();*/
+    public List<PlayerNetworking> greenTeam = new();
+    public List<PlayerNetworking> redTeam = new();
 
-
-    //[HideInInspector]
-    //[SyncVar]
     public bool waitingForNewRound = true;
 
 
@@ -33,14 +30,14 @@ public sealed class EliminationGameMode : GameMode
     {
         int randomNumber = Random.Range(0, 3);
         //Cursor.visible = false;
-        if (GameManager.Instance.gameObject.GetComponent<GameMode>().spawns[color][randomNumber].GetComponent<Spawn>().isOccupied)
+        if (FindObjectOfType<GameMode>().spawns[color][randomNumber].GetComponent<Spawn>().isOccupied)
         {
             return FindSpawnPosition(color);
         }
         else
         {
-            GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pawn").WaitForCompletion(), GameManager.Instance.gameObject.GetComponent<GameMode>().spawns[color][randomNumber].transform.position, Quaternion.identity, transform);
-            GameManager.Instance.gameObject.GetComponent<GameMode>().spawns[color][randomNumber].GetComponent<Spawn>().isOccupied = true;
+            GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pawn").WaitForCompletion(), FindObjectOfType<GameMode>().spawns[color][randomNumber].transform.position, Quaternion.identity, transform);
+            FindObjectOfType<GameMode>().spawns[color][randomNumber].GetComponent<Spawn>().isOccupied = true;
             return playerInstance;
             //playerInstance.GetComponent<Tank>().pointer = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pointer").WaitForCompletion(), playerInstance.transform.position, Quaternion.identity);
         }
@@ -53,15 +50,15 @@ public sealed class EliminationGameMode : GameMode
 
     private void Update()
     {
-        Debug.Log("Green " + GameManager.Instance.greenTeam.Count);
-        Debug.Log("Red " + GameManager.Instance.redTeam.Count);
+        Debug.Log("Green " + greenTeam.Count);
+        Debug.Log("Red " + redTeam.Count);
 
         if (waitingForNewRound)
             return;
 
         bool playerLives = false;
 
-        foreach (PlayerNetworking player in GameManager.Instance.greenTeam)
+        foreach (PlayerNetworking player in greenTeam)
         {
             if (player.controlledPawn != null)
             {
@@ -70,9 +67,9 @@ public sealed class EliminationGameMode : GameMode
             }
         }
 
-        if (!playerLives && GameManager.Instance.greenTeam.Count != 0)
+        if (!playerLives && greenTeam.Count != 0)
         {
-            foreach (PlayerNetworking player in GameManager.Instance.redTeam)
+            foreach (PlayerNetworking player in redTeam)
             {
                 PointScored(player, 1);
             }
@@ -82,7 +79,7 @@ public sealed class EliminationGameMode : GameMode
 
         playerLives = false;
 
-        foreach (PlayerNetworking player in GameManager.Instance.redTeam)
+        foreach (PlayerNetworking player in redTeam)
         {
             if (player.controlledPawn != null)
             {
@@ -92,9 +89,9 @@ public sealed class EliminationGameMode : GameMode
         }
 
 
-        if (!playerLives && GameManager.Instance.redTeam.Count != 0)
+        if (!playerLives && redTeam.Count != 0)
         {
-            foreach (PlayerNetworking player in GameManager.Instance.greenTeam)
+            foreach (PlayerNetworking player in greenTeam)
             {
                 PointScored(player, 1);
             }

@@ -3,6 +3,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -10,15 +11,6 @@ public sealed class GameManager : NetworkBehaviour
 
     [SyncObject]
     public readonly SyncList<PlayerNetworking> players = new();
-
-    //[SyncObject]
-    //public readonly SyncList<GameObject> spawns = new();
-
-    [SyncObject]
-    public readonly SyncList<PlayerNetworking> greenTeam = new();
-
-    [SyncObject]
-    public readonly SyncList<PlayerNetworking> redTeam = new();
 
     [HideInInspector]
     [SyncVar]
@@ -64,10 +56,12 @@ public sealed class GameManager : NetworkBehaviour
                 switch (gameMode)
                 {
                     case "Deathmatch":
-                        gameObject.AddComponent<DeathmatchGameMode>();
+                        //gameObject.AddComponent<DeathmatchGameMode>();
+                        Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("DeathmatchManager").WaitForCompletion(), transform.position, Quaternion.identity));
                         break;
                     case "Elimination":
-                        gameObject.AddComponent<EliminationGameMode>();
+                        //gameObject.AddComponent<EliminationGameMode>();
+                        Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("EliminationManager").WaitForCompletion(), transform.position, Quaternion.identity));
                         break;
                 }
             }
@@ -87,7 +81,7 @@ public sealed class GameManager : NetworkBehaviour
             players[i].StartGame();
         }
 
-        if (gameObject.TryGetComponent(out EliminationGameMode eliminationGameMode))
+        if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
             eliminationGameMode.waitingForNewRound = false;
     }
 

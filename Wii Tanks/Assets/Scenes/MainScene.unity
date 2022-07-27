@@ -2043,7 +2043,7 @@ GameObject:
   m_Component:
   - component: {fileID: 427393809}
   m_Layer: 0
-  m_Name: EliminationDeathmatch
+  m_Name: EliminationSpawns
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3253,7 +3253,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh38668
+  m_Name: pb_Mesh33188
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -6613,6 +6613,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21938d10b70b2394987cd90cc2ce80e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   toggleReadyButton: {fileID: 165254811}
   toggleReadyButtonText: {fileID: 813768360}
   playersReadyCountText: {fileID: 1893852528}
@@ -7364,11 +7367,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkBehaviours: []
+  _networkBehaviours:
+  - {fileID: 1232001959}
+  - {fileID: 849694642}
+  - {fileID: 1521283543}
+  - {fileID: 1176498113}
   SceneTransformProperties:
-    Position: {x: 455, y: 256, z: 0}
+    Position: {x: 375, y: 211, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 0.94814813, y: 0.94814813, z: 0.94814813}
+    LocalScale: {x: 0.7814815, y: 0.7814815, z: 0.7814815}
   _isNetworked: 1
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
@@ -9236,6 +9243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07862a7561b664047aa7794c379cdf36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 1464272077}
   ammoCountText: {fileID: 382771555}
 --- !u!224 &1176498114
@@ -9477,6 +9487,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03d50d58223a2dc45aa4f4764710d430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   deathmatchButton: {fileID: 483510513}
   eliminationButton: {fileID: 1170147610}
 --- !u!1 &1239677643
@@ -10829,6 +10842,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080cce53b16a21a4a98efe20c1d9ebf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   toggleReadyButton: {fileID: 1589818281}
   toggleReadyButtonText: {fileID: 1938771476}
   playersReadyCountText: {fileID: 524404224}

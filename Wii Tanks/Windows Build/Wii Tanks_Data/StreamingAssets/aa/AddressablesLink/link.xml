@@ -1,7 +1,9 @@
 <linker>
   <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="BulletScript" preserve="all" />
+    <type fullname="DeathmatchGameMode" preserve="all" />
     <type fullname="DestroyItself" preserve="all" />
+    <type fullname="EliminationGameMode" preserve="all" />
     <type fullname="NormalTank" preserve="all" />
   </assembly>
   <assembly fullname="FishNet.Generated, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
