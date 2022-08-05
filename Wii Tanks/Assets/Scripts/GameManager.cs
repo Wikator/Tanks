@@ -1,4 +1,3 @@
-using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Linq;
@@ -56,11 +55,9 @@ public sealed class GameManager : NetworkBehaviour
                 switch (gameMode)
                 {
                     case "Deathmatch":
-                        //gameObject.AddComponent<DeathmatchGameMode>();
                         Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("DeathmatchManager").WaitForCompletion(), transform.position, Quaternion.identity));
                         break;
                     case "Elimination":
-                        //gameObject.AddComponent<EliminationGameMode>();
                         Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("EliminationManager").WaitForCompletion(), transform.position, Quaternion.identity));
                         break;
                 }
@@ -82,7 +79,10 @@ public sealed class GameManager : NetworkBehaviour
         }
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
+        {
             eliminationGameMode.waitingForNewRound = false;
+
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]

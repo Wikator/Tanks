@@ -3,7 +3,6 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public sealed class PlayerNetworking : NetworkBehaviour
 {
@@ -67,7 +66,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
     public void StartGame()
     {
-        GameObject playerInstance = FindObjectOfType<GameMode>().FindSpawnPosition(color);
+        GameObject playerInstance = FindObjectOfType<GameMode>().FindSpawnPosition(color, transform);
         controlledPawn = playerInstance.GetComponent<Tank>();
         controlledPawn.controllingPlayer = this;
         Spawn(playerInstance, Owner);
