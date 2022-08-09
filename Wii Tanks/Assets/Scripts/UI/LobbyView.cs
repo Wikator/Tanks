@@ -19,7 +19,7 @@ public abstract class LobbyView : View
         if (!Initialized)
             return;
 
-        if (PlayerNetworking.Instance.color == "None")
+        if (PlayerNetworking.Instance.color == "None" || PlayerNetworking.Instance.tankType == "None")
         {
             toggleReadyButton.interactable = false;
         }

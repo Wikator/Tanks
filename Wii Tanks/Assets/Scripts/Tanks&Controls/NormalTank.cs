@@ -1,7 +1,7 @@
 using FishNet.Object;
 using UnityEngine;
 
-public class NormalTank : Tank
+public sealed class NormalTank : Tank
 {
     private void Update()
     {
