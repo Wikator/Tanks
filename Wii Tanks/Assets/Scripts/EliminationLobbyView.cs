@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
+using FishNet.Object;
 
 public sealed class EliminationLobbyView : View
 {

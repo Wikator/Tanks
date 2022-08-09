@@ -1291,11 +1291,10 @@ MonoBehaviour:
   bulletType: NormalBullet
   raycastLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   bulletSpawn: {fileID: 0}
   bulletEmpty: {fileID: 0}
   bullet: {fileID: 0}
-  pointer: {fileID: 0}
   ammoCount: 0
   controllingPlayer: {fileID: 0}
 --- !u!114 &7052347765472851085

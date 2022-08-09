@@ -13,8 +13,7 @@ public sealed class MainView : View
     {
         PlayerNetworking player = PlayerNetworking.Instance;
 
-        if (player == null || player.controlledPawn == null)
-            return;
+        if (player == null || player.controlledPawn == null) return;
 
         scoreText.text = "Score: " + player.score;
 
