@@ -46,21 +46,16 @@ public abstract class Tank : NetworkBehaviour
     [SerializeField]
     private string bulletType;
 
-    [SerializeField]
-    private LayerMask raycastLayer;
-
     [HideInInspector]
     public Transform bulletSpawn, bulletEmpty;
 
     [HideInInspector]
     public GameObject bullet, pointer;
 
-    [HideInInspector]
-    [SyncVar]
+    [SyncVar, HideInInspector]
     public int ammoCount;
 
-    [HideInInspector]
-    [SyncVar]
+    [SyncVar, HideInInspector]
     public PlayerNetworking controllingPlayer;
 
 
@@ -75,10 +70,13 @@ public abstract class Tank : NetworkBehaviour
     private GameObject explosion, turret;
     private Camera cam;
 
+    private LayerMask raycastLayer;
+
 
     public override void OnStartClient()
     {
         base.OnStartClient();
+        raycastLayer = (1 << 9);
         cam = Camera.main;
         ammoCount = maxAmmo;
         gameModeManager = FindObjectOfType<GameMode>();
@@ -94,6 +92,7 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
+        raycastLayer = (1 << 9);
         cam = Camera.main;
         ammoCount = maxAmmo;
         gameModeManager = FindObjectOfType<GameMode>();

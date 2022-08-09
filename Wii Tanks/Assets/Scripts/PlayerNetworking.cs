@@ -3,7 +3,6 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public sealed class PlayerNetworking : NetworkBehaviour
 {
@@ -15,12 +14,10 @@ public sealed class PlayerNetworking : NetworkBehaviour
     [SyncVar]
     public Tank controlledPawn;
 
-    [HideInInspector]
-    [SyncVar]
+    [SyncVar, HideInInspector]
     public bool isReady, gameModeChosen = false;
 
-    [HideInInspector]
-    [SyncVar]
+    [SyncVar, HideInInspector]
     public int score = 0;
 
 

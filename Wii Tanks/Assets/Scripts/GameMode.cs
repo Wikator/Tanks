@@ -1,4 +1,3 @@
-using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections.Generic;
@@ -16,15 +15,9 @@ public abstract class GameMode : NetworkBehaviour
         Instance = this;
     }
 
-    public virtual void OnKilled(PlayerNetworking controllingLayer)
-    {
+    public abstract void OnKilled(PlayerNetworking controllingLayer);
 
-    }
-
-    public virtual GameObject FindSpawnPosition(string color)
-    {
-        return gameObject;
-    }
+    public abstract GameObject FindSpawnPosition(string color);
 
     public void PointScored(PlayerNetworking controllingPlayer, int numberOfPoints) => controllingPlayer.score += numberOfPoints;
 }

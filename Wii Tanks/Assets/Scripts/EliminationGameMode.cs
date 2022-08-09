@@ -1,4 +1,3 @@
-using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,9 +6,12 @@ using UnityEngine.AddressableAssets;
 
 public sealed class EliminationGameMode : GameMode
 {
+    [SyncObject]
+    public readonly SyncList<PlayerNetworking> greenTeam = new();
 
-    public List<PlayerNetworking> greenTeam = new();
-    public List<PlayerNetworking> redTeam = new();
+    [SyncObject]
+    public readonly SyncList<PlayerNetworking> redTeam = new();
+
 
     public bool waitingForNewRound = true;
 
@@ -45,7 +47,7 @@ public sealed class EliminationGameMode : GameMode
 
     public override void OnKilled(PlayerNetworking controllingLayer)
     {
-        base.OnKilled(controllingLayer);
+        return;
     }
 
     private void Update()

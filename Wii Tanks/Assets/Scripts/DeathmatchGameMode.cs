@@ -1,5 +1,3 @@
-using FishNet.Connection;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -18,7 +16,6 @@ public sealed class DeathmatchGameMode : GameMode
 
     public override void OnKilled(PlayerNetworking controllingPlayer)
     {
-        base.OnKilled(controllingPlayer);
         controllingPlayer.StartRespawn(1.5f);
         PointScored(controllingPlayer, -1);
     }
