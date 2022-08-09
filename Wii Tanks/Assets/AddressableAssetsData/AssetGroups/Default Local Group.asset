@@ -46,27 +46,27 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 7aefcf9a8ce8d1749a12b9fac05638d4
-    m_Address: Pawn
+    m_Address: MediumTankPawn
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: fd6c0662f3d60b34ebcbd285d687b4f0
-    m_Address: YellowNormalBullet
+    m_Address: YellowMediumTankBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: f48c3c5b121b2b846a9e31c4553670be
-    m_Address: BrownNormalBullet
+    m_Address: BrownMediumTankBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: dba986ea9a28117499047571a2b244d3
-    m_Address: GreenNormalBullet
+    m_Address: GreenMediumTankBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 77efcfbf8ee9d3d489ba7d5c084a08b7
-    m_Address: RedNormalBullet
+    m_Address: RedMediumTankBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 0d87f9c280eb2db47a378fe3649f200d
-    m_Address: CyanNormalBullet
+    m_Address: CyanMediumTankBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: a6b7a20442d69a14cbbe72297740c946
@@ -90,7 +90,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 2f2db464a5d9aa94aa5013c0733f9719
-    m_Address: PurpleNormalBullet
+    m_Address: PurpleMediumTankBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: a3d5da7b773dadb47800716878d2f6f0
@@ -103,6 +103,34 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 1232b7ab690b5054a9cfd06db7a3de45
     m_Address: EliminationManager
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 706961a9e4ed2f742a1b6db33edcc0ab
+    m_Address: DestroyerPawn
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a4aebd32dc7f0fd40af32edeb5e9e071
+    m_Address: BrownDestroyerBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fdf0c14cce6687d478bcdc2f3765cf5d
+    m_Address: CyanDestroyerBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b21f584ebab2a7343b8a32b8223d5d91
+    m_Address: GreenDestroyerBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2d71e91540572e14daf76690256d06bf
+    m_Address: PurpleDestroyerBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cb2f16c666281c2489026a4889f3bb1e
+    m_Address: RedDestroyerBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bd8ffa93ecb56b94ab86e9ff373ef868
+    m_Address: YellowDestroyerBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

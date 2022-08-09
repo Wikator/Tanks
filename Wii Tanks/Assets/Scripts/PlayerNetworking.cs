@@ -3,13 +3,14 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public sealed class PlayerNetworking : NetworkBehaviour
 {
     public static PlayerNetworking Instance { get; private set; }
 
     [SyncVar]
-    public string username, color;
+    public string username, color, tankType;
 
     [SyncVar]
     public Tank controlledPawn;
@@ -25,6 +26,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
     {
         base.OnStartServer();
         color = "None";
+        tankType = "None";
         GameManager.Instance.players.Add(this);
     }
 
@@ -64,7 +66,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
     public void StartGame()
     {
-        GameObject playerInstance = FindObjectOfType<GameMode>().FindSpawnPosition(color);
+        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(tankType + "Pawn").WaitForCompletion(), FindObjectOfType<GameMode>().FindSpawnPosition(color), Quaternion.identity, transform);
         controlledPawn = playerInstance.GetComponent<Tank>();
         controlledPawn.controllingPlayer = this;
         Spawn(playerInstance, Owner);
@@ -90,6 +92,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
     [ServerRpc]
     public void ChangeColor(string colorName) => color = colorName;
+
+    [ServerRpc]
+    public void ChangeTankType(string tankTypeName) => tankType = tankTypeName;
 
     [ServerRpc]
     public void SetTeams(string color)
