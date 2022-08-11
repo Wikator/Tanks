@@ -2,6 +2,7 @@ using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -123,23 +124,25 @@ public sealed class PlayerNetworking : NetworkBehaviour
     [ServerRpc]
     public void ServerSetIsReady(bool value)
     {
-        isReady = value;
-
         switch (value)
         {
             case true:
+                isReady = true;
                 GameManager.Instance.playersReady++;
                 break;
             case false:
+                isReady = false;
                 GameManager.Instance.playersReady--;
                 break;
         }
     }
 
     [TargetRpc]
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     private void TargetPlayerSpawned(NetworkConnection network) => UIManager.Instance.Show<MainView>();
 
     [TargetRpc]
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public void GameModeChosen(NetworkConnection network, string gameMode)
     {
         switch (gameMode)

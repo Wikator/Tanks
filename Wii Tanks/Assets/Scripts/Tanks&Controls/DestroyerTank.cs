@@ -13,13 +13,13 @@ public sealed class DestroyerTank : Tank
     }
 
     [ServerRpc]
-    private void Fire()
+    protected override void Fire()
     {
         StopAllCoroutines();
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty.transform);
         Spawn(bulletInstance);
         bulletInstance.GetComponent<BulletScript>().player = controllingPlayer;
         ammoCount--;
-        StartCoroutine(AddAmmo(1.5f));
+        StartCoroutine(AddAmmo(2.0f, 0.0f));
     }
 }

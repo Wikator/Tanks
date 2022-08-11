@@ -26,7 +26,15 @@ public sealed class DeathmatchGameMode : GameMode
         //Cursor.visible = false;
         if (spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied)
         {
-            return FindSpawnPosition(color);
+            try
+            {
+                return FindSpawnPosition(color);
+            }
+            catch (StackOverflowException)
+            {
+                spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied = true;
+                return spawns["NoTeams"][randomNumber].transform.position;
+            }
         }
         else
         {

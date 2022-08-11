@@ -1,4 +1,5 @@
 using FishNet.Object;
+
 using UnityEngine;
 
 public sealed class NormalTank : Tank
@@ -13,13 +14,13 @@ public sealed class NormalTank : Tank
     }
 
     [ServerRpc]
-    private void Fire()
+    protected override void Fire()
     {
         StopAllCoroutines();
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty.transform);
         Spawn(bulletInstance);
         bulletInstance.GetComponent<BulletScript>().player = controllingPlayer;
         ammoCount--;
-        StartCoroutine(AddAmmo(1.5f));
+        StartCoroutine(AddAmmo(1.5f, 0.4f));
     }
 }

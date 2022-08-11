@@ -17,10 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 11cabf887a26393468f5db22744beff1
   m_SerializeEntries:
-  - m_GUID: cd4d7020429cde74db076ffa72495419
-    m_Address: GreenExplosion
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 5892436366fa5734785d6a2923af016b
     m_Address: Brown
     m_ReadOnly: 0
@@ -69,26 +65,6 @@ MonoBehaviour:
     m_Address: CyanMediumTankBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: a6b7a20442d69a14cbbe72297740c946
-    m_Address: BrownExplosion
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: f5325a8ea6f8b1b4cbf599d059609a7a
-    m_Address: YellowExplosion
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: f41e40c31928a1048ad359794ad8b7d6
-    m_Address: CyanExplosion
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: cb8b536cb90b3944eb2e2d5c78123947
-    m_Address: RedExplosion
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 6ecd5af803af95043b03f4a178edaa38
-    m_Address: PurpleExplosion
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 2f2db464a5d9aa94aa5013c0733f9719
     m_Address: PurpleMediumTankBullet
     m_ReadOnly: 0
@@ -131,6 +107,34 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: bd8ffa93ecb56b94ab86e9ff373ef868
     m_Address: YellowDestroyerBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6cd66cbc664e2d640b30167d628dc201
+    m_Address: None
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 66a78f106c82c844a847ee70914b6880
+    m_Address: YellowExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: c73acc2338cf20343b88e590d3e4b072
+    m_Address: GreenExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: f1e2a2d5c364faf4cb25395644188dd2
+    m_Address: CyanExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 822de2941cf4744459a2bfefa80df597
+    m_Address: RedExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2cde573e68bbb5449814bba2c5b7709a
+    m_Address: PurpleExplosion
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1dd34da668f667545b81ecf46c7df0aa
+    m_Address: BrownExplosion
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

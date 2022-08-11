@@ -7,7 +7,7 @@ public class Spawn : NetworkBehaviour
     [SyncVar]
     public bool isOccupied = false;
 
-    private Collider other;
+    private Collider other = null;
 
     private void OnTriggerStay(Collider other)
     {
@@ -17,15 +17,16 @@ public class Spawn : NetworkBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!isOccupied)
+        if (isOccupied)
         {
             isOccupied = false;
+            this.other = null;
         }
     }
 
     private void Update()
     {
-        if (isOccupied && !other)
+        if (isOccupied && other == null)
         {
             isOccupied = false;
         }

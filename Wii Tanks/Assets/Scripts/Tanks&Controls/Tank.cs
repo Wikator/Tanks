@@ -3,6 +3,7 @@ using FishNet.Object;
 using FishNet.Object.Prediction;
 using FishNet.Object.Synchronizing;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -41,7 +42,7 @@ public abstract class Tank : NetworkBehaviour
     private float moveSpeed, rotateSpeed;
 
     [SerializeField]
-    private int maxAmmo;
+    protected int maxAmmo;
 
     [SerializeField]
     private string bulletType;
@@ -178,19 +179,26 @@ public abstract class Tank : NetworkBehaviour
         explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
     }
 
-    protected IEnumerator AddAmmo (float time)
+    protected abstract void Fire();
+
+    protected IEnumerator AddAmmo(float timeToReload, float timeToAddAmmo)
     {
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(timeToReload);
         ammoCount++;
 
         if (ammoCount != maxAmmo)
-            StartCoroutine(AddAmmo(0.35f));
+            StartCoroutine(AddAmmo(timeToAddAmmo, timeToAddAmmo));
     }
 
 
+
     [Replicate]
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     private void Move(MoveData data, bool asServer, bool replaying = false)
     {
+        if (!IsSpawned)
+            return;
+
         controller.Move((float)TimeManager.TickDelta * data.MoveAxis * moveSpeed * transform.forward);
         transform.Rotate(new Vector3(0f, data.RotateAxis * rotateSpeed * (float)TimeManager.TickDelta, 0f));
 
@@ -201,6 +209,7 @@ public abstract class Tank : NetworkBehaviour
     }
 
     [Reconcile]
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     private void Reconciliation(ReconcileData data, bool asServer)
     {
         transform.SetPositionAndRotation(data.Position, data.TankRotation);

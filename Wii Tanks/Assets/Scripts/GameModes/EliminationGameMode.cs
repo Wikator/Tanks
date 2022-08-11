@@ -12,12 +12,15 @@ public sealed class EliminationGameMode : GameMode
     [SyncObject]
     public readonly SyncList<PlayerNetworking> redTeam = new();
 
+    private Transform bulletEmpty;
 
     public bool waitingForNewRound = true;
 
 
     private void Awake()
     {
+        bulletEmpty = GameObject.Find("Bullets").transform;
+
         spawns["Green"] = new List<GameObject>();
         spawns["Red"] = new List<GameObject>();
 
@@ -34,7 +37,15 @@ public sealed class EliminationGameMode : GameMode
         //Cursor.visible = false;
         if (spawns[color][randomNumber].GetComponent<Spawn>().isOccupied)
         {
-            return FindSpawnPosition(color);
+            try
+            {
+                return FindSpawnPosition(color);
+            }
+            catch (StackOverflowException)
+            {
+                spawns[color][randomNumber].GetComponent<Spawn>().isOccupied = true;
+                return spawns[color][randomNumber].transform.position;
+            }
         }
         else
         {
@@ -113,6 +124,11 @@ public sealed class EliminationGameMode : GameMode
             {
                 player.controlledPawn.GameOver();
             }
+        }
+
+        foreach (Transform child in bulletEmpty)
+        {
+            child.GetComponent<BulletScript>().Despawn();
         }
 
         yield return new WaitForSeconds(2.0f);
