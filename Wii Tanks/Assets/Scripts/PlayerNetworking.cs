@@ -37,7 +37,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         color = "None";
         GameManager.Instance.players.Remove(this);
 
-        if (GameManager.Instance.gameMode == "Deathmatch")
+        if (GameManager.Instance.gameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
             return;
 
         if (FindObjectOfType<EliminationGameMode>().greenTeam.Contains(this))

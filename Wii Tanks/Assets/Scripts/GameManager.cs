@@ -20,9 +20,6 @@ public sealed class GameManager : NetworkBehaviour
     [SyncVar]
     public string gameMode = "None";
 
-    [SyncVar]
-    private bool gameModeChosen = false;
-
 
     private void Awake()
     {
@@ -31,9 +28,6 @@ public sealed class GameManager : NetworkBehaviour
 
     private void Update()
     {
-        if (!IsServer)
-            return;
-
         canStart = players.All(player => player.isReady);
 
         if (gameMode != "None")
@@ -47,20 +41,24 @@ public sealed class GameManager : NetworkBehaviour
                 }
             }
 
-            if (!gameModeChosen)
+            if (!FindObjectOfType<GameMode>())
             {
-                gameModeChosen = true;
-
-                switch (gameMode)
-                {
-                    case "Deathmatch":
-                        Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("DeathmatchManager").WaitForCompletion(), transform.position, Quaternion.identity));
-                        break;
-                    case "Elimination":
-                        Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("EliminationManager").WaitForCompletion(), transform.position, Quaternion.identity));
-                        break;
-                }
+                SpawnGameModeManager(gameMode);
             }
+        }
+    }
+
+    //[ServerRpc(RequireOwnership = false)]
+    private void SpawnGameModeManager(string gameMode)
+    {
+        switch (gameMode)
+        {
+            case "Deathmatch":
+                Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("DeathmatchManager").WaitForCompletion(), transform.position, Quaternion.identity));
+                break;
+            case "Elimination":
+                Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("EliminationManager").WaitForCompletion(), transform.position, Quaternion.identity));
+                break;
         }
     }
 

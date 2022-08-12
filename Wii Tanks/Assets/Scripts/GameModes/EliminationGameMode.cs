@@ -62,9 +62,6 @@ public sealed class EliminationGameMode : GameMode
 
     private void Update()
     {
-        Debug.Log("Green " + greenTeam.Count);
-        Debug.Log("Red " + redTeam.Count);
-
         if (waitingForNewRound)
             return;
 
