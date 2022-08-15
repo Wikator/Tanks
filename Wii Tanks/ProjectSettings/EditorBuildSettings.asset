@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 75b33f195b013694eb3d7859fb7e91a0
   - enabled: 1
-    path: Assets/Scenes/MainScene.unity
+    path: Assets/Scenes/Arena1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
-    path: Assets/FishNet/Example/All/Prediction/CharacterController/CharacterControllerPrediction.unity
-    guid: ec1a6e85f57626a4cbacaf306766bdfd
+  - enabled: 1
+    path: Assets/Scenes/MapSelection.unity
+    guid: dd7f37d261dc3e441afdacd8d21de02d
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3655e42939b9a824cace268400c70908, type: 2}

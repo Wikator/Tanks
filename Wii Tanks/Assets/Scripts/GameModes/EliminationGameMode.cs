@@ -14,6 +14,7 @@ public sealed class EliminationGameMode : GameMode
 
     private Transform bulletEmpty;
 
+    [HideInInspector]
     public bool waitingForNewRound = true;
 
 
@@ -69,7 +70,7 @@ public sealed class EliminationGameMode : GameMode
 
         foreach (PlayerNetworking player in greenTeam)
         {
-            if (player.controlledPawn != null)
+            if (player.controlledPawn)
             {
                 playerLives = true;
                 break;
@@ -82,6 +83,7 @@ public sealed class EliminationGameMode : GameMode
             {
                 PointScored(player, 1);
             }
+
             StartCoroutine(NewRound());
             return;
         }
@@ -90,13 +92,12 @@ public sealed class EliminationGameMode : GameMode
 
         foreach (PlayerNetworking player in redTeam)
         {
-            if (player.controlledPawn != null)
+            if (player.controlledPawn)
             {
                 playerLives = true;
                 break;
             }
         }
-
 
         if (!playerLives && redTeam.Count != 0)
         {
@@ -104,6 +105,7 @@ public sealed class EliminationGameMode : GameMode
             {
                 PointScored(player, 1);
             }
+
             StartCoroutine(NewRound());
             return;
         }
@@ -117,7 +119,7 @@ public sealed class EliminationGameMode : GameMode
 
         foreach (PlayerNetworking player in GameManager.Instance.players)
         {
-            if (player.controlledPawn != null)
+            if (player.controlledPawn)
             {
                 player.controlledPawn.GameOver();
             }

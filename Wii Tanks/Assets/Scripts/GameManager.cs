@@ -2,7 +2,7 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
+using UnityEngine.UI;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -29,39 +29,17 @@ public sealed class GameManager : NetworkBehaviour
     private void Update()
     {
         canStart = players.All(player => player.isReady);
-
-        if (gameMode != "None")
-        {
-            foreach (PlayerNetworking player in players)
-            {
-                if (!player.gameModeChosen)
-                {
-                    player.GameModeChosen(player.Owner, gameMode);
-                    player.gameModeChosen = true;
-                }
-            }
-
-            if (!FindObjectOfType<GameMode>())
-            {
-                SpawnGameModeManager(gameMode);
-            }
-        }
     }
 
-    //[ServerRpc(RequireOwnership = false)]
-    private void SpawnGameModeManager(string gameMode)
+    public void MapChosen(Button button)
     {
-        switch (gameMode)
-        {
-            case "Deathmatch":
-                Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("DeathmatchManager").WaitForCompletion(), transform.position, Quaternion.identity));
-                break;
-            case "Elimination":
-                Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("EliminationManager").WaitForCompletion(), transform.position, Quaternion.identity));
-                break;
-        }
-    }
+        button.onClick.AddListener(() => MapSelection.Instance.LoadScene(PlayerNetworking.Instance.gameObject.GetComponent<NetworkObject>(), button.name));
 
+        /*foreach (PlayerNetworking player in players)
+        {
+            button.onClick.AddListener(() => player.OnSceneLoaded());
+        }*/
+    }
 
     [ServerRpc(RequireOwnership = false)]
     public void StartGame()
