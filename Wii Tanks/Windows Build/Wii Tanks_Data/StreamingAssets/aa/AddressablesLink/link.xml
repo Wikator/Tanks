@@ -5,6 +5,7 @@
     <type fullname="DestroyerTank" preserve="all" />
     <type fullname="DestroyItself" preserve="all" />
     <type fullname="EliminationGameMode" preserve="all" />
+    <type fullname="GameManager" preserve="all" />
     <type fullname="NormalTank" preserve="all" />
   </assembly>
   <assembly fullname="FishNet.Generated, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">

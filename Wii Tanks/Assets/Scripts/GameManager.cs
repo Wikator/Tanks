@@ -31,16 +31,6 @@ public sealed class GameManager : NetworkBehaviour
         canStart = players.All(player => player.isReady);
     }
 
-    public void MapChosen(Button button)
-    {
-        button.onClick.AddListener(() => MapSelection.Instance.LoadScene(PlayerNetworking.Instance.gameObject.GetComponent<NetworkObject>(), button.name));
-
-        /*foreach (PlayerNetworking player in players)
-        {
-            button.onClick.AddListener(() => player.OnSceneLoaded());
-        }*/
-    }
-
     [ServerRpc(RequireOwnership = false)]
     public void StartGame()
     {

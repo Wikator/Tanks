@@ -1,6 +1,7 @@
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using System;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
@@ -28,7 +29,16 @@ public sealed class PlayerNetworking : NetworkBehaviour
         base.OnStartServer();
         color = "None";
         tankType = "None";
-        GameManager.Instance.players.Add(this);
+        try
+        {
+            GameManager.Instance.players.Add(this);
+        }
+        catch (NullReferenceException)
+        {
+            Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("GameManager").WaitForCompletion()));
+            GameManager.Instance.players.Add(this);
+        }
+        
     }
 
     public override void OnStopServer()
@@ -65,7 +75,19 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public void OnSceneLoaded()
     {
         UIManager.Instance.Init();
-        UIManager.Instance.Show<GameModesView>();
+
+        switch (GameManager.Instance.gameMode)
+        {
+            case "Deathmatch":
+                UIManager.Instance.Show<DeathmatchLobbyView>();
+                break;
+            case "Elimination":
+                UIManager.Instance.Show<EliminationLobbyView>();
+                break;
+            default:
+                UIManager.Instance.Show<GameModesView>();
+                break;
+        }     
     }
 
     public void StartGame()

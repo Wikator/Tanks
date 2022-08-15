@@ -125,6 +125,9 @@ public abstract class Tank : NetworkBehaviour
 
     private void TimeManager_OnTick()
     {
+        if (!IsSpawned)
+            return;
+
         if (IsOwner)
         {
             Reconciliation(default, false);
