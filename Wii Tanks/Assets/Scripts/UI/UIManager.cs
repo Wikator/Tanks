@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public sealed class UIManager : MonoBehaviour
 {
@@ -11,11 +12,18 @@ public sealed class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+    }
 
-        /*foreach (PlayerNetworking player in GameManager.Instance.players)
+    private void Start()
+    {
+        try
         {
-            player.OnSceneLoaded();
-        }*/
+            PlayerNetworking.Instance.OnSceneLoaded();
+        }
+        catch (NullReferenceException)
+        {
+            return;
+        }
     }
 
     public void Init()

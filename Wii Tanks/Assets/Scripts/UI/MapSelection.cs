@@ -1,6 +1,3 @@
-using FishNet;
-using FishNet.Managing.Logging;
-using FishNet.Managing.Scened;
 using FishNet.Object;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +12,6 @@ public class MapSelection : MonoBehaviour
     {
         foreach (Button button in mapButtons)
         {
-            //button.onClick.AddListener(() => MapSelectionScene.Instance.UnloadScene());
             button.onClick.AddListener(() => MapSelectionScene.Instance.LoadScene(button.name));
         }
     }

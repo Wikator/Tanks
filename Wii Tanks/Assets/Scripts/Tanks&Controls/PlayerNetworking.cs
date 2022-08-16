@@ -29,6 +29,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         base.OnStartServer();
         color = "None";
         tankType = "None";
+
         try
         {
             GameManager.Instance.players.Add(this);
@@ -38,7 +39,15 @@ public sealed class PlayerNetworking : NetworkBehaviour
             Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("GameManager").WaitForCompletion()));
             GameManager.Instance.players.Add(this);
         }
-        
+
+        try
+        {
+            OnSceneLoaded();
+        }
+        catch (NullReferenceException)
+        {
+            return;
+        }          
     }
 
     public override void OnStopServer()
@@ -69,19 +78,22 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
         Instance = this;
 
-        OnSceneLoaded();
+        //OnSceneLoaded();
     }
 
     public void OnSceneLoaded()
     {
+        Debug.Log(0);
         if (!IsOwner)
             return;
 
         UIManager.Instance.Init();
+        Debug.Log(1);
 
         switch (GameManager.Instance.gameMode)
         {
             case "Deathmatch":
+                Debug.Log(2);
                 UIManager.Instance.Show<DeathmatchLobbyView>();
                 break;
             case "Elimination":

@@ -213,7 +213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startInOffline: 0
   _offlineScene: Assets/Scenes/MainMenu.unity
-  _onlineScene: Assets/Scenes/Arena1.unity
+  _onlineScene: Assets/Scenes/MapSelection.unity
   _replaceScenes: 0
 --- !u!114 &780823201
 MonoBehaviour:
