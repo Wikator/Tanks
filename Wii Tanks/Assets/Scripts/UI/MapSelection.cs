@@ -15,6 +15,7 @@ public class MapSelection : MonoBehaviour
     {
         foreach (Button button in mapButtons)
         {
+            //button.onClick.AddListener(() => MapSelectionScene.Instance.UnloadScene());
             button.onClick.AddListener(() => MapSelectionScene.Instance.LoadScene(button.name));
         }
     }

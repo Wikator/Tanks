@@ -11,6 +11,11 @@ public sealed class UIManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        /*foreach (PlayerNetworking player in GameManager.Instance.players)
+        {
+            player.OnSceneLoaded();
+        }*/
     }
 
     public void Init()

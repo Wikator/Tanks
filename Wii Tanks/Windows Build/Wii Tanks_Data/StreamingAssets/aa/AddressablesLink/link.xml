@@ -13,7 +13,9 @@
     <type fullname="FishNet.Component.Transforming.NetworkTransform/SnappedAxes" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="FishNet.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="FishNet.Component.Observing.SceneCondition" preserve="all" />
     <type fullname="FishNet.Object.NetworkObject" preserve="all" />
+    <type fullname="FishNet.Observing.NetworkObserver" preserve="all" />
     <type fullname="FishNet.Object.SceneTransformProperties" preserve="nothing" serialized="true" />
     <type fullname="FishNet.Serializing.TransformPackingData" preserve="nothing" serialized="true" />
   </assembly>

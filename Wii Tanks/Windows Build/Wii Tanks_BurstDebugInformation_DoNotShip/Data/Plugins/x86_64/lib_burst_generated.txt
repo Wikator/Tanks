@@ -169,9 +169,9 @@ Library: lib_burst_generated
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\FishNet.Generated.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.VisualEffectGraph.Runtime.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.Services.Core.Scheduler.dll
+--root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.Services.Core.Device.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\FishNet.Example.dll
---root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.Addressables.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.Services.Core.Analytics.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.ProBuilder.KdTree.dll
@@ -364,9 +364,9 @@ Library: lib_burst_generated
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\FishNet.Generated.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.VisualEffectGraph.Runtime.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.Services.Core.Scheduler.dll
+--root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.Services.Core.Device.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\FishNet.Example.dll
---root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Assembly-CSharp.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.Addressables.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.Services.Core.Analytics.dll
 --root-assembly=D:\GitHub WiiTanks\WiiTanks\Wii Tanks\Temp\StagingArea\Data\Managed\Unity.ProBuilder.KdTree.dll

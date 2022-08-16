@@ -74,6 +74,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
     public void OnSceneLoaded()
     {
+        if (!IsOwner)
+            return;
+
         UIManager.Instance.Init();
 
         switch (GameManager.Instance.gameMode)
