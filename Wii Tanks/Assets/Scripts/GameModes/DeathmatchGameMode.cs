@@ -1,22 +1,23 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using System.Collections;
 
 public sealed class DeathmatchGameMode : GameMode
 {
     private void Start()
     {
-        spawns["NoTeams"] = new List<GameObject>();
+        spawns["NoTeams"] = new List<Transform>();
 
-        for (int i = 1; i < 11; i++)
+        foreach (Transform spawn in GameObject.Find("DeathmatchSpawns").transform)
         {
-            spawns["NoTeams"].Add(GameObject.Find("DeathmatchSpawn" + Convert.ToString(i)));
+            spawns["NoTeams"].Add(spawn);
         }
     }
 
     public override void OnKilled(PlayerNetworking controllingPlayer)
     {
-        controllingPlayer.StartRespawn(1.5f);
+        StartCoroutine(Respawn(1.5f));
         PointScored(controllingPlayer, -1);
     }
 
@@ -33,14 +34,21 @@ public sealed class DeathmatchGameMode : GameMode
             catch (StackOverflowException)
             {
                 spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied = true;
-                return spawns["NoTeams"][randomNumber].transform.position;
+                return spawns["NoTeams"][randomNumber].position;
             }
         }
         else
         {
             spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied = true;
-            return spawns["NoTeams"][randomNumber].transform.position;
+            return spawns["NoTeams"][randomNumber].position;
             //playerInstance.GetComponent<Tank>().pointer = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pointer").WaitForCompletion(), playerInstance.transform.position, Quaternion.identity);
         }
+    }
+
+
+    private IEnumerator Respawn(float time)
+    {
+        yield return new WaitForSeconds(time);
+        PlayerNetworking.Instance.StartGame();
     }
 }

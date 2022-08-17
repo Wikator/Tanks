@@ -1,8 +1,10 @@
+using FishNet;
+using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -12,7 +14,7 @@ public sealed class GameManager : NetworkBehaviour
     public readonly SyncList<PlayerNetworking> players = new();
 
     [SyncVar, HideInInspector]
-    public bool canStart;
+    public bool canStart, gameInProgress;
 
     [SyncVar]
     public int playersReady = 0;
@@ -24,11 +26,40 @@ public sealed class GameManager : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
+        gameInProgress = false;
+    }
+
+    private void Start()
+    {
+        //InstanceFinder.SceneManager.OnClientPresenceChangeEnd += SceneLoaded;
     }
 
     private void Update()
     {
         canStart = players.All(player => player.isReady);
+    }
+
+    private void OnDestroy()
+    {
+        if (InstanceFinder.SceneManager)
+        {
+            //InstanceFinder.SceneManager.OnClientPresenceChangeEnd -= SceneLoaded;
+        }
+    }
+
+    public void SceneLoaded(ClientPresenceChangeEventArgs obj)
+    {
+        if (obj.Scene.name == "MapSelection")
+            return;
+        try
+        {
+            PlayerNetworking player = obj.Connection.Objects.ToArray()[0].gameObject.GetComponent<PlayerNetworking>();
+            player.SetUpUI(player.Owner, gameMode);
+        }
+        catch (IndexOutOfRangeException)
+        {
+            //obj.Connection.Disconnect(true);
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -37,10 +68,11 @@ public sealed class GameManager : NetworkBehaviour
         if (!canStart)
             return;
 
+        gameInProgress = true;
 
-        for (int i = 0; i < players.Count; i++)
+        foreach (PlayerNetworking player in players)
         {
-            players[i].StartGame();
+            player.StartGame();
         }
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
@@ -50,9 +82,9 @@ public sealed class GameManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void StopGame()
     {
-        for (int i = 0; i < players.Count; i++)
+        foreach(PlayerNetworking player in players)
         {
-            players[i].StopGame();
+            player.StopGame();
         }
     }
 }

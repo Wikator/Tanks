@@ -13,6 +13,11 @@ public sealed class EliminationLobbyView : LobbyView
 
     public override void Init()
     {
+        if (Initialized)
+            return;
+
+        base.Init();
+
         toggleReadyButton.onClick.AddListener(() => PlayerNetworking.Instance.ServerSetIsReady(!PlayerNetworking.Instance.isReady));
 
         foreach (Button button in colorButtons)
@@ -29,8 +34,6 @@ public sealed class EliminationLobbyView : LobbyView
         startGameButton.onClick.AddListener(() => GameManager.Instance.StartGame());
 
         startGameButton.gameObject.SetActive(true);
-
-        base.Init();
     }
 }
 

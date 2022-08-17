@@ -2,7 +2,6 @@ using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System;
-using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -39,20 +38,12 @@ public sealed class PlayerNetworking : NetworkBehaviour
             Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("GameManager").WaitForCompletion()));
             GameManager.Instance.players.Add(this);
         }
-
-        try
-        {
-            OnSceneLoaded();
-        }
-        catch (NullReferenceException)
-        {
-            return;
-        }          
     }
 
     public override void OnStopServer()
     {
         base.OnStopServer();
+
         GameManager.Instance.players.Remove(this);
 
         if (GameManager.Instance.gameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
@@ -77,32 +68,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
             return;
 
         Instance = this;
-
-        //OnSceneLoaded();
-    }
-
-    public void OnSceneLoaded()
-    {
-        Debug.Log(0);
-        if (!IsOwner)
-            return;
-
-        UIManager.Instance.Init();
-        Debug.Log(1);
-
-        switch (GameManager.Instance.gameMode)
-        {
-            case "Deathmatch":
-                Debug.Log(2);
-                UIManager.Instance.Show<DeathmatchLobbyView>();
-                break;
-            case "Elimination":
-                UIManager.Instance.Show<EliminationLobbyView>();
-                break;
-            default:
-                UIManager.Instance.Show<GameModesView>();
-                break;
-        }     
     }
 
     public void StartGame()
@@ -111,7 +76,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         controlledPawn = playerInstance.GetComponent<Tank>();
         controlledPawn.controllingPlayer = this;
         Spawn(playerInstance, Owner);
-        TargetPlayerSpawned(Owner);
+        //TargetPlayerSpawned(Owner);
     }
 
     public void StopGame()
@@ -122,14 +87,13 @@ public sealed class PlayerNetworking : NetworkBehaviour
         }
     }
 
-    private IEnumerator Respawn(float time)
+    private void Update()
     {
-        yield return new WaitForSeconds(time);
-        StartGame();
+        if (UIManager.Instance)
+        {
+            SetUpUI(Owner, GameManager.Instance.gameMode);
+        }
     }
-
-    public void StartRespawn(float time) => StartCoroutine(Respawn(time));
-
 
     [ServerRpc]
     public void ChangeColor(string colorName) => color = colorName;
@@ -175,23 +139,36 @@ public sealed class PlayerNetworking : NetworkBehaviour
                 break;
         }
     }
-
+/*
     [TargetRpc]
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     private void TargetPlayerSpawned(NetworkConnection network) => UIManager.Instance.Show<MainView>();
+*/
 
     [TargetRpc]
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-    public void GameModeChosen(NetworkConnection network, string gameMode)
+    public void SetUpUI(NetworkConnection connection, string gameMode)
     {
-        switch (gameMode)
+        UIManager.Instance.Init();
+
+        if (GameManager.Instance.gameInProgress)
         {
-            case "Deathmatch":
-                UIManager.Instance.Show<DeathmatchLobbyView>();
-                break;
-            case "Elimination":
-                UIManager.Instance.Show<EliminationLobbyView>();
-                break;
+            UIManager.Instance.Show<MainView>();
+        }
+        else
+        {
+            switch (gameMode)
+            {
+                case "Deathmatch":
+                    UIManager.Instance.Show<DeathmatchLobbyView>();
+                    break;
+                case "Elimination":
+                    UIManager.Instance.Show<EliminationLobbyView>();
+                    break;
+                default:
+                    UIManager.Instance.Show<GameModesView>();
+                    break;
+            }
         }
     }
 }

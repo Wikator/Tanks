@@ -9,10 +9,16 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 75b33f195b013694eb3d7859fb7e91a0
   - enabled: 1
+    path: Assets/Scenes/MapSelection.unity
+    guid: dd7f37d261dc3e441afdacd8d21de02d
+  - enabled: 1
     path: Assets/Scenes/Arena1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/MapSelection.unity
-    guid: dd7f37d261dc3e441afdacd8d21de02d
+    path: Assets/Scenes/Arena2.unity
+    guid: e1672d26454c3d547b778e8cfb90180e
+  - enabled: 1
+    path: Assets/Scenes/Arena3.unity
+    guid: bad82edf4b1fcf14ea7ede5be21d9604
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3655e42939b9a824cace268400c70908, type: 2}

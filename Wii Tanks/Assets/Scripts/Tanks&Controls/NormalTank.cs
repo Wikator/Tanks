@@ -1,5 +1,4 @@
 using FishNet.Object;
-
 using UnityEngine;
 
 public sealed class NormalTank : Tank

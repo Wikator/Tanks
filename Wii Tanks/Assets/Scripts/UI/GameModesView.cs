@@ -14,6 +14,9 @@ public sealed class GameModesView : View
 
     public override void Init()
     {
+        if (Initialized)
+            return;
+
         base.Init();
 
         deathmatchButton.onClick.AddListener(() => ChangeGameMode("Deathmatch"));
@@ -30,7 +33,7 @@ public sealed class GameModesView : View
 
         foreach (PlayerNetworking player in GameManager.Instance.players)
         {
-            player.GameModeChosen(player.Owner, gameMode);
+            player.SetUpUI(player.Owner, gameMode);
         }
     }
 }

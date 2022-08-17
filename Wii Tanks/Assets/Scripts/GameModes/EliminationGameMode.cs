@@ -22,13 +22,17 @@ public sealed class EliminationGameMode : GameMode
     {
         bulletEmpty = GameObject.Find("Bullets").transform;
 
-        spawns["Green"] = new List<GameObject>();
-        spawns["Red"] = new List<GameObject>();
+        spawns["Green"] = new List<Transform>();
+        spawns["Red"] = new List<Transform>();
 
-        for (int i = 1; i < 4; i++)
+        foreach (Transform greenSpawn in GameObject.Find("GreenSpawns").transform)
         {
-            spawns["Green"].Add(GameObject.Find("EliminationGreenSpawn" + Convert.ToString(i)));
-            spawns["Red"].Add(GameObject.Find("EliminationRedSpawn" + Convert.ToString(i)));
+            spawns["Green"].Add(greenSpawn);
+        }
+
+        foreach (Transform redSpawn in GameObject.Find("RedSpawns").transform)
+        {
+            spawns["Red"].Add(redSpawn);
         }
     }
 
@@ -45,13 +49,13 @@ public sealed class EliminationGameMode : GameMode
             catch (StackOverflowException)
             {
                 spawns[color][randomNumber].GetComponent<Spawn>().isOccupied = true;
-                return spawns[color][randomNumber].transform.position;
+                return spawns[color][randomNumber].position;
             }
         }
         else
         {
             spawns[color][randomNumber].GetComponent<Spawn>().isOccupied = true;
-            return spawns[color][randomNumber].transform.position;
+            return spawns[color][randomNumber].position;
             //playerInstance.GetComponent<Tank>().pointer = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pointer").WaitForCompletion(), playerInstance.transform.position, Quaternion.identity);
         }
     }
@@ -117,13 +121,7 @@ public sealed class EliminationGameMode : GameMode
         waitingForNewRound = true;
         yield return new WaitForSeconds(3.5f);
 
-        foreach (PlayerNetworking player in GameManager.Instance.players)
-        {
-            if (player.controlledPawn)
-            {
-                player.controlledPawn.GameOver();
-            }
-        }
+        GameManager.Instance.StopGame();
 
         foreach (Transform child in bulletEmpty)
         {

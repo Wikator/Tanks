@@ -7,6 +7,7 @@
     <type fullname="EliminationGameMode" preserve="all" />
     <type fullname="GameManager" preserve="all" />
     <type fullname="NormalTank" preserve="all" />
+    <type fullname="PlayerNetworking" preserve="all" />
   </assembly>
   <assembly fullname="FishNet.Generated, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="FishNet.Component.Transforming.NetworkTransform" preserve="all" />
@@ -39,7 +40,6 @@
     <type fullname="UnityEngine.ResourceManagement.ResourceProviders.SceneProvider" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-    <type fullname="UnityEngine.ComputeShader" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
     <type fullname="UnityEngine.Material" preserve="all" />
     <type fullname="UnityEngine.MeshFilter" preserve="all" />

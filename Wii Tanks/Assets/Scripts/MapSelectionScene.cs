@@ -12,7 +12,6 @@ public sealed class MapSelectionScene : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
-        //InstanceFinder.ServerManager.Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("GameManager").WaitForCompletion()));
     }
 
 

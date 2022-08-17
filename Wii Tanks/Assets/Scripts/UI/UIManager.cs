@@ -14,18 +14,6 @@ public sealed class UIManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        try
-        {
-            PlayerNetworking.Instance.OnSceneLoaded();
-        }
-        catch (NullReferenceException)
-        {
-            return;
-        }
-    }
-
     public void Init()
     {
         foreach (View view in views)
