@@ -83,7 +83,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
     {
         if (controlledPawn != null && controlledPawn.IsSpawned)
         {
-            controlledPawn.Despawn();
+            controlledPawn.GameOver();
         }
     }
 

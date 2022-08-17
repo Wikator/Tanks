@@ -1,5 +1,4 @@
 using UnityEngine;
-using System;
 
 public sealed class UIManager : MonoBehaviour
 {
