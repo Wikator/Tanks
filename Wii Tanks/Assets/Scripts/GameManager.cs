@@ -1,12 +1,7 @@
-using FishNet;
-using FishNet.Connection;
-using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using System;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -34,43 +29,11 @@ public sealed class GameManager : NetworkBehaviour
         gameInProgress = false;
     }
 
-    private void Start()
-    {
-        //InstanceFinder.SceneManager.OnClientLoadedStartScenes += ClientConnected;
-        InstanceFinder.SceneManager.OnClientPresenceChangeEnd += SceneLoaded;
-    }
-
     private void Update()
     {
         canStart = players.All(player => player.isReady);
     }
 
-    private void OnDestroy()
-    {
-        if (InstanceFinder.SceneManager)
-        {
-            //InstanceFinder.SceneManager.OnClientLoadedStartScenes -= ClientConnected;
-            InstanceFinder.SceneManager.OnClientPresenceChangeEnd -= SceneLoaded;
-        }
-    }
-
-    private void ClientConnected(NetworkConnection connection, bool asServer)
-    {
-        if (!asServer)
-            return;
-
-        GameObject player = Instantiate(Addressables.LoadAssetAsync<GameObject>("PlayerNetworking").WaitForCompletion());
-        Spawn(player, connection);
-    }
-
-    private void SceneLoaded(ClientPresenceChangeEventArgs obj)
-    {
-        if (obj.Scene.name != "MapSelection" && obj.Added)
-        {
-            PlayerNetworking player = obj.Connection.Objects.ToArray()[0].gameObject.GetComponent<PlayerNetworking>();
-            player.SetUpUI(player.Owner, gameMode, gameInProgress);
-        }
-    }
 
     [ServerRpc(RequireOwnership = false)]
     public void StartGame()
@@ -83,8 +46,9 @@ public sealed class GameManager : NetworkBehaviour
         foreach (PlayerNetworking player in players)
         {
             player.StartGame();
-            player.SetUpUI(player.Owner, gameMode, gameInProgress);
         }
+
+        UIManager.Instance.SetUpUI(gameInProgress, gameMode);
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
             eliminationGameMode.waitingForNewRound = false;

@@ -1,3 +1,4 @@
+using FishNet;
 using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
@@ -26,18 +27,24 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-        color = "None";
-        tankType = "None";
 
         try
         {
             GameManager.Instance.players.Add(this);
+            
+            if (GameManager.Instance.gameInProgress)
+            {
+                //Owner.Disconnect(true);
+            }
         }
         catch (NullReferenceException)
         {
             Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("GameManager").WaitForCompletion()));
             GameManager.Instance.players.Add(this);
         }
+
+        color = "None";
+        tankType = "None";
     }
 
     public override void OnStopServer()
@@ -133,7 +140,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
     }
 
 
-    [TargetRpc]
+    /*[TargetRpc]
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     public void SetUpUI(NetworkConnection connection, string gameMode, bool gameInProgress)
     {
@@ -158,5 +165,5 @@ public sealed class PlayerNetworking : NetworkBehaviour
                     break;
             }
         }
-    }
+    }*/
 }

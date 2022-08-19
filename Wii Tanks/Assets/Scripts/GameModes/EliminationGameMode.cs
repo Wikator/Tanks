@@ -18,8 +18,10 @@ public sealed class EliminationGameMode : GameMode
     public bool waitingForNewRound = true;
 
 
-    private void Awake()
+    public override void OnStartServer()
     {
+        base.OnStartServer();
+
         bulletEmpty = GameObject.Find("Bullets").transform;
 
         spawns["Green"] = new List<Transform>();
@@ -39,7 +41,6 @@ public sealed class EliminationGameMode : GameMode
     public override Vector3 FindSpawnPosition(string color)
     {
         int randomNumber = UnityEngine.Random.Range(0, 3);
-        //Cursor.visible = false;
         if (spawns[color][randomNumber].GetComponent<Spawn>().isOccupied)
         {
             try
@@ -56,7 +57,6 @@ public sealed class EliminationGameMode : GameMode
         {
             spawns[color][randomNumber].GetComponent<Spawn>().isOccupied = true;
             return spawns[color][randomNumber].position;
-            //playerInstance.GetComponent<Tank>().pointer = Instantiate(Addressables.LoadAssetAsync<GameObject>("Pointer").WaitForCompletion(), playerInstance.transform.position, Quaternion.identity);
         }
     }
 

@@ -5,8 +5,10 @@ using System.Collections;
 
 public sealed class DeathmatchGameMode : GameMode
 {
-    private void Start()
+    public override void OnStartServer()
     {
+        base.OnStartServer();
+
         spawns["NoTeams"] = new List<Transform>();
 
         foreach (Transform spawn in GameObject.Find("DeathmatchSpawns").transform)

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5492257172913019835}
   - component: {fileID: 3260047397942440531}
   - component: {fileID: 1020864369339734849}
+  - component: {fileID: -7317939241241333854}
   m_Layer: 0
   m_Name: NetworkedPlayer
   m_TagString: Untagged
@@ -47,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours:
   - {fileID: 1020864369339734849}
-  - {fileID: 0}
+  - {fileID: -7317939241241333854}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -82,3 +83,21 @@ MonoBehaviour:
   controlledPawn: {fileID: 0}
   isReady: 0
   score: 0
+--- !u!114 &-7317939241241333854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5726761085402846671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 3260047397942440531}
+  _networkObjectCache: {fileID: 3260047397942440531}
+  _overrideType: 3
+  _setHostVisibility: 1
+  _observerConditions: []
