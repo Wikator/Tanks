@@ -51,7 +51,9 @@ public sealed class GameManager : NetworkBehaviour
         UIManager.Instance.SetUpUI(gameInProgress, gameMode);
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
+        {
             eliminationGameMode.waitingForNewRound = false;
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]

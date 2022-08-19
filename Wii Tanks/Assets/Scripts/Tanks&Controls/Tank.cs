@@ -80,8 +80,8 @@ public abstract class Tank : NetworkBehaviour
         raycastLayer = (1 << 9);
         cam = Camera.main;
         ammoCount = maxAmmo;
-        gameModeManager = FindObjectOfType<GameMode>();
         controller = GetComponent<CharacterController>();
+        gameModeManager = FindObjectOfType<GameMode>();
         turret = transform.GetChild(0).gameObject;
         bulletSpawn = turret.transform.GetChild(0).transform;
         bulletEmpty = GameObject.Find("Bullets").transform;
@@ -93,15 +93,8 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-        raycastLayer = (1 << 9);
-        cam = Camera.main;
-        ammoCount = maxAmmo;
-        gameModeManager = FindObjectOfType<GameMode>();
         controller = GetComponent<CharacterController>();
         turret = transform.GetChild(0).gameObject;
-        bulletSpawn = turret.transform.GetChild(0).transform;
-        bulletEmpty = GameObject.Find("Bullets").transform;
-        explosionEmpty = GameObject.Find("Explosions").transform;
         ChangeColours(controllingPlayer.color);
         SubscribeToTimeManager(true);
     }

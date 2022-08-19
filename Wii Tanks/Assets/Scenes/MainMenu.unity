@@ -189,9 +189,9 @@ GameObject:
   - component: {fileID: 780823200}
   - component: {fileID: 780823203}
   - component: {fileID: 780823207}
-  - component: {fileID: 780823208}
   - component: {fileID: 780823209}
   - component: {fileID: 780823210}
+  - component: {fileID: 780823211}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -287,26 +287,6 @@ MonoBehaviour:
   _shareIds: 1
   _startOnHeadless: 1
   _limitClientMTU: 1
---- !u!114 &780823208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 780823198}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f48f002b825cbd45a19bd96d90f9edb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unreliableMTU: 1023
-  _attackResponseType: 1
-  _ipv4BindAddress: 
-  _ipv6BindAddress: 
-  _port: 7770
-  _maximumClients: 4095
-  _clientAddress: localhost
-  _timeout: 15
 --- !u!114 &780823209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -337,6 +317,26 @@ MonoBehaviour:
   _playerPrefab: {fileID: 3260047397942440531, guid: 6c62193c7eb49994cbde018e484837f5, type: 3}
   _addToDefaultScene: 1
   Spawns: []
+--- !u!114 &780823211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780823198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f48f002b825cbd45a19bd96d90f9edb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unreliableMTU: 1023
+  _attackResponseType: 1
+  _ipv4BindAddress: 
+  _ipv6BindAddress: 
+  _port: 7770
+  _maximumClients: 4095
+  _clientAddress: localhost
+  _timeout: 15
 --- !u!1 &1054116376
 GameObject:
   m_ObjectHideFlags: 0
