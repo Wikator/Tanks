@@ -1,5 +1,6 @@
 using FishNet.Object.Synchronizing;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -70,18 +71,8 @@ public sealed class EliminationGameMode : GameMode
         if (waitingForNewRound)
             return;
 
-        bool playerLives = false;
 
-        foreach (PlayerNetworking player in greenTeam)
-        {
-            if (player.controlledPawn)
-            {
-                playerLives = true;
-                break;
-            }
-        }
-
-        if (!playerLives && greenTeam.Count != 0)
+        if (greenTeam.All(player => !player.controlledPawn) && greenTeam.Count != 0)
         {
             foreach (PlayerNetworking player in redTeam)
             {
@@ -92,18 +83,8 @@ public sealed class EliminationGameMode : GameMode
             return;
         }
 
-        playerLives = false;
 
-        foreach (PlayerNetworking player in redTeam)
-        {
-            if (player.controlledPawn)
-            {
-                playerLives = true;
-                break;
-            }
-        }
-
-        if (!playerLives && redTeam.Count != 0)
+        if (redTeam.All(player => !player.controlledPawn) && redTeam.Count != 0)
         {
             foreach (PlayerNetworking player in greenTeam)
             {

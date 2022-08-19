@@ -1,9 +1,6 @@
-using FishNet;
-using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -138,32 +135,4 @@ public sealed class PlayerNetworking : NetworkBehaviour
                 break;
         }
     }
-
-
-    /*[TargetRpc]
-    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-    public void SetUpUI(NetworkConnection connection, string gameMode, bool gameInProgress)
-    {
-        UIManager.Instance.Init();
-
-        if (gameInProgress)
-        {
-            UIManager.Instance.Show<MainView>();
-        }
-        else
-        {
-            switch (gameMode)
-            {
-                case "Deathmatch":
-                    UIManager.Instance.Show<DeathmatchLobbyView>();
-                    break;
-                case "Elimination":
-                    UIManager.Instance.Show<EliminationLobbyView>();
-                    break;
-                default:
-                    UIManager.Instance.Show<GameModesView>();
-                    break;
-            }
-        }
-    }*/
 }
