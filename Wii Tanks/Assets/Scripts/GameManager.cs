@@ -1,10 +1,12 @@
 using FishNet;
+using FishNet.Connection;
 using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -14,7 +16,10 @@ public sealed class GameManager : NetworkBehaviour
     public readonly SyncList<PlayerNetworking> players = new();
 
     [SyncVar, HideInInspector]
-    public bool canStart, gameInProgress;
+    public bool canStart;
+
+    [SyncVar]
+    public bool gameInProgress;
 
     [SyncVar]
     public int playersReady = 0;
@@ -31,7 +36,8 @@ public sealed class GameManager : NetworkBehaviour
 
     private void Start()
     {
-        //InstanceFinder.SceneManager.OnClientPresenceChangeEnd += SceneLoaded;
+        //InstanceFinder.SceneManager.OnClientLoadedStartScenes += ClientConnected;
+        InstanceFinder.SceneManager.OnClientPresenceChangeEnd += SceneLoaded;
     }
 
     private void Update()
@@ -43,22 +49,26 @@ public sealed class GameManager : NetworkBehaviour
     {
         if (InstanceFinder.SceneManager)
         {
-            //InstanceFinder.SceneManager.OnClientPresenceChangeEnd -= SceneLoaded;
+            //InstanceFinder.SceneManager.OnClientLoadedStartScenes -= ClientConnected;
+            InstanceFinder.SceneManager.OnClientPresenceChangeEnd -= SceneLoaded;
         }
     }
 
-    public void SceneLoaded(ClientPresenceChangeEventArgs obj)
+    private void ClientConnected(NetworkConnection connection, bool asServer)
     {
-        if (obj.Scene.name == "MapSelection")
+        if (!asServer)
             return;
-        try
+
+        GameObject player = Instantiate(Addressables.LoadAssetAsync<GameObject>("PlayerNetworking").WaitForCompletion());
+        Spawn(player, connection);
+    }
+
+    private void SceneLoaded(ClientPresenceChangeEventArgs obj)
+    {
+        if (obj.Scene.name != "MapSelection" && obj.Added)
         {
             PlayerNetworking player = obj.Connection.Objects.ToArray()[0].gameObject.GetComponent<PlayerNetworking>();
-            player.SetUpUI(player.Owner, gameMode);
-        }
-        catch (IndexOutOfRangeException)
-        {
-            //obj.Connection.Disconnect(true);
+            player.SetUpUI(player.Owner, gameMode, gameInProgress);
         }
     }
 
@@ -73,6 +83,7 @@ public sealed class GameManager : NetworkBehaviour
         foreach (PlayerNetworking player in players)
         {
             player.StartGame();
+            player.SetUpUI(player.Owner, gameMode, gameInProgress);
         }
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))

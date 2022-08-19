@@ -183,6 +183,7 @@ MonoBehaviour:
   _sceneId: 6823561742222984628
   _sceneNetworkObjects:
   - {fileID: 25376272}
+  - {fileID: 0}
 --- !u!114 &25376273
 MonoBehaviour:
   m_ObjectHideFlags: 0

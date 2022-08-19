@@ -76,7 +76,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
         controlledPawn = playerInstance.GetComponent<Tank>();
         controlledPawn.controllingPlayer = this;
         Spawn(playerInstance, Owner);
-        //TargetPlayerSpawned(Owner);
     }
 
     public void StopGame()
@@ -87,13 +86,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (UIManager.Instance)
-        {
-            SetUpUI(Owner, GameManager.Instance.gameMode);
-        }
-    }
 
     [ServerRpc]
     public void ChangeColor(string colorName) => color = colorName;
@@ -139,19 +131,15 @@ public sealed class PlayerNetworking : NetworkBehaviour
                 break;
         }
     }
-/*
-    [TargetRpc]
-    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-    private void TargetPlayerSpawned(NetworkConnection network) => UIManager.Instance.Show<MainView>();
-*/
+
 
     [TargetRpc]
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-    public void SetUpUI(NetworkConnection connection, string gameMode)
+    public void SetUpUI(NetworkConnection connection, string gameMode, bool gameInProgress)
     {
         UIManager.Instance.Init();
 
-        if (GameManager.Instance.gameInProgress)
+        if (gameInProgress)
         {
             UIManager.Instance.Show<MainView>();
         }

@@ -33,7 +33,7 @@ public sealed class GameModesView : View
 
         foreach (PlayerNetworking player in GameManager.Instance.players)
         {
-            player.SetUpUI(player.Owner, gameMode);
+            player.SetUpUI(player.Owner, gameMode, false);
         }
     }
 }
