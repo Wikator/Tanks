@@ -1,9 +1,8 @@
-using FishNet.Object;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapSelection : MonoBehaviour
+public sealed class MapSelection : MonoBehaviour
 {
     [SerializeField]
     private List<Button> mapButtons = new();

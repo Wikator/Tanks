@@ -1,12 +1,10 @@
 using FishNet;
-using FishNet.Managing.Logging;
 using FishNet.Managing.Scened;
 using FishNet.Object;
 using System.Collections.Generic;
 
 public sealed class MapSelectionScene : NetworkBehaviour
 {
-
     public static MapSelectionScene Instance { get; private set; }
 
     private void Awake()
@@ -16,12 +14,8 @@ public sealed class MapSelectionScene : NetworkBehaviour
 
 
     [ServerRpc(RequireOwnership = false)]
-    [Server(Logging = LoggingType.Off)]
     public void LoadScene(string sceneName)
     {
-        if (!PlayerNetworking.Instance.gameObject.GetComponent<NetworkObject>().Owner.IsActive)
-            return;
-
         List<NetworkObject> movedObjects = new();
 
         foreach (PlayerNetworking player in GameManager.Instance.players)

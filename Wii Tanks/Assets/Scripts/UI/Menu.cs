@@ -17,7 +17,7 @@ public sealed class Menu : MonoBehaviour
         {
             InstanceFinder.ServerManager.StartConnection();
 
-            InstanceFinder.ClientManager.StartConnection();
+            //InstanceFinder.ClientManager.StartConnection();
         });
 
         connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());

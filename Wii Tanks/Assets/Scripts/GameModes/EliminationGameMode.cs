@@ -7,10 +7,10 @@ using UnityEngine;
 public sealed class EliminationGameMode : GameMode
 {
     [SyncObject]
-    public readonly SyncList<PlayerNetworking> greenTeam = new();
+    public readonly SyncHashSet<PlayerNetworking> greenTeam = new();
 
     [SyncObject]
-    public readonly SyncList<PlayerNetworking> redTeam = new();
+    public readonly SyncHashSet<PlayerNetworking> redTeam = new();
 
     [HideInInspector]
     public bool waitingForNewRound = true;

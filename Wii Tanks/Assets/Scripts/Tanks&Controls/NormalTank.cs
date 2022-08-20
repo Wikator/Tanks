@@ -16,7 +16,7 @@ public sealed class NormalTank : Tank
     protected override void Fire()
     {
         StopAllCoroutines();
-        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty.transform);
+        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Spawn(bulletInstance);
         bulletInstance.GetComponent<BulletScript>().player = controllingPlayer;
         ammoCount--;

@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Arena3.unity
     guid: bad82edf4b1fcf14ea7ede5be21d9604
+  - enabled: 1
+    path: Assets/Scenes/Arena4.unity
+    guid: d2eeda52626f82447bafa95fec71f579
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3655e42939b9a824cace268400c70908, type: 2}

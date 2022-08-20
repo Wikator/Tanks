@@ -307,6 +307,7 @@ MonoBehaviour:
   _sceneId: 6432678127977622353
   _sceneNetworkObjects:
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -1633,8 +1634,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678127553969522
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -2893,7 +2894,7 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 461069330}
   SceneTransformProperties:
-    Position: {x: -25, y: 0.8, z: 0}
+    Position: {x: -16.5, y: 0.8, z: 0}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -2904,8 +2905,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678126496423578
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -2968,7 +2969,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 0.75, z: 5}
+  m_Size: {x: 4.5, y: 0.75, z: 4.5}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!4 &461069333
 Transform:
@@ -2978,7 +2979,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 461069328}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -25, y: 0.8, z: 0}
+  m_LocalPosition: {x: -16.5, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3153,8 +3154,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678124287062260
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -3537,8 +3538,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678125543651935
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -3852,7 +3853,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh223470
+  m_Name: pb_Mesh97266
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4071,8 +4072,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678125708012681
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -8146,8 +8147,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678124343900861
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -8451,8 +8452,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678125359181470
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -8938,8 +8939,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678124330189733
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -9187,8 +9188,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678125665488149
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -9314,8 +9315,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678126672377178
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -9682,8 +9683,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678124448762296
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -10093,8 +10094,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678124448685063
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -10209,7 +10210,7 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 1168345036}
   SceneTransformProperties:
-    Position: {x: 25, y: 0.8, z: 0}
+    Position: {x: 16.5, y: 0.8, z: 0}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -10220,8 +10221,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678125443621995
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -10284,7 +10285,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5, y: 0.75, z: 5}
+  m_Size: {x: 4.5, y: 0.75, z: 4.5}
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!4 &1168345039
 Transform:
@@ -10294,7 +10295,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168345034}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25, y: 0.8, z: 0}
+  m_LocalPosition: {x: 16.5, y: 0.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11212,8 +11213,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678125650078190
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -11518,8 +11519,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678125164269879
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -11963,8 +11964,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678127830463576
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -13785,8 +13786,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678126820565420
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -14169,8 +14170,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678127925012995
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -14932,8 +14933,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678127110648677
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
@@ -16421,8 +16422,8 @@ MonoBehaviour:
   _scenePathHash: 1497724588
   _sceneId: 6432678126204196205
   _sceneNetworkObjects:
-  - {fileID: 301616680}
   - {fileID: 65033750}
+  - {fileID: 301616680}
   - {fileID: 461069329}
   - {fileID: 495770093}
   - {fileID: 542391661}
