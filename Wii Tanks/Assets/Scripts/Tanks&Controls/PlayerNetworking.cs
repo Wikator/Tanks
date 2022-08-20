@@ -9,7 +9,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public static PlayerNetworking Instance { get; private set; }
 
     [SyncVar]
-    public string username, color, tankType;
+    public string color = "None", tankType = "None";
 
     [SyncVar]
     public Tank controlledPawn;
@@ -28,20 +28,12 @@ public sealed class PlayerNetworking : NetworkBehaviour
         try
         {
             GameManager.Instance.players.Add(this);
-            
-            if (GameManager.Instance.gameInProgress)
-            {
-                //Owner.Disconnect(true);
-            }
         }
         catch (NullReferenceException)
         {
             Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("GameManager").WaitForCompletion()));
             GameManager.Instance.players.Add(this);
         }
-
-        color = "None";
-        tankType = "None";
     }
 
     public override void OnStopServer()

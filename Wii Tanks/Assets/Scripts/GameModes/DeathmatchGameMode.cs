@@ -1,19 +1,24 @@
-using System.Collections.Generic;
 using System;
 using UnityEngine;
 using System.Collections;
 
 public sealed class DeathmatchGameMode : GameMode
 {
+    private int spawnCount;
+
     public override void OnStartServer()
     {
         base.OnStartServer();
 
-        spawns["NoTeams"] = new List<Transform>();
+        Transform spawnsParent = GameObject.Find("DeathmatchSpawns").transform;
 
-        foreach (Transform spawn in GameObject.Find("DeathmatchSpawns").transform)
+        spawnCount = spawnsParent.childCount;
+
+        spawns["NoTeams"] = new Transform[spawnCount];
+
+        for (int i = 0; i < spawnCount; i++)
         {
-            spawns["NoTeams"].Add(spawn);
+            spawns["NoTeams"][i] = spawnsParent.GetChild(i).transform;
         }
     }
 
@@ -25,7 +30,8 @@ public sealed class DeathmatchGameMode : GameMode
 
     public override Vector3 FindSpawnPosition(string color)
     {
-        int randomNumber = UnityEngine.Random.Range(0, 10);
+        int randomNumber = UnityEngine.Random.Range(0, spawnCount);
+
         if (spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied)
         {
             try

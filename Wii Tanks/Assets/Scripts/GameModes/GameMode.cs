@@ -8,7 +8,7 @@ public abstract class GameMode : NetworkBehaviour
     public static GameMode Instance { get; private set; }
 
     [SyncObject]
-    public readonly SyncDictionary<string, List<Transform>> spawns = new();
+    public readonly SyncDictionary<string, Transform[]> spawns = new();
 
     private void Awake()
     {

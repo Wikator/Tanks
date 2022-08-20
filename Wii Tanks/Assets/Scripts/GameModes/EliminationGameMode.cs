@@ -2,7 +2,6 @@ using FishNet.Object.Synchronizing;
 using System;
 using System.Linq;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public sealed class EliminationGameMode : GameMode
@@ -13,10 +12,11 @@ public sealed class EliminationGameMode : GameMode
     [SyncObject]
     public readonly SyncList<PlayerNetworking> redTeam = new();
 
-    private Transform bulletEmpty;
-
     [HideInInspector]
     public bool waitingForNewRound = true;
+
+    private Transform bulletEmpty;
+    private int greenSpawnCount, redSpawnCount;
 
 
     public override void OnStartServer()
@@ -25,23 +25,35 @@ public sealed class EliminationGameMode : GameMode
 
         bulletEmpty = GameObject.Find("Bullets").transform;
 
-        spawns["Green"] = new List<Transform>();
-        spawns["Red"] = new List<Transform>();
+        Transform greenSpawnsParent = GameObject.Find("GreenSpawns").transform;
+        Transform redSpawnsParent = GameObject.Find("RedSpawns").transform;
 
-        foreach (Transform greenSpawn in GameObject.Find("GreenSpawns").transform)
+        greenSpawnCount = greenSpawnsParent.childCount;
+        redSpawnCount = redSpawnsParent.childCount;
+
+        spawns["Green"] = new Transform[greenSpawnCount];
+        spawns["Red"] = new Transform[redSpawnCount];
+
+        for (int i = 0; i < greenSpawnCount; i++)
         {
-            spawns["Green"].Add(greenSpawn);
+            spawns["Green"][i] = greenSpawnsParent.GetChild(i).transform;
         }
 
-        foreach (Transform redSpawn in GameObject.Find("RedSpawns").transform)
+        for (int i = 0; i < redSpawnCount; i++)
         {
-            spawns["Red"].Add(redSpawn);
+            spawns["Red"][i] = redSpawnsParent.GetChild(i).transform;
         }
     }
 
     public override Vector3 FindSpawnPosition(string color)
     {
-        int randomNumber = UnityEngine.Random.Range(0, 3);
+        int randomNumber = color switch
+        {
+            "Green" => UnityEngine.Random.Range(0, greenSpawnCount),
+            "Red" => UnityEngine.Random.Range(0, redSpawnCount),
+            _ => 0
+        };
+
         if (spawns[color][randomNumber].GetComponent<Spawn>().isOccupied)
         {
             try
@@ -83,7 +95,6 @@ public sealed class EliminationGameMode : GameMode
             return;
         }
 
-
         if (redTeam.All(player => !player.controlledPawn) && redTeam.Count != 0)
         {
             foreach (PlayerNetworking player in greenTeam)
@@ -93,13 +104,13 @@ public sealed class EliminationGameMode : GameMode
 
             StartCoroutine(NewRound());
             return;
-        }
-      
+        }    
     }
 
     private IEnumerator NewRound()
     {
         waitingForNewRound = true;
+
         yield return new WaitForSeconds(3.5f);
 
         GameManager.Instance.StopGame();

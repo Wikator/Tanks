@@ -8,13 +8,13 @@ public sealed class GameManager : NetworkBehaviour
     public static GameManager Instance { get; private set; }
 
     [SyncObject]
-    public readonly SyncList<PlayerNetworking> players = new();
+    public readonly SyncHashSet<PlayerNetworking> players = new();
 
     [SyncVar, HideInInspector]
     public bool canStart;
 
     [SyncVar]
-    public bool gameInProgress;
+    public bool gameInProgress = false;
 
     [SyncVar]
     public int playersReady = 0;
@@ -26,7 +26,6 @@ public sealed class GameManager : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
-        gameInProgress = false;
     }
 
     private void Update()
@@ -38,9 +37,6 @@ public sealed class GameManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void StartGame()
     {
-        if (!canStart)
-            return;
-
         gameInProgress = true;
 
         foreach (PlayerNetworking player in players)
