@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections;
 using UnityEngine;
+using FishNet.Object;
 
 public sealed class EliminationGameMode : GameMode
 {
@@ -80,9 +81,8 @@ public sealed class EliminationGameMode : GameMode
 
     private void Update()
     {
-        if (waitingForNewRound)
+        if (waitingForNewRound || !IsServer)
             return;
-
 
         if (greenTeam.All(player => !player.controlledPawn) && greenTeam.Count != 0)
         {
@@ -90,7 +90,7 @@ public sealed class EliminationGameMode : GameMode
             {
                 PointScored(player, 1);
             }
-
+            Debug.Log(0);
             StartCoroutine(NewRound());
             return;
         }
@@ -102,10 +102,39 @@ public sealed class EliminationGameMode : GameMode
                 PointScored(player, 1);
             }
 
+            Debug.Log(0);
+
             StartCoroutine(NewRound());
             return;
         }    
     }
+
+
+    [Server]
+    public void StartNewRound(GameManager gameManager)
+    {
+        foreach (PlayerNetworking player in gameManager.players)
+        {
+            player.StartGame();
+        }
+
+        UIManager.Instance.SetUpUI(gameManager.gameInProgress, gameManager.gameMode);
+
+        if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
+        {
+            eliminationGameMode.waitingForNewRound = false;
+        }
+    }
+
+    [Server]
+    public void KillAllPlayers()
+    {
+        foreach (PlayerNetworking player in GameManager.Instance.players)
+        {
+            player.StopGame();
+        }
+    }
+
 
     private IEnumerator NewRound()
     {
@@ -113,7 +142,7 @@ public sealed class EliminationGameMode : GameMode
 
         yield return new WaitForSeconds(3.5f);
 
-        GameManager.Instance.StopGame();
+        KillAllPlayers();
 
         foreach (Transform child in bulletEmpty)
         {
@@ -121,6 +150,7 @@ public sealed class EliminationGameMode : GameMode
         }
 
         yield return new WaitForSeconds(2.0f);
-        GameManager.Instance.StartGame();
+
+        StartNewRound(GameManager.Instance);
     }
 }

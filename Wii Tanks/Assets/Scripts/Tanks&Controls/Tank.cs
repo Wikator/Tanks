@@ -155,13 +155,19 @@ public abstract class Tank : NetworkBehaviour
     public override void OnDespawnServer(NetworkConnection connection)
     {
         base.OnDespawnServer(connection);
+
+        if (!IsOwner)
+            return;
+
         SubscribeToTimeManager(false);
     }
 
     private void OnDestroy()
     {
-        if (TimeManager != null)
+        if (TimeManager != null && IsOwner)
+        {
             SubscribeToTimeManager(false);
+        }
     }
 
     private void GatherInputs(out MoveData data)

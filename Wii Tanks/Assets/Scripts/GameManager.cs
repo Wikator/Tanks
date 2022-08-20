@@ -51,13 +51,4 @@ public sealed class GameManager : NetworkBehaviour
             eliminationGameMode.waitingForNewRound = false;
         }
     }
-
-    [ServerRpc(RequireOwnership = false)]
-    public void StopGame()
-    {
-        foreach(PlayerNetworking player in players)
-        {
-            player.StopGame();
-        }
-    }
 }

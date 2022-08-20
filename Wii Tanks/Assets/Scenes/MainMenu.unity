@@ -333,9 +333,9 @@ MonoBehaviour:
   _attackResponseType: 1
   _ipv4BindAddress: 
   _ipv6BindAddress: 
-  _port: 20866
+  _port: 7770
   _maximumClients: 4095
-  _clientAddress: eu-west.cloud.playflow.app
+  _clientAddress: localhost
   _timeout: 15
 --- !u!1 &1054116376
 GameObject:
