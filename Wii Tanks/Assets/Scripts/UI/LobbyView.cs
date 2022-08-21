@@ -14,7 +14,7 @@ public abstract class LobbyView : View
     [SerializeField]
     protected Button startGameButton;
 
-    private void Update()
+    private void LateUpdate()
     {
         if (!Initialized)
             return;

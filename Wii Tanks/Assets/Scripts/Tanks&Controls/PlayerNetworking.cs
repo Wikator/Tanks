@@ -9,7 +9,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public static PlayerNetworking Instance { get; private set; }
 
     [SyncVar]
-    public string color = "None", tankType = "None";
+    public string color, tankType;
 
     [SyncVar]
     public Tank controlledPawn;
@@ -24,6 +24,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
+
+        color = "None";
+        tankType = "None";
 
         try
         {

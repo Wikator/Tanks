@@ -284,7 +284,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4692
+  m_VersionIndex: 4695
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -475,6 +475,7 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: -8275027250751033499}
   - {fileID: 8558997644236108270}
+  - {fileID: 8837940133468925768}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1237,7 +1238,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2299
+  m_VersionIndex: 2302
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1331,9 +1332,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 497388105468288731}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 497388105468288731}
   _synchronizeParent: 0
   _packing:
     Position: 1

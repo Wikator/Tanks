@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using System.Collections;
-using FishNet.Object;
 
 public sealed class DeathmatchGameMode : GameMode
 {
