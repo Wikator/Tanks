@@ -6,8 +6,7 @@ using UnityEngine;
 
 public sealed class BulletScript : NetworkBehaviour
 {
-    [SerializeField]
-    private float moveSpeed;
+    public float moveSpeed;
 
     [SerializeField]
     private int ricochetCount;
@@ -34,12 +33,14 @@ public sealed class BulletScript : NetworkBehaviour
         Despawn();
     }
 
+    [Server]
     private IEnumerator TurnOnCollider()
     {
         yield return new WaitForSeconds(0.07f);
         gameObject.GetComponent<SphereCollider>().enabled = true;
     }
 
+    [Server]
     private IEnumerator DespawnItself()
     {
         rigidBody.velocity = Vector3.zero;

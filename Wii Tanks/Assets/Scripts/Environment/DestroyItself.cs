@@ -1,4 +1,3 @@
-using FishNet.Connection;
 using FishNet.Object;
 using System.Collections;
 using UnityEngine;
@@ -12,13 +11,14 @@ public sealed class DestroyItself : NetworkBehaviour
     private bool destroyOnSpawn;
 
 
-    public override void OnSpawnServer(NetworkConnection connection)
+    public override void OnStartServer()
     {
-        base.OnSpawnServer(connection);
+        base.OnStartServer();
         if (destroyOnSpawn)
             StartCoroutine(DespawnItselfDeleyed());
     }
 
+    [Server]
     public IEnumerator DespawnItselfDeleyed()
     {
         yield return new WaitForSeconds(timeToDestroy);

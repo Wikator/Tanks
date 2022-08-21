@@ -45,14 +45,16 @@ public sealed class PlayerNetworking : NetworkBehaviour
         if (GameManager.Instance.gameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
             return;
 
-        if (FindObjectOfType<EliminationGameMode>().greenTeam.Contains(this))
+        EliminationGameMode eliminationGameMode = FindObjectOfType<EliminationGameMode>();
+
+        if (eliminationGameMode.greenTeam.Contains(this))
         {
-            FindObjectOfType<EliminationGameMode>().greenTeam.Remove(this);
+            eliminationGameMode.greenTeam.Remove(this);
         }
 
-        if (FindObjectOfType<EliminationGameMode>().redTeam.Contains(this))
+        if (eliminationGameMode.redTeam.Contains(this))
         {
-            FindObjectOfType<EliminationGameMode>().redTeam.Remove(this);
+            eliminationGameMode.redTeam.Remove(this);
         }
     }
 
@@ -66,6 +68,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         Instance = this;
     }
 
+    [Server]
     public void StartGame()
     {
         GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(tankType + "Pawn").WaitForCompletion(), FindObjectOfType<GameMode>().FindSpawnPosition(color), Quaternion.identity, transform);
@@ -74,6 +77,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         Spawn(playerInstance, Owner);
     }
 
+    [Server]
     public void StopGame()
     {
         if (controlledPawn != null && controlledPawn.IsSpawned)
@@ -92,21 +96,23 @@ public sealed class PlayerNetworking : NetworkBehaviour
     [ServerRpc]
     public void SetTeams(string color)
     {
+        EliminationGameMode eliminationGameMode = FindObjectOfType<EliminationGameMode>();
+
         switch (color)
         {
             case "Green":
-                if (FindObjectOfType<EliminationGameMode>().redTeam.Contains(this))
-                    FindObjectOfType<EliminationGameMode>().redTeam.Remove(this);
+                if (eliminationGameMode.redTeam.Contains(this))
+                    eliminationGameMode.redTeam.Remove(this);
 
-                if (!FindObjectOfType<EliminationGameMode>().greenTeam.Contains(this))
-                    FindObjectOfType<EliminationGameMode>().greenTeam.Add(this);
+                if (!eliminationGameMode.greenTeam.Contains(this))
+                    eliminationGameMode.greenTeam.Add(this);
                 break;
             case "Red":
-                if (FindObjectOfType<EliminationGameMode>().greenTeam.Contains(this))
-                    FindObjectOfType<EliminationGameMode>().greenTeam.Remove(this);
+                if (eliminationGameMode.greenTeam.Contains(this))
+                    eliminationGameMode.greenTeam.Remove(this);
 
-                if (!FindObjectOfType<EliminationGameMode>().redTeam.Contains(this))
-                    FindObjectOfType<EliminationGameMode>().redTeam.Add(this);
+                if (!eliminationGameMode.redTeam.Contains(this))
+                    eliminationGameMode.redTeam.Add(this);
                 break;
         }
     }

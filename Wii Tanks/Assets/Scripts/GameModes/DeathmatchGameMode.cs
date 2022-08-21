@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using FishNet.Object;
 
 public sealed class DeathmatchGameMode : GameMode
 {
@@ -30,9 +31,11 @@ public sealed class DeathmatchGameMode : GameMode
 
     public override Vector3 FindSpawnPosition(string color)
     {
-        int randomNumber = UnityEngine.Random.Range(0, spawnCount);
+        color = "NoTeams";
 
-        if (spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied)
+        Transform spawn = spawns[color][UnityEngine.Random.Range(0, spawnCount)];
+
+        if (spawn.GetComponent<Spawn>().isOccupied)
         {
             try
             {
@@ -40,17 +43,16 @@ public sealed class DeathmatchGameMode : GameMode
             }
             catch (StackOverflowException)
             {
-                spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied = true;
-                return spawns["NoTeams"][randomNumber].position;
+                spawn.GetComponent<Spawn>().isOccupied = true;
+                return spawn.position;
             }
         }
         else
         {
-            spawns["NoTeams"][randomNumber].GetComponent<Spawn>().isOccupied = true;
-            return spawns["NoTeams"][randomNumber].position;
+            spawn.GetComponent<Spawn>().isOccupied = true;
+            return spawn.position;
         }
     }
-
 
     private IEnumerator Respawn(PlayerNetworking controllingPLayer, float time)
     {

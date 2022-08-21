@@ -1,4 +1,3 @@
-using FishNet.Connection;
 using FishNet.Object;
 using FishNet.Object.Prediction;
 using FishNet.Object.Synchronizing;
@@ -67,8 +66,8 @@ public abstract class Tank : NetworkBehaviour
 
     private GameMode gameModeManager;
     private CharacterController controller;
-    private Transform explosionEmpty;
-    private GameObject explosion, turret;
+    private Transform explosionEmpty, turret;
+    private GameObject explosion;
     private Camera cam;
 
     private LayerMask raycastLayer;
@@ -82,8 +81,8 @@ public abstract class Tank : NetworkBehaviour
         ammoCount = maxAmmo;
         controller = GetComponent<CharacterController>();
         gameModeManager = FindObjectOfType<GameMode>();
-        turret = transform.GetChild(0).gameObject;
-        bulletSpawn = turret.transform.GetChild(0).transform;
+        turret = transform.GetChild(0);
+        bulletSpawn = turret.GetChild(0);
         bulletEmpty = GameObject.Find("Bullets").transform;
         explosionEmpty = GameObject.Find("Explosions").transform;
         ChangeColours(controllingPlayer.color);
@@ -98,8 +97,8 @@ public abstract class Tank : NetworkBehaviour
         ammoCount = maxAmmo;
         controller = GetComponent<CharacterController>();
         gameModeManager = FindObjectOfType<GameMode>();
-        turret = transform.GetChild(0).gameObject;
-        bulletSpawn = turret.transform.GetChild(0).transform;
+        turret = transform.GetChild(0);
+        bulletSpawn = turret.GetChild(0);
         bulletEmpty = GameObject.Find("Bullets").transform;
         explosionEmpty = GameObject.Find("Explosions").transform;
         ChangeColours(controllingPlayer.color);
@@ -138,38 +137,30 @@ public abstract class Tank : NetworkBehaviour
         if (IsServer)
         {
             Move(default, true);
-            ReconcileData rd = new(transform.position, transform.rotation, turret.transform.rotation);
+            ReconcileData rd = new(transform.position, transform.rotation, turret.rotation);
             Reconciliation(rd, true);
         }
     }
 
+    [Server]
     public void GameOver()
     {
-        //Destroy(pointer);
         controllingPlayer.controlledPawn = null;
         gameModeManager.OnKilled(controllingPlayer);
         Spawn(Instantiate(explosion, transform.position, transform.rotation, explosionEmpty));
         Despawn();
+        //Destroy(gameObject);
     }
 
-    public override void OnDespawnServer(NetworkConnection connection)
+
+    public override void OnStopNetwork()
     {
-        base.OnDespawnServer(connection);
-
-        if (!IsOwner)
-            return;
-
-        SubscribeToTimeManager(false);
-    }
-
-    private void OnDestroy()
-    {
-        if (TimeManager != null && IsOwner)
-        {
+        base.OnStopNetwork();
+        if (TimeManager)
             SubscribeToTimeManager(false);
-        }
     }
 
+    [Client]
     private void GatherInputs(out MoveData data)
     {
         moveAxis = Input.GetAxis("Vertical");
@@ -183,7 +174,7 @@ public abstract class Tank : NetworkBehaviour
     public void ChangeColours (string color)
     {
         gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
-        transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
+        turret.gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
         bullet = Addressables.LoadAssetAsync<GameObject>(color + bulletType + "Bullet").WaitForCompletion();
         explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
     }
@@ -211,10 +202,8 @@ public abstract class Tank : NetworkBehaviour
         controller.Move((float)TimeManager.TickDelta * data.MoveAxis * moveSpeed * transform.forward);
         transform.Rotate(new Vector3(0f, data.RotateAxis * rotateSpeed * (float)TimeManager.TickDelta, 0f));
 
-        turret.transform.LookAt(data.TurretLookDirection, Vector3.up);
-        turret.transform.localEulerAngles = new Vector3(0, turret.transform.localEulerAngles.y, 0);
-
-        //pointer.transform.position = data.TurretLookDirection;
+        turret.LookAt(data.TurretLookDirection, Vector3.up);
+        turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
     }
 
     [Reconcile]
@@ -223,7 +212,7 @@ public abstract class Tank : NetworkBehaviour
     {
         transform.SetPositionAndRotation(data.Position, data.TankRotation);
 
-        turret.transform.rotation = data.TurretRotation;
+        turret.rotation = data.TurretRotation;
     }
 }
 

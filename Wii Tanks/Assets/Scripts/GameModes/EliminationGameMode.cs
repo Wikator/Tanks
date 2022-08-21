@@ -46,39 +46,6 @@ public sealed class EliminationGameMode : GameMode
         }
     }
 
-    public override Vector3 FindSpawnPosition(string color)
-    {
-        int randomNumber = color switch
-        {
-            "Green" => UnityEngine.Random.Range(0, greenSpawnCount),
-            "Red" => UnityEngine.Random.Range(0, redSpawnCount),
-            _ => 0
-        };
-
-        if (spawns[color][randomNumber].GetComponent<Spawn>().isOccupied)
-        {
-            try
-            {
-                return FindSpawnPosition(color);
-            }
-            catch (StackOverflowException)
-            {
-                spawns[color][randomNumber].GetComponent<Spawn>().isOccupied = true;
-                return spawns[color][randomNumber].position;
-            }
-        }
-        else
-        {
-            spawns[color][randomNumber].GetComponent<Spawn>().isOccupied = true;
-            return spawns[color][randomNumber].position;
-        }
-    }
-
-    public override void OnKilled(PlayerNetworking controllingLayer)
-    {
-        return;
-    }
-
     private void Update()
     {
         if (waitingForNewRound || !IsServer)
@@ -107,6 +74,41 @@ public sealed class EliminationGameMode : GameMode
             StartCoroutine(NewRound());
             return;
         }    
+    }
+
+    public override void OnKilled(PlayerNetworking controllingLayer)
+    {
+        return;
+    }
+
+    public override Vector3 FindSpawnPosition(string color)
+    {
+        int randomNumber = color switch
+        {
+            "Green" => UnityEngine.Random.Range(0, greenSpawnCount),
+            "Red" => UnityEngine.Random.Range(0, redSpawnCount),
+            _ => 0
+        };
+
+        Transform spawn = spawns[color][randomNumber];
+
+        if (spawn.GetComponent<Spawn>().isOccupied)
+        {
+            try
+            {
+                return FindSpawnPosition(color);
+            }
+            catch (StackOverflowException)
+            {
+                spawn.GetComponent<Spawn>().isOccupied = true;
+                return spawn.position;
+            }
+        }
+        else
+        {
+            spawn.GetComponent<Spawn>().isOccupied = true;
+            return spawn.position;
+        }
     }
 
 
