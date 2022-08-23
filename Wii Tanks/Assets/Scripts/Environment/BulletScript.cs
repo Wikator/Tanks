@@ -6,23 +6,36 @@ using UnityEngine;
 
 public sealed class BulletScript : NetworkBehaviour
 {
-    public float moveSpeed;
+    [SerializeField]
+    private float moveSpeed;
 
     [SerializeField]
     private int ricochetCount;
+
+    [SerializeField]
+    private bool isUnblockable;
+
+    private bool canDamageSelf;
 
     [HideInInspector]
     public PlayerNetworking player;
 
     private Rigidbody rigidBody;
 
+    private Vector3 currentVelocity;
+    private Vector3 currentPosition;
+    private Vector3 angularVelocity;
+
+    private void Awake()
+    {
+        rigidBody = GetComponent<Rigidbody>();
+    }
 
     public override void OnSpawnServer(NetworkConnection connection)
     {
         base.OnSpawnServer(connection);
-        rigidBody = GetComponent<Rigidbody>();
         rigidBody.velocity = transform.forward * moveSpeed;
-        StartCoroutine(TurnOnCollider());
+        canDamageSelf = false;
     }
 
     private void Update()
@@ -33,12 +46,13 @@ public sealed class BulletScript : NetworkBehaviour
         Despawn();
     }
 
-    [Server]
-    private IEnumerator TurnOnCollider()
+    private void FixedUpdate()
     {
-        yield return new WaitForSeconds(0.07f);
-        gameObject.GetComponent<SphereCollider>().enabled = true;
+        currentVelocity = rigidBody.velocity;
+        angularVelocity = rigidBody.angularVelocity;
+        currentPosition = transform.position;
     }
+
 
     [Server]
     private IEnumerator DespawnItself()
@@ -57,6 +71,7 @@ public sealed class BulletScript : NetworkBehaviour
         {
             ricochetCount--;
             rigidBody.velocity = Vector3.Reflect(-collision.relativeVelocity, collision.contacts[0].normal).normalized * moveSpeed;
+            canDamageSelf = true;
         }
 
         if (collision.gameObject.CompareTag("Tank"))
@@ -70,16 +85,42 @@ public sealed class BulletScript : NetworkBehaviour
                         if (GameManager.Instance.gameMode == "Deathmatch")
                             FindObjectOfType<GameMode>().PointScored(player.controlledPawn.controllingPlayer, 1);
                     }
+                    else
+                    {
+                        if (!canDamageSelf)
+                            return;
+                    }
                 }
             }
 
             collision.gameObject.GetComponent<Tank>().GameOver();
-            Despawn();
+
+            if (!isUnblockable)
+            {
+                Despawn();
+            }
+            else
+            {
+                Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), collision.collider);
+                rigidBody.velocity = currentVelocity;
+                rigidBody.angularVelocity = angularVelocity;
+                transform.position = currentPosition;
+            }
         }
 
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            StartCoroutine(DespawnItself());
+            if (!isUnblockable)
+            {
+                StartCoroutine(DespawnItself());
+            }
+            else
+            {
+                Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), collision.collider);
+                rigidBody.velocity = currentVelocity;
+                rigidBody.angularVelocity = angularVelocity;
+                transform.position = currentPosition;
+            }
         }
     }
 }

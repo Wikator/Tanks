@@ -41,10 +41,10 @@ public abstract class Tank : NetworkBehaviour
     private float moveSpeed, rotateSpeed;
 
     [SerializeField]
-    protected int maxAmmo;
+    protected float timeToReload, timeToAddAmmo;
 
     [SerializeField]
-    private string bulletType;
+    protected int maxAmmo;
 
     [HideInInspector]
     protected Transform bulletSpawn, bulletEmpty;
@@ -57,6 +57,9 @@ public abstract class Tank : NetworkBehaviour
 
     [SyncVar, HideInInspector]
     public PlayerNetworking controllingPlayer;
+
+    [SyncVar]
+    public bool canUseSpecialMove;
 
 
     private float moveAxis;
@@ -76,6 +79,7 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+        canUseSpecialMove = true;
         raycastLayer = (1 << 9);
         cam = Camera.main;
         ammoCount = maxAmmo;
@@ -92,6 +96,7 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
+        canUseSpecialMove = true;
         raycastLayer = (1 << 9);
         cam = Camera.main;
         ammoCount = maxAmmo;
@@ -103,6 +108,41 @@ public abstract class Tank : NetworkBehaviour
         explosionEmpty = GameObject.Find("Explosions").transform;
         ChangeColours(controllingPlayer.color);
         SubscribeToTimeManager(true);
+    }
+
+    private void Update()
+    {
+        if (!IsOwner)
+            return;
+
+        if (Input.GetMouseButtonDown(0) && ammoCount > 0)
+            Fire();
+
+        if (Input.GetMouseButtonDown(1) && canUseSpecialMove)
+            SpecialMove();
+    }
+
+    [ServerRpc]
+    protected virtual void Fire()
+    {
+        StopAllCoroutines();
+        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        Spawn(bulletInstance);
+        bulletInstance.GetComponent<BulletScript>().player = controllingPlayer;
+        ammoCount--;
+        StartCoroutine(AddAmmo(timeToReload, timeToAddAmmo));
+    }
+
+    protected abstract void SpecialMove();
+
+
+    protected IEnumerator AddAmmo(float timeToReload, float timeToAddAmmo)
+    {
+        yield return new WaitForSeconds(timeToReload);
+        ammoCount++;
+
+        if (ammoCount != maxAmmo)
+            StartCoroutine(AddAmmo(timeToAddAmmo, timeToAddAmmo));
     }
 
     private void SubscribeToTimeManager(bool subscribe)
@@ -171,25 +211,12 @@ public abstract class Tank : NetworkBehaviour
         data = new MoveData(moveAxis, rotateAxis, hit.point);
     }
 
-    public void ChangeColours (string color)
+    public virtual void ChangeColours (string color)
     {
         gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
         turret.gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
-        bullet = Addressables.LoadAssetAsync<GameObject>(color + bulletType + "Bullet").WaitForCompletion();
         explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
     }
-
-    protected abstract void Fire();
-
-    protected IEnumerator AddAmmo(float timeToReload, float timeToAddAmmo)
-    {
-        yield return new WaitForSeconds(timeToReload);
-        ammoCount++;
-
-        if (ammoCount != maxAmmo)
-            StartCoroutine(AddAmmo(timeToAddAmmo, timeToAddAmmo));
-    }
-
 
 
     [Replicate]
