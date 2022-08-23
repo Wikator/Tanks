@@ -7624,9 +7624,9 @@ MonoBehaviour:
   - {fileID: 1521283543}
   - {fileID: 1176498113}
   SceneTransformProperties:
-    Position: {x: 375, y: 211, z: 0}
+    Position: {x: 342.5, y: 192.5, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 0.7814815, y: 0.7814815, z: 0.7814815}
+    LocalScale: {x: 0.712963, y: 0.712963, z: 0.712963}
   _isNetworked: 1
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0

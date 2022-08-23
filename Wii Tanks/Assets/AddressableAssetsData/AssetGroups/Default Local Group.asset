@@ -169,6 +169,10 @@ MonoBehaviour:
     m_Address: YellowDestroyerBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: dc9cfab2a5a1fa442b5ab3413133daa9
+    m_Address: ScoutPawn
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
   m_SchemaSet:
