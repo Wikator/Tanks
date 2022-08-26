@@ -74,6 +74,8 @@ public sealed class BulletScript : NetworkBehaviour
         {
             ricochetCount--;
             rigidBody.velocity = Vector3.Reflect(-collision.relativeVelocity, collision.contacts[0].normal).normalized * moveSpeed;
+            rigidBody.angularVelocity = angularVelocity;
+            transform.position = currentPosition;
             canDamageSelf = true;
         }
 
