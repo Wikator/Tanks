@@ -7,15 +7,13 @@ public class ScoutTank : Tank
     [ServerRpc]
     protected override void Fire()
     {
-        for (int i = -3; i < 4; i++)
+        StopAllCoroutines();
+        for (int i = -5; i < 10; i+=5)
         {
-            StopAllCoroutines();
-            Debug.Log(bullet);
             GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-            bulletInstance.transform.Rotate(0.0f, i * 15, 0.0f, Space.Self);
-            bulletInstance.transform.position += transform.forward * 3;
+            bulletInstance.transform.Rotate(new Vector3(0.0f, i, 0.0f));
             Spawn(bulletInstance);
-            bulletInstance.GetComponent<BulletScript>().player = controllingPlayer;
+            bulletInstance.GetComponent<ScoutBulletScript>().player = controllingPlayer;
         }
         ammoCount--;
         StartCoroutine(AddAmmo(timeToReload, timeToAddAmmo));
@@ -26,10 +24,10 @@ public class ScoutTank : Tank
     {
         return;
     }
-
+     
     public override void ChangeColours(string color)
     {
         base.ChangeColours(color);
-        bullet = Addressables.LoadAssetAsync<GameObject>(color + "MediumTankBullet").WaitForCompletion();
+        bullet = Addressables.LoadAssetAsync<GameObject>(color + "ScoutBullet").WaitForCompletion();
     }
 }

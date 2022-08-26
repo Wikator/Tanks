@@ -8,6 +8,7 @@
     <type fullname="GameManager" preserve="all" />
     <type fullname="NormalTank" preserve="all" />
     <type fullname="PlayerNetworking" preserve="all" />
+    <type fullname="ScoutBulletScript" preserve="all" />
     <type fullname="ScoutTank" preserve="all" />
   </assembly>
   <assembly fullname="FishNet.Generated, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">

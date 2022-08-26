@@ -173,6 +173,30 @@ MonoBehaviour:
     m_Address: ScoutPawn
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 9afb7a7c46c7b3441ac461182bfa331f
+    m_Address: BrownScoutBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 368b134824022c14ca94dcf4312bd701
+    m_Address: CyanScoutBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 2fc5c825e226a0640b1da6d3e897f3f7
+    m_Address: GreenScoutBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 04021e87be17be54e99ddc02679b24aa
+    m_Address: PurpleScoutBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d5c33783af7d6384092e5da2db488e14
+    m_Address: RedScoutBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 58db606be892fb744b30bcf6520b9ab1
+    m_Address: YellowScoutBullet
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
   m_SchemaSet:

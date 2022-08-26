@@ -117,10 +117,9 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -8405391744002029082}
   _networkObjectCache: {fileID: -8405391744002029082}
-  moveSpeed: 15
+  moveSpeed: 18
   ricochetCount: 3
   isUnblockable: 0
-  timeToTurnOnCollider: 0
   player: {fileID: 0}
 --- !u!54 &-5833880829761614842
 Rigidbody:
@@ -161,7 +160,7 @@ MonoBehaviour:
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 22
+  _prefabId: 13
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects: []

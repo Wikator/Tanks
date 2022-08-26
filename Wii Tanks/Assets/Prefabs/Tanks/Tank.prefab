@@ -1285,7 +1285,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1296544350757411768}
   _networkObjectCache: {fileID: 1296544350757411768}
-  moveSpeed: 7
+  moveSpeed: 6
   rotateSpeed: 150
   timeToReload: 1.5
   timeToAddAmmo: 0.4
@@ -1359,7 +1359,7 @@ MonoBehaviour:
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 15
+  _prefabId: 28
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects: []

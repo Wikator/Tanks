@@ -369,10 +369,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d4fbd7b211512e4aaafea187e0ebe66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5934193943603683480}
-  _networkObjectCache: {fileID: 0}
-  moveSpeed: 10
+  _networkObjectCache: {fileID: 5934193943603683480}
+  moveSpeed: 7
   rotateSpeed: 200
   timeToReload: 3
   timeToAddAmmo: 1
@@ -435,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkBehaviours:
-  - {fileID: 0}
+  - {fileID: -4450608807010333337}
   - {fileID: 4276468568968634520}
   - {fileID: 6376323870347796632}
   SceneTransformProperties:
@@ -446,7 +446,7 @@ MonoBehaviour:
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 7
+  _prefabId: 22
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:

@@ -40,7 +40,7 @@ public sealed class BulletScript : NetworkBehaviour
 
     private void Update()
     {
-        if (ricochetCount >= 0 || rigidBody.velocity == Vector3.zero)
+        if (ricochetCount >= 0)
             return;
 
         Despawn();
@@ -48,6 +48,9 @@ public sealed class BulletScript : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        if (!isUnblockable)
+            return;
+
         currentVelocity = rigidBody.velocity;
         angularVelocity = rigidBody.angularVelocity;
         currentPosition = transform.position;

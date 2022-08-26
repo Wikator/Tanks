@@ -6419,7 +6419,7 @@ GameObject:
   - component: {fileID: 777917085}
   - component: {fileID: 777917084}
   m_Layer: 5
-  m_Name: Destroyer
+  m_Name: Scout
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
