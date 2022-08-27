@@ -128,7 +128,7 @@ public abstract class Tank : NetworkBehaviour
         StopAllCoroutines();
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Spawn(bulletInstance);
-        bulletInstance.GetComponent<BulletScript>().player = controllingPlayer;
+        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
         ammoCount--;
         StartCoroutine(AddAmmo(timeToReload, timeToAddAmmo));
     }

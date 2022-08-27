@@ -8,7 +8,7 @@ public class ScoutTank : Tank
     protected override void Fire()
     {
         StopAllCoroutines();
-        for (int i = -5; i < 10; i+=5)
+        for (int i = -3; i < 6; i+=3)
         {
             GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
             bulletInstance.transform.Rotate(new Vector3(0.0f, i, 0.0f));

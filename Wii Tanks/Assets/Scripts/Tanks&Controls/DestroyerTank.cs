@@ -14,7 +14,7 @@ public sealed class DestroyerTank : Tank
         ammoCount = 0;
         GameObject bulletInstance = Instantiate(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Spawn(bulletInstance);
-        bulletInstance.GetComponent<BulletScript>().player = controllingPlayer;
+        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
         StartCoroutine(AddAmmo(timeToReload, timeToAddAmmo));
     }
 

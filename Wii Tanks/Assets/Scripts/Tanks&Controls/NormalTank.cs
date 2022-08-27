@@ -16,12 +16,12 @@ public sealed class NormalTank : Tank
     [Server]
     private IEnumerator Barrage()
     {
-        for (int i = 0; i < 25; i++)
+        for (int i = 0; i < 20; i++)
         {
             GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
             Spawn(bulletInstance);
-            bulletInstance.GetComponent<BulletScript>().player = controllingPlayer;
-            yield return new WaitForSeconds(0.1f);
+            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+            yield return new WaitForSeconds(0.2f);
         }
         StartCoroutine(AddAmmo(timeToReload, timeToAddAmmo));
     }

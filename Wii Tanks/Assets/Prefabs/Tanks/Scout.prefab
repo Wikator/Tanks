@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: -4450608807010333337}
   - component: {fileID: 4276468568968634520}
   - component: {fileID: 5934193943603683480}
+  - component: {fileID: 7883671929580542898}
   m_Layer: 0
   m_Name: Scout
   m_TagString: Tank
@@ -32,7 +33,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2293147736009711768}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.289172, y: 0.2, z: 0.13540368}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -439,7 +440,7 @@ MonoBehaviour:
   - {fileID: 4276468568968634520}
   - {fileID: 6376323870347796632}
   SceneTransformProperties:
-    Position: {x: 0.289172, y: 0.2, z: 0.13540368}
+    Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
@@ -451,6 +452,14 @@ MonoBehaviour:
   _sceneId: 0
   _sceneNetworkObjects:
   - {fileID: 5934193943603683480}
+--- !u!33 &7883671929580542898
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2293147736009711768}
+  m_Mesh: {fileID: 0}
 --- !u!1 &6961542717698515096
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +484,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6961542717698515096}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.463}
+  m_LocalPosition: {x: 0, y: 0, z: 0.525}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

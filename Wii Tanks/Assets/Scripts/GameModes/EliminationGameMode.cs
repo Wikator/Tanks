@@ -148,7 +148,7 @@ public sealed class EliminationGameMode : GameMode
 
         foreach (Transform child in bulletEmpty)
         {
-            child.GetComponent<BulletScript>().Despawn();
+            child.GetComponent<Bullet>().Despawn();
         }
 
         yield return new WaitForSeconds(2.0f);

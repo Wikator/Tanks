@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3890733192334590157}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.463}
+  m_LocalPosition: {x: 0, y: 0, z: 0.525}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -420,6 +420,7 @@ MonoBehaviour:
   ammoCount: 0
   controllingPlayer: {fileID: 0}
   canUseSpecialMove: 0
+  specialBullet: {fileID: 0}
 --- !u!114 &8558997644236108270
 MonoBehaviour:
   m_ObjectHideFlags: 0
