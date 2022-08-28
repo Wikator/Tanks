@@ -5,6 +5,9 @@ using UnityEngine.AddressableAssets;
 
 public class ScoutTank : Tank
 {
+    [SerializeField]
+    private int spreadAngle;
+
     [System.Serializable]
     private struct FastModeStats
     {
@@ -28,7 +31,7 @@ public class ScoutTank : Tank
             routine = null;
         }
 
-        for (int i = -3; i < 6; i+=3)
+        for (int i = -spreadAngle; i < spreadAngle*2; i+=spreadAngle)
         {
             GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
             bulletInstance.transform.Rotate(new Vector3(0.0f, i, 0.0f));

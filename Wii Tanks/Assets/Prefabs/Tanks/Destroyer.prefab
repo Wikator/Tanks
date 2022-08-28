@@ -414,7 +414,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 497388105468288731}
   canUseSpecialMove: 1
   stats:
-    moveSpeed: 4.5
+    moveSpeed: 4
     rotateSpeed: 100
     timeToReload: 2
     timeToAddAmmo: 0

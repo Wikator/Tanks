@@ -1285,15 +1285,15 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1296544350757411768}
   _networkObjectCache: {fileID: 1296544350757411768}
+  canUseSpecialMove: 1
   stats:
-    moveSpeed: 6
+    moveSpeed: 5.5
     rotateSpeed: 150
     timeToReload: 1.5
     timeToAddAmmo: 0.4
     maxAmmo: 5
   ammoCount: 0
   controllingPlayer: {fileID: 0}
-  canUseSpecialMove: 1
 --- !u!114 &7052347765472851085
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -57,7 +57,7 @@ public sealed class EliminationGameMode : GameMode
             {
                 PointScored(player, 1);
             }
-            Debug.Log(0);
+
             StartCoroutine(NewRound());
             return;
         }
@@ -68,8 +68,6 @@ public sealed class EliminationGameMode : GameMode
             {
                 PointScored(player, 1);
             }
-
-            Debug.Log(0);
 
             StartCoroutine(NewRound());
             return;
