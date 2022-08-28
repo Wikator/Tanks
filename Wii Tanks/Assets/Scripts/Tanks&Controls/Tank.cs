@@ -8,6 +8,9 @@ using UnityEngine.AddressableAssets;
 
 public abstract class Tank : NetworkBehaviour
 {
+    [SyncVar]
+    public bool canUseSpecialMove;
+
     private struct MoveData
     {
         public float MoveAxis;
@@ -36,15 +39,18 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
+    [System.Serializable]
+    protected struct TankStats
+    {
+        public float moveSpeed;
+        public float rotateSpeed;
+        public float timeToReload;
+        public float timeToAddAmmo;
+        public int maxAmmo;
+    }
 
     [SerializeField]
-    private float moveSpeed, rotateSpeed;
-
-    [SerializeField]
-    protected float timeToReload, timeToAddAmmo;
-
-    [SerializeField]
-    protected int maxAmmo;
+    protected TankStats stats;
 
     [HideInInspector]
     protected Transform bulletSpawn, bulletEmpty;
@@ -57,9 +63,6 @@ public abstract class Tank : NetworkBehaviour
 
     [SyncVar, HideInInspector]
     public PlayerNetworking controllingPlayer;
-
-    [SyncVar]
-    public bool canUseSpecialMove;
 
 
     private float moveAxis;
@@ -75,14 +78,15 @@ public abstract class Tank : NetworkBehaviour
 
     private LayerMask raycastLayer;
 
+    protected Coroutine routine;
+
 
     public override void OnStartClient()
     {
         base.OnStartClient();
-        canUseSpecialMove = true;
         raycastLayer = (1 << 9);
         cam = Camera.main;
-        ammoCount = maxAmmo;
+        ammoCount = stats.maxAmmo;
         controller = GetComponent<CharacterController>();
         gameModeManager = FindObjectOfType<GameMode>();
         turret = transform.GetChild(0);
@@ -96,10 +100,9 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-        canUseSpecialMove = true;
         raycastLayer = (1 << 9);
         cam = Camera.main;
-        ammoCount = maxAmmo;
+        ammoCount = stats.maxAmmo;
         controller = GetComponent<CharacterController>();
         gameModeManager = FindObjectOfType<GameMode>();
         turret = transform.GetChild(0);
@@ -125,24 +128,35 @@ public abstract class Tank : NetworkBehaviour
     [ServerRpc]
     protected virtual void Fire()
     {
-        StopAllCoroutines();
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+            routine = null;
+        }
+
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Spawn(bulletInstance);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
         ammoCount--;
-        StartCoroutine(AddAmmo(timeToReload, timeToAddAmmo));
+        routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }
 
     protected abstract void SpecialMove();
 
 
-    protected IEnumerator AddAmmo(float timeToReload, float timeToAddAmmo)
+    protected IEnumerator AddAmmo(float time)
     {
-        yield return new WaitForSeconds(timeToReload);
+        yield return new WaitForSeconds(time);
         ammoCount++;
 
-        if (ammoCount != maxAmmo)
-            StartCoroutine(AddAmmo(timeToAddAmmo, timeToAddAmmo));
+        if (ammoCount != stats.maxAmmo)
+        {
+            routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
+        }
+        else
+        {
+            routine = null;
+        }   
     }
 
     private void SubscribeToTimeManager(bool subscribe)
@@ -196,8 +210,11 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStopNetwork()
     {
         base.OnStopNetwork();
+
         if (TimeManager)
+        {
             SubscribeToTimeManager(false);
+        }
     }
 
     [Client]
@@ -226,8 +243,8 @@ public abstract class Tank : NetworkBehaviour
         if (!IsSpawned)
             return;
 
-        controller.Move((float)TimeManager.TickDelta * data.MoveAxis * moveSpeed * transform.forward);
-        transform.Rotate(new Vector3(0f, data.RotateAxis * rotateSpeed * (float)TimeManager.TickDelta, 0f));
+        controller.Move((float)TimeManager.TickDelta * data.MoveAxis * stats.moveSpeed * transform.forward);
+        transform.Rotate(new Vector3(0f, data.RotateAxis * stats.rotateSpeed * (float)TimeManager.TickDelta, 0f));
 
         turret.LookAt(data.TurretLookDirection, Vector3.up);
         turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);

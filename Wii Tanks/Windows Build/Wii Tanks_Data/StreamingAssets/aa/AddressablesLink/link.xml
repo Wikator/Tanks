@@ -10,6 +10,8 @@
     <type fullname="PlayerNetworking" preserve="all" />
     <type fullname="ScoutBulletScript" preserve="all" />
     <type fullname="ScoutTank" preserve="all" />
+    <type fullname="ScoutTank/FastModeStats" preserve="nothing" serialized="true" />
+    <type fullname="Tank/TankStats" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="FishNet.Generated, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="FishNet.Component.Transforming.NetworkTransform" preserve="all" />

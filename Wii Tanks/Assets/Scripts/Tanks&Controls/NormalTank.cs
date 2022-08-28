@@ -8,7 +8,12 @@ public sealed class NormalTank : Tank
     [ServerRpc]
     protected override void SpecialMove()
     {
-        StopAllCoroutines();
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+            routine = null;
+        }
+
         ammoCount = 0;
         StartCoroutine(Barrage());
     }
@@ -23,7 +28,7 @@ public sealed class NormalTank : Tank
             bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
             yield return new WaitForSeconds(0.2f);
         }
-        StartCoroutine(AddAmmo(timeToReload, timeToAddAmmo));
+        routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
     }
 
     public override void ChangeColours(string color)

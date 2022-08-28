@@ -4,18 +4,22 @@ using UnityEngine.AddressableAssets;
 
 public sealed class DestroyerTank : Tank
 {
-    [SerializeField]
     private GameObject specialBullet;
 
     [ServerRpc]
     protected override void SpecialMove()
     {
-        StopAllCoroutines();
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+            routine = null;
+        }
+
         ammoCount = 0;
         GameObject bulletInstance = Instantiate(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Spawn(bulletInstance);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-        StartCoroutine(AddAmmo(timeToReload, timeToAddAmmo));
+        routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
     }
 
     public override void ChangeColours(string color)
