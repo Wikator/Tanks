@@ -117,7 +117,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -8405391744002029082}
   _networkObjectCache: {fileID: -8405391744002029082}
-  moveSpeed: 12.5
+  moveSpeed: 11
   player: {fileID: 0}
 --- !u!54 &-5833880829761614842
 Rigidbody:

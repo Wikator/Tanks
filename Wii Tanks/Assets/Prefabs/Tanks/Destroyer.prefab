@@ -416,7 +416,7 @@ MonoBehaviour:
   stats:
     moveSpeed: 4
     rotateSpeed: 100
-    timeToReload: 2
+    timeToReload: 3
     timeToAddAmmo: 0
     maxAmmo: 1
   ammoCount: 0

@@ -118,10 +118,9 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: -8405391744002029082}
   _networkObjectCache: {fileID: -8405391744002029082}
   moveSpeed: 45
+  player: {fileID: 0}
   ricochetCount: 8
   isUnblockable: 1
-  timeToTurnOnCollider: 0
-  player: {fileID: 0}
 --- !u!54 &-5833880829761614842
 Rigidbody:
   m_ObjectHideFlags: 0

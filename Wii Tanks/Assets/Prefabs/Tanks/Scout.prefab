@@ -377,15 +377,15 @@ MonoBehaviour:
   stats:
     moveSpeed: 6.5
     rotateSpeed: 200
-    timeToReload: 3
-    timeToAddAmmo: 1
+    timeToReload: 4
+    timeToAddAmmo: 1.5
     maxAmmo: 2
   ammoCount: 0
   controllingPlayer: {fileID: 0}
   spreadAngle: 3
   fastModeStats:
-    time: 3
-    moveSpeed: 11
+    time: 3.5
+    moveSpeed: 10
     rotateSpeed: 300
     timeToReload: 0.5
     timeToAddAmmo: 0.4
