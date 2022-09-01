@@ -25,6 +25,7 @@ public sealed class UIManager : NetworkBehaviour
     public void SetUpUI(bool gameInProgress, string gameMode)
     {
         Init();
+
         if (gameInProgress)
         {
             Show<MainView>();

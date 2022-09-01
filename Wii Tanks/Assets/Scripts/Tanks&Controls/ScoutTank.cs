@@ -6,21 +6,13 @@ using UnityEngine.AddressableAssets;
 public class ScoutTank : Tank
 {
     [SerializeField]
-    private int spreadAngle;
-
-    [System.Serializable]
-    private struct FastModeStats
-    {
-        public float time;
-        public float moveSpeed;
-        public float rotateSpeed;
-        public float timeToReload;
-        public float timeToAddAmmo;
-        public int maxAmmo;
-    }
+    private TankStats fastModeStats;
 
     [SerializeField]
-    private FastModeStats fastModeStats;
+    private float fastModeDuration;
+
+    [SerializeField]
+    private int spreadAngle;
 
     [ServerRpc]
     protected override void Fire()
@@ -31,10 +23,10 @@ public class ScoutTank : Tank
             routine = null;
         }
 
-        for (int i = -spreadAngle; i < spreadAngle*2; i+=spreadAngle)
+        for (int angle = -spreadAngle; angle < spreadAngle*2; angle += spreadAngle)
         {
             GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-            bulletInstance.transform.Rotate(new Vector3(0.0f, i, 0.0f));
+            bulletInstance.transform.Rotate(new Vector3(0.0f, angle, 0.0f));
             Spawn(bulletInstance);
             bulletInstance.GetComponent<ScoutBulletScript>().player = controllingPlayer;
         }
@@ -58,21 +50,13 @@ public class ScoutTank : Tank
     {
         TankStats savedStats = stats;
 
-        stats.moveSpeed = fastModeStats.moveSpeed;
-        stats.rotateSpeed = fastModeStats.rotateSpeed;
-        stats.timeToReload = fastModeStats.timeToReload;
-        stats.timeToAddAmmo = fastModeStats.timeToAddAmmo;
-        stats.maxAmmo = fastModeStats.maxAmmo;
+        stats = fastModeStats;
 
         routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
 
-        yield return new WaitForSeconds(fastModeStats.time);
+        yield return new WaitForSeconds(fastModeDuration);
 
-        stats.moveSpeed = savedStats.moveSpeed;
-        stats.rotateSpeed = savedStats.rotateSpeed;
-        stats.timeToReload = savedStats.timeToReload;
-        stats.timeToAddAmmo = savedStats.timeToAddAmmo;
-        stats.maxAmmo = savedStats.maxAmmo;
+        stats = savedStats;
 
         if (ammoCount >= stats.maxAmmo)
         {

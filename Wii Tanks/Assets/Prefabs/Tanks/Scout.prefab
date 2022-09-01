@@ -383,8 +383,8 @@ MonoBehaviour:
   ammoCount: 0
   controllingPlayer: {fileID: 0}
   spreadAngle: 3
+  fastModeDuration: 3.5
   fastModeStats:
-    time: 3.5
     moveSpeed: 10
     rotateSpeed: 300
     timeToReload: 0.5
