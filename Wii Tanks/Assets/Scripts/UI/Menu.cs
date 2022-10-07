@@ -11,14 +11,13 @@ public sealed class Menu : MonoBehaviour
     private Button connectButton;
 
 
+    //Start-up screen
+    //User will have a choice to either host a server or connect as a client
+    //With a PlayFlow dedicated server active, hostButton should be disabled
+
     private void Start()
     {
-        hostButton.onClick.AddListener(() =>
-        {
-            InstanceFinder.ServerManager.StartConnection();
-
-            //InstanceFinder.ClientManager.StartConnection();
-        });
+        hostButton.onClick.AddListener(() => InstanceFinder.ServerManager.StartConnection());
 
         connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
     }

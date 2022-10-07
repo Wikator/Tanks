@@ -14,6 +14,9 @@ public abstract class GameMode : NetworkBehaviour
         Instance = this;
     }
 
+
+    //Those methods need to be abstract, so that they can be called when referencing this class, rather than its subclasses
+
     public abstract void OnKilled(PlayerNetworking controllingLayer);
 
     public abstract Vector3 FindSpawnPosition(string color);

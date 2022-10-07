@@ -6,6 +6,9 @@ public sealed class DeathmatchGameMode : GameMode
 {
     private int spawnCount;
 
+
+    //Before start of the game, this script finds and saves all possible spawn points
+
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -22,11 +25,20 @@ public sealed class DeathmatchGameMode : GameMode
         }
     }
 
+
+    //Each tank will loose a point and respawn after some time
+    //Only DeathmachGameMode currently uses this method
+
     public override void OnKilled(PlayerNetworking controllingPlayer)
     {
         StartCoroutine(Respawn(controllingPlayer, 1.5f));
         PointScored(controllingPlayer, -1);
     }
+
+
+    //This recursive method tried to find an avaible spawn
+    //If none are avaible, StackOverflowException is cought, so the tank needs to spawn in random spawn regardless if it's avaible or not
+    //color variable is unnecessary here, but still needs to be here because it's used by the abstract method
 
     public override Vector3 FindSpawnPosition(string color)
     {

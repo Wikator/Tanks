@@ -4,6 +4,10 @@ using UnityEngine;
 
 public sealed class ScoutBulletScript : Bullet
 {
+    //Bullet used by Scouts
+
+
+    //This bullet cannot ricochet
 
     [Server(Logging = LoggingType.Off)]
     private void OnTriggerEnter(Collider other)

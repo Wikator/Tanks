@@ -21,6 +21,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public int score = 0;
 
 
+    //Each player will add themself to the players hashset in the GameManager class
+
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -71,6 +73,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
         Instance = this;
     }
 
+
+    //Method that spawns a tank
+
     [Server]
     public void StartGame()
     {
@@ -80,6 +85,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
         Spawn(playerInstance, Owner);
     }
 
+
+    //Method that despawns a tank
+
     [Server]
     public void StopGame()
     {
@@ -88,7 +96,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
             controlledPawn.GameOver();
         }
     }
+    
 
+    //Methods that are called when in the lobby, when choosing colors, teams etc.
 
     [ServerRpc]
     public void ChangeColor(string colorName) => color = colorName;

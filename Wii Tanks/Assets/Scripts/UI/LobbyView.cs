@@ -14,6 +14,11 @@ public abstract class LobbyView : View
     [SerializeField]
     protected Button startGameButton;
 
+
+    //Each player will have to choose a color and tank type, thanks to the subclasses EliminationLobbyView and DeathmatchLobbyView
+    //Only when both are chosen toggleReadyButton will become interactable
+    //Once all players are ready, startGameButton will become interactable
+
     private void LateUpdate()
     {
         if (!Initialized)

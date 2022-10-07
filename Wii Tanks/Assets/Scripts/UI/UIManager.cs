@@ -21,7 +21,11 @@ public sealed class UIManager : NetworkBehaviour
     }
 
 
-    [ObserversRpc(BufferLast = true)]
+
+    //A function that refreshes the UI when needed
+    //An ObserversRpc is called, so the UI is changed for each player connected to the server
+
+    [ObserversRpc]
     public void SetUpUI(bool gameInProgress, string gameMode)
     {
         Init();
@@ -54,6 +58,8 @@ public sealed class UIManager : NetworkBehaviour
             view.Init();
         }
     }
+
+    //Each UI is a subclass of the View class, which allows for easy cycling between different UIs
 
     public void Show<T>() where T : View
     {

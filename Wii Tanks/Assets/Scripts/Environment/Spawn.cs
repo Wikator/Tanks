@@ -9,6 +9,9 @@ public class Spawn : NetworkBehaviour
 
     private Collider other = null;
 
+
+    //Each spawn checks whether anything is in its collider, so that nothing will be able to spawn inside different objects
+
     private void OnTriggerStay(Collider other)
     {
         isOccupied = true;

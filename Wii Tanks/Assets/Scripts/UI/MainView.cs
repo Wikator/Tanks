@@ -9,6 +9,9 @@ public sealed class MainView : View
     [SerializeField]
     private TextMeshProUGUI ammoCountText;
 
+
+    //UI shown during the match
+
     private void Update()
     {
         PlayerNetworking player = PlayerNetworking.Instance;

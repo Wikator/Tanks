@@ -7,6 +7,8 @@ using FishNet.Object;
 
 public sealed class EliminationGameMode : GameMode
 {
+    //Each player will be added to the HashSet appropriote to their chosen team
+
     [SyncObject]
     public readonly SyncHashSet<PlayerNetworking> greenTeam = new();
 
@@ -19,6 +21,9 @@ public sealed class EliminationGameMode : GameMode
     private Transform bulletEmpty;
     private int greenSpawnCount, redSpawnCount;
 
+
+    //Before start of the game, this script finds and saves all possible spawn points
+    //There are different spawns for different teams, so they are seperated inside a dictionary
 
     public override void OnStartServer()
     {
@@ -45,6 +50,9 @@ public sealed class EliminationGameMode : GameMode
             spawns["Red"][i] = redSpawnsParent.GetChild(i).transform;
         }
     }
+
+
+    //When a team has no players left, the round ends, points are given, and a new round starts
 
     private void Update()
     {
@@ -74,10 +82,17 @@ public sealed class EliminationGameMode : GameMode
         }    
     }
 
+
+    //This method isn't necessary here, but needs to be here since the parent class uses it
+
     public override void OnKilled(PlayerNetworking controllingLayer)
     {
         return;
     }
+
+
+    //This recursive method tried to find an avaible spawn
+    //If none are avaible, StackOverflowException is cought, so the tank needs to spawn in random spawn regardless if it's avaible or not
 
     public override Vector3 FindSpawnPosition(string color)
     {
@@ -135,6 +150,8 @@ public sealed class EliminationGameMode : GameMode
         }
     }
 
+
+    //Each player and bullet needs to be destroyed before the new round
 
     private IEnumerator NewRound()
     {

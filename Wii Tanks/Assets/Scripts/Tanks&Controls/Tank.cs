@@ -81,6 +81,8 @@ public abstract class Tank : NetworkBehaviour
     protected Coroutine routine;
 
 
+    //Each tank will need to save some data just after spawning
+
     public override void OnStartClient()
     {
         base.OnStartClient();
@@ -113,6 +115,9 @@ public abstract class Tank : NetworkBehaviour
         SubscribeToTimeManager(true);
     }
 
+
+    //Firing weapons need to be server authoritive so there is no delay, so this will need to be changed
+
     private void Update()
     {
         if (!IsOwner)
@@ -124,6 +129,9 @@ public abstract class Tank : NetworkBehaviour
         if (Input.GetMouseButtonDown(1) && canUseSpecialMove)
             SpecialMove();
     }
+
+
+    //ServerRpc means that the bullet will spawn on the server, so each other client can see it
 
     [ServerRpc]
     protected virtual void Fire()
@@ -159,6 +167,9 @@ public abstract class Tank : NetworkBehaviour
         }   
     }
 
+
+    //Tank needs to subscribe to TimeManager, so its movement is server authoritive
+
     private void SubscribeToTimeManager(bool subscribe)
     {
         if (TimeManager == null || subscribe == isSubscribed) 
@@ -175,6 +186,9 @@ public abstract class Tank : NetworkBehaviour
             TimeManager.OnTick -= TimeManager_OnTick;
         }
     }
+
+
+    //Tank will gather input on the client, and then move on the server
 
     private void TimeManager_OnTick()
     {
@@ -203,7 +217,6 @@ public abstract class Tank : NetworkBehaviour
         gameModeManager.OnKilled(controllingPlayer);
         Spawn(Instantiate(explosion, transform.position, transform.rotation, explosionEmpty));
         Despawn();
-        //Destroy(gameObject);
     }
 
 

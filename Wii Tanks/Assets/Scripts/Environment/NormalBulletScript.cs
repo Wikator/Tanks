@@ -8,24 +8,18 @@ public sealed class NormalBulletScript : Bullet
     [SerializeField]
     private int ricochetCount;
 
-    [SerializeField]
+    [SerializeField, Tooltip("Unblockable bullets are used by Destroyers' special move, those overpenetrate targets")]
+
     private bool isUnblockable;
 
     private bool canDamageSelf;
 
     private Vector3 currentVelocity, currentPosition;
 
-    private void Awake()
-    {
-        rigidBody = GetComponent<Rigidbody>();
-    }
+    //Bullet used by Medium Tanks and Destroyers
 
-    public override void OnSpawnServer(NetworkConnection connection)
-    {
-        base.OnSpawnServer(connection);
-        rigidBody.velocity = transform.forward * moveSpeed;
-    }
 
+    //Bullet's stats are saved in the FixedUpdate, so that the bullet will not slow down after hitting the wall
 
     private void FixedUpdate()
     {
@@ -33,6 +27,9 @@ public sealed class NormalBulletScript : Bullet
         currentPosition = transform.position;
     }
 
+
+    //After hitting the wall, bullet will reflect its direction in relation to the wall, and also change its speed so that the impact will not slow it down
+    //If a tank is hit, the bullet will destroy it and give a score to the bullet's owner, if the game mode is set to Deathmatch
 
     [Server(Logging = LoggingType.Off)]
     private void OnCollisionEnter(Collision collision)

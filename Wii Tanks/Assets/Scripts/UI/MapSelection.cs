@@ -10,6 +10,9 @@ public sealed class MapSelection : NetworkBehaviour
     [SerializeField]
     private List<Button> mapButtons = new();
 
+    //Map selection screen
+    //Each player has an option to choose a map
+
     private void Start()
     {
         foreach (Button button in mapButtons)
@@ -17,6 +20,9 @@ public sealed class MapSelection : NetworkBehaviour
             button.onClick.AddListener(() => LoadScene(button.name));
         }
     }
+
+    //Once any players chooses a map, each user loads an appriopriate screen
+    //Only one instance of a map is allowed at the moment, so each player that connects AFTER the map is chosen will automatically load the map
 
     [ServerRpc(RequireOwnership = false)]
     private void LoadScene(string sceneName)

@@ -9,6 +9,10 @@ public class CameraControls : MonoBehaviour
         middlePoint = GameObject.Find("MiddlePoint").transform;
     }
 
+
+    //Any player can rotate the camera whenever they want
+    //The camera will only rotate for them, not on the server
+
     private void Update()
     {
         if (Input.GetKey(KeyCode.Q))

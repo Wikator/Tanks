@@ -12,6 +12,9 @@ public sealed class GameModesView : View
     private Button eliminationButton;
 
 
+    //Game mode selection screen
+    //Each player can choose a game mode
+
     public override void Init()
     {
         if (Initialized)
@@ -24,6 +27,7 @@ public sealed class GameModesView : View
         eliminationButton.onClick.AddListener(() => ChangeGameMode("Elimination"));
     }
 
+    //Once any player chooses a game mode, a ServerRPC is called so that the correct game mode will be selected on the server
 
     [ServerRpc(RequireOwnership = false)]
     private void ChangeGameMode(string gameMode)

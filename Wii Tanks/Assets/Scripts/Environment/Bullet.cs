@@ -14,6 +14,8 @@ public abstract class Bullet : NetworkBehaviour
     protected Rigidbody rigidBody;
 
 
+    //Once spawn, bullet will be given force, and cannot be slown down by any means, unless destroyed
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
