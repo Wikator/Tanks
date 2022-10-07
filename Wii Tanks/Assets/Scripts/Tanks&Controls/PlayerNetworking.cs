@@ -1,3 +1,5 @@
+using FishNet;
+using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System;
@@ -71,6 +73,20 @@ public sealed class PlayerNetworking : NetworkBehaviour
             return;
 
         Instance = this;
+    }
+
+    private void Start()
+    {
+        InstanceFinder.SceneManager.OnClientPresenceChangeEnd += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(ClientPresenceChangeEventArgs args)
+    {
+        if (args.Scene.name != "MapSelection")
+        {
+            UIManager.Instance.SetUpUI(GameManager.Instance.gameInProgress, GameManager.Instance.gameMode);
+        }
+            
     }
 
 

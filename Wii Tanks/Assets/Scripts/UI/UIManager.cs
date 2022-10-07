@@ -14,13 +14,6 @@ public sealed class UIManager : NetworkBehaviour
         Instance = this;
     }
 
-    public override void OnSpawnServer(NetworkConnection connection)
-    {
-        base.OnSpawnServer(connection);
-        SetUpUI(GameManager.Instance.gameInProgress, GameManager.Instance.gameMode);
-    }
-
-
 
     //A function that refreshes the UI when needed
     //An ObserversRpc is called, so the UI is changed for each player connected to the server

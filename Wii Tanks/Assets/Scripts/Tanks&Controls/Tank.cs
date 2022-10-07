@@ -8,9 +8,6 @@ using UnityEngine.AddressableAssets;
 
 public abstract class Tank : NetworkBehaviour
 {
-    [SyncVar]
-    public bool canUseSpecialMove;
-
     private struct MoveData
     {
         public float MoveAxis;
@@ -49,6 +46,8 @@ public abstract class Tank : NetworkBehaviour
         public int maxAmmo;
     }
 
+    public bool canUseSpecialMove = true;
+
     [SerializeField]
     protected TankStats stats;
 
@@ -58,7 +57,7 @@ public abstract class Tank : NetworkBehaviour
     [HideInInspector]
     protected GameObject bullet, pointer;
 
-    [SyncVar, HideInInspector]
+    [HideInInspector]
     public int ammoCount;
 
     [SyncVar, HideInInspector]
@@ -124,7 +123,18 @@ public abstract class Tank : NetworkBehaviour
             return;
 
         if (Input.GetMouseButtonDown(0) && ammoCount > 0)
+        {
             Fire();
+
+            if (routine != null)
+            {
+                StopCoroutine(routine);
+                routine = null;
+            }
+
+            ammoCount--;
+            routine = StartCoroutine(AddAmmo(stats.timeToReload));
+        }
 
         if (Input.GetMouseButtonDown(1) && canUseSpecialMove)
             SpecialMove();
@@ -136,17 +146,9 @@ public abstract class Tank : NetworkBehaviour
     [ServerRpc]
     protected virtual void Fire()
     {
-        if (routine != null)
-        {
-            StopCoroutine(routine);
-            routine = null;
-        }
-
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Spawn(bulletInstance);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-        ammoCount--;
-        routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }
 
     protected abstract void SpecialMove();
