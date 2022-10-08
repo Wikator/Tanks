@@ -133,8 +133,6 @@ public sealed class EliminationGameMode : GameMode
             player.StartGame();
         }
 
-        UIManager.Instance.SetUpUI(gameManager.gameInProgress, gameManager.gameMode);
-
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
         {
             eliminationGameMode.waitingForNewRound = false;

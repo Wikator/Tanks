@@ -18,8 +18,34 @@ public sealed class UIManager : NetworkBehaviour
     //A function that refreshes the UI when needed
     //An ObserversRpc is called, so the UI is changed for each player connected to the server
 
-    [ObserversRpc]
-    public void SetUpUI(bool gameInProgress, string gameMode)
+    [ObserversRpc(BufferLast = true)]
+    public void SetUpAllUI(bool gameInProgress, string gameMode)
+    {
+        Init();
+
+        if (gameInProgress)
+        {
+            Show<MainView>();
+        }
+        else
+        {
+            switch (gameMode)
+            {
+                case "Deathmatch":
+                    Show<DeathmatchLobbyView>();
+                    break;
+                case "Elimination":
+                    Show<EliminationLobbyView>();
+                    break;
+                default:
+                    Show<GameModesView>();
+                    break;
+            }
+        }
+    }
+
+    [TargetRpc]
+    public void SetUpTargetUI(NetworkConnection networkConnection ,bool gameInProgress, string gameMode)
     {
         Init();
 

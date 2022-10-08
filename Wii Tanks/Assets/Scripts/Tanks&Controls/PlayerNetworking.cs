@@ -63,6 +63,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
         {
             eliminationGameMode.redTeam.Remove(this);
         }
+
+        InstanceFinder.SceneManager.OnClientPresenceChangeEnd -= OnSceneLoaded;
     }
 
     public override void OnStartClient()
@@ -84,7 +86,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
     {
         if (args.Scene.name != "MapSelection")
         {
-            UIManager.Instance.SetUpUI(GameManager.Instance.gameInProgress, GameManager.Instance.gameMode);
+            UIManager.Instance.SetUpTargetUI(Owner, GameManager.Instance.gameInProgress, GameManager.Instance.gameMode);
         }
             
     }
@@ -95,6 +97,10 @@ public sealed class PlayerNetworking : NetworkBehaviour
     [Server]
     public void StartGame()
     {
+        if (tankType == "None")
+            return;
+
+
         GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(tankType + "Pawn").WaitForCompletion(), FindObjectOfType<GameMode>().FindSpawnPosition(color), Quaternion.identity, transform);
         controlledPawn = playerInstance.GetComponent<Tank>();
         controlledPawn.controllingPlayer = this;

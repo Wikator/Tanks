@@ -35,6 +35,6 @@ public sealed class GameModesView : View
         GameManager.Instance.gameMode = gameMode;
         Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>(gameMode + "Manager").WaitForCompletion(), transform.position, Quaternion.identity));
 
-        UIManager.Instance.SetUpUI(false, gameMode);
+        UIManager.Instance.SetUpAllUI(false, gameMode);
     }
 }

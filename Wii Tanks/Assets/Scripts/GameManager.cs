@@ -1,7 +1,9 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using FishNet.Managing.Scened;
 using System.Linq;
 using UnityEngine;
+using FishNet;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -37,6 +39,7 @@ public sealed class GameManager : NetworkBehaviour
     }
 
 
+
     [ServerRpc(RequireOwnership = false)]
     public void StartGame()
     {
@@ -47,7 +50,7 @@ public sealed class GameManager : NetworkBehaviour
             player.StartGame();
         }
 
-        UIManager.Instance.SetUpUI(gameInProgress, gameMode);
+        UIManager.Instance.SetUpAllUI(gameInProgress, gameMode);
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
         {
