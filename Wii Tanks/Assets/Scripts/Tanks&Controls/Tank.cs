@@ -57,7 +57,7 @@ public abstract class Tank : NetworkBehaviour
     [HideInInspector]
     protected GameObject bullet, pointer;
 
-    [HideInInspector]
+    [SyncVar, HideInInspector]
     public int ammoCount;
 
     [SyncVar, HideInInspector]

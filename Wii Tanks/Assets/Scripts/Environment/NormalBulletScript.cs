@@ -9,7 +9,6 @@ public sealed class NormalBulletScript : Bullet
     private int ricochetCount;
 
     [SerializeField, Tooltip("Unblockable bullets are used by Destroyers' special move, those overpenetrate targets")]
-
     private bool isUnblockable;
 
     private bool canDamageSelf;
@@ -44,8 +43,9 @@ public sealed class NormalBulletScript : Bullet
             }
             else
             {
-                rigidBody.velocity = Vector3.Reflect(-collision.relativeVelocity, collision.contacts[0].normal).normalized * moveSpeed;
+                rigidBody.velocity = currentVelocity;
                 transform.position = currentPosition;
+                rigidBody.velocity = Vector3.Reflect(-collision.relativeVelocity, collision.contacts[0].normal).normalized * moveSpeed;
                 canDamageSelf = true;
             }
         }

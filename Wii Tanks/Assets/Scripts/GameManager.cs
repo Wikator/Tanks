@@ -33,11 +33,26 @@ public sealed class GameManager : NetworkBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        InstanceFinder.SceneManager.OnLoadEnd += OnSceneLoaded;
+    }
+
+
+    [Server]
     private void Update()
     {
         canStart = players.All(player => player.isReady);
     }
 
+
+    private void OnSceneLoaded(SceneLoadEndEventArgs args)
+    {
+        if (args.LoadedScenes[0].name != "MapSelection" && args.QueueData.AsServer)
+        {
+            UIManager.Instance.SetUpAllUI(gameInProgress, Instance.gameMode);
+        }
+    }
 
 
     [ServerRpc(RequireOwnership = false)]
@@ -47,7 +62,7 @@ public sealed class GameManager : NetworkBehaviour
 
         foreach (PlayerNetworking player in players)
         {
-            player.StartGame();
+            player.SpawnTank();
         }
 
         UIManager.Instance.SetUpAllUI(gameInProgress, gameMode);

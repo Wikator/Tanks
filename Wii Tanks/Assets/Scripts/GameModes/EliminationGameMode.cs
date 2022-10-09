@@ -54,6 +54,7 @@ public sealed class EliminationGameMode : GameMode
 
     //When a team has no players left, the round ends, points are given, and a new round starts
 
+    [Server]
     private void Update()
     {
         if (waitingForNewRound || !IsServer)
@@ -130,7 +131,7 @@ public sealed class EliminationGameMode : GameMode
     {
         foreach (PlayerNetworking player in gameManager.players)
         {
-            player.StartGame();
+            player.SpawnTank();
         }
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
@@ -144,13 +145,14 @@ public sealed class EliminationGameMode : GameMode
     {
         foreach (PlayerNetworking player in GameManager.Instance.players)
         {
-            player.StopGame();
+            player.DespawnTank();
         }
     }
 
 
     //Each player and bullet needs to be destroyed before the new round
 
+    [Server]
     private IEnumerator NewRound()
     {
         waitingForNewRound = true;

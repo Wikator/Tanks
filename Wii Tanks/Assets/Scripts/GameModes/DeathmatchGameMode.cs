@@ -68,6 +68,6 @@ public sealed class DeathmatchGameMode : GameMode
     private IEnumerator Respawn(PlayerNetworking controllingPLayer, float time)
     {
         yield return new WaitForSeconds(time);
-        controllingPLayer.StartGame();
+        controllingPLayer.SpawnTank();
     }
 }

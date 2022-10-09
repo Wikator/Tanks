@@ -63,8 +63,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
         {
             eliminationGameMode.redTeam.Remove(this);
         }
-
-        InstanceFinder.SceneManager.OnClientPresenceChangeEnd -= OnSceneLoaded;
     }
 
     public override void OnStartClient()
@@ -77,25 +75,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        InstanceFinder.SceneManager.OnClientPresenceChangeEnd += OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(ClientPresenceChangeEventArgs args)
-    {
-        if (args.Scene.name != "MapSelection")
-        {
-            UIManager.Instance.SetUpTargetUI(Owner, GameManager.Instance.gameInProgress, GameManager.Instance.gameMode);
-        }
-            
-    }
-
-
-    //Method that spawns a tank
-
     [Server]
-    public void StartGame()
+    public void SpawnTank()
     {
         if (tankType == "None")
             return;
@@ -108,10 +89,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
     }
 
 
-    //Method that despawns a tank
-
     [Server]
-    public void StopGame()
+    public void DespawnTank()
     {
         if (controlledPawn != null && controlledPawn.IsSpawned)
         {

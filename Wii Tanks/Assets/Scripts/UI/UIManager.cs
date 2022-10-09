@@ -44,32 +44,6 @@ public sealed class UIManager : NetworkBehaviour
         }
     }
 
-    [TargetRpc]
-    public void SetUpTargetUI(NetworkConnection networkConnection ,bool gameInProgress, string gameMode)
-    {
-        Init();
-
-        if (gameInProgress)
-        {
-            Show<MainView>();
-        }
-        else
-        {
-            switch (gameMode)
-            {
-                case "Deathmatch":
-                    Show<DeathmatchLobbyView>();
-                    break;
-                case "Elimination":
-                    Show<EliminationLobbyView>();
-                    break;
-                default:
-                    Show<GameModesView>();
-                    break;
-            }
-        }
-    }
-
     public void Init()
     {
         foreach (View view in views)
