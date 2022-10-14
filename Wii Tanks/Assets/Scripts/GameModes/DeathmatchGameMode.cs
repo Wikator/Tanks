@@ -6,6 +6,8 @@ public sealed class DeathmatchGameMode : GameMode
 {
     private int spawnCount;
 
+    public float time;
+
 
     //Before start of the game, this script finds and saves all possible spawn points
 
@@ -22,6 +24,21 @@ public sealed class DeathmatchGameMode : GameMode
         for (int i = 0; i < spawnCount; i++)
         {
             spawns["NoTeams"][i] = spawnsParent.GetChild(i).transform;
+        }
+    }
+
+    private void Update()
+    {
+        if (!GameManager.Instance.gameInProgress)
+            return;
+
+        if (time > 0)
+        {
+            time -= Time.deltaTime;
+        }
+        else
+        {
+            Debug.Log("Time has run out");
         }
     }
 
