@@ -382,14 +382,14 @@ MonoBehaviour:
     maxAmmo: 2
   ammoCount: 0
   controllingPlayer: {fileID: 0}
-  spreadAngle: 3
-  fastModeDuration: 3.5
   fastModeStats:
     moveSpeed: 10
     rotateSpeed: 300
     timeToReload: 0.5
     timeToAddAmmo: 0.4
     maxAmmo: 4
+  fastModeDuration: 4
+  spreadAngle: 3
 --- !u!114 &4276468568968634520
 MonoBehaviour:
   m_ObjectHideFlags: 0

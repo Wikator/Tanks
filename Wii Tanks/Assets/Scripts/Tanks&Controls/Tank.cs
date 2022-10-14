@@ -80,8 +80,6 @@ public abstract class Tank : NetworkBehaviour
     protected Coroutine routine;
 
 
-    //Each tank will need to save some data just after spawning
-
     public override void OnStartClient()
     {
         base.OnStartClient();

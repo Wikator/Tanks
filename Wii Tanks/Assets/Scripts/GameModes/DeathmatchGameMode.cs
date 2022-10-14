@@ -38,7 +38,7 @@ public sealed class DeathmatchGameMode : GameMode
 
     //This recursive method tried to find an avaible spawn
     //If none are avaible, StackOverflowException is cought, so the tank needs to spawn in random spawn regardless if it's avaible or not
-    //color variable is unnecessary here, but still needs to be here because it's used by the abstract method
+    //Color variable is unnecessary here, but still needs to be here because it's used by the abstract method
 
     public override Vector3 FindSpawnPosition(string color)
     {
