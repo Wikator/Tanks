@@ -1,9 +1,10 @@
+using FishNet;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using FishNet.Managing.Scened;
+using FishNet.Managing.Logging;
 using System.Linq;
 using UnityEngine;
-using FishNet;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -39,7 +40,7 @@ public sealed class GameManager : NetworkBehaviour
     }
 
 
-    [Server]
+    [Server(Logging = LoggingType.Off)]
     private void Update()
     {
         canStart = players.All(player => player.isReady);

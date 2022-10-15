@@ -1619,7 +1619,8 @@ MonoBehaviour:
   - {fileID: 1232001959}
   - {fileID: 849694642}
   - {fileID: 1521283543}
-  - {fileID: 1176498113}
+  - {fileID: 0}
+  timeRemainingText: {fileID: 0}
 --- !u!4 &301616679
 Transform:
   m_ObjectHideFlags: 0
@@ -8165,7 +8166,7 @@ MonoBehaviour:
   - {fileID: 1232001959}
   - {fileID: 849694642}
   - {fileID: 1521283543}
-  - {fileID: 1176498113}
+  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: 342.5, y: 192.5, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -10463,7 +10464,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1176498114}
-  - component: {fileID: 1176498113}
   m_Layer: 5
   m_Name: MainView
   m_TagString: Untagged
@@ -10471,23 +10471,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1176498113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1176498112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07862a7561b664047aa7794c379cdf36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 3
-  _addedNetworkObject: {fileID: 913320639}
-  _networkObjectCache: {fileID: 913320639}
-  scoreText: {fileID: 1464272077}
-  ammoCountText: {fileID: 382771555}
 --- !u!224 &1176498114
 RectTransform:
   m_ObjectHideFlags: 0

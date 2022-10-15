@@ -1,5 +1,6 @@
 using FishNet.Connection;
 using FishNet.Object;
+using TMPro;
 using UnityEngine;
 
 public sealed class UIManager : NetworkBehaviour
@@ -8,6 +9,8 @@ public sealed class UIManager : NetworkBehaviour
 
     [SerializeField]
     private View[] views;
+
+    public TextMeshProUGUI timeRemainingText;
 
     private void Awake()
     {
@@ -25,7 +28,15 @@ public sealed class UIManager : NetworkBehaviour
 
         if (gameInProgress)
         {
-            Show<MainView>();
+            switch (gameMode)
+            {
+                case "Deathmatch":
+                    Show<DeathmatchMainView>();
+                    break;
+                case "Elimination":
+                    Show<EliminationMainView>();
+                    break;
+            }
         }
         else
         {

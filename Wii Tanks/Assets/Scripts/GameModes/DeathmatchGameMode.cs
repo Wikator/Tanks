@@ -1,11 +1,13 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using FishNet.Object.Synchronizing;
 
 public sealed class DeathmatchGameMode : GameMode
 {
     private int spawnCount;
 
+    [SyncVar]
     public float time;
 
 
@@ -14,6 +16,11 @@ public sealed class DeathmatchGameMode : GameMode
     public override void OnStartServer()
     {
         base.OnStartServer();
+
+
+
+        if (!IsServer)
+            return;
 
         Transform spawnsParent = GameObject.Find("DeathmatchSpawns").transform;
 
@@ -29,16 +36,19 @@ public sealed class DeathmatchGameMode : GameMode
 
     private void Update()
     {
+        int minutesRemaining = Mathf.FloorToInt(time / 60);
+        int secondsRemaining = Mathf.FloorToInt(time % 60);
+
+        UIManager.Instance.timeRemainingText.text = "Time remaining" + minutesRemaining + ":" + secondsRemaining;
+
+
         if (!GameManager.Instance.gameInProgress)
             return;
 
         if (time > 0)
         {
+            UIManager.Instance.timeRemainingText.enabled = true;
             time -= Time.deltaTime;
-        }
-        else
-        {
-            Debug.Log("Time has run out");
         }
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public sealed class MainView : View
+public abstract class MainView : View
 {
     [SerializeField]
     private TextMeshProUGUI scoreText;
@@ -12,7 +12,7 @@ public sealed class MainView : View
 
     //UI shown during the match
 
-    private void Update()
+    protected virtual void Update()
     {
         PlayerNetworking player = PlayerNetworking.Instance;
 
@@ -21,9 +21,13 @@ public sealed class MainView : View
 
         scoreText.text = "Score: " + player.score;
 
-        if (!player.controlledPawn)
-            return;
-
-        ammoCountText.text = "Ammo:" + player.controlledPawn.ammoCount;
+        if (player.controlledPawn)
+        {
+            ammoCountText.text = "Ammo:" + player.controlledPawn.ammoCount;
+        }
+        else
+        {
+            ammoCountText.text = "Ammo:" + 0;
+        }
     }
 }

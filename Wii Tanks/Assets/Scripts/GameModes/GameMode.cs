@@ -1,6 +1,7 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using UnityEngine;
+using System.Collections.Generic;
 
 public abstract class GameMode : NetworkBehaviour
 {
