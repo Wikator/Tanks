@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1278
     height: 1333
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Hierarchy
   m_RootView: {fileID: 3}
   m_MinSize: {x: 875, y: 371}
   m_MaxSize: {x: 10000, y: 10000}
@@ -148,7 +148,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 45
+  controlID: 52
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 100
+  controlID: 86
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 101
+  controlID: 87
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -218,8 +218,8 @@ MonoBehaviour:
     y: 0
     width: 212
     height: 935
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -244,14 +244,14 @@ MonoBehaviour:
     y: 935
     width: 899
     height: 348
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 18}
+  m_MinSize: {x: 231, y: 271}
+  m_MaxSize: {x: 10001, y: 10021}
+  m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
   - {fileID: 18}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -433,21 +433,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 28ecfdff2e0bfeff303dfeff2046feff0a55feff3256feffd858feffe258feffec58feff0859feff1659feff1e59feff1860feff4261feffe863fefff263fefffc63feff1864feff2664feff2e64feff6864feff3672feff6a73feff1076feff1a76feff2476feff4076feff4e76feff5676feff9076feff767ffeffe281fefffc87feffd0c1feff04c3feffc8c5feffd2c5feffdcc5fefff8c5feff08c6feff10c6feff76d9feffaedafeff72ddfeff7cddfeff86ddfeffa2ddfeffb2ddfeffbaddfefff4ddfeffb8effeffecf0feffb0f3feffbaf3feffc4f3feffe0f3fefff0f3fefff8f3feff32f4feff9efdfeffd2fefeff9601ffffa001ffffaa01ffffc601ffffd601ffffde01ffff1802ffffac05ffff0015ffff3816ffff1019ffff4a19ffff8031ffffb832ffff9035ffffca35fffffa3fffff5a4fffff8e50ffff6653ffffa053ffffc25affffd25cffff0273ffff2a74ffff3a74ffff4474ffff4e74ffff5874ffff6474ffff6c74ffff8474ffff8877ffffbc78ffff807bffff8a7bffff947bffffb07bffffc07bffffc87bffff027cffffae8effffe28fffffba92fffff492ffff2ea2ffff64a3ffff28a6ffff32a6ffff3ca6ffff58a6ffff68a6ffff70a6ffffaaa6ffff96b2ffffcab3ffff82b6ffffbcb6ffffcacdfffff6ceffff9cd1ffffa6d1ffffb0d1ffffccd1ffffdad1ffffe2d1ffff1cd2ffffaae0ffffd6e1ffffe6e1fffff0e1fffffae1ffff04e2ffff10e2ffff18e2ffffc0e4ffffeae5ffff90e8ffff9ae8ffffa4e8ffffc0e8ffffcee8ffffd6e8ffff34fbffff025e0100025f01001465010048660100
+      m_ExpandedIDs: 0cdfffff2ae0ffff2ae2ffff44e3ffff34fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: ScoreText
-        m_OriginalName: ScoreText
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 89870
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 9}
       m_SearchString: 
@@ -2227,23 +2227,23 @@ MonoBehaviour:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 180}
-    m_SelectedIDs: 42830000
-    m_LastClickedID: 33602
+    m_SelectedIDs: 78830000
+    m_LastClickedID: 33656
     m_ExpandedIDs: 00000000f6820000f8820000fa820000fc820000fe82000000830000028300000483000006830000088300000a8300000c8300000e83000010830000128300001483000016830000188300001a8300001c8300001e83000020830000228300002483000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: UI
+      m_OriginalName: UI
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 33664
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 10}
     m_SearchString: 

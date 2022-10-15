@@ -18,15 +18,6 @@ public sealed class DeathmatchMainView : MainView
     {
         base.Update();
 
-        //if (IsServer && GameManager.Instance.gameInProgress)
-        //{
-
-            //if (deathmatchGameMode.time > 0)
-            //{
-                deathmatchGameMode.time -= Time.deltaTime;
-            //}
-        //}
-
         if (IsClient)
         {
             float minutesRemaining = Mathf.FloorToInt(deathmatchGameMode.time / 60);

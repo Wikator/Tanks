@@ -37,6 +37,18 @@ public sealed class DeathmatchGameMode : GameMode
         scores["Brown"] = 0;
     }
 
+    private void Update()
+    {
+        if (IsServer && GameManager.Instance.gameInProgress)
+        {
+
+            if (time > 0)
+            {
+                time -= Time.deltaTime;
+            }
+        }
+    }
+
 
     //Each tank will loose a point and respawn after some time
     //Only DeathmachGameMode currently uses this method
