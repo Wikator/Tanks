@@ -65,10 +65,7 @@ public sealed class EliminationGameMode : GameMode
 
         if (greenTeam.All(player => !player.controlledPawn) && greenTeam.Count != 0)
         {
-            foreach (PlayerNetworking player in redTeam)
-            {
-                PointScored(player.color, 1);
-            }
+            PointScored("Red", 1);
 
             StartCoroutine(NewRound());
             return;
@@ -76,10 +73,7 @@ public sealed class EliminationGameMode : GameMode
 
         if (redTeam.All(player => !player.controlledPawn) && redTeam.Count != 0)
         {
-            foreach (PlayerNetworking player in greenTeam)
-            {
-                PointScored(player.color, 1);
-            }
+            PointScored("Green", 1);
 
             StartCoroutine(NewRound());
             return;

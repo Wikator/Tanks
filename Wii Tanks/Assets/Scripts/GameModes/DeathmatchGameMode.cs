@@ -31,28 +31,10 @@ public sealed class DeathmatchGameMode : GameMode
 
         scores["Green"] = 0;
         scores["Red"] = 0;
-        scores["Blue"] = 0;
+        scores["Cyan"] = 0;
         scores["Purple"] = 0;
         scores["Yellow"] = 0;
         scores["Brown"] = 0;
-    }
-
-    private void Update()
-    {
-        int minutesRemaining = Mathf.FloorToInt(time / 60);
-        int secondsRemaining = Mathf.FloorToInt(time % 60);
-
-        UIManager.Instance.timeRemainingText.text = "Time remaining" + minutesRemaining + ":" + secondsRemaining;
-
-
-        if (!GameManager.Instance.gameInProgress)
-            return;
-
-        if (time > 0)
-        {
-            UIManager.Instance.timeRemainingText.enabled = true;
-            time -= Time.deltaTime;
-        }
     }
 
 

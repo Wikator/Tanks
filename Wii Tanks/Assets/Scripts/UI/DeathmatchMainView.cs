@@ -18,20 +18,21 @@ public sealed class DeathmatchMainView : MainView
     {
         base.Update();
 
-        if (IsServer && GameManager.Instance.gameInProgress)
-        {
-            if (deathmatchGameMode.time > 0)
-            {
+        //if (IsServer && GameManager.Instance.gameInProgress)
+        //{
+
+            //if (deathmatchGameMode.time > 0)
+            //{
                 deathmatchGameMode.time -= Time.deltaTime;
-            }
-        }
+            //}
+        //}
 
         if (IsClient)
         {
             float minutesRemaining = Mathf.FloorToInt(deathmatchGameMode.time / 60);
             float secondsRemaining = Mathf.FloorToInt(deathmatchGameMode.time % 60);
 
-            UIManager.Instance.timeRemainingText.text = string.Format("Time remaining\n{0:00}:{1:00}", minutesRemaining, secondsRemaining);
+            timeRemainingText.text = string.Format("Time remaining\n{0:00}:{1:00}", minutesRemaining, secondsRemaining);
         }
     }
 }

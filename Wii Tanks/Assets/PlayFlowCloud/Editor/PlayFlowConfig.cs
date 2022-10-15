@@ -9,5 +9,7 @@ public class PlayFlowConfig : ScriptableObject
     public string serverArguments;
     public bool enableSSL;
     public int serverLocation;
+    public int instanceIndex;
+
 
 }

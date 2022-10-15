@@ -1,6 +1,4 @@
-using FishNet.Connection;
 using FishNet.Object;
-using TMPro;
 using UnityEngine;
 
 public sealed class UIManager : NetworkBehaviour
@@ -9,8 +7,6 @@ public sealed class UIManager : NetworkBehaviour
 
     [SerializeField]
     private View[] views;
-
-    public TextMeshProUGUI timeRemainingText;
 
     private void Awake()
     {

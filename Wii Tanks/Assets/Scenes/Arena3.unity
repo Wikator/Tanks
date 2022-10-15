@@ -1756,7 +1756,6 @@ MonoBehaviour:
   - {fileID: 1521283543}
   - {fileID: 317277814}
   - {fileID: 1978373674}
-  timeRemainingText: {fileID: 0}
 --- !u!4 &301616679
 Transform:
   m_ObjectHideFlags: 0
@@ -2010,12 +2009,12 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 317277814}
   SceneTransformProperties:
-    Position: {x: 342.5, y: 192.5, z: 0}
+    Position: {x: 342.5, y: 192.50002, z: 0}
     Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 0.71296, y: 0.71296, z: 0.71296}
+    LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 0
+  _hasParentNetworkObjectAtEdit: 1
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 1497724588
@@ -2054,9 +2053,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2756c2416f7f68d48b2605064a9d237a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 317277813}
-  _networkObjectCache: {fileID: 317277813}
+  _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 914051915}
   ammoCountText: {fileID: 228904022}
   timeRemainingText: {fileID: 1385966947}
@@ -3034,7 +3033,7 @@ MonoBehaviour:
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 1497724588
@@ -3073,9 +3072,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 13
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 461069329}
-  _networkObjectCache: {fileID: 7408554978619748783}
+  _networkObjectCache: {fileID: 461069329}
   isOccupied: 0
 --- !u!54 &461069331
 Rigidbody:
@@ -8409,6 +8408,7 @@ MonoBehaviour:
   - {fileID: 1232001959}
   - {fileID: 849694642}
   - {fileID: 1521283543}
+  - {fileID: 317277814}
   - {fileID: 1978373674}
   SceneTransformProperties:
     Position: {x: 342.5, y: 192.5, z: 0}
@@ -8856,7 +8856,7 @@ MonoBehaviour:
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 1497724588
@@ -8895,9 +8895,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 5
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 964500171}
-  _networkObjectCache: {fileID: 7408554978619748783}
+  _networkObjectCache: {fileID: 964500171}
   isOccupied: 0
 --- !u!54 &964500173
 Rigidbody:
@@ -9318,9 +9318,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 11
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1017970163}
-  _networkObjectCache: {fileID: 7408554978619748783}
+  _networkObjectCache: {fileID: 1017970163}
   isOccupied: 0
 --- !u!114 &1017970163
 MonoBehaviour:
@@ -9342,7 +9342,7 @@ MonoBehaviour:
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 1497724588
@@ -9567,9 +9567,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 17
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1037496799}
-  _networkObjectCache: {fileID: 7408554978619748783}
+  _networkObjectCache: {fileID: 1037496799}
   isOccupied: 0
 --- !u!114 &1037496799
 MonoBehaviour:
@@ -9591,7 +9591,7 @@ MonoBehaviour:
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 1497724588
@@ -9694,9 +9694,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 9
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1045311546}
-  _networkObjectCache: {fileID: 7408554978619748783}
+  _networkObjectCache: {fileID: 1045311546}
   isOccupied: 0
 --- !u!114 &1045311546
 MonoBehaviour:
@@ -9718,7 +9718,7 @@ MonoBehaviour:
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 1497724588
@@ -10624,7 +10624,7 @@ MonoBehaviour:
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 1497724588
@@ -10663,9 +10663,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 16
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1168345035}
-  _networkObjectCache: {fileID: 7408554978619748783}
+  _networkObjectCache: {fileID: 1168345035}
   isOccupied: 0
 --- !u!54 &1168345037
 Rigidbody:
@@ -11695,7 +11695,7 @@ MonoBehaviour:
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 1497724588
@@ -11734,9 +11734,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 14
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1322204525}
-  _networkObjectCache: {fileID: 7408554978619748783}
+  _networkObjectCache: {fileID: 1322204525}
   isOccupied: 0
 --- !u!54 &1322204527
 Rigidbody:
@@ -12446,7 +12446,7 @@ MonoBehaviour:
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 1497724588
@@ -12514,9 +12514,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 7
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1516522467}
-  _networkObjectCache: {fileID: 7408554978619748783}
+  _networkObjectCache: {fileID: 1516522467}
   isOccupied: 0
 --- !u!1 &1521283541
 GameObject:
@@ -14418,7 +14418,7 @@ MonoBehaviour:
     LocalScale: {x: 1, y: 1, z: 1}
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
   _prefabId: -1
   _scenePathHash: 1497724588
@@ -14457,9 +14457,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 3
+  _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1724315282}
-  _networkObjectCache: {fileID: 7408554978619748783}
+  _networkObjectCache: {fileID: 1724315282}
   isOccupied: 0
 --- !u!54 &1724315284
 Rigidbody:

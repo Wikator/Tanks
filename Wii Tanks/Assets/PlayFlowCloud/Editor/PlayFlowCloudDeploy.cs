@@ -1,537 +1,657 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
-using UnityEngine;
-using System.Threading.Tasks;
-using System;
 using System.Linq;
+using System.Threading.Tasks;
+using UnityEditor;
+using UnityEditor.UIElements;
+using UnityEngine;
+using UnityEngine.UIElements;
 
+#if UNITY_EDITOR
 
-
-public class PlayFlowCloud : EditorWindow
+public class PlayFlowCloudDeploy : EditorWindow
 {
-    private static PlayFlowConfig data;
+    [SerializeField] private VisualTreeAsset _tree;
+    private Button QuickStart;
+    private Button documentationButton;
+    private Button discordButton;
+    private Button pricingButton;
+    private Button getTokenButton;
+    private Button uploadButton;
+    private Button uploadStatusButton;
+    private Button startButton;
+    private Button refreshButton;
+    private Button getStatusButton;
+    private Button getLogsButton;
+    private Button restartButton;
+    private Button stopButton;
+    private Button resetButton;
+    private Button resetStatusButton;
 
-    private static string defaultPath = PlayFlowBuilder.defaultPath;
-    private string serverlUrl;
-    private string port = "";
-    private string serverArguments = "";
-    private string token = "";
-    private string ssl = "";
-    private int selected_server = 0;
-    private bool devmode = false;
-
-    private static float t;
-
-    private string playflow_logs = "PlayFlow Logs: ";
-
-    public List<string> active_servers = new List<string>();
-    
-    public string[] regionOptions = new string[]
-        {"North America", "Europe", "Southeast Asia | Oceanic", "East Asia"};
-
-    private string[] regions = new string[] {"us-east", "eu-west", "sea", "ea"};
-    public int index = 0;
-    private string region = "us-east";
-
-    private string path = "";
-
-    private static Texture banner = null;
+    private TextField tokenField;
+    private TextField sslValue;
+    private TextField argumentsField;
+    private TextField logs;
 
 
-    Vector2 scroll;
+    private Foldout ConfigFoldout;
+    private Foldout UploadFoldout;
+    private Foldout LaunchServersFoldout;
+    private Foldout ManageFoldout;
+    private Foldout LogsFoldout;
 
-
-    public async void Awake()
-    {
-        getGlobalValues();
-        await get_server_list();
-    }
-
-    [InitializeOnLoadMethod]
-    private static void OnLoad()
-    {
-        // if no data exists yet create and reference a new instance
-        if (!data)
-        {
-            // as first option check if maybe there is an instance already
-            // and only the reference got lost
-            // won't work ofcourse if you moved it elsewhere ...
-            data = AssetDatabase.LoadAssetAtPath<PlayFlowConfig>("Assets/PlayFlowCloud/PlayFlowConfig.asset");
-            // if that was successful we are done
-            if (data) return;
-
-            // otherwise create and reference a new instance
-            data = CreateInstance<PlayFlowConfig>();
-
-            AssetDatabase.CreateAsset(data, "Assets/PlayFlowCloud/PlayFlowConfig.asset");
-            AssetDatabase.Refresh();
-        }
-    }
-
-    [MenuItem("PlayFlow/PlayFlowCloud Server")]
-    public static void ShowWindow()
-    {
-        //Show existing window instance. If one doesn't exist, make one.
-        EditorWindow.GetWindow(typeof(PlayFlowCloud));
-        
-    }
-
-    private static GUISkin _uiStyle;
-
-    public static GUISkin uiStyle
-    {
-        get
-        {
-            if (_uiStyle != null)
-                return _uiStyle;
-            _uiStyle = GetUiStyle();
-            return _uiStyle;
-        }
-    }
-    
     
 
-    private static GUISkin GetUiStyle()
+
+    private Toggle enableSSL;
+    private Toggle devBuild;
+    
+    private DropdownField location;
+    private DropdownField instanceType;
+    private DropdownField activeServersField;
+    private DropdownField sceneDropDown;
+
+    private Toggle buildSettingsToggle;
+
+    private ProgressBar progress;
+    
+    private List<string> sceneList;
+
+    
+
+
+    [MenuItem("PlayFlow/PlayFlow Cloud")]
+    public static void ShowEditor()
     {
-        var searchRootAssetFolder = Application.dataPath;
-        var playFlowGuiPath =
-            Directory.GetFiles(searchRootAssetFolder, "PlayFlowSkin.guiskin", SearchOption.AllDirectories);
-        foreach (var eachPath in playFlowGuiPath)
-        {
-            var loadPath = eachPath.Substring(eachPath.LastIndexOf("Assets"));
-            return (GUISkin) AssetDatabase.LoadAssetAtPath(loadPath, typeof(GUISkin));
-        }
-        return null;
+        var window = GetWindow<PlayFlowCloudDeploy>();
+        window.titleContent = new GUIContent("PlayFlow Cloud");
     }
 
-    void getGlobalValues()
+    public Dictionary<string, string> productionRegionOptions = new Dictionary<string, string>
     {
-        var serializedObject = new SerializedObject(data);
-        token = serializedObject.FindProperty("token").stringValue;
-        serverArguments = serializedObject.FindProperty("serverArguments").stringValue;
-        port = serializedObject.FindProperty("playflowUrl").stringValue;
-        ssl = serializedObject.FindProperty("enableSSL").boolValue.ToString();
-        index = serializedObject.FindProperty("serverLocation").intValue;
-        region = regions[index];
-    }
- 
-    void OnGUI()
+        {"North America East (North Virginia)", "us-east"},
+        {"North America West (California)", "us-west"},
+        {"North America West (Oregon)", "us-west-2"},
+        {"Europe (Stockholm)", "eu-north"},
+        {"Europe (France)", "eu-west"},
+        {"South Asia (Mumbai)", "ap-south"},
+        {"South East Asia (Singapore)", "sea"},
+        {"East Asia (Korea)", "ea"},
+        {"East Asia (Japan)", "ap-north"},
+        {"Australia (Sydney)", "ap-southeast"}
+    };
+
+    Dictionary<string, string> instance_types = new Dictionary<string, string>
     {
+        {"Small - 2 VCPU 1GB RAM", "small"},
+        {"Medium - 2 VCPU 2GB RAM", "medium"},
+        {"Large - 2 VCPU 4GB RAM", "large"},
+    };
 
-        if (banner == null)
+    private Dictionary<string, string> scenes = new Dictionary<string, string>();
+    private void CreateGUI()
+    {
+        _tree.CloneTree(rootVisualElement);
+        documentationButton = rootVisualElement.Q<Button>("ButtonDocumentation");
+        discordButton = rootVisualElement.Q<Button>("ButtonDiscord");
+        pricingButton = rootVisualElement.Q<Button>("ButtonPricing");
+        getTokenButton = rootVisualElement.Q<Button>("ButtonGetToken");
+        uploadButton = rootVisualElement.Q<Button>("ButtonUpload");
+        uploadStatusButton = rootVisualElement.Q<Button>("ButtonUploadStatus");
+        startButton = rootVisualElement.Q<Button>("ButtonStart");
+        refreshButton = rootVisualElement.Q<Button>("ButtonRefresh");
+        getStatusButton = rootVisualElement.Q<Button>("ButtonGetStatus");
+        getLogsButton = rootVisualElement.Q<Button>("ButtonGetLogs");
+        restartButton = rootVisualElement.Q<Button>("ButtonRestartServer");
+        stopButton = rootVisualElement.Q<Button>("ButtonStopServer");
+        resetButton =  rootVisualElement.Q<Button>("ResetInstance");
+        resetStatusButton =  rootVisualElement.Q<Button>("InstanceStatus");
+        QuickStart =  rootVisualElement.Q<Button>("QuickStart");
+
+        
+        ConfigFoldout = rootVisualElement.Q<Foldout>("ConfigFoldout");
+        UploadFoldout = rootVisualElement.Q<Foldout>("UploadFoldout");
+        LaunchServersFoldout = rootVisualElement.Q<Foldout>("LaunchServersFoldout");
+        ManageFoldout = rootVisualElement.Q<Foldout>("ManageFoldout");
+        LogsFoldout = rootVisualElement.Q<Foldout>("LogsFoldout");
+        
+
+        
+        logs = rootVisualElement.Q<TextField>("logs");
+        progress = rootVisualElement.Q<ProgressBar>("progress");
+
+        sceneList = new List<string>();
+
+        tokenField = rootVisualElement.Q<TextField>("TextToken");
+        tokenField.RegisterValueChangedCallback(HandleToken);
+
+        argumentsField = rootVisualElement.Q<TextField>("TextArgs");
+        sslValue = rootVisualElement.Q<TextField>("sslValue");
+
+
+        devBuild = rootVisualElement.Q<Toggle>("DevelopmentBuild");
+        
+        buildSettingsToggle = rootVisualElement.Q<Toggle>("UseBuildSettings");
+        
+        
+        
+        sceneDropDown = rootVisualElement.Q<DropdownField>("sceneDropDown");
+        enableSSL = rootVisualElement.Q<Toggle>("enableSSL");
+        sslValue.style.display = enableSSL.value ? DisplayStyle.Flex : DisplayStyle.None;
+
+        
+        
+        location = rootVisualElement.Q<DropdownField>("locationDropdown");
+        location.choices = productionRegionOptions.Keys.ToList();
+
+        if (location.value == null || location.value.Equals(""))
         {
-            banner = (Texture)AssetDatabase.LoadAssetAtPath("Assets/PlayFlowCloud/Resources/playflow.png", typeof(Texture));
-        }
-
-
-        var serializedObject = new SerializedObject(data);
-        // fetches the values of the real instance into the serialized one
-        serializedObject.Update();
-        var configtoken = serializedObject.FindProperty("token");
-        var configserverArguments = serializedObject.FindProperty("serverArguments");
-        var configport = serializedObject.FindProperty("playflowUrl");
-        var configenableSSL = serializedObject.FindProperty("enableSSL");
-        var configapiUrl = serializedObject.FindProperty("serverLocation");
-
-
-        scroll = EditorGUILayout.BeginScrollView(scroll);
-        GUI.skin = uiStyle;
-
-        GUILayout.Box(banner, uiStyle.box);
-
-        // GUILayout.Label("PlayFlow Cloud Server Deploy Settings");
-        // EditorGUILayout.LabelField(
-        //     "Use the PlayFlow Server Port number as your game's port for both the clients and server",
-        //     uiStyle.GetStyle("labelsmall"));
-
-                
-
-        
-        configtoken.stringValue =
-            EditorGUILayout.TextField("PlayFlow App Token", configtoken.stringValue, uiStyle.textField);
-        
-
-        
-        configserverArguments.stringValue = EditorGUILayout.TextField("Arguments (optional)",
-            configserverArguments.stringValue, uiStyle.textField);
-
-        
-        configenableSSL.boolValue = EditorGUILayout.Toggle("Enable SSL", configenableSSL.boolValue);
-        devmode = EditorGUILayout.Toggle("Development Build", devmode);
-
-
-        
-        getGlobalValues();
-        
-        EditorGUILayout.BeginHorizontal();
-        GUILayout.Label("Server Location (Free Plan)", uiStyle.GetStyle("labelsmall"));
-        index = EditorGUILayout.Popup(configapiUrl.intValue, regionOptions);
-        configapiUrl.intValue = index;
-        EditorGUILayout.EndHorizontal();
-        
-
-
-
-        EditorGUILayout.BeginHorizontal();
-        
-        if (GUILayout.Button("Get Active Servers"))
-        {
-            getservers();
-
-        }
-
-        
-        
-        if (GUILayout.Button("Upload Server"))
-        {
-            BuildAndZip();
-            GUIUtility.ExitGUI();
-
-        }
-
-        // if (GUILayout.Button("Upload Server Zip"))
-        // {
-        //     upload_files_directly();
-        // }
-        
-        if (GUILayout.Button("Start Server"))
-        {
-            start_server();
-
+            location.index = 0;
         }
         
- 
-
- 
-        EditorGUILayout.EndHorizontal();
-
-
-        EditorGUILayout.BeginHorizontal();
-        
-
-
-        EditorGUILayout.BeginVertical();
-        GUILayout.Label("Active Servers", uiStyle.GetStyle("labelsmall"));
-        selected_server = EditorGUILayout.Popup(selected_server, active_servers.ToArray());
-        EditorGUILayout.EndVertical();
-
-   
-   
-
-
-        if (GUILayout.Button("Restart Server"))
+        foreach (EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
         {
-            restart_server();
+            sceneList.Add(scene.path);
+        }
+        sceneDropDown.choices = sceneList;
 
+        instanceType = rootVisualElement.Q<DropdownField>("instanceTypeDropdown");
+        instanceType.choices = instance_types.Keys.ToList();
+
+        if (instanceType.value == null  || instanceType.value.Equals(""))
+        {
+            instanceType.index = 0;
         }
 
+        activeServersField = rootVisualElement.Q<DropdownField>("ActiveServersDropdown");
+        activeServersField.choices = new List<string>();
 
-        if (GUILayout.Button("Stop Server"))
-        {
-            stop_server();
+        sceneDropDown.RegisterCallback<MouseDownEvent>(OnSceneDropDown);
+        documentationButton.clicked += OnDocumentationPressed;
+        discordButton.clicked += OnDiscordPressed;
+        pricingButton.clicked += OnPricingPressed;
+        getTokenButton.clicked += OnGetTokenPressed;
+        QuickStart.clicked += OnQuickStartPressed;
 
-        }
+        uploadButton.clicked += OnUploadPressed;
+        uploadStatusButton.clicked += OnUploadStatusPressed;
+        startButton.clicked += OnStartPressed;
+        enableSSL.RegisterValueChangedCallback(HandleSSL);
+        buildSettingsToggle.RegisterValueChangedCallback(HandleBuildSettings);
 
+        refreshButton.clicked += OnRefreshPressed;
+        getStatusButton.clicked += OnGetStatusPressed;
+        getLogsButton.clicked += OnGetLogsPressed;
+        restartButton.clicked += OnRestartPressed;
+        stopButton.clicked += OnStopPressed;
 
-        if (GUILayout.Button("Get Logs"))
-        {
-            get_logs();
-
-        }
-        
-   
-
-        EditorGUILayout.EndHorizontal();
-        
-        EditorGUILayout.BeginHorizontal();
-        if (GUILayout.Button("Get PlayFlow Token"))
-        {
-            System.Diagnostics.Process.Start("https://app.playflowcloud.com");
-
-
-        }
-        
-        if (GUILayout.Button("Documentation"))
-        {
-            System.Diagnostics.Process.Start("https://docs.playflowcloud.com");
+        resetButton.clicked += OnResetPressed;
+        resetStatusButton.clicked += OnResetStatusPressed;
 
 
-        }
-        
-        EditorGUILayout.EndHorizontal();
-        EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.TextArea(playflow_logs, uiStyle.textArea);
-        EditorGUILayout.EndHorizontal();
-        
-
-
-        EditorGUILayout.EndScrollView();
-        serializedObject.ApplyModifiedProperties();
     }
 
-    public void OnInspectorUpdate()
+    private void OnSceneDropDown(MouseDownEvent clickEvent)
     {
-        Repaint();
+        foreach (EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
+        {
+            sceneList.Add(scene.path);
+        }
+        sceneDropDown.choices = sceneList;
+    }
+    
+    private void HandleBuildSettings(ChangeEvent<bool> value)
+    {
+        if (value.newValue)
+        {
+            sceneDropDown.style.display = DisplayStyle.None;
+        }
+        else
+        {
+            sceneDropDown.style.display = DisplayStyle.Flex;
+        }
     }
 
-    private void BuildAndZip()
+    private async void OnResetPressed()
     {
+        validateToken();
+        showProgress();
+        string response = await PlayFlowAPI.ResetInstance(tokenField.value);
+        outputLogs(response);
+        hideProgress();
+    }
+
+    private async void OnResetStatusPressed()
+    {
+        validateToken();
+        showProgress();
+        string response = await PlayFlowAPI.ResetStatus(tokenField.value);
+        outputLogs(response);
+        hideProgress();
+    }
+
+    private void HandleToken(ChangeEvent<string> value)
+    {
+        instanceType.style.display = isProductionToken(value.newValue) ? DisplayStyle.Flex : DisplayStyle.None;
+        
+         if (isProductionToken(value.newValue)){
+             sslValue.style.display = enableSSL.value ? DisplayStyle.Flex : DisplayStyle.None;
+         }
+         else
+         {
+             sslValue.style.display = DisplayStyle.None;
+         }
+    }
+
+    private bool isProductionToken(string value)
+    {
+        return value.Length > 60;
+    }
+
+    private void HandleSSL(ChangeEvent<bool> value)
+    {
+        if (value.newValue && isProductionToken(tokenField.value))
+        {
+            sslValue.style.display = DisplayStyle.Flex;
+        }
+        else
+        {
+            sslValue.style.display = DisplayStyle.None;
+        }
+    }
+
+    private void OnDocumentationPressed()
+    {
+        System.Diagnostics.Process.Start("https://docs.playflowcloud.com");
+    }
+    
+    private void OnQuickStartPressed()
+    {
+        System.Diagnostics.Process.Start("https://docs.playflowcloud.com/guides/creating-your-first-server-deployment");
+    }
+
+    private void OnDiscordPressed()
+    {
+        System.Diagnostics.Process.Start("https://discord.gg/P5w45Vx5Q8");
+    }
+
+    private void OnPricingPressed()
+    {
+        System.Diagnostics.Process.Start("https://www.playflowcloud.com/pricing");
+    }
+
+    private void OnGetTokenPressed()
+    {
+        System.Diagnostics.Process.Start("https://app.playflowcloud.com");
+    }
+
+    private void validateToken()
+    {
+        if (tokenField.value == null || tokenField.value.Equals(""))
+        {
+            outputLogs("PlayFlow Token is empty. Please provide a PlayFlow token.");
+            throw new Exception("PlayFlow Token is empty. Please provide a PlayFlow token.");
+        }
+    }
+
+    private async void setCurrentServer(MatchInfo matchInfo)
+    {
+        await get_server_list(true);
+
+        if (matchInfo != null)
+        {
+            string match = matchInfo.match_id;
+
+            if (matchInfo.ssl_port != null)
+            {
+                match = matchInfo.match_id + " -> (SSL) " + matchInfo.ssl_port;
+            }
+            activeServersField.index = (activeServersField.choices.IndexOf(match));
+        }
+
+    }
+
+    private async Task get_server_list(bool printOutput)
+    {
+        validateToken();
+        string response = await PlayFlowAPI.GetActiveServers(tokenField.value, productionRegionOptions[location.value], true);
+        Server[] servers = JsonHelper.FromJson<Server>(response);
+        List<string> active_servers = new List<string>();
+        foreach (Server server in servers)
+        {
+            string serverInfo = server.match_id;
+            outputLogs(serverInfo);
+            if (server.ssl_enabled)
+            {
+                serverInfo = server.match_id + " -> (SSL) " + server.ssl_port;
+            }
+            active_servers.Add(serverInfo);
+        }
+        active_servers.Sort();
+        activeServersField.choices = active_servers;
+
+        if (active_servers == null || active_servers.Count.Equals(0))
+        {
+            activeServersField.value = "";
+            activeServersField.index = 0;
+        }
+        
+        if (activeServersField.value == null || activeServersField.value.Equals(""))
+        {
+            activeServersField.index = 0;
+        }
+
+        if (printOutput)
+        {
+            outputLogs(response);
+        }
+    }
+
+    private async Task get_status()
+    {
+        validateToken();
+        if (activeServersField.value == null || activeServersField.value.Equals(""))
+        {
+            outputLogs("No server selected");
+            return;
+        }
+        string response = await PlayFlowAPI.GetServerStatus(tokenField.value, activeServersField.value);
+        outputLogs(response);
+    }
+
+    private async Task get_logs()
+    {
+        if (activeServersField.value == null || activeServersField.value.Equals(""))
+        {
+            outputLogs("No server selected");
+            return;
+        }
+        string playflow_logs = await PlayFlowAPI.GetServerLogs(tokenField.value, productionRegionOptions[location.value], activeServersField.value);
+        string[] split = playflow_logs.Split(new[] {"\\n"}, StringSplitOptions.None);
+        playflow_logs = "";
+        foreach (string s in split)
+            playflow_logs += s + "\n";
+        
+        outputLogs(playflow_logs);
+    }
+    
+    private async Task restart_server()
+    {
+        if (activeServersField.value == null || activeServersField.value.Equals(""))
+        {
+            outputLogs("No server selected");
+            return;
+        }
+        string response =
+            await PlayFlowAPI.RestartServer(tokenField.value, productionRegionOptions[location.value],  argumentsField.value, enableSSL.value.ToString(), activeServersField.value);
+        outputLogs(response);
+        
+    }
+    
+    private async Task stop_server()
+    {
+        if (activeServersField.value == null || activeServersField.value.Equals(""))
+        {
+            outputLogs("No server selected");
+            return;
+        }
+        string response =
+            await PlayFlowAPI.StopServer(tokenField.value, productionRegionOptions[location.value],  activeServersField.value);
+        outputLogs(response);
+        await get_server_list(true);
+        activeServersField.index = 0;
+    }
+
+
+    private void outputLogs(string s)
+    {
+        Debug.Log( DateTime.Now.ToString() + " PlayFlow Logs: " +  s);
+        logs.value = s;
+    }
+
+    private async void OnRefreshPressed()
+    {
+        //
         try
         {
-            if (token == null || token == "")
+            validateToken();
+            showProgress();
+            refreshButton.SetEnabled(false);
+            await get_server_list(true);
+        }
+        finally
+        {
+            hideProgress();
+            refreshButton.SetEnabled(true);
+        }
+    }
+
+    private async void OnGetStatusPressed()
+    {
+        //
+
+        try
+        {
+            validateToken();
+            showProgress();
+            getStatusButton.SetEnabled(false);
+            await get_status();
+
+        }
+        finally
+        {
+            hideProgress();
+            getStatusButton.SetEnabled(true);
+        }
+
+    }
+
+    private async void OnGetLogsPressed()
+    {
+        //
+
+        try
+        {
+            validateToken();
+            showProgress();
+            getLogsButton.SetEnabled(false);
+            await get_logs();
+        }
+        finally
+        {
+            hideProgress();
+            getLogsButton.SetEnabled(true);
+        }
+
+    }
+
+    private async void OnRestartPressed()
+    {
+        //
+        try
+        {
+            validateToken();
+            showProgress();
+            restartButton.SetEnabled(false);
+            await restart_server();
+        }
+        finally
+        {
+            hideProgress();
+            restartButton.SetEnabled(true);
+        }
+    }
+
+    private async void OnStopPressed()
+    {
+        //
+        try
+        {
+            validateToken();
+            showProgress();
+            stopButton.SetEnabled(false);
+            await stop_server();
+        }
+        finally
+        {
+            hideProgress();
+            stopButton.SetEnabled(true);
+        }
+
+    }
+    
+    private void OnUploadPressed()
+    {
+        
+        
+        validateToken();
+        showProgress(25);
+        
+        BuildTarget standaloneTarget = EditorUserBuildSettings.selectedStandaloneTarget;
+        BuildTargetGroup currentBuildTargetGroup = BuildPipeline.GetBuildTargetGroup(standaloneTarget);
+#if UNITY_2021_2_OR_NEWER
+        StandaloneBuildSubtarget currentSubTarget = EditorUserBuildSettings.standaloneBuildSubtarget;
+#endif
+        try
+        {
+            uploadButton.SetEnabled(false);
+            List<string> scenesToUpload = new List<string>();
+            if (buildSettingsToggle.value)
             {
-                playflow_logs = "Please provide a PlayFlow App Token to get started from https://app.playflowcloud.com";
-                return;
+                foreach (EditorBuildSettingsScene scene in EditorBuildSettings.scenes)
+                {
+                    if (scene.enabled)
+                    {
+                        scenesToUpload.Add(scene.path);
+                    }
+                }
+            }
+            else
+            {
+                if (sceneDropDown.value == null || sceneDropDown.value.Equals(""))
+                {
+                    outputLogs("Select a scene first before uploading");
+                    throw new Exception("Select a scene first before uploading");
+                }
+                scenesToUpload.Add(sceneDropDown.value);
             }
 
-            PlayFlowBuilder.BuildServer(devmode);
-            EditorUtility.DisplayProgressBar("PlayFlowCloud", "Zipping Files", 0.4f);
+            PlayFlowBuilder.BuildServer(devBuild.value, scenesToUpload);
             string zipFile = PlayFlowBuilder.ZipServerBuild();
-            
-            string directoryToZip = Path.GetDirectoryName(defaultPath);
-            string targetfile = Path.Combine(directoryToZip, @".." + Path.DirectorySeparatorChar +  "Server.zip");
-            EditorUtility.DisplayProgressBar("PlayFlowCloud", "Uploading Files", 0.75f);
-            playflow_logs = PlayFlowAPI.Upload(targetfile, token, region);
-            
-            //PlayFlowBuilder.cleanUp(zipFile);
+            string directoryToZip = Path.GetDirectoryName(PlayFlowBuilder.defaultPath);
+            showProgress(50);
+            string targetfile = Path.Combine(directoryToZip, @".." + Path.DirectorySeparatorChar + "Server.zip");
+            showProgress(75);
+            string playflow_logs = PlayFlowAPI.Upload(targetfile, tokenField.value, productionRegionOptions[location.value]);
+            outputLogs(playflow_logs);
         }
         finally
         {
+            uploadButton.SetEnabled(true);
+
+            EditorUserBuildSettings.SwitchActiveBuildTarget(currentBuildTargetGroup, standaloneTarget);
+#if UNITY_2021_2_OR_NEWER
+            EditorUserBuildSettings.standaloneBuildSubtarget = currentSubTarget;
+#endif
+            hideProgress();
+
             EditorUtility.ClearProgressBar();
+
         }
+        //
     }
 
-    private void upload_files_directly()
+    private async void OnUploadStatusPressed()
     {
-        try
-        {
-            path = EditorUtility.OpenFilePanel("Select Server", "", "zip");
-            EditorUtility.DisplayProgressBar("PlayFlowCloud", "Uploading Files", 0.75f);
-            playflow_logs = PlayFlowAPI.Upload(path, token, region);
-                 
-        }
-        catch (Exception e)
-        {
-            playflow_logs = "PlayFlow Build & Publish Failed! StackTrace: " + e.StackTrace;
-            EditorUtility.ClearProgressBar();
-        }
-        finally
-        {
-            EditorUtility.ClearProgressBar();
-        }
+        validateToken();
+        showProgress();
+        string response = await PlayFlowAPI.Get_Upload_Version(tokenField.value);
+        outputLogs(response);
+        hideProgress();
+        //
     }
-    
-    private async void start_server()
-    {
-        EditorUtility.ClearProgressBar();
 
-        MatchInfo matchInfo = null;
+    private async void OnStartPressed()
+    {
+        string response = "";
         try
         {
-            if (token == null || token == "")
+            validateToken();
+            showProgress();
+            if (enableSSL.value && !(sslValue.value == null || sslValue.value.Equals("")))
             {
-                playflow_logs = "Please provide a PlayFlow App Token to get started from https://app.playflowcloud.com";
-                return;
-            }
-            EditorUtility.DisplayProgressBar("PlayFlowCloud", "Starting Server", 0.75f);
-            string response =  await PlayFlowAPI.StartServer(token, region, serverArguments, ssl);
-            playflow_logs = response;
-
-            matchInfo = JsonUtility.FromJson<MatchInfo>(response);
-
-        }
-        catch (Exception e)
-        {
-            playflow_logs = "PlayFlow Start Server Failed! StackTrace: " + e.StackTrace;
-            EditorUtility.ClearProgressBar();
-        }
-        finally
-        {
-            await get_server_list();
-
-            if (matchInfo != null)
-            {
-                string match = matchInfo.match_id;
-
-                if (matchInfo.ssl_port != null)
+                try
                 {
-                   match = matchInfo.match_id + " -> (SSL) " + matchInfo.ssl_port;
+                    int.Parse(sslValue.value);
                 }
-                
-                selected_server = active_servers.IndexOf(match);
-            }
-            
-            EditorUtility.ClearProgressBar();
-        }
-    }
-
-
-
-    private async void restart_server()
-    {
-        EditorUtility.ClearProgressBar();
-        try
-        {
-            if (token == null || token == "")
-            {
-                playflow_logs = "Please provide a PlayFlow App Token to get started from https://app.playflowcloud.com";
-                return;
-            }
-
-            if (!active_servers.Any())
-            {
-                playflow_logs = "No server selected";
-                return;
-            }
-
-            EditorUtility.DisplayProgressBar("PlayFlowCloud", "Restarting Server", 0.75f);
-            playflow_logs = await PlayFlowAPI.RestartServer(token, region, serverArguments, ssl, active_servers[selected_server]);
-        }
-        catch (Exception e)
-        {
-            playflow_logs = "PlayFlow Restart Failed! StackTrace: " + e.StackTrace;
-            EditorUtility.ClearProgressBar();
-        }
-        finally
-        {
-           
-            EditorUtility.ClearProgressBar();
-        }
-    }
-    
-    private async void stop_server()
-    {
-        EditorUtility.ClearProgressBar();
-        try
-        {
-            if (token == null || token == "")
-            {
-                playflow_logs = "Please provide a PlayFlow App Token to get started from https://app.playflowcloud.com";
-                return;
-            }
-            if (!active_servers.Any())
-            {
-                playflow_logs = "No server selected";
-                return;
-            }
-            EditorUtility.DisplayProgressBar("PlayFlowCloud", "Stopping Server", 0.75f);
-            playflow_logs = await PlayFlowAPI.StopServer(token, region, active_servers[selected_server]);
-        }
-        catch (Exception e)
-        {
-            playflow_logs = "PlayFlow Stop Server Failed! StackTrace: " + e.StackTrace;
-            EditorUtility.ClearProgressBar();
-        }
-        finally
-        {
-            await get_server_list();
-            EditorUtility.ClearProgressBar();
-        }
-    }
-    
-    private async void get_logs()
-    {
-        EditorUtility.ClearProgressBar();
-        try
-        {
-            if (token == null || token == "")
-            {
-                playflow_logs = "Please provide a PlayFlow App Token to get started from https://app.playflowcloud.com";
-                return;
-            }
-            if (!active_servers.Any())
-            {
-                playflow_logs = "No server selected";
-                return;
-            }
-            
-            EditorUtility.DisplayProgressBar("PlayFlowCloud", "Getting Server Logs", 0.75f);
-            playflow_logs = await PlayFlowAPI.GetServerLogs(token, region, active_servers[selected_server]);
-            string[] split = playflow_logs.Split(new[] { "\\n" }, StringSplitOptions.None);
-            playflow_logs = "";
-            foreach (string s in split)
-                playflow_logs += s + "\n";
-        }
-        catch (Exception e)
-        {
-            playflow_logs = "PlayFlow Stop Server Failed! StackTrace: " + e.StackTrace;
-            EditorUtility.ClearProgressBar();
-        }
-        finally
-        {
-            
-            EditorUtility.ClearProgressBar();
-        }
-    }
-
-    private async void getservers()
-    {
-        EditorUtility.ClearProgressBar();
-
-        try
-        {
-            if (token == null || token == "")
-            {
-                playflow_logs = "Please provide a PlayFlow App Token to get started from https://app.playflowcloud.com";
-                return;
-            }
-            EditorUtility.DisplayProgressBar("PlayFlowCloud", "Getting Active Servers", 0.75f);
-
-            await get_server_list();
-            playflow_logs = "Updated Active Servers";
-        }
-        catch (Exception e)
-        {
-            playflow_logs = "PlayFlow Build & Publish Failed! StackTrace: " + e.StackTrace;
-            EditorUtility.ClearProgressBar();
-
-        }
-        finally
-        {
-            EditorUtility.ClearProgressBar();
-        }
-        
-    }
-    
-    private async Task get_server_list()
-    {
-        try
-        {
-            if (token == null || token == "")
-            {
-                playflow_logs = "Please provide a PlayFlow App Token to get started from https://app.playflowcloud.com";
-                return;
-            }
-            EditorUtility.DisplayProgressBar("PlayFlowCloud", "Updating Servers Info", 0.75f);
-            string response = await PlayFlowAPI.GetActiveServers(token, region);
-            Server[] servers = JsonHelper.FromJson<Server>(response);
-            active_servers = new List<string>();
-            foreach (Server server in servers)
-            {
-                string serverInfo = server.port;
-
-                if (server.ssl_enabled)
+                catch
                 {
-                    serverInfo = server.port + " -> (SSL) " + server.ssl_port;
+                    outputLogs("SSL Port must be a valid integer.");
+                    throw new Exception("SSL Port must be a valid integer.");
                 }
-
-                active_servers.Add(serverInfo);
             }
-            active_servers.Sort();
-            selected_server =  active_servers.Count - 1;
+
+            startButton.SetEnabled(false);
+            response = await PlayFlowAPI.StartServer(tokenField.value, productionRegionOptions[location.value],
+                argumentsField.value, enableSSL.value.ToString(), sslValue.value.ToString(),
+                instance_types[instanceType.value], isProductionToken(tokenField.value));
+            MatchInfo matchInfo = JsonUtility.FromJson<MatchInfo>(response);
+            setCurrentServer(matchInfo);
+
+        }
+        finally{
+            outputLogs(response);
+            hideProgress();
+            startButton.SetEnabled(true);
+
+        }
+
+      
+    }
+
+    private void showProgress()
+    {
+        try {
+        progress.value = 50;
+        progress.title = "Loading...";
+        progress.style.display = DisplayStyle.Flex;
         }
         catch (Exception e)
         {
-            playflow_logs = "PlayFlow Build & Publish Failed! StackTrace: " + e.StackTrace;
-            EditorUtility.ClearProgressBar();
+            Debug.Log("Progress Bar UI Not found. ProgressBar will be hidden. Loading in progress");
         }
-        finally
+    }
+    
+    private void showProgress(float value)
+    {
+        try
         {
-            EditorUtility.ClearProgressBar();
+            progress.value = value;
+            progress.title = "Loading...";
+            progress.style.display = DisplayStyle.Flex;
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Progress Bar UI Not found. ProgressBar will be hidden. Loading in progress");
+        }
+
+    }
+    
+    private void hideProgress()
+    {
+        try
+        {
+            progress.value = 0;
+            progress.style.display = DisplayStyle.None;
+        }
+        catch (Exception e)
+        {
+            Debug.Log("Progress Bar UI Not found. ProgressBar will be hidden");
         }
     }
 }
+
 
 [Serializable]
 public class Server
@@ -541,6 +661,9 @@ public class Server
     public string server_arguments;
     public string status;
     public string port;
+    public string match_id;
+    public string ssl_url;
+
 }
 
 
@@ -580,3 +703,5 @@ public static class JsonHelper
         public T[] servers;
     }
 }
+
+#endif
