@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using FishNet.Object.Synchronizing;
+using System.Collections.Generic;
 
 public sealed class DeathmatchGameMode : GameMode
 {
@@ -17,11 +18,6 @@ public sealed class DeathmatchGameMode : GameMode
     {
         base.OnStartServer();
 
-
-
-        if (!IsServer)
-            return;
-
         Transform spawnsParent = GameObject.Find("DeathmatchSpawns").transform;
 
         spawnCount = spawnsParent.childCount;
@@ -32,6 +28,13 @@ public sealed class DeathmatchGameMode : GameMode
         {
             spawns["NoTeams"][i] = spawnsParent.GetChild(i).transform;
         }
+
+        scores["Green"] = 0;
+        scores["Red"] = 0;
+        scores["Blue"] = 0;
+        scores["Purple"] = 0;
+        scores["Yellow"] = 0;
+        scores["Brown"] = 0;
     }
 
     private void Update()
@@ -56,10 +59,10 @@ public sealed class DeathmatchGameMode : GameMode
     //Each tank will loose a point and respawn after some time
     //Only DeathmachGameMode currently uses this method
 
-    public override void OnKilled(PlayerNetworking controllingPlayer)
+    public override void OnKilled(PlayerNetworking playerNetworking)
     {
-        StartCoroutine(Respawn(controllingPlayer, 1.5f));
-        PointScored(controllingPlayer, -1);
+        StartCoroutine(Respawn(playerNetworking, 1.5f));
+        PointScored(playerNetworking.color, -1);
     }
 
 

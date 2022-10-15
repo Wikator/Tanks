@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class EliminationMainView : MainView
+public sealed class EliminationMainView : MainView
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private TextMeshProUGUI enemyScore;
 
-    // Update is called once per frame
-    void Update()
+
+    protected override void Update()
     {
-        
+        base.Update();
+
+        switch (PlayerNetworking.Instance.color)
+        {
+            case "Green":
+                enemyScore.text = "Enemy score: " + GameMode.Instance.scores["Red"];
+                break;
+            case "Red":
+                enemyScore.text = "Enemy score: " + GameMode.Instance.scores["Green"];
+                break;
+        }
     }
 }

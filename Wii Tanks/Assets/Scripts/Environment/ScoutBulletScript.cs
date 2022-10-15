@@ -20,7 +20,7 @@ public sealed class ScoutBulletScript : Bullet
                 {
                     if (GameManager.Instance.gameMode == "Deathmatch")
                     {
-                        FindObjectOfType<GameMode>().PointScored(player.controlledPawn.controllingPlayer, 1);
+                        GameMode.Instance.PointScored(player.color, 1);
                     }
 
                     other.GetComponent<Tank>().GameOver();
@@ -33,7 +33,7 @@ public sealed class ScoutBulletScript : Bullet
                 {
                     if (GameManager.Instance.gameMode == "Deathmatch")
                     {
-                        FindObjectOfType<GameMode>().PointScored(player.controlledPawn.controllingPlayer, 1);
+                        GameMode.Instance.PointScored(player.color, 1);
                     }
 
                     other.GetComponent<Tank>().GameOver();

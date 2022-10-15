@@ -1,5 +1,3 @@
-using FishNet;
-using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System;
@@ -18,9 +16,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
     [SyncVar, HideInInspector]
     public bool isReady;
-
-    [SyncVar, HideInInspector]
-    public int score = 0;
 
 
     //Each player will add themself to the players hashset in the GameManager class

@@ -19,7 +19,7 @@ public abstract class MainView : View
         if (!player)
             return;
 
-        scoreText.text = "Score: " + player.score;
+        scoreText.text = "Score: " + GameMode.Instance.scores[player.color];
 
         if (player.controlledPawn)
         {

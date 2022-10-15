@@ -60,7 +60,7 @@ public sealed class NormalBulletScript : Bullet
                     {
                         if (GameManager.Instance.gameMode == "Deathmatch")
                         {
-                            FindObjectOfType<GameMode>().PointScored(player.controlledPawn.controllingPlayer, 1);
+                            GameMode.Instance.PointScored(player.color, 1);
                         }
                     }
                     else

@@ -49,6 +49,9 @@ public sealed class EliminationGameMode : GameMode
         {
             spawns["Red"][i] = redSpawnsParent.GetChild(i).transform;
         }
+
+        scores["Green"] = 0;
+        scores["Red"] = 0;
     }
 
 
@@ -64,7 +67,7 @@ public sealed class EliminationGameMode : GameMode
         {
             foreach (PlayerNetworking player in redTeam)
             {
-                PointScored(player, 1);
+                PointScored(player.color, 1);
             }
 
             StartCoroutine(NewRound());
@@ -75,7 +78,7 @@ public sealed class EliminationGameMode : GameMode
         {
             foreach (PlayerNetworking player in greenTeam)
             {
-                PointScored(player, 1);
+                PointScored(player.color, 1);
             }
 
             StartCoroutine(NewRound());
@@ -86,7 +89,7 @@ public sealed class EliminationGameMode : GameMode
 
     //This method isn't necessary here, but needs to be here since the parent class uses it
 
-    public override void OnKilled(PlayerNetworking controllingLayer)
+    public override void OnKilled(PlayerNetworking playerNetworking)
     {
         return;
     }
