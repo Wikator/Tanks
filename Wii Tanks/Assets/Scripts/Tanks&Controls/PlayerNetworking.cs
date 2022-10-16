@@ -49,9 +49,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
         Instance = this;
     }
 
-    public override void OnStopClient()
+    public override void OnStopNetwork()
     {
-        base.OnStopClient();
+        base.OnStopNetwork();
 
         GameManager.Instance.players.Remove(this);
 
@@ -72,12 +72,10 @@ public sealed class PlayerNetworking : NetworkBehaviour
     }
 
 
-    [Server]
     public void SpawnTank()
     {
         if (tankType == "None")
             return;
-
 
         GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(tankType + "Pawn").WaitForCompletion(), FindObjectOfType<GameMode>().FindSpawnPosition(color), Quaternion.identity, transform);
         controlledPawn = playerInstance.GetComponent<Tank>();
@@ -85,8 +83,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
         Spawn(playerInstance, Owner);
     }
 
-
-    [Server]
     public void DespawnTank()
     {
         if (controlledPawn != null && controlledPawn.IsSpawned)

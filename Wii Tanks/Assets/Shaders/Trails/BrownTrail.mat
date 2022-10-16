@@ -102,7 +102,7 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - _Color01: {r: 0.003921569, g: 0.0019607844, b: 0, a: 1}
+    - _Color01: {r: 0.022183742, g: 0, b: 0, a: 1}
     - _Color02: {r: 1, g: 0.2984293, b: 0, a: 0}
     - _DissolveSpeed: {r: -0.3, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}

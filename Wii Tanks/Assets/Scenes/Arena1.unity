@@ -2022,7 +2022,6 @@ MonoBehaviour:
   - {fileID: 1521283543}
   - {fileID: 1176498115}
   - {fileID: 1884875600}
-  timeRemainingText: {fileID: 380945992}
 --- !u!4 &301616679
 Transform:
   m_ObjectHideFlags: 0

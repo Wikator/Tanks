@@ -57,6 +57,9 @@ public sealed class GameManager : NetworkBehaviour
     {
         int playersReady = 0;
 
+        if (players.Count == 0)
+            return 0;
+
         foreach (PlayerNetworking player in players)
         {
             if (player.isReady)
