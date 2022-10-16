@@ -22,8 +22,6 @@ public sealed class GameManager : NetworkBehaviour
     [SyncVar]
     public bool gameInProgress = false;
 
-    [SyncVar]
-    public int playersReady = 0;
 
     [SyncVar]
     public string gameMode = "None";
@@ -53,6 +51,21 @@ public sealed class GameManager : NetworkBehaviour
         {
             UIManager.Instance.SetUpAllUI(gameInProgress, Instance.gameMode);
         }
+    }
+
+    public int NumberOfReadyPlayers()
+    {
+        int playersReady = 0;
+
+        foreach (PlayerNetworking player in players)
+        {
+            if (player.isReady)
+            {
+                playersReady++;
+            }
+        }
+
+        return (playersReady);
     }
 
 

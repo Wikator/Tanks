@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
+using FishNet.Object;
 
 public sealed class DeathmatchLobbyView : LobbyView
 {
@@ -33,6 +34,24 @@ public sealed class DeathmatchLobbyView : LobbyView
         startGameButton.onClick.AddListener(() => GameManager.Instance.StartGame());
 
         startGameButton.gameObject.SetActive(true);
+    }
+
+    [Client]
+    private void Update()
+    {
+        foreach (Button button in colorButtons)
+        {
+            button.interactable = true;
+
+            foreach (PlayerNetworking player in GameManager.Instance.players)
+            {
+                if (player.color == button.name)
+                {
+                    button.interactable = false;
+                    break;
+                }
+            }
+        }
     }
 }
 

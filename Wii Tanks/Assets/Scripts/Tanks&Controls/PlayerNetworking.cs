@@ -36,11 +36,22 @@ public sealed class PlayerNetworking : NetworkBehaviour
             Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>("GameManager").WaitForCompletion()));
             GameManager.Instance.players.Add(this);
         }
+
     }
 
-    public override void OnStopServer()
+    public override void OnStartClient()
     {
-        base.OnStopServer();
+        base.OnStartClient();
+
+        if (!IsOwner)
+            return;
+
+        Instance = this;
+    }
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
 
         GameManager.Instance.players.Remove(this);
 
@@ -60,15 +71,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
         }
     }
 
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-
-        if (!IsOwner)
-            return;
-
-        Instance = this;
-    }
 
     [Server]
     public void SpawnTank()
@@ -134,11 +136,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
         {
             case true:
                 isReady = true;
-                GameManager.Instance.playersReady++;
                 break;
             case false:
                 isReady = false;
-                GameManager.Instance.playersReady--;
                 break;
         }
     }
