@@ -52,7 +52,7 @@ public abstract class Tank : NetworkBehaviour
     protected TankStats stats;
 
     [HideInInspector]
-    protected Transform bulletSpawn, bulletEmpty;
+    protected Transform bulletSpawn, muzzleFlashEmpty, bulletEmpty;
 
     [HideInInspector]
     protected GameObject bullet, pointer;
@@ -73,44 +73,12 @@ public abstract class Tank : NetworkBehaviour
     private CharacterController controller;
     private Transform explosionEmpty, turret;
     private GameObject explosion;
+    protected GameObject muzzleFlash;
     private Camera cam;
 
     private LayerMask raycastLayer;
 
     protected Coroutine routine;
-
-    /*
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        raycastLayer = (1 << 9);
-        cam = Camera.main;
-        ammoCount = stats.maxAmmo;
-        controller = GetComponent<CharacterController>();
-        gameModeManager = FindObjectOfType<GameMode>();
-        turret = transform.GetChild(0);
-        bulletSpawn = turret.GetChild(0);
-        bulletEmpty = GameObject.Find("Bullets").transform;
-        explosionEmpty = GameObject.Find("Explosions").transform;
-        ChangeColours(controllingPlayer.color);
-        SubscribeToTimeManager(true);
-    }
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        raycastLayer = (1 << 9);
-        cam = Camera.main;
-        ammoCount = stats.maxAmmo;
-        controller = GetComponent<CharacterController>();
-        gameModeManager = FindObjectOfType<GameMode>();
-        turret = transform.GetChild(0);
-        bulletSpawn = turret.GetChild(0);
-        bulletEmpty = GameObject.Find("Bullets").transform;
-        explosionEmpty = GameObject.Find("Explosions").transform;
-        ChangeColours(controllingPlayer.color);
-        SubscribeToTimeManager(true);
-    }*/
 
 
     private void Start()
@@ -122,6 +90,7 @@ public abstract class Tank : NetworkBehaviour
         gameModeManager = FindObjectOfType<GameMode>();
         turret = transform.GetChild(0);
         bulletSpawn = turret.GetChild(0);
+        muzzleFlashEmpty = turret.GetChild(1);
         bulletEmpty = GameObject.Find("Bullets").transform;
         explosionEmpty = GameObject.Find("Explosions").transform;
         ChangeColours(controllingPlayer.color);
@@ -163,6 +132,9 @@ public abstract class Tank : NetworkBehaviour
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Spawn(bulletInstance);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+
+        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
+        Spawn(flashInstance);
     }
 
     protected abstract void SpecialMove();
@@ -262,6 +234,7 @@ public abstract class Tank : NetworkBehaviour
         gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
         turret.gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
         explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
+        muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
     }
 
 

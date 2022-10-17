@@ -16,9 +16,14 @@ public sealed class DestroyerTank : Tank
         }
 
         ammoCount = 0;
+
         GameObject bulletInstance = Instantiate(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Spawn(bulletInstance);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+
+        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
+        Spawn(flashInstance);
+
         routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
     }
 

@@ -30,6 +30,10 @@ public class ScoutTank : Tank
             Spawn(bulletInstance);
             bulletInstance.GetComponent<ScoutBulletScript>().player = controllingPlayer;
         }
+
+        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
+        Spawn(flashInstance);
+
         ammoCount--;
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }

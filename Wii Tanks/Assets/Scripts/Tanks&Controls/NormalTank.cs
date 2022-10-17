@@ -26,6 +26,10 @@ public sealed class NormalTank : Tank
             GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
             Spawn(bulletInstance);
             bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+
+            GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
+            Spawn(flashInstance);
+
             yield return new WaitForSeconds(0.2f);
         }
         routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
