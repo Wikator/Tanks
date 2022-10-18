@@ -24,7 +24,7 @@ public sealed class DestroyerTank : Tank
         GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
         Spawn(flashInstance);
 
-        routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
+        routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }
 
     public override void ChangeColours(string color)
