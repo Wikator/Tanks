@@ -5,6 +5,7 @@ using FishNet.Managing.Scened;
 using FishNet.Managing.Logging;
 using System.Linq;
 using UnityEngine;
+using System.Collections.Generic;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -88,5 +89,31 @@ public sealed class GameManager : NetworkBehaviour
         {
             eliminationGameMode.waitingForNewRound = false;
         }
+    }
+
+
+    //[ServerRpc(RequireOwnership = false)]
+    public void LoadEndScene()
+    {
+        InstanceFinder.SceneManager.OnLoadEnd -= OnSceneLoaded;
+
+        List<NetworkObject> movedObjects = new()
+        {
+            gameObject.GetComponent<NetworkObject>()
+        };
+
+        LoadOptions loadOptions = new()
+        {
+            AutomaticallyUnload = true,
+        };
+
+        SceneLoadData sld = new("EndScreen")
+        {
+            MovedNetworkObjects = movedObjects.ToArray(),
+            ReplaceScenes = ReplaceOption.All,
+            Options = loadOptions
+        };
+
+        InstanceFinder.SceneManager.LoadGlobalScenes(sld);
     }
 }

@@ -67,7 +67,15 @@ public sealed class EliminationGameMode : GameMode
         {
             PointScored("Red", 1);
 
-            StartCoroutine(NewRound());
+            if (scores["Red"] == 5)
+            {
+                GameManager.Instance.LoadEndScene();
+            }
+            else
+            {
+                StartCoroutine(NewRound());
+            }
+
             return;
         }
 
@@ -75,7 +83,15 @@ public sealed class EliminationGameMode : GameMode
         {
             PointScored("Green", 1);
 
-            StartCoroutine(NewRound());
+            if (scores["Green"] == 5)
+            {
+                GameManager.Instance.LoadEndScene();
+            }
+            else
+            {
+                StartCoroutine(NewRound());
+            }
+
             return;
         }    
     }

@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using FishNet.Object.Synchronizing;
 using System.Collections.Generic;
+using FishNet.Object;
 
 public sealed class DeathmatchGameMode : GameMode
 {
@@ -37,14 +38,18 @@ public sealed class DeathmatchGameMode : GameMode
         scores["Brown"] = 0;
     }
 
+    [Server]
     private void Update()
     {
         if (IsServer && GameManager.Instance.gameInProgress)
         {
-
             if (time > 0)
             {
                 time -= Time.deltaTime;
+            }
+            else
+            {
+                GameManager.Instance.LoadEndScene();
             }
         }
     }
