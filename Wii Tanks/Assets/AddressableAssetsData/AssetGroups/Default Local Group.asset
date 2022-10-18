@@ -197,11 +197,11 @@ MonoBehaviour:
     m_Address: YellowScoutBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: f4bfe95e93f5f26479aa8a29c03e01a5
+  - m_GUID: ac5e512b20094ee4f85d8cd33270265b
     m_Address: CyanMuzzleFlash
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: aa57c20d4a9449c45baf64a2d8c6d4d4
+  - m_GUID: 6c6b66d9cba15da45ba08f5823a3c779
     m_Address: PurpleMuzzleFlash
     m_ReadOnly: 0
     m_SerializedLabels: []
@@ -209,15 +209,15 @@ MonoBehaviour:
     m_Address: GreenMuzzleFlash
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 84f4418aa247a144f971bdba466a1d70
-    m_Address: BrownMuzzleFlash
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 51736d7e9bea0e04fac5135280c8cccf
+  - m_GUID: 3cd914401a8a7bf4ea264f62facacee2
     m_Address: YellowMuzzleFlash
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: a4f9a4b0bc8a0e642987bf9a3cbc32a7
+  - m_GUID: a7ac6e60e12937341b0cf9317b9aea81
+    m_Address: BrownMuzzleFlash
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 22b6e4c83dcb5714980e700aa572e868
     m_Address: RedMuzzleFlash
     m_ReadOnly: 0
     m_SerializedLabels: []
