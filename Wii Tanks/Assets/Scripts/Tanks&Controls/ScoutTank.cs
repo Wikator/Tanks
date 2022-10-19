@@ -29,10 +29,11 @@ public class ScoutTank : Tank
             bulletInstance.transform.Rotate(new Vector3(0.0f, angle, 0.0f));
             Spawn(bulletInstance);
             bulletInstance.GetComponent<ScoutBulletScript>().player = controllingPlayer;
-        }
 
-        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
-        Spawn(flashInstance);
+            GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
+            flashInstance.transform.Rotate(new Vector3(0.0f, angle, 0.0f));
+            Spawn(flashInstance);
+        }
 
         ammoCount--;
         routine = StartCoroutine(AddAmmo(stats.timeToReload));

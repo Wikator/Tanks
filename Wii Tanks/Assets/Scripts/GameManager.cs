@@ -102,6 +102,15 @@ public sealed class GameManager : NetworkBehaviour
             gameObject.GetComponent<NetworkObject>()
         };
 
+        foreach (PlayerNetworking player in players)
+        {
+            if (player.transform.GetChild(0) != null)
+            {
+                player.transform.GetChild(0).parent = null;
+            }
+            movedObjects.Add(player.gameObject.GetComponent<NetworkObject>());
+        }
+
         LoadOptions loadOptions = new()
         {
             AutomaticallyUnload = true,

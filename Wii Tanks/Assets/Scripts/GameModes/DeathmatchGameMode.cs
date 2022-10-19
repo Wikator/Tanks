@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections;
 using FishNet.Object.Synchronizing;
-using System.Collections.Generic;
+using FishNet.Managing.Logging;
 using FishNet.Object;
 
 public sealed class DeathmatchGameMode : GameMode
@@ -38,7 +38,7 @@ public sealed class DeathmatchGameMode : GameMode
         scores["Brown"] = 0;
     }
 
-    [Server]
+    [Server(Logging = LoggingType.Off)]
     private void Update()
     {
         if (IsServer && GameManager.Instance.gameInProgress)
