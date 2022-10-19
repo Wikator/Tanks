@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 6296534975609544856}
   - component: {fileID: 2930099070406336664}
   - component: {fileID: -4450608807010333337}
-  - component: {fileID: 4276468568968634520}
   - component: {fileID: 5934193943603683480}
   - component: {fileID: 7883671929580542898}
   m_Layer: 0
@@ -390,48 +389,6 @@ MonoBehaviour:
     maxAmmo: 4
   fastModeDuration: 4
   spreadAngle: 3
---- !u!114 &4276468568968634520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2293147736009711768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 5934193943603683480}
-  _networkObjectCache: {fileID: 5934193943603683480}
-  _synchronizeParent: 0
-  _packing:
-    Position: 1
-    Rotation: 1
-    Scale: 0
-  _interpolation: 2
-  _extrapolation: 2
-  _enableTeleport: 0
-  _teleportThreshold: 1
-  _clientAuthoritative: 0
-  _sendToOwner: 0
-  _interval: 1
-  _synchronizePosition: 1
-  _positionSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeRotation: 1
-  _rotationSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeScale: 0
-  _scaleSnapping:
-    X: 0
-    Y: 0
-    Z: 0
 --- !u!114 &5934193943603683480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,8 +403,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours:
   - {fileID: -4450608807010333337}
-  - {fileID: 4276468568968634520}
-  - {fileID: 6376323870347796632}
+  - {fileID: 0}
+  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -544,7 +501,6 @@ GameObject:
   - component: {fileID: 8461161866789757080}
   - component: {fileID: 1237913842271428760}
   - component: {fileID: 6854048357615116440}
-  - component: {fileID: 6376323870347796632}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -1363,45 +1319,3 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7801381080628240536}
   m_Mesh: {fileID: 0}
---- !u!114 &6376323870347796632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7801381080628240536}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 2
-  _addedNetworkObject: {fileID: 5934193943603683480}
-  _networkObjectCache: {fileID: 5934193943603683480}
-  _synchronizeParent: 0
-  _packing:
-    Position: 1
-    Rotation: 1
-    Scale: 0
-  _interpolation: 2
-  _extrapolation: 2
-  _enableTeleport: 0
-  _teleportThreshold: 1
-  _clientAuthoritative: 1
-  _sendToOwner: 1
-  _interval: 1
-  _synchronizePosition: 1
-  _positionSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeRotation: 1
-  _rotationSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeScale: 1
-  _scaleSnapping:
-    X: 0
-    Y: 0
-    Z: 0

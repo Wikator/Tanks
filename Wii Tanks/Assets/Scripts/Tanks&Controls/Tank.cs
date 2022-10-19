@@ -12,12 +12,14 @@ public abstract class Tank : NetworkBehaviour
     {
         public float MoveAxis;
         public float RotateAxis;
+        //public bool FireWeapon;
         public Vector3 TurretLookDirection;
 
         public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection)
         {
             MoveAxis = moveAxis;
             RotateAxis = rotateAxis;
+            //FireWeapon = fireWapon;
             TurretLookDirection = turretLookDirection;
         }
     }
@@ -68,6 +70,7 @@ public abstract class Tank : NetworkBehaviour
     private float rotateAxis;
 
     private bool isSubscribed = false;
+    //private bool firingQueued = false;
 
     private GameMode gameModeManager;
     private CharacterController controller;
@@ -83,6 +86,12 @@ public abstract class Tank : NetworkBehaviour
 
     private void Start()
     {
+
+    }
+
+    public override void OnStartNetwork()
+    {
+        base.OnStartNetwork();
         raycastLayer = (1 << 9);
         cam = Camera.main;
         ammoCount = stats.maxAmmo;
@@ -107,6 +116,8 @@ public abstract class Tank : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0) && ammoCount > 0)
         {
+            //firingQueued = true;
+
             Fire();
 
             if (routine != null)
@@ -227,6 +238,8 @@ public abstract class Tank : NetworkBehaviour
         Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
 
         data = new MoveData(moveAxis, rotateAxis, hit.point);
+
+        //firingQueued = false;
     }
 
     public virtual void ChangeColours (string color)
@@ -250,6 +263,11 @@ public abstract class Tank : NetworkBehaviour
 
         turret.LookAt(data.TurretLookDirection, Vector3.up);
         turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
+
+        /*if (data.FireWeapon)
+        {
+            Fire();
+        }*/
     }
 
     [Reconcile]

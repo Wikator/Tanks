@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 4457215652571833747}
   - component: {fileID: 2534305450066648456}
   - component: {fileID: -8275027250751033499}
-  - component: {fileID: 8558997644236108270}
   - component: {fileID: 497388105468288731}
   m_Layer: 0
   m_Name: Destroyer
@@ -421,48 +420,6 @@ MonoBehaviour:
     maxAmmo: 1
   ammoCount: 0
   controllingPlayer: {fileID: 0}
---- !u!114 &8558997644236108270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4818985956192005731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 497388105468288731}
-  _networkObjectCache: {fileID: 497388105468288731}
-  _synchronizeParent: 0
-  _packing:
-    Position: 1
-    Rotation: 1
-    Scale: 0
-  _interpolation: 2
-  _extrapolation: 2
-  _enableTeleport: 0
-  _teleportThreshold: 1
-  _clientAuthoritative: 0
-  _sendToOwner: 0
-  _interval: 1
-  _synchronizePosition: 1
-  _positionSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeRotation: 1
-  _rotationSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeScale: 0
-  _scaleSnapping:
-    X: 0
-    Y: 0
-    Z: 0
 --- !u!114 &497388105468288731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,8 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _networkBehaviours:
   - {fileID: -8275027250751033499}
-  - {fileID: 8558997644236108270}
-  - {fileID: 8837940133468925768}
+  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -505,7 +461,6 @@ GameObject:
   - component: {fileID: 7245860036668608567}
   - component: {fileID: 5775920486414618269}
   - component: {fileID: 2019543712968532625}
-  - component: {fileID: 8837940133468925768}
   m_Layer: 0
   m_Name: Turret
   m_TagString: Untagged
@@ -1324,48 +1279,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4868853028976921381}
   m_Mesh: {fileID: 0}
---- !u!114 &8837940133468925768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4868853028976921381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 2
-  _addedNetworkObject: {fileID: 497388105468288731}
-  _networkObjectCache: {fileID: 497388105468288731}
-  _synchronizeParent: 0
-  _packing:
-    Position: 1
-    Rotation: 1
-    Scale: 0
-  _interpolation: 2
-  _extrapolation: 2
-  _enableTeleport: 0
-  _teleportThreshold: 1
-  _clientAuthoritative: 1
-  _sendToOwner: 1
-  _interval: 1
-  _synchronizePosition: 1
-  _positionSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeRotation: 1
-  _rotationSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeScale: 1
-  _scaleSnapping:
-    X: 0
-    Y: 0
-    Z: 0
 --- !u!1 &6500817811177261379
 GameObject:
   m_ObjectHideFlags: 0
