@@ -1,5 +1,8 @@
+using FishNet;
+using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class GameMode : NetworkBehaviour
@@ -15,6 +18,28 @@ public abstract class GameMode : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
+    }
+
+    public void LoadEndScene()
+    {
+        List<NetworkObject> movedObjects = new()
+        {
+            gameObject.GetComponent<NetworkObject>(),
+        };
+
+        LoadOptions loadOptions = new()
+        {
+            AutomaticallyUnload = true,
+        };
+
+        SceneLoadData sld = new("EndScreen")
+        {
+            MovedNetworkObjects = movedObjects.ToArray(),
+            ReplaceScenes = ReplaceOption.All,
+            Options = loadOptions
+        };
+
+        InstanceFinder.SceneManager.LoadGlobalScenes(sld);
     }
 
 

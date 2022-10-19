@@ -49,7 +49,7 @@ public sealed class DeathmatchGameMode : GameMode
             }
             else
             {
-                GameManager.Instance.LoadEndScene();
+                LoadEndScene();
             }
         }
     }
@@ -74,6 +74,9 @@ public sealed class DeathmatchGameMode : GameMode
         color = "NoTeams";
 
         Transform spawn = spawns[color][UnityEngine.Random.Range(0, spawnCount)];
+
+        if (!spawn)
+            return Vector3.zero;
 
         if (spawn.GetComponent<Spawn>().isOccupied)
         {

@@ -46,9 +46,10 @@ public sealed class GameManager : NetworkBehaviour
     }
 
 
+
     private void OnSceneLoaded(SceneLoadEndEventArgs args)
     {
-        if (args.LoadedScenes[0].name != "MapSelection" && args.QueueData.AsServer)
+        if (args.LoadedScenes[0].name != "MapSelection" && args.LoadedScenes[0].name != "EndScreen" && args.QueueData.AsServer)
         {
             UIManager.Instance.SetUpAllUI(gameInProgress, Instance.gameMode);
         }
@@ -89,40 +90,5 @@ public sealed class GameManager : NetworkBehaviour
         {
             eliminationGameMode.waitingForNewRound = false;
         }
-    }
-
-
-    //[ServerRpc(RequireOwnership = false)]
-    public void LoadEndScene()
-    {
-        InstanceFinder.SceneManager.OnLoadEnd -= OnSceneLoaded;
-
-        List<NetworkObject> movedObjects = new()
-        {
-            gameObject.GetComponent<NetworkObject>()
-        };
-
-        foreach (PlayerNetworking player in players)
-        {
-            if (player.transform.GetChild(0) != null)
-            {
-                player.transform.GetChild(0).parent = null;
-            }
-            movedObjects.Add(player.gameObject.GetComponent<NetworkObject>());
-        }
-
-        LoadOptions loadOptions = new()
-        {
-            AutomaticallyUnload = true,
-        };
-
-        SceneLoadData sld = new("EndScreen")
-        {
-            MovedNetworkObjects = movedObjects.ToArray(),
-            ReplaceScenes = ReplaceOption.All,
-            Options = loadOptions
-        };
-
-        InstanceFinder.SceneManager.LoadGlobalScenes(sld);
     }
 }

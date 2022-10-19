@@ -8,8 +8,11 @@ public sealed class EndScreen : NetworkBehaviour
     [SerializeField]
     private TextMeshProUGUI leaderboardText;
 
-    private void Start()
+
+    public override void OnStartNetwork()
     {
+        base.OnStartNetwork();
+
         SetText();
     }
 

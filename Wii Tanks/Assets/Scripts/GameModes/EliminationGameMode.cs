@@ -21,6 +21,9 @@ public sealed class EliminationGameMode : GameMode
     private Transform bulletEmpty;
     private int greenSpawnCount, redSpawnCount;
 
+    [SyncVar, SerializeField]
+    private int pointsToWin;
+
 
     //Before start of the game, this script finds and saves all possible spawn points
     //There are different spawns for different teams, so they are seperated inside a dictionary
@@ -67,9 +70,9 @@ public sealed class EliminationGameMode : GameMode
         {
             PointScored("Red", 1);
 
-            if (scores["Red"] == 5)
+            if (scores["Red"] == pointsToWin)
             {
-                GameManager.Instance.LoadEndScene();
+                LoadEndScene();
             }
             else
             {
@@ -83,9 +86,9 @@ public sealed class EliminationGameMode : GameMode
         {
             PointScored("Green", 1);
 
-            if (scores["Green"] == 5)
+            if (scores["Green"] == pointsToWin)
             {
-                GameManager.Instance.LoadEndScene();
+                LoadEndScene();
             }
             else
             {
