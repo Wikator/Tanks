@@ -72,7 +72,7 @@ public sealed class EliminationGameMode : GameMode
 
             if (scores["Red"] == pointsToWin)
             {
-                LoadEndScene();
+                //LoadEndScene();
             }
             else
             {
@@ -88,7 +88,7 @@ public sealed class EliminationGameMode : GameMode
 
             if (scores["Green"] == pointsToWin)
             {
-                LoadEndScene();
+                //LoadEndScene();
             }
             else
             {

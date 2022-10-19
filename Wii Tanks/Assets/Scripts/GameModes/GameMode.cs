@@ -20,7 +20,7 @@ public abstract class GameMode : NetworkBehaviour
         Instance = this;
     }
 
-    public void LoadEndScene()
+    /*public void LoadEndScene()
     {
         List<NetworkObject> movedObjects = new()
         {
@@ -40,7 +40,7 @@ public abstract class GameMode : NetworkBehaviour
         };
 
         InstanceFinder.SceneManager.LoadGlobalScenes(sld);
-    }
+    }*/
 
 
     //Those methods need to be abstract, so that they can be called when referencing this class, rather than its subclasses

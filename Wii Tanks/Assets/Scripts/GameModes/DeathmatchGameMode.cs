@@ -49,7 +49,7 @@ public sealed class DeathmatchGameMode : GameMode
             }
             else
             {
-                LoadEndScene();
+                //LoadEndScene();
             }
         }
     }
