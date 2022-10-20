@@ -84,11 +84,6 @@ public abstract class Tank : NetworkBehaviour
     protected Coroutine routine;
 
 
-    private void Start()
-    {
-
-    }
-
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
@@ -107,107 +102,14 @@ public abstract class Tank : NetworkBehaviour
     }
 
 
-    //Firing weapons need to be server authoritive so there is no delay, so this will need to be changed
-
-    private void Update()
+    public virtual void ChangeColours(string color)
     {
-        if (!IsOwner)
-            return;
-
-        if (Input.GetMouseButtonDown(0) && ammoCount > 0)
-        {
-            //firingQueued = true;
-
-            Fire();
-
-            if (routine != null)
-            {
-                StopCoroutine(routine);
-                routine = null;
-            }
-
-            ammoCount--;
-            routine = StartCoroutine(AddAmmo(stats.timeToReload));
-        }
-
-        if (Input.GetMouseButtonDown(1) && canUseSpecialMove)
-            SpecialMove();
+        transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
+        turret.gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
+        explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
+        muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
     }
 
-
-    //ServerRpc means that the bullet will spawn on the server, so each other client can see it
-
-    [ServerRpc]
-    protected virtual void Fire()
-    {
-        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-        Spawn(bulletInstance);
-        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-
-        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
-        Spawn(flashInstance);
-    }
-
-    protected abstract void SpecialMove();
-
-
-    protected IEnumerator AddAmmo(float time)
-    {
-        yield return new WaitForSeconds(time);
-        ammoCount++;
-
-        if (ammoCount != stats.maxAmmo)
-        {
-            routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
-        }
-        else
-        {
-            routine = null;
-        }   
-    }
-
-
-    //Tank needs to subscribe to TimeManager, so its movement is server authoritive
-
-    private void SubscribeToTimeManager(bool subscribe)
-    {
-        if (TimeManager == null || subscribe == isSubscribed) 
-            return;
-
-        isSubscribed = subscribe;
-
-        if (subscribe)
-        {
-            TimeManager.OnTick += TimeManager_OnTick;
-        }
-        else
-        {
-            TimeManager.OnTick -= TimeManager_OnTick;
-        }
-    }
-
-
-    //Tank will gather input on the client, and then move on the server
-
-    private void TimeManager_OnTick()
-    {
-        if (!IsSpawned)
-            return;
-
-        if (IsOwner)
-        {
-            Reconciliation(default, false);
-            GatherInputs(out MoveData data);
-            Move(data, false);
-        }
-
-        if (IsServer)
-        {
-            Move(default, true);
-            ReconcileData rd = new(transform.position, transform.rotation, turret.rotation);
-            Reconciliation(rd, true);
-        }
-    }
 
     [Server]
     public void GameOver()
@@ -229,7 +131,58 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
-    [Client]
+
+    [ServerRpc]
+    protected virtual void Fire()
+    {
+        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        Spawn(bulletInstance);
+        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+
+        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
+        Spawn(flashInstance);
+    }
+
+    protected abstract void SpecialMove();
+
+    protected IEnumerator AddAmmo(float time)
+    {
+        yield return new WaitForSeconds(time);
+        ammoCount++;
+
+        if (ammoCount != stats.maxAmmo)
+        {
+            routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
+        }
+        else
+        {
+            routine = null;
+        }
+    }
+
+    private void Update()
+    {
+        if (!IsOwner)
+            return;
+
+        if (Input.GetMouseButtonDown(0) && ammoCount > 0)
+        {
+            Fire();
+
+            if (routine != null)
+            {
+                StopCoroutine(routine);
+                routine = null;
+            }
+
+            ammoCount--;
+            routine = StartCoroutine(AddAmmo(stats.timeToReload));
+        }
+
+        if (Input.GetMouseButtonDown(1) && canUseSpecialMove)
+            SpecialMove();
+    }
+
     private void GatherInputs(out MoveData data)
     {
         moveAxis = Input.GetAxis("Vertical");
@@ -238,16 +191,27 @@ public abstract class Tank : NetworkBehaviour
         Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
 
         data = new MoveData(moveAxis, rotateAxis, hit.point);
-
-        //firingQueued = false;
     }
 
-    public virtual void ChangeColours (string color)
+
+    private void TimeManager_OnTick()
     {
-        gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
-        turret.gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
-        explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
-        muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
+        if (!IsSpawned)
+            return;
+
+        if (IsOwner)
+        {
+            Reconciliation(default, false);
+            GatherInputs(out MoveData data);
+            Move(data, false);
+        }
+
+        if (IsServer)
+        {
+            Move(default, true);
+            ReconcileData rd = new(transform.position, transform.rotation, turret.rotation);
+            Reconciliation(rd, true);
+        }
     }
 
 
@@ -263,11 +227,6 @@ public abstract class Tank : NetworkBehaviour
 
         turret.LookAt(data.TurretLookDirection, Vector3.up);
         turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
-
-        /*if (data.FireWeapon)
-        {
-            Fire();
-        }*/
     }
 
     [Reconcile]
@@ -277,6 +236,23 @@ public abstract class Tank : NetworkBehaviour
         transform.SetPositionAndRotation(data.Position, data.TankRotation);
 
         turret.rotation = data.TurretRotation;
+    }
+
+    private void SubscribeToTimeManager(bool subscribe)
+    {
+        if (TimeManager == null || subscribe == isSubscribed)
+            return;
+
+        isSubscribed = subscribe;
+
+        if (subscribe)
+        {
+            TimeManager.OnTick += TimeManager_OnTick;
+        }
+        else
+        {
+            TimeManager.OnTick -= TimeManager_OnTick;
+        }
     }
 }
 
