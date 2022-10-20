@@ -92,7 +92,7 @@ public abstract class Tank : NetworkBehaviour
         ammoCount = stats.maxAmmo;
         controller = GetComponent<CharacterController>();
         gameModeManager = FindObjectOfType<GameMode>();
-        turret = transform.GetChild(0);
+        turret = transform.GetChild(0).GetChild(0);
         bulletSpawn = turret.GetChild(0);
         muzzleFlashEmpty = turret.GetChild(1);
         bulletEmpty = GameObject.Find("Bullets").transform;
@@ -104,7 +104,7 @@ public abstract class Tank : NetworkBehaviour
 
     public virtual void ChangeColours(string color)
     {
-        transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
+        transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
         turret.gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
         explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
         muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
