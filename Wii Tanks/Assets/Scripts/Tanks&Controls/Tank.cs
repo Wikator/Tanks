@@ -12,14 +12,14 @@ public abstract class Tank : NetworkBehaviour
     {
         public float MoveAxis;
         public float RotateAxis;
-        //public bool FireWeapon;
+        public bool FireWeapon;
         public Vector3 TurretLookDirection;
 
-        public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection)
+        public MoveData(float moveAxis, float rotateAxis, bool fireWeapon, Vector3 turretLookDirection)
         {
             MoveAxis = moveAxis;
             RotateAxis = rotateAxis;
-            //FireWeapon = fireWapon;
+            FireWeapon = fireWeapon;
             TurretLookDirection = turretLookDirection;
         }
     }
@@ -70,7 +70,7 @@ public abstract class Tank : NetworkBehaviour
     private float rotateAxis;
 
     private bool isSubscribed = false;
-    //private bool firingQueued = false;
+    private bool firingQueued = false;
 
     private GameMode gameModeManager;
     private CharacterController controller;
@@ -167,7 +167,7 @@ public abstract class Tank : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0) && ammoCount > 0)
         {
-            Fire();
+            firingQueued = true;
 
             if (routine != null)
             {
@@ -190,7 +190,9 @@ public abstract class Tank : NetworkBehaviour
 
         Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
 
-        data = new MoveData(moveAxis, rotateAxis, hit.point);
+        data = new MoveData(moveAxis, rotateAxis, firingQueued, hit.point);
+
+        firingQueued = false;
     }
 
 
@@ -216,7 +218,6 @@ public abstract class Tank : NetworkBehaviour
 
 
     [Replicate]
-    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     private void Move(MoveData data, bool asServer, bool replaying = false)
     {
         if (!IsSpawned)
@@ -227,6 +228,12 @@ public abstract class Tank : NetworkBehaviour
 
         turret.LookAt(data.TurretLookDirection, Vector3.up);
         turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
+
+        if (!asServer && !replaying && data.FireWeapon)
+
+        {
+            Fire();
+        }
     }
 
     [Reconcile]
