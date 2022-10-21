@@ -83,6 +83,9 @@ public abstract class Tank : NetworkBehaviour
 
     protected Coroutine routine;
 
+    [SerializeField, Tooltip("CSP currently makes turret desync")]
+    private bool turretCSP;
+
 
     public override void OnStartNetwork()
     {
@@ -92,20 +95,19 @@ public abstract class Tank : NetworkBehaviour
         ammoCount = stats.maxAmmo;
         controller = GetComponent<CharacterController>();
         gameModeManager = FindObjectOfType<GameMode>();
-        turret = transform.GetChild(0).GetChild(0);
-        bulletSpawn = turret.GetChild(0);
-        muzzleFlashEmpty = turret.GetChild(1);
+        turret = transform.GetChild(1);
+        bulletSpawn = turret.GetChild(0).GetChild(0);
+        muzzleFlashEmpty = turret.GetChild(0).GetChild(1);
         bulletEmpty = GameObject.Find("Bullets").transform;
         explosionEmpty = GameObject.Find("Explosions").transform;
         ChangeColours(controllingPlayer.color);
         SubscribeToTimeManager(true);
     }
 
-
     public virtual void ChangeColours(string color)
     {
-        transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
-        turret.gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
+        transform.GetChild(0).GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
+        turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
         explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
         muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
     }
@@ -165,36 +167,25 @@ public abstract class Tank : NetworkBehaviour
         if (!IsOwner)
             return;
 
-        if (Input.GetMouseButtonDown(0) && ammoCount > 0)
-        {
-            firingQueued = true;
-
-            if (routine != null)
-            {
-                StopCoroutine(routine);
-                routine = null;
-            }
-
-            ammoCount--;
-            routine = StartCoroutine(AddAmmo(stats.timeToReload));
-        }
+        firingQueued |= Input.GetMouseButtonDown(0);
 
         if (Input.GetMouseButtonDown(1) && canUseSpecialMove)
             SpecialMove();
-    }
 
-    private void GatherInputs(out MoveData data)
-    {
-        moveAxis = Input.GetAxis("Vertical");
-        rotateAxis = Input.GetAxis("Horizontal");
+        if (turretCSP)
+            return;
 
         Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
 
-        data = new MoveData(moveAxis, rotateAxis, firingQueued, hit.point);
-
-        firingQueued = false;
+        Rotate(hit.point);
     }
 
+    [ServerRpc]
+    private void Rotate(Vector3 point)
+    {
+        turret.LookAt(point, Vector3.up);
+        turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
+    }
 
     private void TimeManager_OnTick()
     {
@@ -216,6 +207,18 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
+    private void GatherInputs(out MoveData data)
+    {
+        moveAxis = Input.GetAxis("Vertical");
+        rotateAxis = Input.GetAxis("Horizontal");
+
+        Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
+
+        data = new MoveData(moveAxis, rotateAxis, firingQueued, hit.point);
+
+        firingQueued = false;
+    }
+
 
     [Replicate]
     private void Move(MoveData data, bool asServer, bool replaying = false)
@@ -226,13 +229,24 @@ public abstract class Tank : NetworkBehaviour
         controller.Move((float)TimeManager.TickDelta * data.MoveAxis * stats.moveSpeed * transform.forward);
         transform.Rotate(new Vector3(0f, data.RotateAxis * stats.rotateSpeed * (float)TimeManager.TickDelta, 0f));
 
-        turret.LookAt(data.TurretLookDirection, Vector3.up);
-        turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
+        if (turretCSP)
+        {
+            turret.LookAt(data.TurretLookDirection, Vector3.up);
+            turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
+        }
 
-        if (!asServer && !replaying && data.FireWeapon)
-
+        if (!asServer && !replaying && data.FireWeapon && ammoCount > 0)
         {
             Fire();
+
+            if (routine != null)
+            {
+                StopCoroutine(routine);
+                routine = null;
+            }
+
+            ammoCount--;
+            routine = StartCoroutine(AddAmmo(stats.timeToReload));
         }
     }
 
