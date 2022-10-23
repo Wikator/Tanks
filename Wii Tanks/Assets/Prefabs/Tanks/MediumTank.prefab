@@ -893,81 +893,6 @@ Transform:
   m_Father: {fileID: 6970665313150589550}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4083326208691790268
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5847283866901547131}
-  - component: {fileID: 7101477192585620176}
-  m_Layer: 0
-  m_Name: ArmourTransform
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5847283866901547131
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4083326208691790268}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7963829885618234196}
-  m_Father: {fileID: 3510504823743185033}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7101477192585620176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4083326208691790268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 3
-  _addedNetworkObject: {fileID: 7392597686560367510}
-  _networkObjectCache: {fileID: 7392597686560367510}
-  _synchronizeParent: 0
-  _packing:
-    Position: 1
-    Rotation: 1
-    Scale: 0
-  _interpolation: 2
-  _extrapolation: 2
-  _enableTeleport: 0
-  _teleportThreshold: 1
-  _clientAuthoritative: 0
-  _sendToOwner: 0
-  _interval: 1
-  _synchronizePosition: 1
-  _positionSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeRotation: 1
-  _rotationSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeScale: 0
-  _scaleSnapping:
-    X: 0
-    Y: 0
-    Z: 0
 --- !u!1 &4769049130103943627
 GameObject:
   m_ObjectHideFlags: 0
@@ -977,7 +902,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1798131415440317305}
-  - component: {fileID: 3342008858217764916}
+  - component: {fileID: 5117780781581832194}
   m_Layer: 0
   m_Name: TurretTransform
   m_TagString: Untagged
@@ -1001,7 +926,7 @@ Transform:
   m_Father: {fileID: 3510504823743185033}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3342008858217764916
+--- !u!114 &5117780781581832194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1013,9 +938,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 4
+  _componentIndexCache: 255
   _addedNetworkObject: {fileID: 7392597686560367510}
-  _networkObjectCache: {fileID: 7392597686560367510}
+  _networkObjectCache: {fileID: 0}
   _synchronizeParent: 0
   _packing:
     Position: 1
@@ -1058,9 +983,9 @@ GameObject:
   - component: {fileID: 1207183529631307703}
   - component: {fileID: 6830396825162017429}
   - component: {fileID: 7392597686560367510}
-  - component: {fileID: 4155960021150427713}
+  - component: {fileID: 4587066124602853833}
   m_Layer: 0
-  m_Name: Tank
+  m_Name: MediumTank
   m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1078,7 +1003,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5847283866901547131}
+  - {fileID: 7963829885618234196}
   - {fileID: 1798131415440317305}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1138,7 +1063,7 @@ MonoBehaviour:
     maxAmmo: 5
   ammoCount: 0
   controllingPlayer: {fileID: 0}
-  turretCSP: 1
+  turretCSP: 0
 --- !u!114 &1207183529631307703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1163,7 +1088,7 @@ MonoBehaviour:
   _predictionType: 0
   _rigidbody: {fileID: 0}
   _rigidbody2d: {fileID: 0}
-  _networkTransform: {fileID: 7101477192585620176}
+  _networkTransform: {fileID: 4587066124602853833}
   _predictionRatio: 0
 --- !u!114 &6830396825162017429
 MonoBehaviour:
@@ -1189,7 +1114,7 @@ MonoBehaviour:
   _predictionType: 0
   _rigidbody: {fileID: 0}
   _rigidbody2d: {fileID: 0}
-  _networkTransform: {fileID: 3342008858217764916}
+  _networkTransform: {fileID: 5117780781581832194}
   _predictionRatio: 0
 --- !u!114 &7392597686560367510
 MonoBehaviour:
@@ -1207,8 +1132,8 @@ MonoBehaviour:
   - {fileID: 1103874108160757826}
   - {fileID: 1207183529631307703}
   - {fileID: 6830396825162017429}
-  - {fileID: 7101477192585620176}
-  - {fileID: 3342008858217764916}
+  - {fileID: 4587066124602853833}
+  - {fileID: 0}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1217,11 +1142,11 @@ MonoBehaviour:
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  _prefabId: 31
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects: []
---- !u!114 &4155960021150427713
+--- !u!114 &4587066124602853833
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1233,9 +1158,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 7392597686560367510}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 7392597686560367510}
   _synchronizeParent: 0
   _packing:
     Position: 1
@@ -1277,7 +1202,7 @@ GameObject:
   - component: {fileID: 7541205325568414184}
   - component: {fileID: 8846684297576246176}
   m_Layer: 0
-  m_Name: ArmourGraphic
+  m_Name: Armour
   m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1295,7 +1220,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5847283866901547131}
+  m_Father: {fileID: 3510504823743185033}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8308168542643738610

@@ -1,80 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4687156271355545451
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6723392683520156198}
-  - component: {fileID: 5793522633582613015}
-  m_Layer: 0
-  m_Name: ArmourTransform
-  m_TagString: Tank
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6723392683520156198
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4687156271355545451}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2508641425410159571}
-  m_Father: {fileID: 2859366190744880618}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5793522633582613015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4687156271355545451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 3
-  _addedNetworkObject: {fileID: 497388105468288731}
-  _networkObjectCache: {fileID: 497388105468288731}
-  _synchronizeParent: 0
-  _packing:
-    Position: 1
-    Rotation: 1
-    Scale: 0
-  _interpolation: 2
-  _extrapolation: 2
-  _enableTeleport: 0
-  _teleportThreshold: 1
-  _clientAuthoritative: 0
-  _sendToOwner: 0
-  _interval: 1
-  _synchronizePosition: 1
-  _positionSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeRotation: 1
-  _rotationSnapping:
-    X: 0
-    Y: 0
-    Z: 0
-  _synchronizeScale: 0
-  _scaleSnapping:
-    X: 0
-    Y: 0
-    Z: 0
 --- !u!1 &4818985956192005731
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,7 +35,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6723392683520156198}
+  - {fileID: 2508641425410159571}
   - {fileID: 5117794245464423642}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -187,7 +112,8 @@ MonoBehaviour:
   - {fileID: -8275027250751033499}
   - {fileID: 4186482557378778042}
   - {fileID: 3329388329335541675}
-  - {fileID: 5793522633582613015}
+  - {fileID: 407373638882989696}
+  - {fileID: 0}
   - {fileID: 5115405191805543612}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: 0}
@@ -197,7 +123,7 @@ MonoBehaviour:
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 9
+  _prefabId: 10
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:
@@ -226,7 +152,7 @@ MonoBehaviour:
   _predictionType: 0
   _rigidbody: {fileID: 0}
   _rigidbody2d: {fileID: 0}
-  _networkTransform: {fileID: 5793522633582613015}
+  _networkTransform: {fileID: 407373638882989696}
   _predictionRatio: 0
 --- !u!114 &3329388329335541675
 MonoBehaviour:
@@ -266,9 +192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 497388105468288731}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 497388105468288731}
   _synchronizeParent: 0
   _packing:
     Position: 1
@@ -278,8 +204,8 @@ MonoBehaviour:
   _extrapolation: 2
   _enableTeleport: 0
   _teleportThreshold: 1
-  _clientAuthoritative: 1
-  _sendToOwner: 1
+  _clientAuthoritative: 0
+  _sendToOwner: 0
   _interval: 1
   _synchronizePosition: 1
   _positionSnapping:
@@ -341,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 4
+  _componentIndexCache: 5
   _addedNetworkObject: {fileID: 497388105468288731}
   _networkObjectCache: {fileID: 497388105468288731}
   _synchronizeParent: 0
@@ -416,7 +342,7 @@ GameObject:
   - component: {fileID: 3736235264636284814}
   - component: {fileID: 2108767078640340348}
   m_Layer: 0
-  m_Name: ArmourGraphics
+  m_Name: Armour
   m_TagString: Tank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -434,7 +360,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6723392683520156198}
+  m_Father: {fileID: 2859366190744880618}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8981192020933884530

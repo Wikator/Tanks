@@ -106,7 +106,7 @@ public abstract class Tank : NetworkBehaviour
 
     public virtual void ChangeColours(string color)
     {
-        transform.GetChild(0).GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
+        transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
         turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
         explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
         muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
@@ -172,12 +172,13 @@ public abstract class Tank : NetworkBehaviour
         if (Input.GetMouseButtonDown(1) && canUseSpecialMove)
             SpecialMove();
 
-        if (turretCSP)
-            return;
+        if (!turretCSP)
+        {
 
-        Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
+            Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
 
-        Rotate(hit.point);
+            Rotate(hit.point);
+        }
     }
 
     [ServerRpc]
@@ -276,4 +277,3 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 }
-
