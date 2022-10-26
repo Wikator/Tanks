@@ -938,9 +938,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 7392597686560367510}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 7392597686560367510}
   _synchronizeParent: 0
   _packing:
     Position: 1
@@ -1063,7 +1063,7 @@ MonoBehaviour:
     maxAmmo: 5
   ammoCount: 0
   controllingPlayer: {fileID: 0}
-  turretCSP: 0
+  turretCSP: 1
 --- !u!114 &1207183529631307703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1133,7 +1133,7 @@ MonoBehaviour:
   - {fileID: 1207183529631307703}
   - {fileID: 6830396825162017429}
   - {fileID: 4587066124602853833}
-  - {fileID: 0}
+  - {fileID: 5117780781581832194}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1142,7 +1142,7 @@ MonoBehaviour:
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 31
+  _prefabId: 44
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects: []

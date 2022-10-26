@@ -232,8 +232,11 @@ public abstract class Tank : NetworkBehaviour
 
         if (turretCSP)
         {
-            turret.LookAt(data.TurretLookDirection, Vector3.up);
-            turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
+            if (data.TurretLookDirection != Vector3.zero)
+            {
+                turret.LookAt(data.TurretLookDirection, Vector3.up);
+                turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
+            }
         }
 
         if (!asServer && !replaying && data.FireWeapon && ammoCount > 0)

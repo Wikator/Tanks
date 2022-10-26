@@ -126,7 +126,7 @@ MonoBehaviour:
     maxAmmo: 2
   ammoCount: 0
   controllingPlayer: {fileID: 0}
-  turretCSP: 0
+  turretCSP: 1
   fastModeStats:
     moveSpeed: 10
     rotateSpeed: 300

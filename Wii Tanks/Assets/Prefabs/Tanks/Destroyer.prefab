@@ -95,7 +95,7 @@ MonoBehaviour:
     maxAmmo: 1
   ammoCount: 0
   controllingPlayer: {fileID: 0}
-  turretCSP: 0
+  turretCSP: 1
 --- !u!114 &497388105468288731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +113,6 @@ MonoBehaviour:
   - {fileID: 4186482557378778042}
   - {fileID: 3329388329335541675}
   - {fileID: 407373638882989696}
-  - {fileID: 0}
   - {fileID: 5115405191805543612}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: 0}
@@ -267,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 5
+  _componentIndexCache: 4
   _addedNetworkObject: {fileID: 497388105468288731}
   _networkObjectCache: {fileID: 497388105468288731}
   _synchronizeParent: 0
