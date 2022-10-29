@@ -17,5 +17,5 @@ Currently there are 2 modes, 4 maps, 3 tank types, and 6 player colors to choose
 
 1. More tank types
 2. More colorful maps (all maps currently use the same color palette)
-3. Updated tanks mode;
+3. Updated tanks models
 
