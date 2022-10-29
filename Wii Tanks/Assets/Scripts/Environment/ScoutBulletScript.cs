@@ -24,7 +24,17 @@ public sealed class ScoutBulletScript : Bullet
                     }
 
                     other.GetComponent<Tank>().GameOver();
-                    Despawn();
+
+                    if (!isUnstoppable)
+                    {
+                        Despawn();
+                    }
+                    else
+                    {
+                        Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
+                        rigidBody.velocity = currentVelocity;
+                        transform.position = currentPosition;
+                    }
                 }
             }
             else
@@ -37,15 +47,35 @@ public sealed class ScoutBulletScript : Bullet
                     }
 
                     other.GetComponent<Tank>().GameOver();
-                    Despawn();
+
+                    if (!isUnstoppable)
+                    {
+                        Despawn();
+                    }
+                    else
+                    {
+                        Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
+                        rigidBody.velocity = currentVelocity;
+                        transform.position = currentPosition;
+                    }
                 }
             }
         }
 
         if (other.CompareTag("Bullet") && other.GetComponent<Bullet>().player != player)
         {
-            StartCoroutine(DespawnItself());
             StartCoroutine(other.GetComponent<Bullet>().DespawnItself());
+
+            if (!isUnstoppable)
+            {
+                StartCoroutine(DespawnItself());
+            }
+            else
+            {
+                Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
+                rigidBody.velocity = currentVelocity;
+                transform.position = currentPosition;
+            }
         }
 
         if(other.CompareTag("Arena"))

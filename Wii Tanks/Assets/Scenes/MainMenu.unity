@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fdaae44044276a49a52229c1597e33b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tickRate: 80
+  _tickRate: 100
   _pingInterval: 1
   _timingInterval: 1
   _physicsMode: 1

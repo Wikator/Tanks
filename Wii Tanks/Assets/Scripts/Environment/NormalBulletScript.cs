@@ -1,4 +1,3 @@
-using FishNet.Connection;
 using FishNet.Managing.Logging;
 using FishNet.Object;
 using UnityEngine;
@@ -8,23 +7,9 @@ public sealed class NormalBulletScript : Bullet
     [SerializeField]
     private int ricochetCount;
 
-    [SerializeField, Tooltip("Unblockable bullets are used by Destroyers' special move, those overpenetrate targets")]
-    private bool isUnblockable;
-
     private bool canDamageSelf;
 
-    private Vector3 currentVelocity, currentPosition;
-
     //Bullet used by Medium Tanks and Destroyers
-
-
-    //Bullet's stats are saved in the FixedUpdate, so that the bullet will not slow down after hitting the wall
-
-    private void FixedUpdate()
-    {
-        currentVelocity = rigidBody.velocity;
-        currentPosition = transform.position;
-    }
 
 
     //After hitting the wall, bullet will reflect its direction in relation to the wall, and also change its speed so that the impact will not slow it down
@@ -52,9 +37,9 @@ public sealed class NormalBulletScript : Bullet
 
         if (collision.gameObject.CompareTag("Tank"))
         {
-            if (player != null)
+            if (player)
             {
-                if (player.controlledPawn != null)
+                if (player.controlledPawn)
                 {
                     if (collision.gameObject != player.controlledPawn.gameObject)
                     {
@@ -73,7 +58,7 @@ public sealed class NormalBulletScript : Bullet
 
             collision.gameObject.GetComponent<Tank>().GameOver();
 
-            if (!isUnblockable)
+            if (!isUnstoppable)
             {
                 Despawn();
             }
@@ -87,7 +72,7 @@ public sealed class NormalBulletScript : Bullet
 
         if (collision.gameObject.CompareTag("Bullet"))
         {
-            if (!isUnblockable)
+            if (!isUnstoppable)
             {
                 StartCoroutine(DespawnItself());
             }

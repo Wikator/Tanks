@@ -83,8 +83,6 @@ public abstract class Tank : NetworkBehaviour
 
     protected Coroutine routine;
 
-    [SerializeField, Tooltip("CSP currently makes turret desync")]
-    private bool turretCSP;
 
 
     public override void OnStartNetwork()
@@ -171,21 +169,6 @@ public abstract class Tank : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(1) && canUseSpecialMove)
             SpecialMove();
-
-        if (!turretCSP)
-        {
-
-            Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
-
-            Rotate(hit.point);
-        }
-    }
-
-    [ServerRpc]
-    private void Rotate(Vector3 point)
-    {
-        turret.LookAt(point, Vector3.up);
-        turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
     }
 
     private void TimeManager_OnTick()
@@ -230,13 +213,10 @@ public abstract class Tank : NetworkBehaviour
         controller.Move((float)TimeManager.TickDelta * data.MoveAxis * stats.moveSpeed * transform.forward);
         transform.Rotate(new Vector3(0f, data.RotateAxis * stats.rotateSpeed * (float)TimeManager.TickDelta, 0f));
 
-        if (turretCSP)
+        if (data.TurretLookDirection != Vector3.zero)
         {
-            if (data.TurretLookDirection != Vector3.zero)
-            {
-                turret.LookAt(data.TurretLookDirection, Vector3.up);
-                turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
-            }
+            turret.LookAt(data.TurretLookDirection, Vector3.up);
+            turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
         }
 
         if (!asServer && !replaying && data.FireWeapon && ammoCount > 0)

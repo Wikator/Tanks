@@ -13,6 +13,12 @@ public abstract class Bullet : NetworkBehaviour
 
     protected Rigidbody rigidBody;
 
+    protected Vector3 currentVelocity, currentPosition;
+
+    [SerializeField, Tooltip("Unstoppable bullets are not destroyed when colliding with tanks or other bullets")]
+    protected bool isUnstoppable;
+
+
 
     //Once spawn, bullet will be given force, and cannot be slown down by any means, unless destroyed
 
@@ -21,10 +27,20 @@ public abstract class Bullet : NetworkBehaviour
         rigidBody = GetComponent<Rigidbody>();
     }
 
+
     public override void OnSpawnServer(NetworkConnection connection)
     {
         base.OnSpawnServer(connection);
         rigidBody.velocity = transform.forward * moveSpeed;
+    }
+
+
+    //Bullet's stats are saved in the FixedUpdate, so that the bullet will not slow down after hitting the wall
+
+    private void FixedUpdate()
+    {
+        currentVelocity = rigidBody.velocity;
+        currentPosition = transform.position;
     }
 
     [Server]
