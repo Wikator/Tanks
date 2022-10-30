@@ -27,8 +27,9 @@ public class ScoutTank : Tank
         {
             GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
             bulletInstance.transform.Rotate(new Vector3(0.0f, angle, 0.0f));
-            Spawn(bulletInstance);
             bulletInstance.GetComponent<ScoutBulletScript>().player = controllingPlayer;
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+            Spawn(bulletInstance);
 
             GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
             flashInstance.transform.Rotate(new Vector3(0.0f, angle, 0.0f));

@@ -60,51 +60,44 @@ public sealed class EliminationGameMode : GameMode
 
     //When a team has no players left, the round ends, points are given, and a new round starts
 
-    [Server]
-    private void Update()
+    public override void OnKilled(PlayerNetworking playerNetworking)
     {
         if (waitingForNewRound || !IsServer)
             return;
 
-        if (greenTeam.All(player => !player.controlledPawn) && greenTeam.Count != 0)
+        switch (playerNetworking.color)
         {
-            PointScored("Red", 1);
+            case "Green":
+                if (greenTeam.All(player => !player.controlledPawn) && greenTeam.Count != 0)
+                {
+                    PointScored("Red", 1);
 
-            if (scores["Red"] == pointsToWin)
-            {
-                //LoadEndScene();
-            }
-            else
-            {
-                StartCoroutine(NewRound());
-            }
+                    if (scores["Red"] == pointsToWin)
+                    {
+                        //LoadEndScene();
+                    }
+                    else
+                    {
+                        StartCoroutine(NewRound());
+                    }
+                }
+                break;
+            case "Red":
+                if (redTeam.All(player => !player.controlledPawn) && redTeam.Count != 0)
+                {
+                    PointScored("Green", 1);
 
-            return;
+                    if (scores["Green"] == pointsToWin)
+                    {
+                        //LoadEndScene();
+                    }
+                    else
+                    {
+                        StartCoroutine(NewRound());
+                    }
+                }
+                break;
         }
-
-        if (redTeam.All(player => !player.controlledPawn) && redTeam.Count != 0)
-        {
-            PointScored("Green", 1);
-
-            if (scores["Green"] == pointsToWin)
-            {
-                //LoadEndScene();
-            }
-            else
-            {
-                StartCoroutine(NewRound());
-            }
-
-            return;
-        }    
-    }
-
-
-    //This method isn't necessary here, but needs to be here since the parent class uses it
-
-    public override void OnKilled(PlayerNetworking playerNetworking)
-    {
-        return;
     }
 
 

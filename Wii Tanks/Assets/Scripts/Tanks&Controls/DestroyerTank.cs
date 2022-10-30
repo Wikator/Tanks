@@ -18,8 +18,9 @@ public sealed class DestroyerTank : Tank
         ammoCount = 0;
 
         GameObject bulletInstance = Instantiate(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-        Spawn(bulletInstance);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+        Spawn(bulletInstance);
 
         GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
         Spawn(flashInstance);

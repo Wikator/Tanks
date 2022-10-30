@@ -24,8 +24,10 @@ public sealed class NormalTank : Tank
         for (int i = 0; i < 20; i++)
         {
             GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-            Spawn(bulletInstance);
             bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+
+            Spawn(bulletInstance);
 
             GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
             Spawn(flashInstance);
