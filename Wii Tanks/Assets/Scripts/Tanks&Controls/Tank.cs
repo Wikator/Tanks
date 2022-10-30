@@ -138,6 +138,8 @@ public abstract class Tank : NetworkBehaviour
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Spawn(bulletInstance);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+
 
         GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
         Spawn(flashInstance);

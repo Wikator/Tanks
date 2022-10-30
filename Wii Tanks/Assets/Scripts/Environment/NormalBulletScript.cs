@@ -7,8 +7,6 @@ public sealed class NormalBulletScript : Bullet
     [SerializeField]
     private int ricochetCount;
 
-    private bool canDamageSelf;
-
     //Bullet used by Medium Tanks and Destroyers
 
 
@@ -31,7 +29,7 @@ public sealed class NormalBulletScript : Bullet
                 rigidBody.velocity = currentVelocity;
                 transform.position = currentPosition;
                 rigidBody.velocity = Vector3.Reflect(-collision.relativeVelocity, collision.contacts[0].normal).normalized * moveSpeed;
-                canDamageSelf = true;
+                Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), player.controlledPawn.GetComponent<BoxCollider>(), false);
             }
         }
 
@@ -47,11 +45,6 @@ public sealed class NormalBulletScript : Bullet
                         {
                             GameMode.Instance.PointScored(player.color, 1);
                         }
-                    }
-                    else
-                    {
-                        if (!canDamageSelf)
-                            return;
                     }
                 }
             }
