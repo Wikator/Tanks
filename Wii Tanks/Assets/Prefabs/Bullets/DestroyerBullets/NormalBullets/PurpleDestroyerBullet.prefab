@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -8405391744002029082}
   - component: {fileID: 62525033072000976}
   m_Layer: 7
-  m_Name: PurpleDestroyerBullet 1
+  m_Name: PurpleDestroyerBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,7 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1816831508154832325}
-  - {fileID: 3158243599397021645}
+  - {fileID: 5775098495431615541}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -207,7 +207,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
---- !u!1 &4319913571330367369
+--- !u!1 &4937378571260143332
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,9 +215,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3158243599397021645}
-  - component: {fileID: 3508902416648504544}
-  - component: {fileID: 2786529755776630427}
+  - component: {fileID: 5775098495431615541}
+  - component: {fileID: 3984595881124532700}
+  - component: {fileID: 5268389435665197277}
   m_Layer: 7
   m_Name: Point Light
   m_TagString: Untagged
@@ -225,13 +225,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3158243599397021645
+--- !u!4 &5775098495431615541
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4319913571330367369}
+  m_GameObject: {fileID: 4937378571260143332}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -240,18 +240,18 @@ Transform:
   m_Father: {fileID: 2837156206530728899}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &3508902416648504544
+--- !u!108 &3984595881124532700
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4319913571330367369}
+  m_GameObject: {fileID: 4937378571260143332}
   m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0, g: 1, b: 0.2630806, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.7655511, a: 1}
   m_Intensity: 0.039788734
   m_Range: 5
   m_SpotAngle: 30
@@ -302,13 +302,13 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &2786529755776630427
+--- !u!114 &5268389435665197277
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4319913571330367369}
+  m_GameObject: {fileID: 4937378571260143332}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
