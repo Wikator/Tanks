@@ -58,7 +58,7 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 0.56601524, y: 0, z: 13.048764, w: 1}
+      - m_Value: {x: 8.648174, y: 0, z: 22.627415, w: 1}
         m_Name: Color01
         m_Overridden: 1
     m_Uint:
@@ -131,13 +131,13 @@ MonoBehaviour:
   - {fileID: -1756804076483477932}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 0}
-    LocalScale: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 1}
+    LocalScale: {x: 7, y: 7, z: 7}
   _isNetworked: 1
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 13
+  _prefabId: 21
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects: []
@@ -156,5 +156,5 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 1081764069191275795}
   _networkObjectCache: {fileID: 1081764069191275795}
-  timeToDestroy: 1
+  timeToDestroy: 3.5
   destroyOnSpawn: 1

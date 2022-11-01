@@ -134,7 +134,7 @@ MonoBehaviour:
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 9
+  _prefabId: 15
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects: []
@@ -153,5 +153,5 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -3315385785087075695}
   _networkObjectCache: {fileID: -3315385785087075695}
-  timeToDestroy: 1
+  timeToDestroy: 3.5
   destroyOnSpawn: 1
