@@ -36,6 +36,11 @@
     <type fullname="UnityEngine.ProBuilder.SharedVertex" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.ProBuilder.UnwrapParameters" preserve="nothing" serialized="true" />
   </assembly>
+  <assembly fullname="Unity.RenderPipelines.HighDefinition.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Rendering.HighDefinition.HDAdditionalLightData" preserve="all" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.BoolScalableSettingValue" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.IntScalableSettingValue" preserve="nothing" serialized="true" />
+  </assembly>
   <assembly fullname="Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
     <type fullname="UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider" preserve="all" />
     <type fullname="UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider" preserve="all" />
@@ -46,6 +51,7 @@
   <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.ComputeShader" preserve="all" />
     <type fullname="UnityEngine.GameObject" preserve="all" />
+    <type fullname="UnityEngine.Light" preserve="all" />
     <type fullname="UnityEngine.Material" preserve="all" />
     <type fullname="UnityEngine.MeshFilter" preserve="all" />
     <type fullname="UnityEngine.MeshRenderer" preserve="all" />

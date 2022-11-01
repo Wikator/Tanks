@@ -49,7 +49,10 @@ public sealed class GameManager : NetworkBehaviour
 
     private void OnSceneLoaded(SceneLoadEndEventArgs args)
     {
-        if (args.LoadedScenes[0].name != "MapSelection" && args.LoadedScenes[0].name != "EndScreen" && args.QueueData.AsServer)
+        if (!args.QueueData.AsServer)
+            return;
+
+        if (args.LoadedScenes[0].name != "MapSelection" && args.LoadedScenes[0].name != "EndScreen")
         {
             UIManager.Instance.SetUpAllUI(gameInProgress, Instance.gameMode);
         }
