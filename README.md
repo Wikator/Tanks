@@ -6,7 +6,13 @@ This project is being made using Unity Engine, using FishNetworking as its multi
 
 Currently there are 2 modes, 4 maps, 3 tank types, and 6 player colors to choose from
 
+**OLD:**
+
 ![Picture.png](Picture.png)
+
+**NEW:**
+
+![NewPicture.png](NewPicture.png)
 
 ## Known issues
 
@@ -29,6 +35,3 @@ Currently there are 2 modes, 4 maps, 3 tank types, and 6 player colors to choose
     + FishNet must first add support for Unity's Relay and Lobby services
     + For now, the game uses PlayFlow's dedicated servers
 6. Cleaner UI
-
-
-
