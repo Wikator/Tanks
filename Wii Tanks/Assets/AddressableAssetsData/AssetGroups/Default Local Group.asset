@@ -221,6 +221,26 @@ MonoBehaviour:
     m_Address: RedMuzzleFlash
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 01b34077cbea8c946adb486dff98b1ed
+    m_Address: AnimatedYellow
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 458943f88ad2e3c4ab422b605fc347ed
+    m_Address: AnimatedGreen
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 38572c5b52d87d04584cb27719519851
+    m_Address: AnimatedRed
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a0577fb647f7dc94cb551a6408fcecbe
+    m_Address: AnimatedCyan
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: cd08544217384e24fbc86c84f16d7662
+    m_Address: AnimatedPurple
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
   m_SchemaSet:

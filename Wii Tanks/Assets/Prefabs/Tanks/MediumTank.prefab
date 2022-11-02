@@ -801,7 +801,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dec3d63e17701974c9c6b34cfeda9728, type: 2}
+  - {fileID: 2100000, guid: 01b34077cbea8c946adb486dff98b1ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1055,6 +1055,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 7392597686560367510}
   _networkObjectCache: {fileID: 7392597686560367510}
   canUseSpecialMove: 1
+  animateShader: 1
   stats:
     moveSpeed: 5
     rotateSpeed: 150
@@ -1486,7 +1487,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: dec3d63e17701974c9c6b34cfeda9728, type: 2}
+  - {fileID: 2100000, guid: 01b34077cbea8c946adb486dff98b1ed, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

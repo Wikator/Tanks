@@ -918,6 +918,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 497388105468288731}
   _networkObjectCache: {fileID: 497388105468288731}
   canUseSpecialMove: 1
+  animateShader: 1
   stats:
     moveSpeed: 4
     rotateSpeed: 100
