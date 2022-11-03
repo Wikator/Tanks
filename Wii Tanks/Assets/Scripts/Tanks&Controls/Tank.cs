@@ -111,7 +111,7 @@ public abstract class Tank : NetworkBehaviour
         {
             transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
             turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-
+            gameObject.GetComponent<Light>().color = transform.GetChild(0).GetComponent<MeshRenderer>().material.GetColor("_Color01");
         }
         else
         {
