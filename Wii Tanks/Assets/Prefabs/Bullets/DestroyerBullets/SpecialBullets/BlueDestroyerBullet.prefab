@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1565813609975825529
+--- !u!1 &1600387838855680168
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1454278395036530871}
-  - component: {fileID: 489855103440415539}
-  - component: {fileID: 7360576002342367315}
+  - component: {fileID: 2861977759728485917}
+  - component: {fileID: 5792478504359170678}
+  - component: {fileID: 2020119869831699043}
   m_Layer: 7
   m_Name: Point Light
   m_TagString: Untagged
@@ -18,13 +18,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1454278395036530871
+--- !u!4 &2861977759728485917
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1565813609975825529}
+  m_GameObject: {fileID: 1600387838855680168}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,18 +33,18 @@ Transform:
   m_Father: {fileID: 2837156206530728899}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!108 &489855103440415539
+--- !u!108 &5792478504359170678
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1565813609975825529}
+  m_GameObject: {fileID: 1600387838855680168}
   m_Enabled: 1
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0, g: 0.9226115, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.17089081, b: 1, a: 1}
   m_Intensity: 0.039788734
   m_Range: 5
   m_SpotAngle: 30
@@ -95,13 +95,13 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &7360576002342367315
+--- !u!114 &2020119869831699043
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1565813609975825529}
+  m_GameObject: {fileID: 1600387838855680168}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
@@ -229,12 +229,12 @@ GameObject:
   - component: {fileID: 3334176318155854885}
   - component: {fileID: 7918255826232171724}
   - component: {fileID: 2846345153017054527}
-  - component: {fileID: -206131759946733818}
+  - component: {fileID: -4227543758443852699}
   - component: {fileID: -5833880829761614842}
   - component: {fileID: -8405391744002029082}
   - component: {fileID: 62525033072000976}
   m_Layer: 7
-  m_Name: BrownBullet
+  m_Name: BlueDestroyerBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -253,7 +253,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1816831508154832325}
-  - {fileID: 1454278395036530871}
+  - {fileID: 2861977759728485917}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -315,12 +315,12 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2456512010136705151}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-206131759946733818
+--- !u!114 &-4227543758443852699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -329,15 +329,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2456512010136705151}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 934f286cd4c75b84e95141ffcb52e936, type: 3}
+  m_Script: {fileID: 11500000, guid: 00247c0eec91f7148a62be1fb0d41594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -8405391744002029082}
   _networkObjectCache: {fileID: -8405391744002029082}
-  moveSpeed: 11
+  moveSpeed: 45
   player: {fileID: 0}
-  isUnstoppable: 0
+  isUnstoppable: 1
+  ricochetCount: 8
 --- !u!54 &-5833880829761614842
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -353,7 +354,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 3
+  m_CollisionDetection: 1
 --- !u!114 &-8405391744002029082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -367,7 +368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _networkBehaviours:
-  - {fileID: -206131759946733818}
+  - {fileID: -4227543758443852699}
   - {fileID: 62525033072000976}
   SceneTransformProperties:
     Position: {x: 0, y: 0, z: 0}
@@ -377,7 +378,7 @@ MonoBehaviour:
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: 40
+  _prefabId: 18
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects: []

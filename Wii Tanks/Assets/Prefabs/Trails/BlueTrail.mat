@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BrownTrail
+  m_Name: BlueTrail
   m_Shader: {fileID: -6465566751694194690, guid: f8c30e3e89c3a5343a6a90cd3edbeb6a, type: 3}
   m_ValidKeywords:
   - _ALPHATEST_ON
@@ -102,8 +102,8 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - _Color01: {r: 1.6637807, g: 0, b: 0, a: 1}
-    - _Color02: {r: 0.6862745, g: 0, b: 0, a: 0}
+    - _Color01: {r: 0, g: 0.18646733, b: 2.9655805, a: 1}
+    - _Color02: {r: 0, g: 0.027828693, b: 1, a: 0}
     - _DissolveSpeed: {r: -0.3, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

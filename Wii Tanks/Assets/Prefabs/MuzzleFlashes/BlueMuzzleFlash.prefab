@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3092781018172726821}
   - component: {fileID: -2486695098518188872}
   m_Layer: 0
-  m_Name: BrownMuzzleFlash
+  m_Name: BlueMuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -224,8 +224,8 @@ ParticleSystem:
     startColor:
       serializedVersion: 2
       minMaxState: 2
-      minColor: {r: 0.5882353, g: 0, b: 0, a: 1}
-      maxColor: {r: 0.6862745, g: 0, b: 0, a: 1}
+      minColor: {r: 0, g: 0.23950672, b: 1, a: 1}
+      maxColor: {r: 0.0071458817, g: 0, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

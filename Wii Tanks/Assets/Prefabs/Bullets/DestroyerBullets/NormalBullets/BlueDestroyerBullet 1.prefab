@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -8405391744002029082}
   - component: {fileID: 62525033072000976}
   m_Layer: 7
-  m_Name: BrownDestroyerBullet 1
+  m_Name: BlueDestroyerBullet 1
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -251,7 +251,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 0, g: 0.9226115, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.17089081, b: 1, a: 1}
   m_Intensity: 0.039788734
   m_Range: 5
   m_SpotAngle: 30

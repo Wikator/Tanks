@@ -35,7 +35,7 @@ public sealed class DeathmatchGameMode : GameMode
         scores["Cyan"] = 0;
         scores["Purple"] = 0;
         scores["Yellow"] = 0;
-        scores["Brown"] = 0;
+        scores["Blue"] = 0;
     }
 
     [Server(Logging = LoggingType.Off)]

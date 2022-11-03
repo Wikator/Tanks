@@ -18,7 +18,7 @@ MonoBehaviour:
   m_GUID: 11cabf887a26393468f5db22744beff1
   m_SerializeEntries:
   - m_GUID: 5892436366fa5734785d6a2923af016b
-    m_Address: Brown
+    m_Address: Blue
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 9f4f53368ced9d8488230f01ef9348a0
@@ -50,7 +50,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: f48c3c5b121b2b846a9e31c4553670be
-    m_Address: BrownMediumTankBullet
+    m_Address: BlueMediumTankBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: dba986ea9a28117499047571a2b244d3
@@ -86,7 +86,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: a4aebd32dc7f0fd40af32edeb5e9e071
-    m_Address: BrownDestroyerSpecialBullet
+    m_Address: BlueDestroyerSpecialBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: fdf0c14cce6687d478bcdc2f3765cf5d
@@ -134,7 +134,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 1dd34da668f667545b81ecf46c7df0aa
-    m_Address: BrownExplosion
+    m_Address: BlueExplosion
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 503e8dc89adf9bc4dad0cc74056b48a6
@@ -150,7 +150,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: f026237ee1ebaf44186e87cbd8cae3e1
-    m_Address: BrownDestroyerBullet
+    m_Address: BlueDestroyerBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 5ba693c48bf18e244ab423c966f646aa
@@ -174,7 +174,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 9afb7a7c46c7b3441ac461182bfa331f
-    m_Address: BrownScoutBullet
+    m_Address: BlueScoutBullet
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 368b134824022c14ca94dcf4312bd701
@@ -214,7 +214,7 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: a7ac6e60e12937341b0cf9317b9aea81
-    m_Address: BrownMuzzleFlash
+    m_Address: BlueMuzzleFlash
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 22b6e4c83dcb5714980e700aa572e868
@@ -239,6 +239,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: cd08544217384e24fbc86c84f16d7662
     m_Address: AnimatedPurple
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d5cdb0990981c5e4ba6278e4a8418d31
+    m_Address: AnimatedBlue
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
