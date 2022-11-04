@@ -102,8 +102,8 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:
-    - _Color01: {r: 0, g: 4.237095, b: 0.2662049, a: 1}
-    - _Color02: {r: 0, g: 0, b: 0.7490196, a: 0}
+    - _Color01: {r: 0.041392058, g: 0.98823535, b: 0, a: 1}
+    - _Color02: {r: 0, g: 0.18243289, b: 0.7490196, a: 0}
     - _DissolveSpeed: {r: -0.6, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
