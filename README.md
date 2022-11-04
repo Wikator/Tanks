@@ -6,13 +6,9 @@ This project is being made using Unity Engine, using FishNetworking as its multi
 
 Currently there are 2 modes, 4 maps, 3 tank types, and 6 player colors to choose from
 
-**OLD:**
-
 ![Picture.png](Picture.png)
 
-**NEW:**
 
-![NewPicture.png](NewPicture.png)
 
 ## Known issues
 
@@ -25,13 +21,13 @@ Currently there are 2 modes, 4 maps, 3 tank types, and 6 player colors to choose
     
 ## To be added:
 
-1. More tank types
-2. More colorful maps (all maps currently use the same color palette)
-3. Updated tanks models
-    + All models are currently very simple, hard to tell apart, and it sometimes is difficult to see where they are aiming
-4. Improved ligthning
+1. More tank types and more game modes
+2. Updated tanks models
+    + All models are currently very simple, hard to tell apart  ~~and it sometimes is difficult to see where they are aiming~~
+3. Improved ligthning
     + It is looking quite good already, but there are some places where it can improve
-5. Peer to peer connections and lobby
-    + FishNet must first add support for Unity's Relay and Lobby services
+    + Light emmited from tanks especially can be improved, for some colors
+4. Peer to peer connections and lobby
+    + Epic Online Services will be implemented
     + For now, the game uses PlayFlow's dedicated servers
-6. Cleaner UI
+5. Cleaner UI
