@@ -49,7 +49,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 1505496726966669350}
   _networkObjectCache: {fileID: 1505496726966669350}
   waitingForNewRound: 1
-  pointsToWin: 10
+  pointsToWin: 5
 --- !u!114 &1505496726966669350
 MonoBehaviour:
   m_ObjectHideFlags: 0

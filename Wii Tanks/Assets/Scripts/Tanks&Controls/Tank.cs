@@ -114,6 +114,11 @@ public abstract class Tank : NetworkBehaviour
         SubscribeToTimeManager(true);
     }
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        controller.enabled =  IsServer || IsOwner;
+    }
     public virtual void ChangeColours(string color)
     {
         if (animateShader)
@@ -251,7 +256,7 @@ public abstract class Tank : NetworkBehaviour
             turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
         }
 
-        if (!asServer && !replaying && data.FireWeapon && ammoCount > 0)
+        if (!replaying && !asServer && data.FireWeapon && ammoCount > 0)
         {
             Fire();
         }

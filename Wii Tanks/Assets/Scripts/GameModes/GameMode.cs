@@ -17,7 +17,7 @@ public abstract class GameMode : NetworkBehaviour
         Instance = this;
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [Server]
     public void LoadEndScene()
     {
         List<NetworkObject> movedObjects = new()

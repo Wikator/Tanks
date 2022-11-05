@@ -1063,7 +1063,7 @@ MonoBehaviour:
     rotateSpeed: 150
     timeToReload: 2
     timeToAddAmmo: 0.6
-    maxAmmo: 500
+    maxAmmo: 5
   ammoCount: 0
   controllingPlayer: {fileID: 0}
 --- !u!114 &1207183529631307703
