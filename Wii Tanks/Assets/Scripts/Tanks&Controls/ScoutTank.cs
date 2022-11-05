@@ -14,6 +14,7 @@ public class ScoutTank : Tank
     [SerializeField]
     private int spreadAngle;
 
+
     [ServerRpc]
     protected override void Fire()
     {

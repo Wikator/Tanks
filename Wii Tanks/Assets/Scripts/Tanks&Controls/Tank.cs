@@ -153,7 +153,6 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
-
     [ServerRpc]
     protected virtual void Fire()
     {
@@ -243,7 +242,7 @@ public abstract class Tank : NetworkBehaviour
         if (!IsSpawned)
             return;
 
-        controller.Move((float)TimeManager.TickDelta * data.MoveAxis * stats.moveSpeed * transform.forward);
+        controller.Move((float)TimeManager.TickDelta * stats.moveSpeed * data.MoveAxis * transform.forward);
         transform.Rotate(new Vector3(0f, data.RotateAxis * stats.rotateSpeed * (float)TimeManager.TickDelta, 0f));
 
         if (data.TurretLookDirection != Vector3.zero)
