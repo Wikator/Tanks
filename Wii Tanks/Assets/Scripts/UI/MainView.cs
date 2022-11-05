@@ -3,31 +3,29 @@ using TMPro;
 
 public abstract class MainView : View
 {
+    public static MainView Instance { get; private set; }
+
     [SerializeField]
     private TextMeshProUGUI scoreText;
 
     [SerializeField]
     private TextMeshProUGUI ammoCountText;
 
-
-    //UI shown during the match
-
-    protected virtual void Update()
+    private void Awake()
     {
-        PlayerNetworking player = PlayerNetworking.Instance;
+        Instance = this;
+    }
 
-        if (player)
+    public void UpdateAmmo(int newAmmoCount)
+    {
+        ammoCountText.text = "Ammo:" + newAmmoCount;
+    }
+
+    public virtual void UpdateScore(string color, int newScore)
+    {
+        if (PlayerNetworking.Instance.color == color)
         {
-            scoreText.text = "Score: " + GameMode.Instance.scores[player.color];
-
-            if (player.controlledPawn)
-            {
-                ammoCountText.text = "Ammo:" + player.controlledPawn.ammoCount;
-            }
-            else
-            {
-                ammoCountText.text = "Ammo:" + 0;
-            }
+            scoreText.text = "Score: " + newScore;
         }
     }
 }

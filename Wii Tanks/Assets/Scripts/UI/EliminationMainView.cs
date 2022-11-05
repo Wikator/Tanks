@@ -7,18 +7,13 @@ public sealed class EliminationMainView : MainView
     private TextMeshProUGUI enemyScore;
 
 
-    protected override void Update()
+    public override void UpdateScore(string color, int newScore)
     {
-        base.Update();
+        base.UpdateScore(color, newScore);
 
-        switch (PlayerNetworking.Instance.color)
+        if (PlayerNetworking.Instance.color != color)
         {
-            case "Green":
-                enemyScore.text = "Enemy score: " + GameMode.Instance.scores["Red"];
-                break;
-            case "Red":
-                enemyScore.text = "Enemy score: " + GameMode.Instance.scores["Green"];
-                break;
+            enemyScore.text = "Enemy score: " + newScore;
         }
     }
 }

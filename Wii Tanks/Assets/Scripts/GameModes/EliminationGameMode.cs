@@ -53,8 +53,8 @@ public sealed class EliminationGameMode : GameMode
             spawns["Red"][i] = redSpawnsParent.GetChild(i).transform;
         }
 
-        scores["Green"] = 0;
-        scores["Red"] = 0;
+        GameManager.Instance.scores["Green"] = 0;
+        GameManager.Instance.scores["Red"] = 0;
     }
 
 
@@ -72,9 +72,9 @@ public sealed class EliminationGameMode : GameMode
                 {
                     PointScored("Red", 1);
 
-                    if (scores["Red"] == pointsToWin)
+                    if (GameManager.Instance.scores["Red"] == pointsToWin)
                     {
-                        //LoadEndScene();
+                        LoadEndScene();
                     }
                     else
                     {
@@ -87,9 +87,9 @@ public sealed class EliminationGameMode : GameMode
                 {
                     PointScored("Green", 1);
 
-                    if (scores["Green"] == pointsToWin)
+                    if (GameManager.Instance.scores["Green"] == pointsToWin)
                     {
-                        //LoadEndScene();
+                        LoadEndScene();
                     }
                     else
                     {

@@ -72,7 +72,7 @@ MonoBehaviour:
   _isGlobal: 0
   _hasParentNetworkObjectAtEdit: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  _prefabId: 32
   _scenePathHash: 0
   _sceneId: 0
   _sceneNetworkObjects:

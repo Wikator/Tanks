@@ -19,11 +19,11 @@ public sealed class EndScreen : NetworkBehaviour
     //[ObserversRpc]
     private void SetText()
     {
-        string[] colors = GameMode.Instance.scores.Keys.ToArray();
+        string[] colors = GameManager.Instance.scores.Keys.ToArray();
 
         foreach (string color in colors)
         {
-            leaderboardText.text = leaderboardText.text + color + ": " + GameMode.Instance.scores[color] + "\n";
+            leaderboardText.text = leaderboardText.text + color + ": " + GameManager.Instance.scores[color] + "\n";
 
         }
     }

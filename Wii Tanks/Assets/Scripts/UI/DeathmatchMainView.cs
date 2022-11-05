@@ -14,10 +14,8 @@ public sealed class DeathmatchMainView : MainView
         deathmatchGameMode = FindObjectOfType<DeathmatchGameMode>();
     }
 
-    protected override void Update()
+    private void Update()
     {
-        base.Update();
-
         if (IsClient)
         {
             float minutesRemaining = Mathf.FloorToInt(deathmatchGameMode.time / 60);

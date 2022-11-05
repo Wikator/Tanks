@@ -12,19 +12,17 @@ public abstract class GameMode : NetworkBehaviour
     [SyncObject]
     public readonly SyncDictionary<string, Transform[]> spawns = new();
 
-    [SyncObject]
-    public readonly SyncDictionary<string, int> scores = new();
-
     private void Awake()
     {
         Instance = this;
     }
 
-    /*public void LoadEndScene()
+    [ServerRpc(RequireOwnership = false)]
+    public void LoadEndScene()
     {
         List<NetworkObject> movedObjects = new()
         {
-            gameObject.GetComponent<NetworkObject>(),
+            GameManager.Instance.gameObject.GetComponent<NetworkObject>()
         };
 
         LoadOptions loadOptions = new()
@@ -40,7 +38,7 @@ public abstract class GameMode : NetworkBehaviour
         };
 
         InstanceFinder.SceneManager.LoadGlobalScenes(sld);
-    }*/
+    }
 
 
     //Those methods need to be abstract, so that they can be called when referencing this class, rather than its subclasses
@@ -49,5 +47,5 @@ public abstract class GameMode : NetworkBehaviour
 
     public abstract Vector3 FindSpawnPosition(string color);
 
-    public void PointScored(string team, int numberOfPoints) => scores[team] += numberOfPoints;
+    public void PointScored(string team, int numberOfPoints) => GameManager.Instance.scores[team] += numberOfPoints;
 }

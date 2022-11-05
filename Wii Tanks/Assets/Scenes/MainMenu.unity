@@ -283,7 +283,7 @@ MonoBehaviour:
     Rotation: 2
     Scale: 2
   _changeFrameRate: 1
-  _frameRate: 120
+  _frameRate: 240
   _shareIds: 1
   _startOnHeadless: 1
   _limitClientMTU: 1

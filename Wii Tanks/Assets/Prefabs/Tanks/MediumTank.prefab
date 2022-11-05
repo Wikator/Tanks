@@ -1111,7 +1111,7 @@ MonoBehaviour:
   _smoothTicks: 1
   _durationType: 0
   _smoothingDuration: 0.125
-  _enableTeleport: 0
+  _enableTeleport: 1
   _teleportThreshold: 1
   _predictionType: 0
   _rigidbody: {fileID: 0}

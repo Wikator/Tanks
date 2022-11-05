@@ -5,7 +5,6 @@ using FishNet.Managing.Scened;
 using FishNet.Managing.Logging;
 using System.Linq;
 using UnityEngine;
-using System.Collections.Generic;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -16,6 +15,9 @@ public sealed class GameManager : NetworkBehaviour
 
     [SyncObject]
     public readonly SyncHashSet<PlayerNetworking> players = new();
+
+    [SyncObject]
+    public readonly SyncDictionary<string, int> scores = new();
 
     [SyncVar, HideInInspector]
     public bool canStart;
@@ -36,6 +38,7 @@ public sealed class GameManager : NetworkBehaviour
     private void Start()
     {
         InstanceFinder.SceneManager.OnLoadEnd += OnSceneLoaded;
+        scores.OnChange += OnScoreChange;
     }
 
 
@@ -45,7 +48,16 @@ public sealed class GameManager : NetworkBehaviour
         canStart = players.All(player => player.isReady);
     }
 
+    private void OnScoreChange(SyncDictionaryOperation op, string key, int value, bool asServer)
+    {
+        if (!MainView.Instance)
+            return;
 
+        if (op == SyncDictionaryOperation.Set)
+        {
+            MainView.Instance.UpdateScore(key, value);
+        }
+    }
 
     private void OnSceneLoaded(SceneLoadEndEventArgs args)
     {
@@ -82,16 +94,16 @@ public sealed class GameManager : NetworkBehaviour
     {
         gameInProgress = true;
 
-        foreach (PlayerNetworking player in players)
-        {
-            player.SpawnTank();
-        }
-
         UIManager.Instance.SetUpAllUI(gameInProgress, gameMode);
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
         {
             eliminationGameMode.waitingForNewRound = false;
+        }
+
+        foreach (PlayerNetworking player in players)
+        {
+            player.SpawnTank();
         }
     }
 }

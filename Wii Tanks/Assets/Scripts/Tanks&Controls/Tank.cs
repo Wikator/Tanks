@@ -62,7 +62,7 @@ public abstract class Tank : NetworkBehaviour
     [HideInInspector]
     protected GameObject bullet, pointer;
 
-    [SyncVar, HideInInspector]
+    [SyncVar(OnChange = nameof(OnAmmoChange)), HideInInspector]
     public int ammoCount;
 
     [SyncVar, HideInInspector]
@@ -86,7 +86,16 @@ public abstract class Tank : NetworkBehaviour
 
     protected Coroutine routine;
 
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    private void OnAmmoChange(int oldAmmo, int newAmmo, bool asServer)
+    {
+        ammoCount = newAmmo;
 
+        if (!MainView.Instance || !IsOwner)
+            return;
+
+        MainView.Instance.UpdateAmmo(newAmmo);
+    }
 
     public override void OnStartNetwork()
     {
@@ -126,6 +135,7 @@ public abstract class Tank : NetworkBehaviour
     [Server]
     public void GameOver()
     {
+        ammoCount = 0;
         controllingPlayer.controlledPawn = null;
         gameModeManager.OnKilled(controllingPlayer);
         Spawn(Instantiate(explosion, transform.position, transform.rotation, explosionEmpty));
@@ -154,6 +164,16 @@ public abstract class Tank : NetworkBehaviour
 
         GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
         Spawn(flashInstance);
+
+
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+            routine = null;
+        }
+
+        ammoCount--;
+        routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }
 
     protected abstract void SpecialMove();
@@ -235,15 +255,6 @@ public abstract class Tank : NetworkBehaviour
         if (!asServer && !replaying && data.FireWeapon && ammoCount > 0)
         {
             Fire();
-
-            if (routine != null)
-            {
-                StopCoroutine(routine);
-                routine = null;
-            }
-
-            ammoCount--;
-            routine = StartCoroutine(AddAmmo(stats.timeToReload));
         }
     }
 

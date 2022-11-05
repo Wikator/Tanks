@@ -17,12 +17,6 @@ public class ScoutTank : Tank
     [ServerRpc]
     protected override void Fire()
     {
-        if (routine != null)
-        {
-            StopCoroutine(routine);
-            routine = null;
-        }
-
         for (int angle = -spreadAngle; angle < spreadAngle*2; angle += spreadAngle)
         {
             GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
@@ -34,6 +28,13 @@ public class ScoutTank : Tank
             GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
             flashInstance.transform.Rotate(new Vector3(0.0f, angle, 0.0f));
             Spawn(flashInstance);
+        }
+
+
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+            routine = null;
         }
 
         ammoCount--;
