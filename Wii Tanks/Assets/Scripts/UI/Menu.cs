@@ -17,17 +17,18 @@ public sealed class Menu : MonoBehaviour
     //User will have a choice to either host a server or connect as a client
     //With a PlayFlow dedicated server active, hostButton should be disabled
 
-    private void Start()
+    private void Awake()
     {
         steamLobby = FindObjectOfType<SteamLobby>();
 
         hostButton.onClick.AddListener(steamLobby.HostLobby);
 
-        //connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
-    }
+        //hostButton.onClick.AddListener(() => Debug.LogWarning("Pressed!"));
 
-    private void OnDestroy()
-    {
-        hostButton.onClick.RemoveAllListeners();
+        //hostButton.onClick.AddListener(() => InstanceFinder.ServerManager.StartConnection());
+
+        //hostButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
+
+        //connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
     }
 }

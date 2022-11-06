@@ -41,6 +41,11 @@ public sealed class GameManager : NetworkBehaviour
         scores.OnChange += OnScoreChange;
     }
 
+    private void OnDestroy()
+    {
+        Instance = null;
+    }
+
 
     [Server(Logging = LoggingType.Off)]
     private void Update()

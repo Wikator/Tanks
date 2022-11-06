@@ -39,6 +39,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         try
         {
             GameManager.Instance.players.Add(this);
+            Debug.Log(GameManager.Instance.players.Count);
         }
         catch (NullReferenceException)
         {
@@ -71,6 +72,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
     {
         base.OnStopClient();
         SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
+
+        if (IsOwner)
+            Instance = null;
     }
 
     public override void OnStopNetwork()
@@ -97,23 +101,28 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P) && IsOwner)
         {
-            /* Owner.Disconnect(true);
+            //ClientManager.StopConnection();
 
-             List<GameObject> items = FindObjectsOfType<GameObject>().ToList();
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
 
-             foreach (GameObject obj in items)
-             {
-                 Destroy(obj);
-             }
-
-             UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");*/
-            Debug.Log("Test");
-
-            SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
+            DisconnectFromGame();
         }
     }
+
+    private void DisconnectFromGame()
+    {
+        GameManager.Instance.players.Remove(this);
+
+        if (IsServer)
+            ServerManager.StopConnection(true);
+        else if
+            (IsClient) ClientManager.StopConnection();
+
+        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
+
+    }    
 
     public void SpawnTank()
     {
