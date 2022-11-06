@@ -3,6 +3,7 @@ using FishNet.Object.Synchronizing;
 using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Steamworks;
 
 public sealed class PlayerNetworking : NetworkBehaviour
 {
@@ -16,6 +17,12 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
     [SyncVar, HideInInspector]
     public bool isReady;
+
+    [SyncVar]
+    public ulong playerSteamID;
+
+    [SyncVar]
+    public string playerUsername;
 
 
     //Each player will add themself to the players hashset in the GameManager class
@@ -47,13 +54,27 @@ public sealed class PlayerNetworking : NetworkBehaviour
             return;
 
         Instance = this;
+
+        SetSteamID(SteamUser.GetSteamID().m_SteamID);
+    }
+    
+    public override void OnStopServer()
+    {
+        base.OnStopServer();
+
+        GameManager.Instance.players.Remove(this);
+    }
+
+    public override void OnStopClient()
+    {
+        base.OnStopClient();
+
+        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
     }
 
     public override void OnStopNetwork()
     {
         base.OnStopNetwork();
-
-        GameManager.Instance.players.Remove(this);
 
         if (GameManager.Instance.gameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
             return;
@@ -70,6 +91,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
             eliminationGameMode.redTeam.Remove(this);
         }
     }
+
 
 
     public void SpawnTank()
@@ -137,5 +159,15 @@ public sealed class PlayerNetworking : NetworkBehaviour
                 isReady = false;
                 break;
         }
+    }
+
+
+    [ServerRpc]
+    public void SetSteamID(ulong steamID)
+    {
+        playerSteamID = steamID;
+        playerUsername = SteamFriends.GetFriendPersonaName((CSteamID)steamID);
+
+        Debug.Log($"Updating Server for User {playerUsername}");
     }
 }

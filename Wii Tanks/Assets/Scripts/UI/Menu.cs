@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public sealed class Menu : MonoBehaviour
 {
+    private SteamLobby steamLobby;
+
     [SerializeField]
     private Button hostButton;
 
@@ -17,10 +19,17 @@ public sealed class Menu : MonoBehaviour
 
     private void Start()
     {
-        hostButton.onClick.AddListener(() => InstanceFinder.ServerManager.StartConnection());
+        steamLobby = FindObjectOfType<SteamLobby>();
 
-        hostButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
+        Debug.Log(steamLobby);
 
-        connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
+        hostButton.onClick.AddListener(steamLobby.HostLobby);
+
+        connectButton.onClick.AddListener(steamLobby.JoinLobby);
+    }
+
+    private void OnDestroy()
+    {
+        hostButton.onClick.RemoveAllListeners();
     }
 }

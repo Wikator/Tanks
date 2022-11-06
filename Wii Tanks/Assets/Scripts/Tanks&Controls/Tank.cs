@@ -168,7 +168,6 @@ public abstract class Tank : NetworkBehaviour
         Spawn(bulletInstance);
 
         GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashSpawn.position, muzzleFlashSpawn.rotation, muzzleFlashEmpty);
-        Debug.Log(muzzleFlashSpawn.position);
         Spawn(flashInstance);
 
         if (routine != null)
