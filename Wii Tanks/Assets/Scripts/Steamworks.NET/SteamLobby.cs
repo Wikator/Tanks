@@ -1,4 +1,5 @@
 using FishNet;
+using FishNet.Object;
 using Steamworks;
 using UnityEngine;
 
@@ -56,6 +57,11 @@ public class SteamLobby : MonoBehaviour
 
     private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
+        if (PlayerNetworking.Instance)
+        {
+            PlayerNetworking.Instance.Owner.Disconnect(true);
+        }
+
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }
 
