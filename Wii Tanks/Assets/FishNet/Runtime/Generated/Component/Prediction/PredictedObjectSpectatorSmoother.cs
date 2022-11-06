@@ -397,14 +397,11 @@ namespace FishNet.Component.Prediction
         /// </summary>
         public void OnPostReplay()
         {
-            if (CanSmooth())
-            {
-                if (_reconcileLocalTick == -1)
-                    return;
+            if (_reconcileLocalTick == -1)
+                return;
 
-                _replayCount++;
-                CreateGoalData((uint)_reconcileLocalTick + _replayCount, false);
-            }
+            _replayCount++;
+            CreateGoalData((uint)_reconcileLocalTick + _replayCount, false);
         }
 
         /// <summary>

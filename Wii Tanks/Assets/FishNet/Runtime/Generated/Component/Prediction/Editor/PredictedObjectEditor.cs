@@ -22,8 +22,6 @@ namespace FishNet.Component.Prediction
         private SerializedProperty _spectatorInterpolation;
         private SerializedProperty _overflowMultiplier;
         private SerializedProperty _maintainedVelocity;
-        private SerializedProperty _resendType;
-        private SerializedProperty _resendInterval;
 
         private SerializedProperty _networkTransform;
 
@@ -41,8 +39,6 @@ namespace FishNet.Component.Prediction
             _spectatorInterpolation = serializedObject.FindProperty("_spectatorInterpolation");
             _overflowMultiplier = serializedObject.FindProperty("_overflowMultiplier");
             _maintainedVelocity = serializedObject.FindProperty("_maintainedVelocity");
-            _resendType = serializedObject.FindProperty("_resendType");
-            _resendInterval = serializedObject.FindProperty("_resendInterval");
 
             _networkTransform = serializedObject.FindProperty("_networkTransform");
 
@@ -87,15 +83,6 @@ namespace FishNet.Component.Prediction
                 EditorGUILayout.PropertyField(_spectatorInterpolation, new GUIContent("Interpolation"));
                 EditorGUILayout.PropertyField(_overflowMultiplier);
                 EditorGUILayout.PropertyField(_maintainedVelocity);
-
-                EditorGUILayout.PropertyField(_resendType);
-                PredictedObject.ResendType resendType = (PredictedObject.ResendType)_resendType.intValue;
-                if (resendType == PredictedObject.ResendType.Interval)
-                {
-                    EditorGUI.indentLevel++;
-                    EditorGUILayout.PropertyField(_resendInterval, new GUIContent("Interval"));
-                    EditorGUI.indentLevel--;
-                }
                 EditorGUI.indentLevel--;
 
                 EditorGUI.indentLevel--;

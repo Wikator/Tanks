@@ -556,9 +556,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2756c2416f7f68d48b2605064a9d237a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 1323645278}
   ammoCountText: {fileID: 1645738979}
   timeRemainingText: {fileID: 1360149018}
@@ -7159,10 +7159,10 @@ MonoBehaviour:
   - {fileID: 1232001959}
   - {fileID: 849694642}
   - {fileID: 1521283543}
+  - {fileID: 70405376}
+  - {fileID: 1073613800}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField:
-  - {fileID: 0}
-  - {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
   _defaultDespawnType: 0
@@ -7834,9 +7834,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1778d1240805cd46b01d649a106396b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 4
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 45101829}
   ammoCountText: {fileID: 1324204327}
   enemyScore: {fileID: 559322865}
