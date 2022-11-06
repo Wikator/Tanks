@@ -67,8 +67,10 @@ public sealed class PlayerNetworking : NetworkBehaviour
         {
             foreach (PlayerNetworking player in GameManager.Instance.players)
             {
-                player.Owner.Disconnect(true);
+                if (player.Owner != Owner)
+                    player.Owner.Disconnect(true);
             }
+            Owner.Disconnect(true);
         }
         else
         {
