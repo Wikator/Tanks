@@ -57,7 +57,7 @@ public abstract class Tank : NetworkBehaviour
     protected TankStats stats;
 
     [HideInInspector]
-    protected Transform bulletSpawn, muzzleFlashEmpty, bulletEmpty;
+    protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
 
     [HideInInspector]
     protected GameObject bullet, pointer;
@@ -107,9 +107,10 @@ public abstract class Tank : NetworkBehaviour
         gameModeManager = FindObjectOfType<GameMode>();
         turret = transform.GetChild(1);
         bulletSpawn = turret.GetChild(0).GetChild(0);
-        muzzleFlashEmpty = turret.GetChild(0).GetChild(1);
+        muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
         bulletEmpty = GameObject.Find("Bullets").transform;
         explosionEmpty = GameObject.Find("Explosions").transform;
+        muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
         ChangeColours(controllingPlayer.color);
         SubscribeToTimeManager(true);
     }
@@ -166,6 +167,10 @@ public abstract class Tank : NetworkBehaviour
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
         Spawn(bulletInstance);
 
+        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashSpawn.position, muzzleFlashSpawn.rotation, muzzleFlashEmpty);
+        Debug.Log(muzzleFlashSpawn.position);
+        Spawn(flashInstance);
+
         if (routine != null)
         {
             StopCoroutine(routine);
@@ -174,12 +179,6 @@ public abstract class Tank : NetworkBehaviour
 
         ammoCount--;
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
-    }
-
-    protected virtual void SpawnMuzzleFlash()
-    {
-        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
-        Spawn(flashInstance);
     }
 
     protected abstract void SpecialMove();
@@ -261,7 +260,6 @@ public abstract class Tank : NetworkBehaviour
         if (!replaying && !asServer && data.FireWeapon && ammoCount > 0)
         {
             Fire();
-            SpawnMuzzleFlash();
         }
     }
 

@@ -22,7 +22,7 @@ public sealed class DestroyerTank : Tank
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
         Spawn(bulletInstance);
 
-        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
+        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashSpawn.position, muzzleFlashSpawn.rotation, muzzleFlashEmpty);
         Spawn(flashInstance);
 
         routine = StartCoroutine(AddAmmo(stats.timeToReload));

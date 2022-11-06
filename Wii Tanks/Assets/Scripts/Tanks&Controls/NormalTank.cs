@@ -29,7 +29,7 @@ public sealed class NormalTank : Tank
 
             Spawn(bulletInstance);
 
-            GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
+            GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashSpawn.position, muzzleFlashSpawn.rotation, muzzleFlashEmpty);
             Spawn(flashInstance);
 
             yield return new WaitForSeconds(0.2f);
