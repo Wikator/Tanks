@@ -166,10 +166,6 @@ public abstract class Tank : NetworkBehaviour
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
         Spawn(bulletInstance);
 
-        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
-        Spawn(flashInstance);
-
-
         if (routine != null)
         {
             StopCoroutine(routine);
@@ -178,6 +174,12 @@ public abstract class Tank : NetworkBehaviour
 
         ammoCount--;
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
+    }
+
+    protected virtual void SpawnMuzzleFlash()
+    {
+        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
+        Spawn(flashInstance);
     }
 
     protected abstract void SpecialMove();
@@ -259,6 +261,7 @@ public abstract class Tank : NetworkBehaviour
         if (!replaying && !asServer && data.FireWeapon && ammoCount > 0)
         {
             Fire();
+            SpawnMuzzleFlash();
         }
     }
 

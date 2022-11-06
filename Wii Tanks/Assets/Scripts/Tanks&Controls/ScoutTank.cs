@@ -42,6 +42,16 @@ public class ScoutTank : Tank
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }
 
+    protected override void SpawnMuzzleFlash()
+    {
+        for (int angle = -spreadAngle; angle < spreadAngle * 2; angle += spreadAngle)
+        {
+            GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashEmpty.position, muzzleFlashEmpty.rotation, muzzleFlashEmpty);
+            flashInstance.transform.Rotate(new Vector3(0.0f, angle, 0.0f));
+            Spawn(flashInstance);
+        }
+    }
+
     [ServerRpc]
     protected override void SpecialMove()
     {
