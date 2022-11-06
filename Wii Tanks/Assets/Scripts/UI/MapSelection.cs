@@ -10,11 +10,16 @@ public sealed class MapSelection : NetworkBehaviour
     [SerializeField]
     private List<Button> mapButtons = new();
 
+    [SerializeField]
+    private Button inviteButton;
+
     //Map selection screen
     //Each player has an option to choose a map
 
     private void Start()
     {
+        inviteButton.onClick.AddListener(() => Steamworks.SteamFriends.ActivateGameOverlayInviteDialog(SteamLobby.LobbyID));
+
         foreach (Button button in mapButtons)
         {
             button.onClick.AddListener(() => LoadScene(button.name));

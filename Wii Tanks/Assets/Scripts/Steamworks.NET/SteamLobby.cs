@@ -35,11 +35,6 @@ public class SteamLobby : MonoBehaviour
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, 6);
     }
 
-    public void LeaveLobby()
-    {
-        SteamMatchmaking.LeaveLobby(LobbyID);
-    }
-
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
         if (callback.m_eResult != EResult.k_EResultOK)
