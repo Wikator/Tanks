@@ -18,10 +18,9 @@ using UnityEngine;
 
 namespace FishNet.Component.Transforming
 {
-    /// <summary> 
-    /// A somewhat basic but reliable NetworkTransform that will be improved upon greatly after release.
-    /// </summary>   
-    public class NetworkTransform : NetworkBehaviour
+    [DisallowMultipleComponent]
+    [AddComponentMenu("FishNet/Component/NetworkTransform")]
+    public sealed class NetworkTransform : NetworkBehaviour
     {
         #region Types.
         private struct ReceivedData
@@ -218,7 +217,6 @@ namespace FishNet.Component.Transforming
         public delegate void DataReceivedChanged(TransformData prev, TransformData next);
         /// <summary>
         /// Called when new data is received. Previous and next data are provided. Next data may be manipulated.
-        /// This feature is experimental.
         /// </summary>
         public event DataReceivedChanged OnDataReceived;
         /// <summary>
@@ -230,6 +228,7 @@ namespace FishNet.Component.Transforming
         /// </summary>
         public event Action OnInterpolationComplete;
         #endregion
+
         #region Serialized.
         /// <summary>
         /// True to synchronize when this transform changes parent.
@@ -261,7 +260,9 @@ namespace FishNet.Component.Transforming
         [Tooltip("How many ticks to extrapolate.")]
         [Range(0, 1024)]
         [SerializeField]
+#pragma warning disable CS0414 //Not in use.
         private ushort _extrapolation = 2;
+#pragma warning restore CS0414 //Not in use.
         /// <summary>
         /// True to enable teleport threshhold.
         /// </summary>
@@ -301,11 +302,21 @@ namespace FishNet.Component.Transforming
         [SerializeField]
         private bool _synchronizePosition = true;
         /// <summary>
+        /// Sets if to synchronize position.
+        /// </summary>
+        /// <param name="value">New value.</param>
+        public void SetSynchronizePosition(bool value) => _synchronizePosition = value;
+        /// <summary>
         /// Axes to snap on position.
         /// </summary>
         [Tooltip("Axes to snap on position.")]
         [SerializeField]
         private SnappedAxes _positionSnapping = new SnappedAxes();
+        /// <summary>
+        /// Sets which Position axes to snap.
+        /// </summary>
+        /// <param name="axes">Axes to snap.</param>
+        public void SetPositionSnapping(SnappedAxes axes) => _positionSnapping = axes;
         /// <summary>
         /// True to synchronize rotation. Even while checked only changed values are sent.
         /// </summary>
@@ -313,11 +324,21 @@ namespace FishNet.Component.Transforming
         [SerializeField]
         private bool _synchronizeRotation = true;
         /// <summary>
+        /// Sets if to synchronize rotation.
+        /// </summary>
+        /// <param name="value">New value.</param>
+        public void SetSynchronizeRotation(bool value) => _synchronizeRotation = value;
+        /// <summary>
         /// Axes to snap on rotation.
         /// </summary>
         [Tooltip("Axes to snap on rotation.")]
         [SerializeField]
         private SnappedAxes _rotationSnapping = new SnappedAxes();
+        /// <summary>
+        /// Sets which Scale axes to snap.
+        /// </summary>
+        /// <param name="axes">Axes to snap.</param>
+        public void SetRotationSnapping(SnappedAxes axes) => _rotationSnapping = axes;
         /// <summary>
         /// True to synchronize scale. Even while checked only changed values are sent.
         /// </summary>
@@ -325,11 +346,21 @@ namespace FishNet.Component.Transforming
         [SerializeField]
         private bool _synchronizeScale = true;
         /// <summary>
+        /// Sets if to synchronize scale.
+        /// </summary>
+        /// <param name="value">New value.</param>
+        public void SetSynchronizeScale(bool value) => _synchronizeScale = value;
+        /// <summary>
         /// Axes to snap on scale.
         /// </summary>
         [Tooltip("Axes to snap on scale.")]
         [SerializeField]
         private SnappedAxes _scaleSnapping = new SnappedAxes();
+        /// <summary>
+        /// Sets which Scale axes to snap.
+        /// </summary>
+        /// <param name="axes">Axes to snap.</param>
+        public void SetScaleSnapping(SnappedAxes axes) => _scaleSnapping = axes;
         #endregion
 
         #region Private.
@@ -413,7 +444,7 @@ namespace FishNet.Component.Transforming
         /// <summary>
         /// Number of intervals remaining before synchronization.
         /// </summary>
-        private byte _intervalsRemaining;
+        private short _intervalsRemaining;
         #endregion
 
         #region Const.
@@ -428,7 +459,7 @@ namespace FishNet.Component.Transforming
             _interval = Math.Max(_interval, (byte)1);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             if (_receivedClientData.Writer != null)
             {
@@ -534,18 +565,32 @@ namespace FishNet.Component.Transforming
         /// </summary>
         private void TimeManager_OnPostTick()
         {
-            /* If more than 1 interval is remaining than then means
-             * there are more ticks to be waited upon. */
-            if (_intervalsRemaining > 1)
+            /* Intervals remaining is only used when the interval value
+             * is set higher than 1. An interval of 1 indicates to send
+             * every tick. Only check to wait more ticks if interval
+             * is larger than 1. */
+            if (_interval > 1)
             {
+                /* If intervalsRemaining is unset then that means the transform
+                 * did not change last tick. See if transform changed and if so then
+                 * update remaining to _interval. */
+                if (_intervalsRemaining == -1)
+                {
+                    //Transform didn't change, no reason to start remaining.
+                    if (!transform.hasChanged)
+                        return;
+
+                    _intervalsRemaining = _interval;
+                }
+
+                //If here then intervalsRemaining can be deducted.
                 _intervalsRemaining--;
-                return;
-            }
-            /* If there is 0 or 1 interval remaining then this
-             * tick would be the one to send data and reset the interval. */
-            else
-            {
-                _intervalsRemaining = _interval;
+                //Interval not met yet.
+                if (_intervalsRemaining > 0)
+                    return;
+                //Intervals remainin is met. Reset to -1 to await new change.
+                else
+                    _intervalsRemaining = -1;
             }
 
             
@@ -554,16 +599,6 @@ namespace FishNet.Component.Transforming
             if (base.IsClient)
                 SendToServer();
         }
-
-        /* 
-         * //todo make a special method for handling network transforms that iterates all
-         * of them at once and ALWAYS send the packetId TransformUpdate. This packet will
-         * have the total length of all updates. theres a chance a nob might not exist since
-         * these packets are unreliable and can arrive after a nob destruction. if thats
-         * the case then the packet can still be parsed out and recovered because the updateflags
-         * indicates exactly what data needs to be read.
-         */
-
 
         /// <summary>
         /// Tries to subscribe to TimeManager ticks.
@@ -578,6 +613,52 @@ namespace FishNet.Component.Transforming
                 base.NetworkManager.TimeManager.OnPostTick += TimeManager_OnPostTick;
             else
                 base.NetworkManager.TimeManager.OnPostTick -= TimeManager_OnPostTick;
+        }
+
+        /// <summary>
+        /// Updates the interval value over the network.
+        /// </summary>
+        /// <param name="value">New interval.</param>
+        public void SetInterval(byte value)
+        {
+            bool canSet = (base.IsServer && !_clientAuthoritative)
+                || (base.IsServer && _clientAuthoritative && !base.Owner.IsValid)
+                || (_clientAuthoritative && base.IsOwner);
+
+            if (!canSet)
+                return;
+
+            if (base.IsServer)
+                ObserversSetInterval(value);
+            else
+                ServerSetInterval(value);
+        }
+
+        /// <summary>
+        /// Updates the interval value.
+        /// </summary>
+        /// <param name="value"></param>
+        private void SetIntervalInternal(byte value)
+        {
+            value = (byte)Mathf.Max(value, 1);
+            _interval = value;
+        }
+
+        /// <summary>
+        /// Sets interval over the network.
+        /// </summary>
+        [ServerRpc(RunLocally = true)]
+        private void ServerSetInterval(byte value)
+        {
+            SetIntervalInternal(value);
+        }
+        /// <summary>
+        /// Sets interval over the network.
+        /// </summary>
+        [ObserversRpc(RunLocally = true)]
+        private void ObserversSetInterval(byte value)
+        {
+            SetIntervalInternal(value);
         }
 
 
@@ -1011,6 +1092,7 @@ namespace FishNet.Component.Transforming
                         * and it's thrown off. */
                         if (!HasChanged(td))
                             _queueReady = false;
+                        OnInterpolationComplete?.Invoke();
                         
                 }
             }
@@ -1563,6 +1645,22 @@ namespace FishNet.Component.Transforming
             {
                 _goalDataQueue.Enqueue(nextGd);
             }
+
+            /* If the queue is excessive beyond interpolation then
+             * dequeue extras to prevent from dropping behind too
+             * quickly. This shouldn't be an issue with normal movement
+             * as the NT speeds up if the buffer unexpectedly grows, but
+             * when connections are unstable results may come in chunks
+             * and for a better experience the older parts of the chunks
+             * will be dropped. */
+            if (_goalDataQueue.Count > (_interpolation + 3))
+            {
+                while (_goalDataQueue.Count > _interpolation)
+                {
+                    GoalData tmpGd = _goalDataQueue.Dequeue();
+                    _goalDataCache.Push(tmpGd);
+                }
+            }
         }
 
         /// <summary>
@@ -1615,7 +1713,7 @@ namespace FishNet.Component.Transforming
         }
 
         /// <summary>
-        /// Updates which properties are synchronized. This feature is experimental.
+        /// Updates which properties are synchronized.
         /// </summary>
         /// <param name="value">Properties to synchronize.</param>
         public void SetSynchronizedProperties(SynchronizedProperty value)

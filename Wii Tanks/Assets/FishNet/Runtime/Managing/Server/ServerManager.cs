@@ -4,6 +4,7 @@ using FishNet.Connection;
 using FishNet.Managing.Debugging;
 using FishNet.Managing.Logging;
 using FishNet.Managing.Transporting;
+using FishNet.Object;
 using FishNet.Serializing;
 using FishNet.Transporting;
 using FishNet.Utility.Extension;
@@ -20,6 +21,7 @@ namespace FishNet.Managing.Server
     /// A container for server data and actions.
     /// </summary>
     [DisallowMultipleComponent]
+    [AddComponentMenu("FishNet/Manager/ServerManager")]
     public sealed partial class ServerManager : MonoBehaviour
     {
         #region Public.
@@ -65,7 +67,26 @@ namespace FishNet.Managing.Server
         /// <summary>
         /// Authenticator for this ServerManager. May be null if not using authentication.
         /// </summary>
-        public Authenticator Authenticator { get => _authenticator; set => _authenticator = value; }
+        [Obsolete("Use GetAuthenticator and SetAuthenticator.")]
+        public Authenticator Authenticator
+        {
+            get => GetAuthenticator();
+            set => SetAuthenticator(value);
+        }
+        /// <summary>
+        /// Gets the Authenticator for this manager.
+        /// </summary>
+        /// <returns></returns>
+        public Authenticator GetAuthenticator() => _authenticator;
+        /// <summary>
+        /// Gets the Authenticator for this manager, and initializes it.
+        /// </summary>
+        /// <returns></returns>
+        public void SetAuthenticator(Authenticator value)
+        {
+            _authenticator = value;
+            InitializeAuthenticator();
+        }
         /// <summary>
         /// How to pack object spawns.
         /// </summary>
@@ -159,10 +180,22 @@ namespace FishNet.Managing.Server
             if (_authenticator == null)
                 _authenticator = GetComponent<Authenticator>();
             if (_authenticator != null)
-            {
-                _authenticator.InitializeOnce(manager);
-                _authenticator.OnAuthenticationResult += _authenticator_OnAuthenticationResult;
-            }
+                InitializeAuthenticator();
+        }
+
+        /// <summary>
+        /// Initializes the authenticator to this manager.
+        /// </summary>
+        private void InitializeAuthenticator()
+        {
+            Authenticator auth = GetAuthenticator();
+            if (auth == null || auth.Initialized)
+                return;
+            if (NetworkManager == null)
+                return;
+
+            auth.InitializeOnce(NetworkManager);
+            auth.OnAuthenticationResult += _authenticator_OnAuthenticationResult;
         }
 
         /// <summary>
@@ -263,7 +296,22 @@ namespace FishNet.Managing.Server
         private void SceneManager_OnClientLoadedStartScenes(NetworkConnection conn, bool asServer)
         {
             if (asServer)
+            {
                 Objects.RebuildObservers(conn);
+                /* If connection is host then renderers must be hidden
+                 * for all objects not visible to the host. The observer system
+                 * does handle this but only after an initial state is set.
+                 * If the clientHost joins without observation of an object
+                 * then the initial state will never be set. */
+                if (conn.IsLocalClient)
+                {
+                    foreach (NetworkObject nob in Objects.Spawned.Values)
+                    {
+                        if (!nob.Observers.Contains(conn))
+                            nob.SetRenderersVisible(false);
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -301,8 +349,6 @@ namespace FishNet.Managing.Server
                 ClientAuthenticated(conn);
         }
 
-
-
         /// <summary>
         /// Called when a connection state changes for the local server.
         /// </summary>
@@ -325,7 +371,7 @@ namespace FishNet.Managing.Server
             {
                 Transport t = NetworkManager.TransportManager.GetTransport(args.TransportIndex);
                 string tName = (t == null) ? "Unknown" : t.GetType().Name;
-                Debug.Log($"Local Server is {state.ToString().ToLower()} for {tName}.");
+                Debug.Log($"Local server is {state.ToString().ToLower()} for {tName}.");
             }
 
             NetworkManager.UpdateFramerate();
@@ -343,8 +389,7 @@ namespace FishNet.Managing.Server
             if (id < 0 || id > maxIdValue)
             {
                 NetworkManager.TransportManager.Transport.StopConnection(args.ConnectionId, true);
-                if (NetworkManager.CanLog(LoggingType.Error))
-                    Debug.LogError($"The transport you are using supplied an invalid connection Id of {id}. Connection Id values must range between 0 and {maxIdValue}. The client has been disconnected.");
+                NetworkManager.LogError($"The transport you are using supplied an invalid connection Id of {id}. Connection Id values must range between 0 and {maxIdValue}. The client has been disconnected.");
                 return;
             }
             //Valid Id.
@@ -353,9 +398,8 @@ namespace FishNet.Managing.Server
                 //If started then add to authenticated clients.
                 if (args.ConnectionState == RemoteConnectionState.Started)
                 {
-                    if (NetworkManager.CanLog(LoggingType.Common))
-                        Debug.Log($"Remote connection started for Id {id}.");
-                    NetworkConnection conn = new NetworkConnection(NetworkManager, id);
+                    NetworkManager.Log($"Remote connection started for Id {id}.");
+                    NetworkConnection conn = new NetworkConnection(NetworkManager, id, true);
                     Clients.Add(args.ConnectionId, conn);
 
                     OnRemoteConnectionState?.Invoke(conn, args);
@@ -364,8 +408,9 @@ namespace FishNet.Managing.Server
                         return;
                     /* If there is an authenticator
                      * and the transport is not a local transport. */
-                    if (Authenticator != null && !NetworkManager.TransportManager.IsLocalTransport(id))
-                        Authenticator.OnRemoteConnection(conn);
+                    Authenticator auth = GetAuthenticator();
+                    if (auth != null && !NetworkManager.TransportManager.IsLocalTransport(id))
+                        auth.OnRemoteConnection(conn);
                     else
                         ClientAuthenticated(conn);
                 }
@@ -384,8 +429,7 @@ namespace FishNet.Managing.Server
                         BroadcastClientConnectionChange(false, conn);
                         conn.Reset();
 
-                        if (NetworkManager.CanLog(LoggingType.Common))
-                            Debug.Log($"Remote connection stopped for Id {id}.");
+                        NetworkManager.Log($"Remote connection stopped for Id {id}.");
                     }
                 }
             }
@@ -446,7 +490,8 @@ namespace FishNet.Managing.Server
 #endif
             using (PooledReader reader = ReaderPool.GetReader(segment, NetworkManager))
             {
-                NetworkManager.TimeManager.LastPacketTick = reader.ReadUInt32(AutoPackType.Unpacked);
+                uint tick = reader.ReadUInt32(AutoPackType.Unpacked);
+                NetworkManager.TimeManager.LastPacketTick = tick;
                 /* This is a special condition where a message may arrive split.
                 * When this occurs buffer each packet until all packets are
                 * received. */
@@ -499,6 +544,7 @@ namespace FishNet.Managing.Server
                         NetworkManager.TransportManager.Transport.StopConnection(args.ConnectionId, true);
                         return;
                     }
+                    conn.SetLastPacketTick(tick);
                     /* If connection isn't authenticated and isn't a broadcast
                      * then disconnect client. If a broadcast then process
                      * normally; client may still become disconnected if the broadcast

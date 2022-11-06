@@ -1,4 +1,5 @@
-﻿using FishNet.CodeGenerating.Helping;
+﻿using FishNet.CodeGenerating.Extension;
+using FishNet.CodeGenerating.Helping;
 using FishNet.CodeGenerating.Helping.Extension;
 using FishNet.Configuring;
 using FishNet.Object;
@@ -361,7 +362,9 @@ namespace FishNet.CodeGenerating.Processing
 
             if (CodegenSession.Module != typeDef.Module)
             {
-                CodegenSession.DifferentAssemblySyncVars.Add(fieldDef);
+                //Only display warning if field is exposed.
+                if (!fieldDef.Attributes.HasFlag(FieldAttributes.Private))
+                    CodegenSession.DifferentAssemblySyncVars.Add(fieldDef);
                 return false;
             }
 
@@ -606,11 +609,25 @@ namespace FishNet.CodeGenerating.Processing
             processor = createdSetMethodDef.Body.GetILProcessor();
 
             /* Assign to new value. Do this first because SyncVar<T> calls hook 
-             * and value needs to be updated before hook. */
+             * and value needs to be updated before hook. Only update
+             * value if calledByUser(asServer) or (!calledByUser && !base.IsServer).
+             * This ensures clientHost will not overwrite server value. */
+
+            Instruction afterChangeFieldInst = processor.Create(OpCodes.Nop);
+            Instruction beforeChangeFieldInst = processor.Create(OpCodes.Nop);
+            //if (calledByUser || !base.IsServer)
+            processor.Emit(OpCodes.Ldarg, calledByUserParameterDef);
+            processor.Emit(OpCodes.Brtrue, beforeChangeFieldInst);
+            processor.Emit(OpCodes.Ldarg_0); //this.            
+            processor.Emit(OpCodes.Call, CodegenSession.NetworkBehaviourHelper.IsServer_MethodRef);
+            processor.Emit(OpCodes.Brtrue, afterChangeFieldInst);
+
             //      _originalField = value;
+            processor.Append(beforeChangeFieldInst);
             processor.Emit(OpCodes.Ldarg_0); //this.
             processor.Emit(OpCodes.Ldarg, valueParameterDef);
             processor.Emit(OpCodes.Stfld, originalFd);
+            processor.Append(afterChangeFieldInst);
 
             Instruction retInst = processor.Create(OpCodes.Ret);
 
@@ -652,7 +669,7 @@ namespace FishNet.CodeGenerating.Processing
                     syncBaseTd = copyTd;
                     break;
                 }
-                copyTd = copyTd.GetNextBaseClass();
+                copyTd = copyTd.GetNextBaseTypeDefinition();
             } while (copyTd != null);
 
             //If SyncBase isn't found.
@@ -1197,37 +1214,6 @@ namespace FishNet.CodeGenerating.Processing
             {
                 return false;
             }
-
-            ///* Next instruction isn't initializing an object. Check if user
-            // * might be trying to call a method with ref/out of a synctype. */
-            //else
-            //{
-            //    /* There's many aspects where this might trigger the warning even
-            //     * if the sync type isn't being passed in using ref/out. For now
-            //     * keep this commented, might revisit it later. */
-            //    //for (int i = (instructionIndex + 1); i < methodDef.Body.Instructions.Count; i++)
-            //    //{
-            //    //    inst = methodDef.Body.Instructions[i];
-            //    //    /* Setting something. This is okay, and
-            //    //     * is handled elsewhere. */
-            //    //    if (inst.OpCode == OpCodes.Stfld || inst.OpCode == OpCodes.Stloc)
-            //    //        return;
-            //    //    /* Calling something, this would suggest a ref/out keyword. */
-            //    //    if (inst.OpCode == OpCodes.Call || inst.opcode == OpCodes.Callvirt)
-            //    //    {
-            //    //        //If was a replaced field.
-            //    //        if (processedLookup.TryGetValue(resolvedOpField, out List<ProcessedSync> psLst))
-            //    //        {
-            //    //            ProcessedSync ps = GetProcessedSync(resolvedOpField, psLst);
-            //    //            if (ps == null)
-            //    //                return;
-
-            //    //            CodegenSession.Diagnostics.AddWarning($"SyncType variable '{ps.OriginalFieldReference.Name}' within method '{methodDef.Name}' in class '{methodDef.DeclaringType.Name}' may be calling another method using the ref or out keyword. This is currently not supported. If this message is a mistake please file a bug report.");
-            //    //            return;
-            //    //        }
-            //    //    }
-            //    //}
-            //}
         }
 
         /// <summary>
@@ -1243,15 +1229,15 @@ namespace FishNet.CodeGenerating.Processing
             {
                 MethodDefinition readMd;
 
-                readMd = copyTd.GetMethod(CodegenSession.ObjectHelper.NetworkBehaviour_ReadSyncVar_MethodRef.Name);
+                readMd = copyTd.GetMethod(CodegenSession.NetworkBehaviourHelper.ReadSyncVar_MethodRef.Name);
                 if (readMd != null)
                     callerMd = readMd;
 
                 /* If baseType exist and it's not networkbehaviour
                  * look into calling the ReadSyncVar method. */
-                if (copyTd.BaseType != null && copyTd.BaseType.FullName != CodegenSession.ObjectHelper.NetworkBehaviour_FullName)
+                if (copyTd.BaseType != null && copyTd.BaseType.FullName != CodegenSession.NetworkBehaviourHelper.FullName)
                 {
-                    readMd = copyTd.BaseType.CachedResolve().GetMethod(CodegenSession.ObjectHelper.NetworkBehaviour_ReadSyncVar_MethodRef.Name);
+                    readMd = copyTd.BaseType.CachedResolve().GetMethod(CodegenSession.NetworkBehaviourHelper.ReadSyncVar_MethodRef.Name);
                     //Not all classes will have syncvars to read.
                     if (!_baseCalledReadSyncVars.Contains(callerMd) && readMd != null && callerMd != null)
                     {
@@ -1276,7 +1262,7 @@ namespace FishNet.CodeGenerating.Processing
                     }
                 }
 
-                copyTd = TypeDefinitionExtensions.GetNextBaseClassToProcess(copyTd);
+                copyTd = TypeDefinitionExtensionsOld.GetNextBaseClassToProcess(copyTd);
 
             } while (copyTd != null);
 
@@ -1295,10 +1281,10 @@ namespace FishNet.CodeGenerating.Processing
             ILProcessor processor;
 
             //Get the read sync method, or create it if not present.
-            MethodDefinition readSyncMethodDef = typeDef.GetMethod(CodegenSession.ObjectHelper.NetworkBehaviour_ReadSyncVar_MethodRef.Name);
+            MethodDefinition readSyncMethodDef = typeDef.GetMethod(CodegenSession.NetworkBehaviourHelper.ReadSyncVar_MethodRef.Name);
             if (readSyncMethodDef == null)
             {
-                readSyncMethodDef = new MethodDefinition(CodegenSession.ObjectHelper.NetworkBehaviour_ReadSyncVar_MethodRef.Name,
+                readSyncMethodDef = new MethodDefinition(CodegenSession.NetworkBehaviourHelper.ReadSyncVar_MethodRef.Name,
                 (MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.Virtual),
                     typeDef.Module.TypeSystem.Void);
                 readSyncMethodDef.ReturnType = CodegenSession.GeneralHelper.GetTypeReference(typeof(bool));

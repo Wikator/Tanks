@@ -292,19 +292,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 65033751}
-  SceneTransformProperties:
-    Position: {x: -25.5, y: 0.8, z: -15.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052818908920770
+  <SceneId>k__BackingField: 8360052818362241934
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -2049,19 +2050,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 301616678}
-  SceneTransformProperties:
-    Position: {x: 762, y: 366, z: 0}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 0
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052819554932447
+  <SceneId>k__BackingField: 8360052818562584832
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -3611,19 +3613,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 461069330}
-  SceneTransformProperties:
-    Position: {x: -25.5, y: 0.8, z: 0}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052818970689631
+  <SceneId>k__BackingField: 8360052817808604494
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -4113,19 +4116,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 542391662}
-  SceneTransformProperties:
-    Position: {x: -25.5, y: 0.8, z: 15.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052817720538901
+  <SceneId>k__BackingField: 8360052818253804395
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -5600,19 +5604,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 675665449}
-  SceneTransformProperties:
-    Position: {x: 25.5, y: 0.8, z: 15.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052819033269977
+  <SceneId>k__BackingField: 8360052818524028627
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -9137,23 +9142,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 1232001959}
   - {fileID: 849694642}
   - {fileID: 1521283543}
   - {fileID: 1176498115}
   - {fileID: 1884875600}
-  SceneTransformProperties:
-    Position: {x: 342.5, y: 192.5, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 0.712963, y: 0.712963, z: 0.712963}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 0
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052818802965593
+  <SceneId>k__BackingField: 8360052817798000137
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -10070,19 +10076,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 964500172}
-  SceneTransformProperties:
-    Position: {x: 5.5, y: 0.8, z: -5.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052817847903556
+  <SceneId>k__BackingField: 8360052819444095486
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -10331,19 +10338,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 1037496798}
-  SceneTransformProperties:
-    Position: {x: 25.5, y: 0.8, z: 15.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052818692902668
+  <SceneId>k__BackingField: 8360052819684721402
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -10817,19 +10825,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 1096226578}
-  SceneTransformProperties:
-    Position: {x: -5.5, y: 0.8, z: -5.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052816130639975
+  <SceneId>k__BackingField: 8360052819587827662
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -11060,19 +11069,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 1142779258}
-  SceneTransformProperties:
-    Position: {x: 25.5, y: 0.8, z: -15.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052817383962170
+  <SceneId>k__BackingField: 8360052816517828446
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -11347,19 +11357,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 1168345036}
-  SceneTransformProperties:
-    Position: {x: 25.5, y: 0.8, z: 0}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052816849463476
+  <SceneId>k__BackingField: 8360052817393031104
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -12173,19 +12184,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 1322204526}
-  SceneTransformProperties:
-    Position: {x: -25.5, y: 0.8, z: -15.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052815680705326
+  <SceneId>k__BackingField: 8360052817216161900
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -12311,19 +12323,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 1372799825}
-  SceneTransformProperties:
-    Position: {x: 25.5, y: 0.8, z: -15.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052818398089592
+  <SceneId>k__BackingField: 8360052819601126452
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -13009,19 +13022,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 1516522470}
-  SceneTransformProperties:
-    Position: {x: -5.5, y: 0.8, z: 5.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052819429571618
+  <SceneId>k__BackingField: 8360052815682007527
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -14007,19 +14021,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 1724315283}
-  SceneTransformProperties:
-    Position: {x: -25.5, y: 0.8, z: 15.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052818584784954
+  <SceneId>k__BackingField: 8360052816947793362
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -15304,19 +15319,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 1
+  <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 1987924924}
-  SceneTransformProperties:
-    Position: {x: 5.5, y: 0.8, z: 5.5}
-    Rotation: {x: -0, y: -0, z: -0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052818133684595
+  <SceneId>k__BackingField: 8360052815713999703
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}
@@ -17968,32 +17984,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkBehaviours:
-  - {fileID: 1372799825}
-  - {fileID: 675665449}
-  - {fileID: 65033751}
-  - {fileID: 1724315283}
-  - {fileID: 1096226578}
-  - {fileID: 964500172}
-  - {fileID: 1987924924}
-  - {fileID: 1516522470}
-  - {fileID: 542391662}
-  - {fileID: 461069330}
-  - {fileID: 1322204526}
-  - {fileID: 1142779258}
-  - {fileID: 1168345036}
-  - {fileID: 1037496798}
-  SceneTransformProperties:
-    Position: {x: 0, y: 0, z: 0}
-    Rotation: {x: 0, y: 0, z: 0, w: 1}
-    LocalScale: {x: 1, y: 1, z: 1}
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  _networkBehaviours: []
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _hasParentNetworkObjectAtEdit: 0
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  _prefabId: -1
+  <PrefabId>k__BackingField: -1
   _scenePathHash: 1946476478
-  _sceneId: 8360052819395066371
+  <SceneId>k__BackingField: 8360052818637967946
+  <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 65033750}
   - {fileID: 301616680}

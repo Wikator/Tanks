@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "com.heathen.steamworksfoundation": "https://github.com/heathen-engineering/SteamworksFoundation.git?path=Unity/com.heathen.steamworksfoundation",
+    "com.heathen.systemcore": "https://github.com/heathen-engineering/SystemCore.git?path=/com.heathen.systemcore",
+    "com.rlabrecque.steamworks.net": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net",
     "com.unity.addressables": "1.19.19",
     "com.unity.collab-proxy": "1.15.18",
     "com.unity.feature.development": "1.0.1",

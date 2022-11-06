@@ -2,6 +2,7 @@
 using FishNet.Managing.Logging;
 using FishNet.Object.Synchronizing.Internal;
 using FishNet.Serializing;
+using FishNet.Serializing.Helping;
 using FishNet.Utility.Performance;
 using System;
 using System.Collections;
@@ -109,6 +110,10 @@ namespace FishNet.Object.Synchronizing
         /// The only reasonable way to reset this during a Reset call is by duplicating the original list and setting all values to it on reset.
         /// </summary>
         private bool _valuesChanged;
+        /// <summary>
+        /// True to send all values in the next WriteDelta.
+        /// </summary>
+        private bool _sendAll;
         #endregion
 
         [APIExclude]
@@ -190,7 +195,7 @@ namespace FishNet.Object.Synchronizing
         /// Called after OnStartXXXX has occurred.
         /// </summary>
         /// <param name="asServer">True if OnStartServer was called, false if OnStartClient.</param>
-        protected internal override void OnStartCallback(bool asServer)
+        public override void OnStartCallback(bool asServer)
         {
             base.OnStartCallback(asServer);
             List<CachedOnChange> collection = (asServer) ? _serverOnChanges : _clientOnChanges;
@@ -210,24 +215,34 @@ namespace FishNet.Object.Synchronizing
         ///<param name="resetSyncTick">True to set the next time data may sync.</param>
         public override void WriteDelta(PooledWriter writer, bool resetSyncTick = true)
         {
-            base.WriteDelta(writer, resetSyncTick);
-            //False for not full write.
-            writer.WriteBoolean(false);
-            writer.WriteUInt32((uint)_changed.Count);
-
-            for (int i = 0; i < _changed.Count; i++)
+            //If sending all then clear changed and write full.
+            if (_sendAll)
             {
-                ChangeData change = _changed[i];
-                writer.WriteByte((byte)change.Operation);
-
-                //Clear does not need to write anymore data so it is not included in checks.
-                if (change.Operation == SyncHashSetOperation.Add || change.Operation == SyncHashSetOperation.Remove)
-                {
-                    writer.Write(change.Item);
-                }
+                _sendAll = false;
+                _changed.Clear();
+                WriteFull(writer);
             }
+            else
+            {
+                base.WriteDelta(writer, resetSyncTick);
+                //False for not full write.
+                writer.WriteBoolean(false);
+                writer.WriteInt32(_changed.Count);
 
-            _changed.Clear();
+                for (int i = 0; i < _changed.Count; i++)
+                {
+                    ChangeData change = _changed[i];
+                    writer.WriteByte((byte)change.Operation);
+
+                    //Clear does not need to write anymore data so it is not included in checks.
+                    if (change.Operation == SyncHashSetOperation.Add || change.Operation == SyncHashSetOperation.Remove || change.Operation == SyncHashSetOperation.Update)
+                    {
+                        writer.Write(change.Item);
+                    }
+                }
+
+                _changed.Clear();
+            }
         }
 
         /// <summary>
@@ -243,7 +258,7 @@ namespace FishNet.Object.Synchronizing
             //True for full write.
             writer.WriteBoolean(true);
             int count = Collection.Count;
-            writer.WriteUInt32((uint)count);
+            writer.WriteInt32(count);
             foreach (T item in Collection)
             {
                 writer.WriteByte((byte)SyncHashSetOperation.Add);
@@ -272,7 +287,7 @@ namespace FishNet.Object.Synchronizing
             if (fullWrite)
                 collection.Clear();
 
-            int changes = (int)reader.ReadUInt32();
+            int changes = reader.ReadInt32();
             for (int i = 0; i < changes; i++)
             {
                 SyncHashSetOperation operation = (SyncHashSetOperation)reader.ReadByte();
@@ -294,6 +309,13 @@ namespace FishNet.Object.Synchronizing
                 {
                     next = reader.Read<T>();
                     collection.Remove(next);
+                }
+                //Updated.
+                else if (operation == SyncHashSetOperation.Update)
+                {
+                    next = reader.Read<T>();
+                    collection.Remove(next);
+                    collection.Add(next);
                 }
 
                 InvokeOnChange(operation, next, false);
@@ -331,6 +353,7 @@ namespace FishNet.Object.Synchronizing
         public override void Reset()
         {
             base.Reset();
+            _sendAll = false;
             _changed.Clear();
             Collection.Clear();
             ClientHostCollection.Clear();
@@ -424,6 +447,45 @@ namespace FishNet.Object.Synchronizing
             return result;
         }
 
+        /// <summary>
+        /// Dirties the entire collection forcing a full send.
+        /// </summary>
+        public void DirtyAll()
+        {
+            if (!base.IsRegistered)
+                return;
+
+            if (base.NetworkManager != null && base.Settings.WritePermission == WritePermission.ServerOnly && !base.NetworkBehaviour.IsServer)
+            {
+                if (NetworkManager.CanLog(LoggingType.Warning))
+                    Debug.LogWarning($"Cannot complete operation as server when server is not active.");
+                return;
+            }
+
+            if (base.Dirty())
+                _sendAll = true;
+        }
+
+        /// <summary>
+        /// Looks up obj in Collection and if found marks it's index as dirty.
+        /// This operation can be very expensive, will cause allocations, and may fail if your value cannot be compared.
+        /// </summary>
+        /// <param name="obj">Object to lookup.</param>
+        public void Dirty(T obj)
+        {
+            foreach (T item in Collection)
+            {
+                if (item.Equals(obj))
+                {
+                    AddOperation(SyncHashSetOperation.Update, obj);
+                    return;
+                }
+            }
+
+            //Not found.
+            if (base.NetworkManager.CanLog(LoggingType.Error))
+                Debug.LogError($"Could not find object within SyncHashSet, dirty will not be set.");
+        }
 
         /// <summary>
         /// Returns Enumerator for collection.

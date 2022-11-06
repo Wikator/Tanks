@@ -21,8 +21,17 @@ namespace FishNet.Managing.Scened
     /// Handles loading, unloading, and scene visibility for clients.
     /// </summary>
     [DisallowMultipleComponent]
+    [AddComponentMenu("FishNet/Manager/SceneManager")]
     public sealed class SceneManager : MonoBehaviour
     {
+        #region Types.
+        internal enum LightProbeUpdateType
+        {
+            Asynchronous = 0,
+            BlockThread = 1,
+            Off = 2,
+        }
+        #endregion
 
         #region Public.
         /// <summary>
@@ -89,6 +98,12 @@ namespace FishNet.Managing.Scened
         [Tooltip("Script to handle addressables loading and unloading. This field may be blank if addressables are not being used.")]
         [SerializeField]
         private SceneProcessorBase _sceneProcessor;
+        /// <summary>
+        /// How to update light probes after loading or unloading scenes.
+        /// </summary>
+        [Tooltip("How to update light probes after loading or unloading scenes.")]
+        [SerializeField]
+        private LightProbeUpdateType _lightProbeUpdating = LightProbeUpdateType.Asynchronous;
         /// <summary>
         /// True to move objects visible to clientHost that are within an unloading scene. This ensures the objects are despawned on the client side rather than when the scene is destroyed.
         /// </summary>
@@ -482,8 +497,7 @@ namespace FishNet.Managing.Scened
         /// <param name="sqd"></param>
         private void InvokeOnSceneUnloadEnd(UnloadQueueData sqd, List<Scene> unloadedScenes)
         {
-            int[] handles = new int[unloadedScenes.Count];
-            OnUnloadEnd?.Invoke(new SceneUnloadEndEventArgs(sqd, handles));
+            OnUnloadEnd?.Invoke(new SceneUnloadEndEventArgs(sqd, unloadedScenes));
         }
         /// <summary>
         /// Invokes when completion percentage changes while unloading or unloading a scene. Value is between 0f and 1f, while 1f is 100% done.
@@ -831,7 +845,7 @@ namespace FishNet.Managing.Scened
                         continue;
                     /* Cannot unload global scenes. If
                      * replace scenes was used for a global
-                     * load then global scenes would have bene reset
+                     * load then global scenes would have been reset
                      * before this. */
                     if (IsGlobalScene(s))
                         continue;
@@ -1911,6 +1925,12 @@ namespace FishNet.Managing.Scened
 
             OnActiveSceneSet?.Invoke();
             OnActiveSceneSetInternal?.Invoke();
+
+            //Also update light probes.
+            if (_lightProbeUpdating == LightProbeUpdateType.Asynchronous)
+                LightProbes.TetrahedralizeAsync();
+            else if (_lightProbeUpdating == LightProbeUpdateType.BlockThread)
+                LightProbes.Tetrahedralize();
         }
 
         /// <summary>

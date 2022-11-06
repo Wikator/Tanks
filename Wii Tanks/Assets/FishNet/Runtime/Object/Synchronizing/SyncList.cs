@@ -69,7 +69,8 @@ namespace FishNet.Object.Synchronizing
 
             public bool MoveNext()
             {
-                if (++_index >= _list.Count)
+                _index++;
+                if (_index >= _list.Count)
                     return false;
                 Current = _list[_index];
                 return true;
@@ -140,6 +141,10 @@ namespace FishNet.Object.Synchronizing
         /// The only reasonable way to reset this during a Reset call is by duplicating the original list and setting all values to it on reset.
         /// </summary>
         private bool _valuesChanged;
+        /// <summary>
+        /// True to send all values in the next WriteDelta.
+        /// </summary>
+        private bool _sendAll;
         #endregion
 
         [APIExclude]
@@ -225,7 +230,7 @@ namespace FishNet.Object.Synchronizing
         /// Called after OnStartXXXX has occurred.
         /// </summary>
         /// <param name="asServer">True if OnStartServer was called, false if OnStartClient.</param>
-        protected internal override void OnStartCallback(bool asServer)
+        public override void OnStartCallback(bool asServer)
         {
             base.OnStartCallback(asServer);
             List<CachedOnChange> collection = (asServer) ? _serverOnChanges : _clientOnChanges;
@@ -246,33 +251,43 @@ namespace FishNet.Object.Synchronizing
         ///<param name="resetSyncTick">True to set the next time data may sync.</param>
         public override void WriteDelta(PooledWriter writer, bool resetSyncTick = true)
         {
-            base.WriteDelta(writer, resetSyncTick);
-            //False for not full write.
-            writer.WriteBoolean(false);
-            writer.WriteUInt32((uint)_changed.Count);
-
-            for (int i = 0; i < _changed.Count; i++)
+            //If sending all then clear changed and write full.
+            if (_sendAll)
             {
-                ChangeData change = _changed[i];
-                writer.WriteByte((byte)change.Operation);
-
-                //Clear does not need to write anymore data so it is not included in checks.
-                if (change.Operation == SyncListOperation.Add)
-                {
-                    writer.Write(change.Item);
-                }
-                else if (change.Operation == SyncListOperation.RemoveAt)
-                {
-                    writer.WriteUInt32((uint)change.Index);
-                }
-                else if (change.Operation == SyncListOperation.Insert || change.Operation == SyncListOperation.Set)
-                {
-                    writer.WriteUInt32((uint)change.Index);
-                    writer.Write(change.Item);
-                }
+                _sendAll = false;
+                _changed.Clear();
+                WriteFull(writer);
             }
+            else
+            {
+                base.WriteDelta(writer, resetSyncTick);
+                //False for not full write.
+                writer.WriteBoolean(false);
+                writer.WriteInt32(_changed.Count);
 
-            _changed.Clear();
+                for (int i = 0; i < _changed.Count; i++)
+                {
+                    ChangeData change = _changed[i];
+                    writer.WriteByte((byte)change.Operation);
+
+                    //Clear does not need to write anymore data so it is not included in checks.
+                    if (change.Operation == SyncListOperation.Add)
+                    {
+                        writer.Write(change.Item);
+                    }
+                    else if (change.Operation == SyncListOperation.RemoveAt)
+                    {
+                        writer.WriteInt32(change.Index);
+                    }
+                    else if (change.Operation == SyncListOperation.Insert || change.Operation == SyncListOperation.Set)
+                    {
+                        writer.WriteInt32(change.Index);
+                        writer.Write(change.Item);
+                    }
+                }
+
+                _changed.Clear();
+            }
         }
 
         /// <summary>
@@ -287,7 +302,7 @@ namespace FishNet.Object.Synchronizing
             base.WriteHeader(writer, false);
             //True for full write.
             writer.WriteBoolean(true);
-            writer.WriteUInt32((uint)Collection.Count);
+            writer.WriteInt32(Collection.Count);
             for (int i = 0; i < Collection.Count; i++)
             {
                 writer.WriteByte((byte)SyncListOperation.Add);
@@ -316,7 +331,7 @@ namespace FishNet.Object.Synchronizing
             if (fullWrite)
                 collection.Clear();
 
-            int changes = (int)reader.ReadUInt32();
+            int changes = reader.ReadInt32();
 
             for (int i = 0; i < changes; i++)
             {
@@ -340,21 +355,21 @@ namespace FishNet.Object.Synchronizing
                 //Insert.
                 else if (operation == SyncListOperation.Insert)
                 {
-                    index = (int)reader.ReadUInt32();
+                    index = reader.ReadInt32();
                     next = reader.Read<T>();
                     collection.Insert(index, next);
                 }
                 //RemoveAt.
                 else if (operation == SyncListOperation.RemoveAt)
                 {
-                    index = (int)reader.ReadUInt32();
+                    index = reader.ReadInt32();
                     prev = collection[index];
                     collection.RemoveAt(index);
                 }
                 //Set
                 else if (operation == SyncListOperation.Set)
                 {
-                    index = (int)reader.ReadUInt32();
+                    index = reader.ReadInt32();
                     next = reader.Read<T>();
                     prev = collection[index];
                     collection[index] = next;
@@ -395,6 +410,7 @@ namespace FishNet.Object.Synchronizing
         public override void Reset()
         {
             base.Reset();
+            _sendAll = false;
             _changed.Clear();
             ClientHostCollection.Clear();
             Collection.Clear();
@@ -624,10 +640,31 @@ namespace FishNet.Object.Synchronizing
         }
 
         /// <summary>
+        /// Dirties the entire collection forcing a full send.
+        /// This will not invoke the callback on server.
+        /// </summary>
+        public void DirtyAll()
+        {
+            if (!base.IsRegistered)
+                return;
+
+            if (base.NetworkManager != null && base.Settings.WritePermission == WritePermission.ServerOnly && !base.NetworkBehaviour.IsServer)
+            {
+                if (NetworkManager.CanLog(LoggingType.Warning))
+                    Debug.LogWarning($"Cannot complete operation as server when server is not active.");
+                return;
+            }
+
+            if (base.Dirty())
+                _sendAll = true;
+        }
+
+        /// <summary>
         /// Looks up obj in Collection and if found marks it's index as dirty.
         /// While using this operation previous value will be the same as next.
+        /// This operation can be very expensive, and may fail if your value cannot be compared.
         /// </summary>
-        /// <param name="obj"></param>
+        /// <param name="obj">Object to lookup.</param>
         public void Dirty(T obj)
         {
             int index = Collection.IndexOf(obj);

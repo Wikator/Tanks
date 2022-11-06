@@ -148,9 +148,7 @@ namespace FishNet.Example.CustomSyncObject
         public override void WriteDelta(PooledWriter writer, bool resetSyncTick = true)
         {
             base.WriteDelta(writer, resetSyncTick);
-            //False for not full write.
-            writer.WriteBoolean(false);
-            writer.WriteUInt32((uint)_changed.Count);
+            writer.WriteInt32(_changed.Count);
 
             for (int i = 0; i < _changed.Count; i++)
             {
@@ -203,7 +201,7 @@ namespace FishNet.Example.CustomSyncObject
             * and potentially overwrite data not yet sent. */
             bool asClientAndHost = (!asServer && base.NetworkManager.IsServer);
 
-            int changes = (int)reader.ReadUInt32();
+            int changes = reader.ReadInt32();
             for (int i = 0; i < changes; i++)
             {
                 CustomOperation operation = (CustomOperation)reader.ReadByte();
