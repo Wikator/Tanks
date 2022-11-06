@@ -28,6 +28,6 @@ Currently there are 2 modes, 4 maps, 3 tank types, and 6 player colors to choose
     + It is looking quite good already, but there are some places where it can improve
     + Light emmited from tanks especially can be improved, for some colors
 4. Peer to peer connections and lobby
-    + Epic Online Services will be implemented
-    + For now, the game uses PlayFlow's dedicated servers
+    + ~~Epic Online Services will be implemented~~ Steam was used instead
+    + Players can join P2P games now, but only through invites
 5. Cleaner UI
