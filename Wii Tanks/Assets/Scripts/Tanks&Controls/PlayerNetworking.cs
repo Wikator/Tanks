@@ -103,6 +103,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
         {
             eliminationGameMode.redTeam.Remove(this);
         }
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+
     }
 
 
