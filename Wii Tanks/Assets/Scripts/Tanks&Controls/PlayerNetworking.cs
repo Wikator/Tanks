@@ -4,6 +4,8 @@ using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Steamworks;
+using System.Collections.Generic;
+using System.Linq;
 
 public sealed class PlayerNetworking : NetworkBehaviour
 {
@@ -65,12 +67,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
         if (IsHost)
         {
-            foreach (PlayerNetworking player in GameManager.Instance.players)
-            {
-                if (player.Owner != Owner)
-                    player.Owner.Disconnect(true);
-            }
-            Owner.Disconnect(true);
+            StopLobby();
         }
         else
         {
@@ -104,8 +101,29 @@ public sealed class PlayerNetworking : NetworkBehaviour
             eliminationGameMode.redTeam.Remove(this);
         }
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+    }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Owner.Disconnect(true);
+
+            List<GameObject> items = FindObjectsOfType<GameObject>().ToList();
+
+            foreach (GameObject obj in items)
+            {
+                Destroy(obj);
+            }
+
+            UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
+        }
+    }
+
+    [ObserversRpc]
+    private void StopLobby()
+    {
+        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
     }
 
 

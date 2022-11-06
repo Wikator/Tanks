@@ -9,7 +9,7 @@ public class SteamLobby : MonoBehaviour
     protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
     protected Callback<LobbyEnter_t> lobbyEnter;
 
-    private const string HOST_ADDRESS_KEY = "hostAddress";
+    private const string HOST_ADDRESS_KEY = "HostAddress";
 
     public static CSteamID LobbyID { get; private set; }
 
@@ -35,6 +35,11 @@ public class SteamLobby : MonoBehaviour
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, 6);
     }
 
+    public void LeaveLobby()
+    {
+        SteamMatchmaking.LeaveLobby(LobbyID);
+    }
+
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
         if (callback.m_eResult != EResult.k_EResultOK)
@@ -57,11 +62,6 @@ public class SteamLobby : MonoBehaviour
 
     private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
     {
-        if (PlayerNetworking.Instance)
-        {
-            PlayerNetworking.Instance.Owner.Disconnect(true);
-        }
-
         SteamMatchmaking.JoinLobby(callback.m_steamIDLobby);
     }
 
