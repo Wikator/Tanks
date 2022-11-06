@@ -34,7 +34,15 @@ public abstract class LobbyView : View
         }
 
         toggleReadyButtonText.color = PlayerNetworking.Instance.isReady ? Color.green : Color.red;
-        startGameButton.interactable = GameManager.Instance.canStart;
+
+        if (GameManager.Instance.canStart && IsHost)
+        {
+            startGameButton.interactable = true;
+        }
+        else
+        {
+            startGameButton.interactable = false;
+        }
         playersReadyCountText.text = "Players ready: " + Convert.ToString(GameManager.Instance.NumberOfReadyPlayers()) + "/" + Convert.ToString(GameManager.Instance.players.Count);
         chosenColorText.text = "Chosen color: " + PlayerNetworking.Instance.color;
         chosenTankTypeText.text = "Chosen tank type: " + PlayerNetworking.Instance.tankType;

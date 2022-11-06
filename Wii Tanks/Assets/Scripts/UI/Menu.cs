@@ -21,11 +21,9 @@ public sealed class Menu : MonoBehaviour
     {
         steamLobby = FindObjectOfType<SteamLobby>();
 
-        Debug.Log(steamLobby);
-
         hostButton.onClick.AddListener(steamLobby.HostLobby);
 
-        connectButton.onClick.AddListener(steamLobby.JoinLobby);
+        //connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
     }
 
     private void OnDestroy()

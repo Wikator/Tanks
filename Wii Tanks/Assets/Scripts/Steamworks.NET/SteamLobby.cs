@@ -34,11 +34,6 @@ public class SteamLobby : MonoBehaviour
         SteamMatchmaking.CreateLobby(ELobbyType.k_ELobbyTypeFriendsOnly, 6);
     }
 
-    public void JoinLobby()
-    {
-        InstanceFinder.ClientManager.StartConnection(SteamMatchmaking.GetLobbyData(LobbyID, HOST_ADDRESS_KEY));
-    }
-
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
         if (callback.m_eResult != EResult.k_EResultOK)

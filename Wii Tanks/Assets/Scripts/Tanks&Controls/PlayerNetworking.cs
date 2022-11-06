@@ -62,19 +62,30 @@ public sealed class PlayerNetworking : NetworkBehaviour
     {
         base.OnStopServer();
 
-        GameManager.Instance.players.Remove(this);
+
+        if (IsHost)
+        {
+            foreach (PlayerNetworking player in GameManager.Instance.players)
+            {
+                player.Owner.Disconnect(true);
+            }
+        }
+        else
+        {
+            GameManager.Instance.players.Remove(this);
+            SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
+        }
     }
 
     public override void OnStopClient()
     {
         base.OnStopClient();
-
-        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
     }
 
     public override void OnStopNetwork()
     {
         base.OnStopNetwork();
+
 
         if (GameManager.Instance.gameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
             return;
