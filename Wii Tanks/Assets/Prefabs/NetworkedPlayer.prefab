@@ -97,4 +97,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _overrideType: 2
   _updateHostVisibility: 0
-  _observerConditions: []
+  _observerConditions:
+  - {fileID: 0}
