@@ -107,8 +107,6 @@ public abstract class Tank : NetworkBehaviour
         raycastLayer = (1 << 9);
         cam = Camera.main;
         ammoCount = stats.maxAmmo;
-        namePlate = transform.GetChild(2).GetComponent<TextMesh>();
-        ChangePlayerTag(PlayerNetworking.Instance.playerUsername);
         controller = GetComponent<CharacterController>();
         gameModeManager = FindObjectOfType<GameMode>();
         turret = transform.GetChild(1);
@@ -121,17 +119,13 @@ public abstract class Tank : NetworkBehaviour
         SubscribeToTimeManager(true);
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void ChangePlayerTag(string name)
-    {
-        namePlate.text = name;
-    }
-
 
     public override void OnStartClient()
     {
         base.OnStartClient();
         controller.enabled =  IsServer || IsOwner;
+        namePlate = transform.GetChild(2).GetComponent<TextMesh>();
+        namePlate.text = controllingPlayer.playerUsername;
     }
     public virtual void ChangeColours(string color)
     {
