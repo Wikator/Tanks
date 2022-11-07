@@ -84,8 +84,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
         GameManager.Instance.players.Remove(this);
 
-        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
-
         if (GameManager.Instance.gameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
             return;
 
