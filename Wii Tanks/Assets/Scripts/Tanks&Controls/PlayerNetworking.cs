@@ -65,7 +65,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
     {
         base.OnStopServer();
 
-        GameManager.Instance.players.Remove(this);
+        //GameManager.Instance.players.Remove(this);
+        //Debug.Log(GameManager.Instance.players.Count);
     }
 
     public override void OnStopClient()
@@ -81,6 +82,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
     {
         base.OnStopNetwork();
 
+        GameManager.Instance.players.Remove(this);
+
+        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
 
         if (GameManager.Instance.gameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
             return;
@@ -103,25 +107,19 @@ public sealed class PlayerNetworking : NetworkBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P) && IsOwner)
         {
-            //ClientManager.StopConnection();
-
-            //UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
-
             DisconnectFromGame();
         }
     }
 
     private void DisconnectFromGame()
     {
-        GameManager.Instance.players.Remove(this);
-
-        if (IsServer)
+        if (IsHost)
+        {
             ServerManager.StopConnection(true);
+            ClientManager.StopConnection();
+        }
         else if
             (IsClient) ClientManager.StopConnection();
-
-        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
-
     }    
 
     public void SpawnTank()
