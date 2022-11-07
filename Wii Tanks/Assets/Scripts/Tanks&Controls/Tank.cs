@@ -108,7 +108,7 @@ public abstract class Tank : NetworkBehaviour
         cam = Camera.main;
         ammoCount = stats.maxAmmo;
         namePlate = transform.GetChild(2).GetComponent<TextMesh>();
-        namePlate.text = PlayerNetworking.Instance.playerUsername;
+        ChangePlayerTag(PlayerNetworking.Instance.playerUsername);
         controller = GetComponent<CharacterController>();
         gameModeManager = FindObjectOfType<GameMode>();
         turret = transform.GetChild(1);
@@ -119,6 +119,12 @@ public abstract class Tank : NetworkBehaviour
         muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
         ChangeColours(controllingPlayer.color);
         SubscribeToTimeManager(true);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ChangePlayerTag(string name)
+    {
+        namePlate.text = name;
     }
 
 

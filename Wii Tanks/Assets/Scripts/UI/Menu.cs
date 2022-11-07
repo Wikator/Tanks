@@ -23,8 +23,6 @@ public sealed class Menu : MonoBehaviour
 
         hostButton.onClick.AddListener(steamLobby.HostLobby);
 
-        //hostButton.onClick.AddListener(() => Debug.LogWarning("Pressed!"));
-
         //hostButton.onClick.AddListener(() => InstanceFinder.ServerManager.StartConnection());
 
         //hostButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
