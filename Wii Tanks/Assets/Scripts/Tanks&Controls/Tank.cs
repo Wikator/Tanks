@@ -86,6 +86,10 @@ public abstract class Tank : NetworkBehaviour
 
     protected Coroutine routine;
 
+
+    [SerializeField]
+    private TextMesh namePlate;
+
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     private void OnAmmoChange(int oldAmmo, int newAmmo, bool asServer)
     {
@@ -103,6 +107,8 @@ public abstract class Tank : NetworkBehaviour
         raycastLayer = (1 << 9);
         cam = Camera.main;
         ammoCount = stats.maxAmmo;
+        namePlate = transform.GetChild(2).GetComponent<TextMesh>();
+        namePlate.text = PlayerNetworking.Instance.playerUsername;
         controller = GetComponent<CharacterController>();
         gameModeManager = FindObjectOfType<GameMode>();
         turret = transform.GetChild(1);
@@ -114,6 +120,7 @@ public abstract class Tank : NetworkBehaviour
         ChangeColours(controllingPlayer.color);
         SubscribeToTimeManager(true);
     }
+
 
     public override void OnStartClient()
     {
@@ -206,6 +213,10 @@ public abstract class Tank : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(1) && canUseSpecialMove)
             SpecialMove();
+
+        namePlate.transform.LookAt(cam.transform);
+
+        namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
     }
 
     private void TimeManager_OnTick()

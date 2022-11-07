@@ -39,7 +39,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
         try
         {
             GameManager.Instance.players.Add(this);
-            Debug.Log(GameManager.Instance.players.Count);
         }
         catch (NullReferenceException)
         {
@@ -60,27 +59,18 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
         SetSteamID(SteamUser.GetSteamID().m_SteamID);
     }
-    
-    public override void OnStopServer()
-    {
-        base.OnStopServer();
-
-        //GameManager.Instance.players.Remove(this);
-        //Debug.Log(GameManager.Instance.players.Count);
-    }
 
     public override void OnStopClient()
     {
         base.OnStopClient();
-        //SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
 
         if (IsOwner)
             Instance = null;
     }
 
-    public override void OnStopNetwork()
+    public override void OnStopServer()
     {
-        base.OnStopNetwork();
+        base.OnStopServer();
 
         GameManager.Instance.players.Remove(this);
 
