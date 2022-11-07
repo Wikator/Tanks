@@ -120,6 +120,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
         }
         else if
             (IsClient) ClientManager.StopConnection();
+
+        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
     }    
 
     public void SpawnTank()
