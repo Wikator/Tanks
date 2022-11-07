@@ -124,7 +124,6 @@ public abstract class Tank : NetworkBehaviour
     {
         base.OnStartClient();
         controller.enabled =  IsServer || IsOwner;
-        namePlate = transform.GetChild(2).GetComponent<TextMesh>();
         namePlate.text = controllingPlayer.playerUsername;
     }
     public virtual void ChangeColours(string color)
@@ -206,6 +205,10 @@ public abstract class Tank : NetworkBehaviour
 
     private void Update()
     {
+        namePlate.transform.LookAt(cam.transform);
+
+        namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
+
         if (!IsOwner)
             return;
 
@@ -213,10 +216,6 @@ public abstract class Tank : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(1) && canUseSpecialMove)
             SpecialMove();
-
-        namePlate.transform.LookAt(cam.transform);
-
-        namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
     }
 
     private void TimeManager_OnTick()

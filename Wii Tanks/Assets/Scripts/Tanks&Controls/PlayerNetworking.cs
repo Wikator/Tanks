@@ -4,8 +4,6 @@ using System;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Steamworks;
-using System.Collections.Generic;
-using System.Linq;
 
 public sealed class PlayerNetworking : NetworkBehaviour
 {
@@ -87,6 +85,11 @@ public sealed class PlayerNetworking : NetworkBehaviour
         if (eliminationGameMode.redTeam.Contains(this))
         {
             eliminationGameMode.redTeam.Remove(this);
+        }
+
+        if (eliminationGameMode)
+        {
+            eliminationGameMode.OnKilled(this);
         }
 
     }

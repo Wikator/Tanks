@@ -57,7 +57,6 @@ public sealed class EliminationGameMode : GameMode
         GameManager.Instance.scores["Red"] = 0;
     }
 
-
     //When a team has no players left, the round ends, points are given, and a new round starts
 
     public override void OnKilled(PlayerNetworking playerNetworking)
