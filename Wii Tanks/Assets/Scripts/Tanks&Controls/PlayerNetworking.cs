@@ -72,7 +72,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public override void OnStopClient()
     {
         base.OnStopClient();
-        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
+        //SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
 
         if (IsOwner)
             Instance = null;
@@ -121,7 +121,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
         else if
             (IsClient) ClientManager.StopConnection();
 
-        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
+        if (IsOwner)
+            SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
     }    
 
     public void SpawnTank()
