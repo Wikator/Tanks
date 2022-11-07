@@ -50,14 +50,13 @@ MonoBehaviour:
   <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
   - {fileID: 1020864369339734849}
-  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
+  <PrefabId>k__BackingField: 35
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 14746796781269019939
@@ -82,6 +81,8 @@ MonoBehaviour:
   tankType: 
   controlledPawn: {fileID: 0}
   isReady: 0
+  playerSteamID: 0
+  playerUsername: 
 --- !u!114 &-7317939241241333854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,6 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _overrideType: 3
-  _updateHostVisibility: 1
+  _overrideType: 2
+  _updateHostVisibility: 0
   _observerConditions: []
