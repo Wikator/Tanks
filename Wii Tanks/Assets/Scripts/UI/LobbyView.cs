@@ -54,7 +54,7 @@ public abstract class LobbyView : View
         chosenColorText.text = "Chosen color: " + PlayerNetworking.Instance.color;
         chosenTankTypeText.text = "Chosen tank type: " + PlayerNetworking.Instance.tankType;
 
-        UpdatePlayerList();
+        //UpdatePlayerList();
     }
 
     private void UpdatePlayerList()
