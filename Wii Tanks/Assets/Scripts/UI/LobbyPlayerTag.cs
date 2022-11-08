@@ -26,7 +26,7 @@ public class LobbyPlayerTag : MonoBehaviour
     {
         if (callback.m_steamID.m_SteamID == PlayerNetworking.Instance.playerSteamID)
         {
-            playerIcon.texture = GetSteamImageAsTexture(callback.m_iImage);
+            return;
         }
         else
         {
