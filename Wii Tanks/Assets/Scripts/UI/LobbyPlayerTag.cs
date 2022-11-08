@@ -16,6 +16,9 @@ public class LobbyPlayerTag : MonoBehaviour
 
     protected Callback<AvatarImageLoaded_t> ImageLoaded;
 
+    [HideInInspector]
+    public ulong steamID;
+
 
     private void Start()
     {
@@ -24,13 +27,9 @@ public class LobbyPlayerTag : MonoBehaviour
 
     private void OnImageLoaded(AvatarImageLoaded_t callback)
     {
-        if (callback.m_steamID.m_SteamID == PlayerNetworking.Instance.playerSteamID)
+        if (callback.m_steamID.m_SteamID == steamID)
         {
-            return;
-        }
-        else
-        {
-            return;
+            playerIcon.texture = GetSteamImageAsTexture(callback.m_iImage);
         }
     }
 
