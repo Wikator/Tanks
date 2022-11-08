@@ -5,12 +5,12 @@ using UnityEngine.UI;
 using Steamworks;
 using TMPro;
 using FishNet.Object.Synchronizing;
+using FishNet.Object;
 
 public class LobbyPlayerTag : MonoBehaviour
 {
     public TextMeshProUGUI playerNameText;
 
-    private bool avatarReceived;
 
     public RawImage playerIcon;
 
@@ -54,7 +54,6 @@ public class LobbyPlayerTag : MonoBehaviour
                 texture.Apply();
             }
         }
-        avatarReceived = true;
         return texture;
     }
 
@@ -72,7 +71,6 @@ public class LobbyPlayerTag : MonoBehaviour
     {
         playerNameText.text = player.playerUsername;
 
-        if (!avatarReceived)
-            GetPlayerIcon(player);
+        GetPlayerIcon(player);
     }
 }

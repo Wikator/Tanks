@@ -86,6 +86,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8258544490933169812}
   - component: {fileID: 118392869952025692}
+  - component: {fileID: -4448419576265367540}
   m_Layer: 5
   m_Name: PlayerTag
   m_TagString: Untagged
@@ -128,8 +129,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25fb463eaa17c545978897340e73af1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: -4448419576265367540}
+  _networkObjectCache: {fileID: -4448419576265367540}
   playerNameText: {fileID: 6666976428179301374}
   playerIcon: {fileID: 9204773606057819750}
+  steamID: 0
+--- !u!114 &-4448419576265367540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881822281449245940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  _networkBehaviours:
+  - {fileID: 118392869952025692}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
+  _isNetworked: 1
+  _isGlobal: 0
+  _defaultDespawnType: 0
+  NetworkObserver: {fileID: 0}
+  <PrefabId>k__BackingField: 20
+  _scenePathHash: 0
+  <SceneId>k__BackingField: 0
+  <AssetPathHash>k__BackingField: 5684057425602372050
+  _sceneNetworkObjects: []
 --- !u!1 &8229042234146028599
 GameObject:
   m_ObjectHideFlags: 0
