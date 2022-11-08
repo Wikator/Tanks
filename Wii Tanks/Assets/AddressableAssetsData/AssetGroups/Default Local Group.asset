@@ -245,6 +245,10 @@ MonoBehaviour:
     m_Address: AnimatedBlue
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: d1ecf65eae7e2974d8579f38d36d0e78
+    m_Address: PlayerTag
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
   m_SchemaSet:
