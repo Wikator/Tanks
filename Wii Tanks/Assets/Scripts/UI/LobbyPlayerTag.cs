@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Steamworks;
 using TMPro;
+using FishNet.Object.Synchronizing;
 
 public class LobbyPlayerTag : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class LobbyPlayerTag : MonoBehaviour
 
     protected Callback<AvatarImageLoaded_t> ImageLoaded;
 
-    [HideInInspector]
+    //[HideInInspector]
     public ulong steamID;
 
 
