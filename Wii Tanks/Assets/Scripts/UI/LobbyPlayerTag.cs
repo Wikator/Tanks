@@ -16,6 +16,7 @@ public class LobbyPlayerTag : MonoBehaviour
 
     protected Callback<AvatarImageLoaded_t> ImageLoaded;
 
+
     private void Start()
     {
         ImageLoaded = Callback<AvatarImageLoaded_t>.Create(OnImageLoaded);
@@ -32,6 +33,7 @@ public class LobbyPlayerTag : MonoBehaviour
             return;
         }
     }
+
 
     private Texture2D GetSteamImageAsTexture(int iImage)
     {

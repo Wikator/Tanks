@@ -17,11 +17,9 @@ public abstract class LobbyView : View
     protected Button startGameButton;
 
     [SerializeField]
-    private GameObject viewContent;
+    private LobbyPlayerTag[] playerTags = new LobbyPlayerTag[6];
 
-    private List<LobbyPlayerTag> playerTags = new();
 
-    
 
 
     //Each player will have to choose a color and tank type, thanks to the subclasses EliminationLobbyView and DeathmatchLobbyView
@@ -59,63 +57,21 @@ public abstract class LobbyView : View
         UpdatePlayerList();
     }
 
-    public void UpdatePlayerList()
+    private void UpdatePlayerList()
     {
-        if (playerTags.Count < GameManager.Instance.players.Count)
+        for (int i = 0; i < playerTags.Length; i++)
         {
-            Debug.Log("test");
-            foreach (PlayerNetworking player in GameManager.Instance.players)
+            if (GameManager.Instance.players.Count > i)
             {
-                bool tagFound = false;
-                foreach (LobbyPlayerTag tag in playerTags)
-                {
-                    if (tag.playerNameText.text == player.playerUsername)
-                    {
-                        tagFound = true;
-                        break;
-                    }
-                }
-                if (!tagFound)
-                {
-                    GameObject newPlayerTag = Instantiate(Addressables.LoadAssetAsync<GameObject>("PlayerTag").WaitForCompletion());
-                    LobbyPlayerTag newPlayerTagScript = newPlayerTag.GetComponent<LobbyPlayerTag>();
-
-                    newPlayerTagScript.SetPlayerValues(player);
-
-                    newPlayerTag.transform.SetParent(viewContent.transform);
-                    newPlayerTag.transform.localEulerAngles = Vector3.one;
-
-                    playerTags.Add(newPlayerTagScript);
-                }
-                
+                playerTags[i].gameObject.SetActive(true);
+                playerTags[i].SetPlayerValues(GameManager.Instance.players[i]);
+            }
+            else
+            {
+                playerTags[i].gameObject.SetActive(false);
             }
         }
 
-        if (playerTags.Count > GameManager.Instance.players.Count)
-        {
-            foreach (LobbyPlayerTag tag in playerTags)
-            {
-                bool playerFound = false;
-                foreach (PlayerNetworking player in GameManager.Instance.players)
-                {
-                    if (tag.playerNameText.text == player.playerUsername)
-                    {
-                        playerFound = true;
-                        break;
-                    }
-                }
-                if (!playerFound)
-                {
-                    playerTags.Remove(tag);
-                    Destroy(tag);
-                }
-                
-            }
-        }
-
-        if (playerTags.Count == GameManager.Instance.players.Count)
-        {
-
-        }
     }
+
 }
