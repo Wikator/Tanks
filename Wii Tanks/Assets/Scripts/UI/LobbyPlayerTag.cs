@@ -49,7 +49,7 @@ public class LobbyPlayerTag : MonoBehaviour
 
             if (isValid)
             {
-                texture = new Texture2D ((int)width, (int)height, TextureFormat.ARGB32, false, true);
+                texture = new Texture2D ((int)width, (int)height, TextureFormat.RGBA32, false, true);
                 texture.LoadRawTextureData(image);
                 texture.Apply();
             }
@@ -58,9 +58,9 @@ public class LobbyPlayerTag : MonoBehaviour
         return texture;
     }
 
-    private void GetPlayerIcon()
+    private void GetPlayerIcon(PlayerNetworking player)
     {
-        int ImageID = SteamFriends.GetLargeFriendAvatar((CSteamID)PlayerNetworking.Instance.playerSteamID);
+        int ImageID = SteamFriends.GetLargeFriendAvatar((CSteamID)player.playerSteamID);
 
         if (ImageID == -1)
             return;
@@ -73,6 +73,6 @@ public class LobbyPlayerTag : MonoBehaviour
         playerNameText.text = player.playerUsername;
 
         if (!avatarReceived)
-            GetPlayerIcon();
+            GetPlayerIcon(player);
     }
 }
