@@ -6087,7 +6087,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 470415413}
-  playerIcon: {fileID: 0}
+  playerIcon: {fileID: 183454715}
+  steamID: 0
 --- !u!43 &660405723
 Mesh:
   m_ObjectHideFlags: 0
@@ -9141,7 +9142,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 2076931654}
-  playerIcon: {fileID: 0}
+  playerIcon: {fileID: 2060938590}
+  steamID: 0
 --- !u!1 &791847884
 GameObject:
   m_ObjectHideFlags: 0
@@ -13903,7 +13905,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 2062769693}
-  playerIcon: {fileID: 0}
+  playerIcon: {fileID: 1107459241}
+  steamID: 0
 --- !u!1 &1464272075
 GameObject:
   m_ObjectHideFlags: 0
@@ -15240,7 +15243,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 616065705}
-  playerIcon: {fileID: 0}
+  playerIcon: {fileID: 80612255}
+  steamID: 0
 --- !u!1 &1627434733
 GameObject:
   m_ObjectHideFlags: 0
@@ -16114,6 +16118,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 1150422588}
   playerIcon: {fileID: 130092744}
+  steamID: 0
 --- !u!1 &1837098178
 GameObject:
   m_ObjectHideFlags: 0
@@ -16962,7 +16967,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNameText: {fileID: 1335298994}
-  playerIcon: {fileID: 0}
+  playerIcon: {fileID: 920918791}
+  steamID: 0
 --- !u!1 &1987924921
 GameObject:
   m_ObjectHideFlags: 0
