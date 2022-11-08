@@ -65,7 +65,8 @@ public class LobbyPlayerTag : MonoBehaviour
         if (ImageID == -1)
             return;
 
-        playerIcon.texture = GetSteamImageAsTexture(ImageID);
+        if (GetSteamImageAsTexture(ImageID))
+            playerIcon.texture = GetSteamImageAsTexture(ImageID);
     }
 
     public void SetPlayerValues(PlayerNetworking player)
