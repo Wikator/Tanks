@@ -59,6 +59,10 @@ public abstract class LobbyView : View
 
     private void UpdatePlayerList()
     {
+        Debug.Log("ad" + GameManager.Instance.players.Count);
+
+        Debug.Log(playerTags.Length);
+
         for (int i = 0; i < playerTags.Length; i++)
         {
             if (GameManager.Instance.players.Count > i)
