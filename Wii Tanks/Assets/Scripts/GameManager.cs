@@ -11,8 +11,6 @@ public sealed class GameManager : NetworkBehaviour
     public static GameManager Instance { get; private set; }
 
 
-    //Hashset is used, because there are no duplicates allowed, and indexing is not necessary
-
     [SyncObject]
     public readonly SyncList<PlayerNetworking> players = new();
 

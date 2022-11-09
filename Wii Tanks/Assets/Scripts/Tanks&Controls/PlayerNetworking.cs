@@ -109,8 +109,11 @@ public sealed class PlayerNetworking : NetworkBehaviour
             ServerManager.StopConnection(true);
             ClientManager.StopConnection();
         }
-        else if
-            (IsClient) ClientManager.StopConnection();
+        else
+        {
+            if (IsClient)
+                ClientManager.StopConnection();
+        }
 
         if (IsOwner)
             SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);

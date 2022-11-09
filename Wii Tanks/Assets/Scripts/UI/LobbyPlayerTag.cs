@@ -1,23 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Steamworks;
 using TMPro;
-using FishNet.Object.Synchronizing;
-using FishNet.Object;
 
 public class LobbyPlayerTag : MonoBehaviour
 {
     public TextMeshProUGUI playerNameText;
 
-
     public RawImage playerIcon;
-
 
     protected Callback<AvatarImageLoaded_t> ImageLoaded;
 
-    //[HideInInspector]
+    [HideInInspector]
     public ulong steamID;
 
 
@@ -57,20 +51,16 @@ public class LobbyPlayerTag : MonoBehaviour
         return texture;
     }
 
-    private void GetPlayerIcon(PlayerNetworking player)
+
+    public void SetPlayerValues(PlayerNetworking player)
     {
+        playerNameText.text = player.playerUsername;
+
         int ImageID = SteamFriends.GetLargeFriendAvatar((CSteamID)player.playerSteamID);
 
         if (ImageID == -1)
             return;
 
         playerIcon.texture = GetSteamImageAsTexture(ImageID);
-    }
-
-    public void SetPlayerValues(PlayerNetworking player)
-    {
-        playerNameText.text = player.playerUsername;
-
-        GetPlayerIcon(player);
     }
 }

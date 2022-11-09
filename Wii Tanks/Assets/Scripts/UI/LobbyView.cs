@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public abstract class LobbyView : View
 {
@@ -16,8 +14,6 @@ public abstract class LobbyView : View
     [SerializeField]
     protected Button startGameButton;
 
-    [SerializeField]
-    private LobbyPlayerTag[] playerTags = new LobbyPlayerTag[6];
 
 
 
@@ -53,30 +49,5 @@ public abstract class LobbyView : View
         playersReadyCountText.text = "Players ready: " + Convert.ToString(GameManager.Instance.NumberOfReadyPlayers()) + "/" + Convert.ToString(GameManager.Instance.players.Count);
         chosenColorText.text = "Chosen color: " + PlayerNetworking.Instance.color;
         chosenTankTypeText.text = "Chosen tank type: " + PlayerNetworking.Instance.tankType;
-
-        UpdatePlayerList();
     }
-
-    private void UpdatePlayerList()
-    {
-        Debug.Log("ad" + GameManager.Instance.players.Count);
-
-        Debug.Log(playerTags.Length);
-
-        for (int i = 0; i < playerTags.Length; i++)
-        {
-            if (GameManager.Instance.players.Count > i)
-            {
-                playerTags[i].gameObject.SetActive(true);
-                playerTags[i].steamID = GameManager.Instance.players[i].playerSteamID;
-                playerTags[i].SetPlayerValues(GameManager.Instance.players[i]);
-            }
-            else
-            {
-                playerTags[i].gameObject.SetActive(false);
-            }
-        }
-
-    }
-
 }
