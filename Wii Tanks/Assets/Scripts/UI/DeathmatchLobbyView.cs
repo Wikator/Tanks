@@ -11,6 +11,9 @@ public sealed class DeathmatchLobbyView : LobbyView
     [SerializeField]
     private List<Button> tankTypesButtons = new();
 
+    [SerializeField]
+    private LobbyPlayerTag[] playerTags = new LobbyPlayerTag[6];
+
 
     public override void Init()
     {
@@ -39,15 +42,31 @@ public sealed class DeathmatchLobbyView : LobbyView
     [Client]
     private void Update()
     {
+        foreach (LobbyPlayerTag tag in playerTags)
+        {
+            tag.gameObject.SetActive(false);
+        }
+
         foreach (Button button in colorButtons)
         {
-            button.interactable = true;
+            button.gameObject.SetActive(true);
 
             foreach (PlayerNetworking player in GameManager.Instance.players)
             {
                 if (player.color == button.name)
                 {
-                    button.interactable = false;
+                    button.gameObject.SetActive(false);
+
+                    foreach (LobbyPlayerTag tag in playerTags)
+                    {
+                        if (tag.color == player.color)
+                        {
+                            tag.gameObject.SetActive(true);
+                            tag.steamID = player.playerSteamID;
+                            tag.SetPlayerValues(player);
+                            break;
+                        }
+                    }
                     break;
                 }
             }

@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class LobbyView : View
 {
     [SerializeField]
-    private TextMeshProUGUI toggleReadyButtonText, playersReadyCountText, chosenColorText, chosenTankTypeText;
+    private TextMeshProUGUI toggleReadyButtonText, playersReadyCountText, chosenTankTypeText;
 
     [SerializeField]
     protected Button toggleReadyButton;
@@ -47,7 +47,6 @@ public abstract class LobbyView : View
             startGameButton.interactable = false;
         }
         playersReadyCountText.text = "Players ready: " + Convert.ToString(GameManager.Instance.NumberOfReadyPlayers()) + "/" + Convert.ToString(GameManager.Instance.players.Count);
-        chosenColorText.text = "Chosen color: " + PlayerNetworking.Instance.color;
         chosenTankTypeText.text = "Chosen tank type: " + PlayerNetworking.Instance.tankType;
     }
 }

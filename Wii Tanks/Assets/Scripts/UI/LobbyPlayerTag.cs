@@ -14,6 +14,8 @@ public class LobbyPlayerTag : MonoBehaviour
     [HideInInspector]
     public ulong steamID;
 
+    public string color;
+
 
     private void Start()
     {
@@ -43,7 +45,7 @@ public class LobbyPlayerTag : MonoBehaviour
 
             if (isValid)
             {
-                texture = new Texture2D ((int)width, (int)height, TextureFormat.RGBA32, false, true);
+                texture = new Texture2D ((int)width, (int)height, TextureFormat.RGBA32, false);
                 texture.LoadRawTextureData(image);
                 texture.Apply();
             }
