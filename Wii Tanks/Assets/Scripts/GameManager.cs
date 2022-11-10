@@ -5,6 +5,7 @@ using FishNet.Managing.Scened;
 using FishNet.Managing.Logging;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -17,21 +18,48 @@ public sealed class GameManager : NetworkBehaviour
     [SyncObject]
     public readonly SyncDictionary<string, int> scores = new();
 
-    [SyncVar, HideInInspector]
-    public bool canStart;
 
     [SyncVar]
-    public bool gameInProgress = false;
-
+    private bool gameInProgress = false;
 
     [SyncVar]
-    public string gameMode = "None";
+    private bool canStart;
 
+
+    public bool GameInProgress { get { return gameInProgress; } }
+
+    public bool CanStart { get { return canStart; } }
+
+
+
+    [field: SyncVar(OnChange = nameof(OnGameModeChange))]
+    public string GameMode { get; [ServerRpc(RequireOwnership = false)] set; }
+
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    private void OnGameModeChange(string oldVal, string newVal, bool asServer)
+    {
+        if (newVal == "None")
+            return;
+
+        if (oldVal == "None")
+        {
+            Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>(newVal + "Manager").WaitForCompletion(), transform.position, Quaternion.identity));
+            UIManager.Instance.SetUpAllUI(false, newVal);
+        }
+    }
 
     private void Awake()
     {
         Instance = this;
     }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        GameMode = "None";
+    }
+
 
     private void Start()
     {
@@ -46,9 +74,9 @@ public sealed class GameManager : NetworkBehaviour
 
 
     [Server(Logging = LoggingType.Off)]
-    private void Update()
+    public void Update()
     {
-        canStart = players.All(player => player.isReady);
+        canStart = players.All(player => player.IsReady);
     }
 
     private void OnScoreChange(SyncDictionaryOperation op, string key, int value, bool asServer)
@@ -69,7 +97,7 @@ public sealed class GameManager : NetworkBehaviour
 
         if (args.LoadedScenes[0].name != "MapSelection" && args.LoadedScenes[0].name != "EndScreen")
         {
-            UIManager.Instance.SetUpAllUI(gameInProgress, Instance.gameMode);
+            UIManager.Instance.SetUpAllUI(gameInProgress, Instance.GameMode);
         }
     }
 
@@ -82,7 +110,7 @@ public sealed class GameManager : NetworkBehaviour
 
         foreach (PlayerNetworking player in players)
         {
-            if (player.isReady)
+            if (player.IsReady)
             {
                 playersReady++;
             }
@@ -97,7 +125,7 @@ public sealed class GameManager : NetworkBehaviour
     {
         gameInProgress = true;
 
-        UIManager.Instance.SetUpAllUI(gameInProgress, gameMode);
+        UIManager.Instance.SetUpAllUI(gameInProgress, GameMode);
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
         {

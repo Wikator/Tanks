@@ -11,7 +11,7 @@ public sealed class EliminationMainView : MainView
     {
         base.UpdateScore(color, newScore);
 
-        if (PlayerNetworking.Instance.color != color)
+        if (PlayerNetworking.Instance.Color != color)
         {
             enemyScore.text = "Enemy score: " + newScore;
         }

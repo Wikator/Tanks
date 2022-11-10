@@ -54,6 +54,9 @@ public abstract class Tank : NetworkBehaviour
     private bool animateShader;
 
     [SerializeField]
+    private TextMesh namePlate;
+
+    [SerializeField]
     protected TankStats stats;
 
     [HideInInspector]
@@ -62,8 +65,8 @@ public abstract class Tank : NetworkBehaviour
     [HideInInspector]
     protected GameObject bullet, pointer;
 
-    [SyncVar(OnChange = nameof(OnAmmoChange)), HideInInspector]
-    public int ammoCount;
+    [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly), HideInInspector]
+    protected int ammoCount;
 
     [SyncVar, HideInInspector]
     public PlayerNetworking controllingPlayer;
@@ -85,10 +88,6 @@ public abstract class Tank : NetworkBehaviour
     private LayerMask raycastLayer;
 
     protected Coroutine routine;
-
-
-    [SerializeField]
-    private TextMesh namePlate;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     private void OnAmmoChange(int oldAmmo, int newAmmo, bool asServer)
@@ -115,7 +114,7 @@ public abstract class Tank : NetworkBehaviour
         bulletEmpty = GameObject.Find("Bullets").transform;
         explosionEmpty = GameObject.Find("Explosions").transform;
         muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
-        ChangeColours(controllingPlayer.color);
+        ChangeColours(controllingPlayer.Color);
         SubscribeToTimeManager(true);
     }
 
@@ -124,7 +123,7 @@ public abstract class Tank : NetworkBehaviour
     {
         base.OnStartClient();
         controller.enabled =  IsServer || IsOwner;
-        namePlate.text = controllingPlayer.playerUsername;
+        namePlate.text = controllingPlayer.PlayerUsername;
     }
     public virtual void ChangeColours(string color)
     {
@@ -148,7 +147,6 @@ public abstract class Tank : NetworkBehaviour
     public void GameOver()
     {
         ammoCount = 0;
-        controllingPlayer.controlledPawn = null;
         gameModeManager.OnKilled(controllingPlayer);
         Spawn(Instantiate(explosion, transform.position, transform.rotation, explosionEmpty));
         Despawn();

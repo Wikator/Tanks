@@ -5,6 +5,9 @@ using UnityEngine;
 
 public abstract class LobbyView : View
 {
+    public static LobbyView Instance { get; private set; }
+
+
     [SerializeField]
     private TextMeshProUGUI toggleReadyButtonText, playersReadyCountText, chosenTankTypeText;
 
@@ -15,7 +18,13 @@ public abstract class LobbyView : View
     protected Button startGameButton;
 
 
+    private void Awake()
+    {
+        Instance = this;
 
+        toggleReadyButton.interactable = false;
+        startGameButton.interactable = false;
+    }
 
 
     //Each player will have to choose a color and tank type, thanks to the subclasses EliminationLobbyView and DeathmatchLobbyView
@@ -27,7 +36,10 @@ public abstract class LobbyView : View
         if (!Initialized)
             return;
 
-        if (PlayerNetworking.Instance.color == "None" || PlayerNetworking.Instance.tankType == "None")
+
+        toggleReadyButtonText.color = PlayerNetworking.Instance.IsReady ? Color.green : Color.red;
+
+        if (PlayerNetworking.Instance.Color == "None" || PlayerNetworking.Instance.TankType == "None")
         {
             toggleReadyButton.interactable = false;
         }
@@ -36,17 +48,12 @@ public abstract class LobbyView : View
             toggleReadyButton.interactable = true;
         }
 
-        toggleReadyButtonText.color = PlayerNetworking.Instance.isReady ? Color.green : Color.red;
+        if (IsHost)
+        {
+            startGameButton.interactable = GameManager.Instance.CanStart;
+        }
 
-        if (GameManager.Instance.canStart && IsHost)
-        {
-            startGameButton.interactable = true;
-        }
-        else
-        {
-            startGameButton.interactable = false;
-        }
         playersReadyCountText.text = "Players ready: " + Convert.ToString(GameManager.Instance.NumberOfReadyPlayers()) + "/" + Convert.ToString(GameManager.Instance.players.Count);
-        chosenTankTypeText.text = "Chosen tank type: " + PlayerNetworking.Instance.tankType;
+        chosenTankTypeText.text = "Chosen tank type: " + PlayerNetworking.Instance.TankType;
     }
 }

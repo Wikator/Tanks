@@ -29,9 +29,9 @@ public sealed class NormalBulletScript : Bullet
                 rigidBody.velocity = currentVelocity;
                 transform.position = currentPosition;
                 rigidBody.velocity = Vector3.Reflect(-collision.relativeVelocity, collision.contacts[0].normal).normalized * moveSpeed;
-                if (player.controlledPawn)
+                if (player.ControlledPawn)
                 {
-                    Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), player.controlledPawn.GetComponent<BoxCollider>(), false);
+                    Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), player.ControlledPawn.GetComponent<BoxCollider>(), false);
                 }
             }
         }
@@ -40,13 +40,13 @@ public sealed class NormalBulletScript : Bullet
         {
             if (player)
             {
-                if (player.controlledPawn)
+                if (player.ControlledPawn)
                 {
-                    if (collision.gameObject != player.controlledPawn.gameObject)
+                    if (collision.gameObject != player.ControlledPawn.gameObject)
                     {
-                        if (GameManager.Instance.gameMode == "Deathmatch")
+                        if (GameManager.Instance.GameMode == "Deathmatch")
                         {
-                            GameMode.Instance.PointScored(player.color, 1);
+                            GameMode.Instance.PointScored(player.Color, 1);
                         }
                     }
                 }

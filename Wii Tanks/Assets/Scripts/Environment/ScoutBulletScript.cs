@@ -18,9 +18,9 @@ public sealed class ScoutBulletScript : Bullet
             {
                 if (other.GetComponent<Tank>().controllingPlayer != player && other.GetComponent<Tank>().IsSpawned)
                 {
-                    if (GameManager.Instance.gameMode == "Deathmatch")
+                    if (GameManager.Instance.GameMode == "Deathmatch")
                     {
-                        GameMode.Instance.PointScored(player.color, 1);
+                        GameMode.Instance.PointScored(player.Color, 1);
                     }
 
                     other.GetComponent<Tank>().GameOver();
@@ -41,9 +41,9 @@ public sealed class ScoutBulletScript : Bullet
             {
                 if (other.GetComponent<Tank>().IsSpawned)
                 {
-                    if (GameManager.Instance.gameMode == "Deathmatch")
+                    if (GameManager.Instance.GameMode == "Deathmatch")
                     {
-                        GameMode.Instance.PointScored(player.color, 1);
+                        GameMode.Instance.PointScored(player.Color, 1);
                     }
 
                     other.GetComponent<Tank>().GameOver();

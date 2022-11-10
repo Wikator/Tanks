@@ -23,7 +23,7 @@ public abstract class MainView : View
 
     public virtual void UpdateScore(string color, int newScore)
     {
-        if (PlayerNetworking.Instance.color == color)
+        if (PlayerNetworking.Instance.Color == color)
         {
             scoreText.text = "Score: " + newScore;
         }

@@ -64,10 +64,10 @@ public sealed class EliminationGameMode : GameMode
         if (waitingForNewRound || !IsServer)
             return;
 
-        switch (playerNetworking.color)
+        switch (playerNetworking.Color)
         {
             case "Green":
-                if (greenTeam.All(player => !player.controlledPawn) && greenTeam.Count != 0)
+                if (greenTeam.All(player => !player.ControlledPawn) && greenTeam.Count != 0)
                 {
                     PointScored("Red", 1);
 
@@ -82,7 +82,7 @@ public sealed class EliminationGameMode : GameMode
                 }
                 break;
             case "Red":
-                if (redTeam.All(player => !player.controlledPawn) && redTeam.Count != 0)
+                if (redTeam.All(player => !player.ControlledPawn) && redTeam.Count != 0)
                 {
                     PointScored("Green", 1);
 

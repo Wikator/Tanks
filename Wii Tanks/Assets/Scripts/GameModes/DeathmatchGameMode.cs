@@ -41,7 +41,7 @@ public sealed class DeathmatchGameMode : GameMode
     [Server(Logging = LoggingType.Off)]
     private void Update()
     {
-        if (IsServer && GameManager.Instance.gameInProgress)
+        if (IsServer && GameManager.Instance.GameInProgress)
         {
             if (time > 0)
             {
@@ -61,7 +61,7 @@ public sealed class DeathmatchGameMode : GameMode
     public override void OnKilled(PlayerNetworking playerNetworking)
     {
         StartCoroutine(Respawn(playerNetworking, 1.5f));
-        PointScored(playerNetworking.color, -1);
+        PointScored(playerNetworking.Color, -1);
     }
 
 

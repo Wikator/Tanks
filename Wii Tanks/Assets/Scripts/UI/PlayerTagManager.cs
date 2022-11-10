@@ -16,7 +16,7 @@ public class PlayerTagManager : MonoBehaviour
             if (GameManager.Instance.players.Count > i)
             {
                 playerTags[i].gameObject.SetActive(true);
-                playerTags[i].steamID = GameManager.Instance.players[i].playerSteamID;
+                playerTags[i].steamID = GameManager.Instance.players[i].PlayerSteamID;
                 playerTags[i].SetPlayerValues(GameManager.Instance.players[i]);
             }
             else

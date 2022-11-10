@@ -56,9 +56,9 @@ public class LobbyPlayerTag : MonoBehaviour
 
     public void SetPlayerValues(PlayerNetworking player)
     {
-        playerNameText.text = player.playerUsername;
+        playerNameText.text = player.PlayerUsername;
 
-        int ImageID = SteamFriends.GetLargeFriendAvatar((CSteamID)player.playerSteamID);
+        int ImageID = SteamFriends.GetLargeFriendAvatar((CSteamID)player.PlayerSteamID);
 
         if (ImageID == -1)
             return;

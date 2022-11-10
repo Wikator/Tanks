@@ -9,20 +9,32 @@ public sealed class PlayerNetworking : NetworkBehaviour
 {
     public static PlayerNetworking Instance { get; private set; }
 
-    [SyncVar]
-    public string color, tankType;
 
-    [SyncVar]
-    public Tank controlledPawn;
+    [field : SyncVar]
+    public Tank ControlledPawn { get; private set; }
 
-    [SyncVar, HideInInspector]
-    public bool isReady;
+    [field : SyncVar]
+    public ulong PlayerSteamID { get; private set; }
 
-    [SyncVar]
-    public ulong playerSteamID;
+    [field : SyncVar]
+    public string PlayerUsername { get; private set; }
 
-    [SyncVar]
-    public string playerUsername;
+
+
+
+    [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
+    public string Color { get; [ServerRpc(RunLocally = true)] set; }
+
+
+    [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
+    public string TankType { get; [ServerRpc(RunLocally = true)] set; }
+
+
+    [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
+    public bool IsReady { get; [ServerRpc(RunLocally = true)] set; }
+
+
+
 
 
     //Each player will add themself to the players hashset in the GameManager class
@@ -30,9 +42,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-
-        color = "None";
-        tankType = "None";
 
         try
         {
@@ -53,6 +62,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
         if (!IsOwner)
             return;
 
+        Color = "None";
+        TankType = "None";
+
         Instance = this;
 
         SetSteamID(SteamUser.GetSteamID().m_SteamID);
@@ -70,9 +82,14 @@ public sealed class PlayerNetworking : NetworkBehaviour
     {
         base.OnStopServer();
 
+
+        if (!GameManager.Instance)
+            return;
+        
+            
         GameManager.Instance.players.Remove(this);
 
-        if (GameManager.Instance.gameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
+        if (GameManager.Instance.GameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
             return;
 
         EliminationGameMode eliminationGameMode = FindObjectOfType<EliminationGameMode>();
@@ -121,31 +138,29 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
     public void SpawnTank()
     {
-        if (tankType == "None")
+        if (TankType == "None")
             return;
 
-        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(tankType + "Pawn").WaitForCompletion(), FindObjectOfType<GameMode>().FindSpawnPosition(color), Quaternion.identity, transform);
-        controlledPawn = playerInstance.GetComponent<Tank>();
-        controlledPawn.controllingPlayer = this;
+        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "Pawn").WaitForCompletion(), FindObjectOfType<GameMode>().FindSpawnPosition(Color), Quaternion.identity, transform);
+        ControlledPawn = playerInstance.GetComponent<Tank>();
+        ControlledPawn.controllingPlayer = this;
         Spawn(playerInstance, Owner);
     }
 
     public void DespawnTank()
     {
-        if (controlledPawn != null && controlledPawn.IsSpawned)
+        if (ControlledPawn)
         {
-            controlledPawn.GameOver();
+            if (ControlledPawn.IsSpawned)
+            {
+                ControlledPawn.GameOver();
+            }
         }
     }
     
 
     //Methods that are called when in the lobby, when choosing colors, teams etc.
 
-    [ServerRpc]
-    public void ChangeColor(string colorName) => color = colorName;
-
-    [ServerRpc]
-    public void ChangeTankType(string tankTypeName) => tankType = tankTypeName;
 
     [ServerRpc]
     public void SetTeams(string color)
@@ -172,27 +187,11 @@ public sealed class PlayerNetworking : NetworkBehaviour
     }
 
 
-    [ServerRpc]
-    public void ServerSetIsReady(bool value)
-    {
-        switch (value)
-        {
-            case true:
-                isReady = true;
-                break;
-            case false:
-                isReady = false;
-                break;
-        }
-    }
-
 
     [ServerRpc]
     public void SetSteamID(ulong steamID)
     {
-        playerSteamID = steamID;
-        playerUsername = SteamFriends.GetFriendPersonaName((CSteamID)steamID);
-
-        Debug.Log($"Updating Server for User {playerUsername}");
+        PlayerSteamID = steamID;
+        PlayerUsername = SteamFriends.GetFriendPersonaName((CSteamID)steamID);
     }
 }
