@@ -267,6 +267,8 @@ public abstract class Tank : NetworkBehaviour
         controller.Move((float)TimeManager.TickDelta * stats.moveSpeed * data.MoveAxis * transform.forward);
         transform.Rotate(new Vector3(0f, data.RotateAxis * stats.rotateSpeed * (float)TimeManager.TickDelta, 0f));
 
+        transform.position = new Vector3(transform.position.x, 0.8f, transform.position.z);
+
         if (data.TurretLookDirection != Vector3.zero)
         {
             turret.LookAt(data.TurretLookDirection, Vector3.up);
