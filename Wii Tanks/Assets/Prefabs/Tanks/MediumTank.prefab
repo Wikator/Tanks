@@ -1464,7 +1464,7 @@ MonoBehaviour:
   _graphicalObject: {fileID: 7963829885618234196}
   _enableTeleport: 0
   _teleportThreshold: 1
-  _ownerInterpolation: 0
+  _ownerInterpolation: 1
   _predictionType: 0
   _rigidbody: {fileID: 0}
   _rigidbody2d: {fileID: 0}
