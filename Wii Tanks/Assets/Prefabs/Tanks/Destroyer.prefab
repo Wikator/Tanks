@@ -847,7 +847,6 @@ GameObject:
   - component: {fileID: 407373638882989696}
   - component: {fileID: 9193667467423949452}
   - component: {fileID: 757756091611421853}
-  - component: {fileID: 7204363144505280663}
   m_Layer: 0
   m_Name: Destroyer
   m_TagString: Tank
@@ -946,6 +945,7 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: -8275027250751033499}
   - {fileID: 407373638882989696}
+  - {fileID: 0}
   - {fileID: 5115405191805543612}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
@@ -1186,35 +1186,6 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
---- !u!114 &7204363144505280663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4818985956192005731}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 402926ef33e0a894d9fec352693988ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 497388105468288731}
-  _networkObjectCache: {fileID: 0}
-  _graphicalObject: {fileID: 2508641425410159571}
-  _enableTeleport: 0
-  _teleportThreshold: 1
-  _ownerInterpolation: 0
-  _predictionType: 0
-  _rigidbody: {fileID: 0}
-  _rigidbody2d: {fileID: 0}
-  _spectatorSmoothingDuration: 0.025
-  _spectatorInterpolation: 1
-  _overflowMultiplier: 0.1
-  _maintainedVelocity: 0
-  _resendType: 0
-  _resendInterval: 30
-  _networkTransform: {fileID: 407373638882989696}
 --- !u!1 &4868853028976921381
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,7 +1231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 497388105468288731}
   _networkObjectCache: {fileID: 497388105468288731}
   _synchronizeParent: 0

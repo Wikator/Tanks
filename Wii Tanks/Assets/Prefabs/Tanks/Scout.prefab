@@ -47,7 +47,6 @@ GameObject:
   - component: {fileID: 5917894747852750349}
   - component: {fileID: 2047439078720476243}
   - component: {fileID: 1794315633374406578}
-  - component: {fileID: 8663996440773986535}
   m_Layer: 0
   m_Name: Scout
   m_TagString: Tank
@@ -154,6 +153,7 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: -4450608807010333337}
   - {fileID: 5917894747852750349}
+  - {fileID: 0}
   - {fileID: 3959685331348714482}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
@@ -394,35 +394,6 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
---- !u!114 &8663996440773986535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2293147736009711768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 402926ef33e0a894d9fec352693988ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 255
-  _addedNetworkObject: {fileID: 5934193943603683480}
-  _networkObjectCache: {fileID: 0}
-  _graphicalObject: {fileID: 4902180302580971272}
-  _enableTeleport: 0
-  _teleportThreshold: 1
-  _ownerInterpolation: 0
-  _predictionType: 0
-  _rigidbody: {fileID: 0}
-  _rigidbody2d: {fileID: 0}
-  _spectatorSmoothingDuration: 0.025
-  _spectatorInterpolation: 1
-  _overflowMultiplier: 0.1
-  _maintainedVelocity: 0
-  _resendType: 0
-  _resendInterval: 30
-  _networkTransform: {fileID: 5917894747852750349}
 --- !u!1 &2431325994553910532
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,7 +1754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 5934193943603683480}
   _networkObjectCache: {fileID: 5934193943603683480}
   _synchronizeParent: 0
