@@ -10,10 +10,10 @@ public sealed class EliminationGameMode : GameMode
     //Each player will be added to the HashSet appropriote to their chosen team
 
     [SyncObject]
-    public readonly SyncHashSet<PlayerNetworking> greenTeam = new();
+    public readonly SyncList<PlayerNetworking> greenTeam = new();
 
     [SyncObject]
-    public readonly SyncHashSet<PlayerNetworking> redTeam = new();
+    public readonly SyncList<PlayerNetworking> redTeam = new();
 
     [HideInInspector]
     public bool waitingForNewRound = true;

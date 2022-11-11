@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
+using FishNet.Object;
 
 public sealed class EliminationLobbyView : LobbyView
 {
@@ -9,6 +10,12 @@ public sealed class EliminationLobbyView : LobbyView
 
     [SerializeField]
     private List<Button> tankTypesButtons = new();
+
+    [SerializeField]
+    private LobbyPlayerTag[] greenPlayerTags = new LobbyPlayerTag[3];
+
+    [SerializeField]
+    private LobbyPlayerTag[] redPlayerTags = new LobbyPlayerTag[3];
 
 
     public override void Init()
@@ -34,6 +41,40 @@ public sealed class EliminationLobbyView : LobbyView
         startGameButton.onClick.AddListener(() => GameManager.Instance.StartGame());
 
         startGameButton.gameObject.SetActive(true);
+    }
+
+    [Client]
+
+    private void Update()
+    {
+        if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (eliminationGameMode.greenTeam.Count > i)
+                {
+                    greenPlayerTags[i].gameObject.SetActive(true);
+                    greenPlayerTags[i].steamID = eliminationGameMode.greenTeam[i].PlayerSteamID;
+                    greenPlayerTags[i].SetPlayerValues(eliminationGameMode.greenTeam[i]);
+                }
+                else
+                {
+                    greenPlayerTags[i].gameObject.SetActive(false);
+                }
+
+                if (eliminationGameMode.redTeam.Count > i)
+                {
+                    redPlayerTags[i].gameObject.SetActive(true);
+                    redPlayerTags[i].steamID = eliminationGameMode.redTeam[i].PlayerSteamID;
+                    redPlayerTags[i].SetPlayerValues(eliminationGameMode.redTeam[i]);
+                }
+                else
+                {
+                    redPlayerTags[i].gameObject.SetActive(false);
+                }
+            }
+        }
+        
     }
 }
 

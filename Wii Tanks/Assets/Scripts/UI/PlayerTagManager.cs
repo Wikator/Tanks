@@ -10,7 +10,6 @@ public class PlayerTagManager : MonoBehaviour
         if (!GameManager.Instance)
             return;
 
-
         for (int i = 0; i < playerTags.Length; i++)
         {
             if (GameManager.Instance.players.Count > i)
