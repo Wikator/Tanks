@@ -1,9 +1,13 @@
+using FishNet;
 using UnityEngine;
 using UnityEngine.UI;
 
 public sealed class Menu : MonoBehaviour
 {
     private SteamLobby steamLobby;
+
+    [SerializeField]
+    private bool testLocally;
 
     [SerializeField]
     private Button hostButton;
@@ -20,12 +24,15 @@ public sealed class Menu : MonoBehaviour
     {
         steamLobby = FindObjectOfType<SteamLobby>();
 
-        hostButton.onClick.AddListener(steamLobby.HostLobby);
-
-        //hostButton.onClick.AddListener(() => InstanceFinder.ServerManager.StartConnection());
-
-        //hostButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
-
-        //connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
+        if (testLocally)
+        {
+            hostButton.onClick.AddListener(() => InstanceFinder.ServerManager.StartConnection());
+            hostButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
+            connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
+        }
+        else
+        {
+            hostButton.onClick.AddListener(steamLobby.HostLobby);
+        }
     }
 }

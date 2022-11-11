@@ -44,7 +44,7 @@ public sealed class NormalBulletScript : Bullet
                 {
                     if (collision.gameObject != player.ControlledPawn.gameObject)
                     {
-                        if (GameManager.Instance.GameMode == "Deathmatch")
+                        if (GameManager.Instance.gameMode == "Deathmatch")
                         {
                             GameMode.Instance.PointScored(player.Color, 1);
                         }

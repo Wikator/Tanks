@@ -61,6 +61,7 @@ public sealed class EliminationGameMode : GameMode
 
     public override void OnKilled(PlayerNetworking playerNetworking)
     {
+
         if (waitingForNewRound || !IsServer)
             return;
 

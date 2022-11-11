@@ -9,9 +9,13 @@ public sealed class PlayerNetworking : NetworkBehaviour
 {
     public static PlayerNetworking Instance { get; private set; }
 
-
+    /*
     [field : SyncVar]
     public Tank ControlledPawn { get; private set; }
+    */
+
+    [SyncVar]
+    public Tank ControlledPawn;
 
     [field : SyncVar]
     public ulong PlayerSteamID { get; private set; }
@@ -26,12 +30,13 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public string Color { get; [ServerRpc(RunLocally = true)] set; }
 
 
-    [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
+    //[field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
     public string TankType { get; [ServerRpc(RunLocally = true)] set; }
 
 
     [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
     public bool IsReady { get; [ServerRpc(RunLocally = true)] set; }
+
 
 
 
@@ -89,7 +94,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
             
         GameManager.Instance.players.Remove(this);
 
-        if (GameManager.Instance.GameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
+        if (GameManager.Instance.gameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
             return;
 
         EliminationGameMode eliminationGameMode = FindObjectOfType<EliminationGameMode>();

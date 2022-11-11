@@ -4,8 +4,6 @@ using FishNet.Object.Synchronizing;
 using FishNet.Managing.Scened;
 using FishNet.Managing.Logging;
 using System.Linq;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -20,63 +18,43 @@ public sealed class GameManager : NetworkBehaviour
 
 
     [SyncVar]
-    private bool gameInProgress = false;
-
-    [SyncVar]
-    private bool canStart;
+    public string gameMode;
 
 
-    public bool GameInProgress { get { return gameInProgress; } }
-
-    public bool CanStart { get { return canStart; } }
-
+    [field : SyncVar]
+    public bool GameInProgress { get; private set; }
 
 
-    [field: SyncVar(OnChange = nameof(OnGameModeChange))]
-    public string GameMode { get; [ServerRpc(RequireOwnership = false)] set; }
+    [field : SyncVar]
+    public bool CanStart { get; private set; }
 
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-    private void OnGameModeChange(string oldVal, string newVal, bool asServer)
-    {
-        if (newVal == "None")
-            return;
-
-        if (oldVal == "None")
-        {
-            Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>(newVal + "Manager").WaitForCompletion(), transform.position, Quaternion.identity));
-            UIManager.Instance.SetUpAllUI(false, newVal);
-        }
-    }
 
     private void Awake()
     {
         Instance = this;
+        InstanceFinder.SceneManager.OnLoadEnd += OnSceneLoaded;
+        scores.OnChange += OnScoreChange;
+        GameInProgress = false;
     }
 
     public override void OnStartClient()
     {
         base.OnStartClient();
-        GameMode = "None";
+        gameMode = "None";
     }
 
-
-    private void Start()
-    {
-        InstanceFinder.SceneManager.OnLoadEnd += OnSceneLoaded;
-        scores.OnChange += OnScoreChange;
-    }
 
     private void OnDestroy()
     {
         Instance = null;
+        scores.OnChange -= OnScoreChange;
     }
 
 
     [Server(Logging = LoggingType.Off)]
     public void Update()
     {
-        canStart = players.All(player => player.IsReady);
+        CanStart = players.All(player => player.IsReady);
     }
 
     private void OnScoreChange(SyncDictionaryOperation op, string key, int value, bool asServer)
@@ -97,7 +75,7 @@ public sealed class GameManager : NetworkBehaviour
 
         if (args.LoadedScenes[0].name != "MapSelection" && args.LoadedScenes[0].name != "EndScreen")
         {
-            UIManager.Instance.SetUpAllUI(gameInProgress, Instance.GameMode);
+            UIManager.Instance.SetUpAllUI(GameInProgress, gameMode);
         }
     }
 
@@ -123,9 +101,9 @@ public sealed class GameManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void StartGame()
     {
-        gameInProgress = true;
+        GameInProgress = true;
 
-        UIManager.Instance.SetUpAllUI(gameInProgress, GameMode);
+        UIManager.Instance.SetUpAllUI(GameInProgress, gameMode);
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
         {

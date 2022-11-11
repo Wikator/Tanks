@@ -175,6 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcc9df095445e946a9b5ffaa562536a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testLocally: 0
   hostButton: {fileID: 1054116378}
   connectButton: {fileID: 1682144410}
 --- !u!1 &75699521
@@ -383,9 +384,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _updateOrder: 0
-  _allowTickDropping: 0
+  _allowTickDropping: 1
   _maximumFrameTicks: 3
-  _tickRate: 50
+  _tickRate: 80
   _pingInterval: 1
   _timingInterval: 1
   _physicsMode: 1

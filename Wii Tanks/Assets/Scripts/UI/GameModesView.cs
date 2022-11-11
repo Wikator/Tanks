@@ -22,19 +22,17 @@ public sealed class GameModesView : View
 
         base.Init();
 
-        deathmatchButton.onClick.AddListener(() => GameManager.Instance.GameMode = "Deathmatch");
+        deathmatchButton.onClick.AddListener(() => ChangeGameMode("Deathmatch"));
 
-        eliminationButton.onClick.AddListener(() => GameManager.Instance.GameMode = "Elimination");
+        eliminationButton.onClick.AddListener(() => ChangeGameMode("Elimination"));
     }
 
-    //Once any player chooses a game mode, a ServerRPC is called so that the correct game mode will be selected on the server
 
-    /*[ServerRpc(RequireOwnership = false)]
+    [ServerRpc(RequireOwnership = false)]
     private void ChangeGameMode(string gameMode)
     {
-        GameManager.Instance.GameMode = gameMode;
+        GameManager.Instance.gameMode = gameMode;
         Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>(gameMode + "Manager").WaitForCompletion(), transform.position, Quaternion.identity));
-
         UIManager.Instance.SetUpAllUI(false, gameMode);
-    }*/
+    }
 }

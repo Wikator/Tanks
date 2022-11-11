@@ -65,7 +65,7 @@ public abstract class Tank : NetworkBehaviour
     [HideInInspector]
     protected GameObject bullet, pointer;
 
-    [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly), HideInInspector]
+    [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly)]
     protected int ammoCount;
 
     [SyncVar, HideInInspector]
@@ -103,18 +103,9 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
-        raycastLayer = (1 << 9);
         cam = Camera.main;
-        ammoCount = stats.maxAmmo;
         controller = GetComponent<CharacterController>();
-        gameModeManager = FindObjectOfType<GameMode>();
         turret = transform.GetChild(1);
-        bulletSpawn = turret.GetChild(0).GetChild(0);
-        muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
-        bulletEmpty = GameObject.Find("Bullets").transform;
-        explosionEmpty = GameObject.Find("Explosions").transform;
-        muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
-        ChangeColours(controllingPlayer.Color);
         SubscribeToTimeManager(true);
     }
 
@@ -124,7 +115,23 @@ public abstract class Tank : NetworkBehaviour
         base.OnStartClient();
         controller.enabled =  IsServer || IsOwner;
         namePlate.text = controllingPlayer.PlayerUsername;
+        raycastLayer = (1 << 9);
+        ChangeColours(controllingPlayer.Color);
     }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        gameModeManager = FindObjectOfType<GameMode>();
+        bulletSpawn = turret.GetChild(0).GetChild(0);
+        muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
+        bulletEmpty = GameObject.Find("Bullets").transform;
+        explosionEmpty = GameObject.Find("Explosions").transform;
+        muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
+        ammoCount = stats.maxAmmo;
+    }
+
+    [Client]
     public virtual void ChangeColours(string color)
     {
         if (animateShader)
@@ -147,9 +154,10 @@ public abstract class Tank : NetworkBehaviour
     public void GameOver()
     {
         ammoCount = 0;
-        gameModeManager.OnKilled(controllingPlayer);
         Spawn(Instantiate(explosion, transform.position, transform.rotation, explosionEmpty));
         Despawn();
+        controllingPlayer.ControlledPawn = null;
+        gameModeManager.OnKilled(controllingPlayer);
     }
 
 
@@ -186,6 +194,7 @@ public abstract class Tank : NetworkBehaviour
 
     protected abstract void SpecialMove();
 
+    [Server]
     protected IEnumerator AddAmmo(float time)
     {
         yield return new WaitForSeconds(time);
