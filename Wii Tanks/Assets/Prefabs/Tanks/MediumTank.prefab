@@ -953,7 +953,7 @@ MonoBehaviour:
   _clientAuthoritative: 0
   _sendToOwner: 0
   _interval: 1
-  _synchronizePosition: 0
+  _synchronizePosition: 1
   _positionSnapping:
     X: 0
     Y: 0
@@ -1108,7 +1108,7 @@ GameObject:
   - component: {fileID: 4587066124602853833}
   - component: {fileID: 1614322564335573653}
   - component: {fileID: 910725472926647060}
-  - component: {fileID: 747154693481673894}
+  - component: {fileID: 519229630851974985}
   m_Layer: 0
   m_Name: MediumTank
   m_TagString: Tank
@@ -1182,15 +1182,14 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 7392597686560367510}
   canUseSpecialMove: 1
   animateShader: 1
+  namePlate: {fileID: 4172510493872014141}
   stats:
     moveSpeed: 5
     rotateSpeed: 150
     timeToReload: 2
     timeToAddAmmo: 0.6
     maxAmmo: 5
-  ammoCount: 0
   controllingPlayer: {fileID: 0}
-  namePlate: {fileID: 4172510493872014141}
 --- !u!114 &7392597686560367510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1208,8 +1207,9 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 1103874108160757826}
   - {fileID: 4587066124602853833}
-  - {fileID: 747154693481673894}
+  - {fileID: 519229630851974985}
   - {fileID: 5117780781581832194}
+  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 5810208872173986972}
@@ -1217,7 +1217,7 @@ MonoBehaviour:
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 44
+  <PrefabId>k__BackingField: 41
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 16701890880064380447
@@ -1448,7 +1448,7 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
---- !u!114 &747154693481673894
+--- !u!114 &519229630851974985
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1466,7 +1466,7 @@ MonoBehaviour:
   _graphicalObject: {fileID: 7963829885618234196}
   _enableTeleport: 0
   _teleportThreshold: 1
-  _ownerInterpolation: 1
+  _ownerInterpolation: 0
   _predictionType: 0
   _rigidbody: {fileID: 0}
   _rigidbody2d: {fileID: 0}
