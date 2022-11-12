@@ -20,14 +20,19 @@ public class ScoutTank : Tank
     {
         for (int angle = -spreadAngle; angle < spreadAngle*2; angle += spreadAngle)
         {
-            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-            bulletInstance.transform.Rotate(new Vector3(0.0f, angle, 0.0f));
-            bulletInstance.GetComponent<ScoutBulletScript>().player = controllingPlayer;
+            NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
+            bulletInstance.transform.SetParent(bulletEmpty);
+            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
             Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
             Spawn(bulletInstance);
+            bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
+            bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, angle);
 
-            GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashSpawn.position, muzzleFlashSpawn.rotation, muzzleFlashEmpty);
-            flashInstance.transform.Rotate(new Vector3(0.0f, angle, 0.0f));
+
+            NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
+            flashInstance.transform.SetParent(muzzleFlashEmpty);
+            flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
+            flashInstance.transform.Rotate(new Vector3(0f, angle, 0f));
             Spawn(flashInstance);
         }
 

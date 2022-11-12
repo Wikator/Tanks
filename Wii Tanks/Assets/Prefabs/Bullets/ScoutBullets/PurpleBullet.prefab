@@ -120,6 +120,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: -8405391744002029082}
   moveSpeed: 11
   player: {fileID: 0}
+  rigidBody: {fileID: 0}
   isUnstoppable: 0
 --- !u!54 &-5833880829761614842
 Rigidbody:
@@ -158,9 +159,9 @@ MonoBehaviour:
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _defaultDespawnType: 0
+  _defaultDespawnType: 1
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
+  <PrefabId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 24945965362506023
@@ -187,7 +188,7 @@ MonoBehaviour:
     Scale: 0
   _interpolation: 2
   _extrapolation: 2
-  _enableTeleport: 0
+  _enableTeleport: 1
   _teleportThreshold: 1
   _clientAuthoritative: 0
   _sendToOwner: 0

@@ -139,8 +139,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
         if (IsOwner)
             SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
-    }    
+    }
 
+    [Server]
     public void SpawnTank()
     {
         if (TankType == "None")

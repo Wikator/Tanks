@@ -1,3 +1,4 @@
+using FishNet.Connection;
 using FishNet.Managing.Logging;
 using FishNet.Object;
 using UnityEngine;
@@ -7,8 +8,16 @@ public sealed class NormalBulletScript : Bullet
     [SerializeField]
     private int ricochetCount;
 
+    private int ricochetsLeft;
+
     //Bullet used by Medium Tanks and Destroyers
 
+
+    public override void OnSpawnServer(NetworkConnection connection)
+    {
+        base.OnSpawnServer(connection);
+        ricochetsLeft = ricochetCount;
+    }
 
     //After hitting the wall, bullet will reflect its direction in relation to the wall, and also change its speed so that the impact will not slow it down
     //If a tank is hit, the bullet will destroy it and give a score to the bullet's owner, if the game mode is set to Deathmatch
@@ -19,9 +28,10 @@ public sealed class NormalBulletScript : Bullet
 
         if (collision.gameObject.CompareTag("Arena"))
         {
-            ricochetCount--;
-            if (ricochetCount < 0)
+            ricochetsLeft--;
+            if (ricochetsLeft < 0)
             {
+                rigidBody.velocity = Vector3.zero;
                 Despawn();
             }
             else

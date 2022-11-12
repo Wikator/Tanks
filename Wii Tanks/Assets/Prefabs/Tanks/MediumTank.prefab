@@ -938,7 +938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 7392597686560367510}
   _networkObjectCache: {fileID: 7392597686560367510}
   _synchronizeParent: 0
@@ -1189,6 +1189,10 @@ MonoBehaviour:
     timeToReload: 2
     timeToAddAmmo: 0.6
     maxAmmo: 5
+  bulletSpawn: {fileID: 0}
+  bulletEmpty: {fileID: 0}
+  muzzleFlashSpawn: {fileID: 0}
+  muzzleFlashEmpty: {fileID: 0}
   controllingPlayer: {fileID: 0}
 --- !u!114 &7392597686560367510
 MonoBehaviour:
@@ -1207,13 +1211,14 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 1103874108160757826}
   - {fileID: 4587066124602853833}
+  - {fileID: 1523010370480634555}
   - {fileID: 5117780781581832194}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 5810208872173986972}
   _isNetworked: 1
   _isGlobal: 0
-  _defaultDespawnType: 0
+  _defaultDespawnType: 1
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 41
   _scenePathHash: 0
@@ -1458,9 +1463,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402926ef33e0a894d9fec352693988ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 7392597686560367510}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 7392597686560367510}
   _graphicalObject: {fileID: 7963829885618234196}
   _enableTeleport: 0
   _teleportThreshold: 1

@@ -1,5 +1,7 @@
 using FishNet.Connection;
 using FishNet.Object;
+using FishNet.Object.Prediction;
+using FishNet.Object.Synchronizing;
 using System.Collections;
 using UnityEngine;
 
@@ -21,12 +23,12 @@ public abstract class Bullet : NetworkBehaviour
     }
 
     [SerializeField]
-    protected float moveSpeed;
+    public float moveSpeed;
 
     [HideInInspector]
     public PlayerNetworking player;
 
-    protected Rigidbody rigidBody;
+    public Rigidbody rigidBody;
 
     protected Vector3 currentVelocity, currentPosition;
 
@@ -43,11 +45,25 @@ public abstract class Bullet : NetworkBehaviour
     }
 
 
-    public override void OnSpawnServer(NetworkConnection connection)
+    [Server]
+    public void AfterSpawning(Transform bulletSpawn, int angle)
     {
-        base.OnSpawnServer(connection);
+        GetComponent<SphereCollider>().enabled = true;
+        transform.SetPositionAndRotation(bulletSpawn.position, bulletSpawn.rotation);
+        transform.Rotate(new Vector3(0f, angle, 0f));
         rigidBody.velocity = transform.forward * moveSpeed;
+        ClearTrail();
+
     }
+
+    [ObserversRpc(RunLocally = true)]
+    private void ClearTrail()
+    {
+        transform.GetChild(0).GetComponent<TrailRenderer>().Clear();
+        Debug.LogWarning("Cleared");
+    }
+
+
 
 
     //Bullet's stats are saved in the FixedUpdate, so that the bullet will not slow down after hitting the wall

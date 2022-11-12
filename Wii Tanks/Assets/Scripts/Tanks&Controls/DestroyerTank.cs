@@ -17,12 +17,16 @@ public sealed class DestroyerTank : Tank
 
         ammoCount = 0;
 
-        GameObject bulletInstance = Instantiate(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(specialBullet, true);
+        bulletInstance.transform.SetParent(bulletEmpty);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
         Spawn(bulletInstance);
+        bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
 
-        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashSpawn.position, muzzleFlashSpawn.rotation, muzzleFlashEmpty);
+        NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
+        flashInstance.transform.SetParent(muzzleFlashEmpty);
+        flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
         Spawn(flashInstance);
 
         routine = StartCoroutine(AddAmmo(stats.timeToReload));

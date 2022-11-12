@@ -155,12 +155,11 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: -4227543758443852699}
   - {fileID: 62525033072000976}
-  - {fileID: 0}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
-  _defaultDespawnType: 0
+  _defaultDespawnType: 1
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 29
   _scenePathHash: 0
@@ -189,7 +188,7 @@ MonoBehaviour:
     Scale: 0
   _interpolation: 2
   _extrapolation: 2
-  _enableTeleport: 0
+  _enableTeleport: 1
   _teleportThreshold: 1
   _clientAuthoritative: 0
   _sendToOwner: 0

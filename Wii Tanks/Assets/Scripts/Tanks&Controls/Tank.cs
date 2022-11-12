@@ -60,7 +60,7 @@ public abstract class Tank : NetworkBehaviour
     protected TankStats stats;
 
     [HideInInspector]
-    protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
+    public Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
 
     [HideInInspector]
     protected GameObject bullet, pointer;
@@ -154,7 +154,10 @@ public abstract class Tank : NetworkBehaviour
     public void GameOver()
     {
         ammoCount = 0;
-        Spawn(Instantiate(explosion, transform.position, transform.rotation, explosionEmpty));
+        NetworkObject explosionInstance = NetworkManager.GetPooledInstantiated(explosion, true);
+        explosionInstance.transform.SetParent(explosionEmpty);
+        explosionInstance.transform.SetPositionAndRotation(transform.position, transform.rotation);
+        Spawn(explosionInstance);
         Despawn();
         controllingPlayer.ControlledPawn = null;
         gameModeManager.OnKilled(controllingPlayer);
@@ -174,12 +177,22 @@ public abstract class Tank : NetworkBehaviour
     [ServerRpc]
     protected virtual void Fire()
     {
-        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
+        bulletInstance.transform.SetParent(bulletEmpty);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
         Spawn(bulletInstance);
+        bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
 
-        GameObject flashInstance = Instantiate(muzzleFlash, muzzleFlashSpawn.position, muzzleFlashSpawn.rotation, muzzleFlashEmpty);
+        /*
+        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+        Spawn(bulletInstance);*/
+
+        NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
+        flashInstance.transform.SetParent(muzzleFlashEmpty);
+        flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
         Spawn(flashInstance);
 
         if (routine != null)
@@ -194,7 +207,7 @@ public abstract class Tank : NetworkBehaviour
 
     protected abstract void SpecialMove();
 
-    [Server]
+    //[Server]
     protected IEnumerator AddAmmo(float time)
     {
         yield return new WaitForSeconds(time);
