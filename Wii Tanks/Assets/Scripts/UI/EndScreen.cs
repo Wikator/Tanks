@@ -16,6 +16,19 @@ public sealed class EndScreen : NetworkBehaviour
         SetText();
     }
 
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+        foreach (PlayerNetworking player in GameManager.Instance.players)
+        {
+            if (player.ControlledPawn)
+            {
+                player.ControlledPawn.Despawn();
+            }
+        }
+    }
+
     //[ObserversRpc]
     private void SetText()
     {

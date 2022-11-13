@@ -15,6 +15,8 @@ public sealed class DestroyerTank : Tank
             routine = null;
         }
 
+        controllingPlayer.superCharge = 0;
+
         ammoCount = 0;
 
         if (poolBullets)

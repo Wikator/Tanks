@@ -119,23 +119,26 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5934193943603683480}
   _networkObjectCache: {fileID: 5934193943603683480}
-  canUseSpecialMove: 1
   animateShader: 1
   namePlate: {fileID: 1771862346876275753}
+  poolBullets: 0
+  controllingPlayer: {fileID: 0}
   stats:
     moveSpeed: 6.5
     rotateSpeed: 200
     timeToReload: 4
     timeToAddAmmo: 1.5
     maxAmmo: 2
-  poolBullets: 0
-  controllingPlayer: {fileID: 0}
+    requiredSuperCharge: 100
+    onKillSuperCharge: 8
   fastModeStats:
     moveSpeed: 10
     rotateSpeed: 300
     timeToReload: 0.5
     timeToAddAmmo: 0.4
     maxAmmo: 4
+    requiredSuperCharge: 0
+    onKillSuperCharge: 0
   fastModeDuration: 4
   spreadAngle: 3
 --- !u!114 &5934193943603683480
@@ -164,7 +167,7 @@ MonoBehaviour:
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 26
+  <PrefabId>k__BackingField: 24
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 10079323669521036525

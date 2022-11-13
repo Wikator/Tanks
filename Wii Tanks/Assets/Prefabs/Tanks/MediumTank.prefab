@@ -1180,17 +1180,18 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 7392597686560367510}
   _networkObjectCache: {fileID: 7392597686560367510}
-  canUseSpecialMove: 1
   animateShader: 1
   namePlate: {fileID: 4172510493872014141}
+  poolBullets: 0
+  controllingPlayer: {fileID: 0}
   stats:
     moveSpeed: 5
     rotateSpeed: 150
     timeToReload: 2
     timeToAddAmmo: 0.6
     maxAmmo: 5
-  poolBullets: 0
-  controllingPlayer: {fileID: 0}
+    requiredSuperCharge: 150
+    onKillSuperCharge: 15
 --- !u!114 &7392597686560367510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,7 +1218,7 @@ MonoBehaviour:
   _isGlobal: 0
   _defaultDespawnType: 1
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 45
+  <PrefabId>k__BackingField: 41
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 16701890880064380447

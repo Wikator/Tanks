@@ -13,13 +13,15 @@ public abstract class Tank : NetworkBehaviour
         public float MoveAxis;
         public float RotateAxis;
         public bool FireWeapon;
+        public bool UseSuper;
         public Vector3 TurretLookDirection;
 
-        public MoveData(float moveAxis, float rotateAxis, bool fireWeapon, Vector3 turretLookDirection)
+        public MoveData(float moveAxis, float rotateAxis, bool fireWeapon, bool useSuper, Vector3 turretLookDirection)
         {
             MoveAxis = moveAxis;
             RotateAxis = rotateAxis;
             FireWeapon = fireWeapon;
+            UseSuper = useSuper;
             TurretLookDirection = turretLookDirection;
         }
     }
@@ -46,9 +48,12 @@ public abstract class Tank : NetworkBehaviour
         public float timeToReload;
         public float timeToAddAmmo;
         public int maxAmmo;
+        public int requiredSuperCharge;
+        public int onKillSuperCharge;
     }
 
-    public bool canUseSpecialMove = true;
+    [SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
+    private bool canUseSuper = true;
 
     [SerializeField]
     private bool animateShader;
@@ -56,8 +61,8 @@ public abstract class Tank : NetworkBehaviour
     [SerializeField]
     private TextMesh namePlate;
 
-    [SerializeField]
-    protected TankStats stats;
+    //[SerializeField]
+    //protected TankStats stats;
 
     [SerializeField]
     protected bool poolBullets;
@@ -79,7 +84,7 @@ public abstract class Tank : NetworkBehaviour
     private float rotateAxis;
 
     private bool isSubscribed = false;
-    private bool firingQueued = false;
+    private bool firingQueued = false, superQueued = false;
 
     private GameMode gameModeManager;
     private CharacterController controller;
@@ -91,6 +96,9 @@ public abstract class Tank : NetworkBehaviour
     private LayerMask raycastLayer;
 
     protected Coroutine routine;
+
+    [SerializeField]
+    protected TankStats stats;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     private void OnAmmoChange(int oldAmmo, int newAmmo, bool asServer)
@@ -120,11 +128,15 @@ public abstract class Tank : NetworkBehaviour
         namePlate.text = controllingPlayer.PlayerUsername;
         raycastLayer = (1 << 9);
         ChangeColours(controllingPlayer.Color);
+
+        if (IsOwner)
+            MainView.Instance.maxCharge = stats.requiredSuperCharge;
     }
 
     public override void OnStartServer()
     {
         base.OnStartServer();
+        canUseSuper = false;
         gameModeManager = FindObjectOfType<GameMode>();
         bulletSpawn = turret.GetChild(0).GetChild(0);
         muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
@@ -185,6 +197,7 @@ public abstract class Tank : NetworkBehaviour
             NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
             bulletInstance.transform.SetParent(bulletEmpty);
             bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+            bulletInstance.GetComponent<Bullet>().chargeTimeToAdd = stats.onKillSuperCharge;
             Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
             //bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
             Spawn(bulletInstance);
@@ -194,6 +207,7 @@ public abstract class Tank : NetworkBehaviour
         {
             GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
             bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+            bulletInstance.GetComponent<Bullet>().chargeTimeToAdd = stats.onKillSuperCharge;
             Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
             Spawn(bulletInstance);
         }
@@ -214,6 +228,7 @@ public abstract class Tank : NetworkBehaviour
     }
 
     protected abstract void SpecialMove();
+
 
     [Server]
     protected IEnumerator AddAmmo(float time)
@@ -242,8 +257,7 @@ public abstract class Tank : NetworkBehaviour
 
         firingQueued |= Input.GetMouseButtonDown(0);
 
-        if (Input.GetMouseButtonDown(1) && canUseSpecialMove)
-            SpecialMove();
+        superQueued |= Input.GetMouseButtonDown(1);
     }
 
     private void TimeManager_OnTick()
@@ -263,6 +277,18 @@ public abstract class Tank : NetworkBehaviour
             Move(default, true);
             ReconcileData rd = new(transform.position, transform.rotation, turret.rotation);
             Reconciliation(rd, true);
+
+            if (controllingPlayer.superCharge >= stats.requiredSuperCharge)
+            {
+                Debug.Log("Charged");
+                canUseSuper = true;
+            }
+            else
+            {
+                canUseSuper = false;
+                controllingPlayer.superCharge += TimeManager.TickDelta;
+                Mathf.Clamp((float)controllingPlayer.superCharge, 0f, stats.requiredSuperCharge);
+            }
         }
     }
 
@@ -273,9 +299,10 @@ public abstract class Tank : NetworkBehaviour
 
         Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
 
-        data = new MoveData(moveAxis, rotateAxis, firingQueued, hit.point);
+        data = new MoveData(moveAxis, rotateAxis, firingQueued, superQueued, hit.point);
 
         firingQueued = false;
+        superQueued = false;
     }
 
 
@@ -296,9 +323,17 @@ public abstract class Tank : NetworkBehaviour
             turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
         }
 
-        if (!replaying && !asServer && data.FireWeapon && ammoCount > 0)
+        if (!replaying && !asServer)
         {
-            Fire();
+            if (data.FireWeapon && ammoCount > 0)
+            {
+                Fire();
+            }
+            if (data.UseSuper && canUseSuper)
+            {
+                Debug.Log("test");
+                SpecialMove();
+            }
         }
     }
 

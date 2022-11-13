@@ -150,14 +150,6 @@ public sealed class EliminationGameMode : GameMode
         }
     }
 
-    [Server]
-    public void KillAllPlayers()
-    {
-        foreach (PlayerNetworking player in GameManager.Instance.players)
-        {
-            player.DespawnTank();
-        }
-    }
 
 
     //Each player and bullet needs to be destroyed before the new round
@@ -169,7 +161,7 @@ public sealed class EliminationGameMode : GameMode
 
         yield return new WaitForSeconds(3.5f);
 
-        KillAllPlayers();
+        GameManager.Instance.KillAllPlayers();
 
         foreach (Transform child in bulletEmpty)
         {

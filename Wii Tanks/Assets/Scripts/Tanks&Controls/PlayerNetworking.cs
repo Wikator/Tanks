@@ -35,13 +35,24 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
 
 
+    //[field: SyncObject(ReadPermissions = ReadPermission.OwnerOnly)]
+    //public SyncTimer SuperCharge { get; [ServerRpc(RunLocally = true)] set; }
+
+    [SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
+    public double superCharge;
 
 
-    //Each player will add themself to the players hashset in the GameManager class
+
+
+
+
+    //Each player will add themself to the players list in the GameManager class
 
     public override void OnStartServer()
     {
         base.OnStartServer();
+
+        superCharge = 0f;
 
         try
         {
@@ -154,6 +165,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         {
             if (ControlledPawn.IsSpawned)
             {
+                Debug.LogWarning("Test");
                 ControlledPawn.GameOver();
             }
         }

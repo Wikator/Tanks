@@ -18,8 +18,8 @@ public sealed class DeathmatchMainView : MainView
     {
         if (IsClient)
         {
-            float minutesRemaining = Mathf.FloorToInt(deathmatchGameMode.time / 60);
-            float secondsRemaining = Mathf.FloorToInt(deathmatchGameMode.time % 60);
+            float minutesRemaining = Mathf.FloorToInt(deathmatchGameMode.time.Remaining / 60);
+            float secondsRemaining = Mathf.FloorToInt(deathmatchGameMode.time.Remaining % 60);
 
             timeRemainingText.text = string.Format("Time remaining\n{0:00}:{1:00}", minutesRemaining, secondsRemaining);
         }

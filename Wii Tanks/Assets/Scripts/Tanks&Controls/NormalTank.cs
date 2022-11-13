@@ -14,6 +14,8 @@ public sealed class NormalTank : Tank
             routine = null;
         }
 
+        controllingPlayer.superCharge = 0;
+
         ammoCount = 0;
         StartCoroutine(Barrage());
     }

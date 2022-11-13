@@ -35,6 +35,8 @@ public abstract class Bullet : NetworkBehaviour
     [SerializeField, Tooltip("Unstoppable bullets are not destroyed when colliding with tanks or other bullets")]
     protected bool isUnstoppable;
 
+    public int chargeTimeToAdd;
+
     //Once spawn, bullet will be given force, and cannot be slown down by any means, unless destroyed
 
 

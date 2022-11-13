@@ -22,8 +22,13 @@ public abstract class GameMode : NetworkBehaviour
     {
         List<NetworkObject> movedObjects = new()
         {
-            GameManager.Instance.gameObject.GetComponent<NetworkObject>()
+            GameManager.Instance.GetComponent<NetworkObject>()
         };
+
+        foreach (PlayerNetworking player in GameManager.Instance.players)
+        {
+            movedObjects.Add(player.GetComponent<NetworkObject>());
+        }
 
         LoadOptions loadOptions = new()
         {

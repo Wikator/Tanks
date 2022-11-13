@@ -9,8 +9,11 @@ public sealed class DeathmatchGameMode : GameMode
 {
     private int spawnCount;
 
-    [SyncVar]
-    public float time;
+    [SyncObject]
+    public readonly SyncTimer time = new SyncTimer();
+
+    [SerializeField]
+    private int matchLength;
 
 
     //Before start of the game, this script finds and saves all possible spawn points
@@ -18,6 +21,8 @@ public sealed class DeathmatchGameMode : GameMode
     public override void OnStartServer()
     {
         base.OnStartServer();
+
+        time.StartTimer(matchLength, true);
 
         Transform spawnsParent = GameObject.Find("DeathmatchSpawns").transform;
 
@@ -43,9 +48,9 @@ public sealed class DeathmatchGameMode : GameMode
     {
         if (IsServer && GameManager.Instance.GameInProgress)
         {
-            if (time > 0)
+            if (time.Remaining > 0)
             {
-                time -= Time.deltaTime;
+                time.Update(Time.deltaTime);
             }
             else
             {

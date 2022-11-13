@@ -18,6 +18,8 @@ public sealed class ScoutBulletScript : Bullet
             {
                 if (other.GetComponent<Tank>().controllingPlayer != player && other.GetComponent<Tank>().IsSpawned)
                 {
+                    player.superCharge += chargeTimeToAdd;
+
                     if (GameManager.Instance.gameMode == "Deathmatch")
                     {
                         GameMode.Instance.PointScored(player.Color, 1);
@@ -41,11 +43,6 @@ public sealed class ScoutBulletScript : Bullet
             {
                 if (other.GetComponent<Tank>().IsSpawned)
                 {
-                    if (GameManager.Instance.gameMode == "Deathmatch")
-                    {
-                        GameMode.Instance.PointScored(player.Color, 1);
-                    }
-
                     other.GetComponent<Tank>().GameOver();
 
                     if (!isUnstoppable)

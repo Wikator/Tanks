@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
+using FishNet.Object;
 
 public abstract class MainView : View
 {
@@ -10,6 +12,11 @@ public abstract class MainView : View
 
     [SerializeField]
     private TextMeshProUGUI ammoCountText;
+
+    [SerializeField]
+    private Image superBar;
+
+    public float maxCharge = 1000;
 
     private void Awake()
     {
@@ -26,6 +33,20 @@ public abstract class MainView : View
         if (PlayerNetworking.Instance.Color == color)
         {
             scoreText.text = "Score: " + newScore;
+        }
+    }
+
+    [Client]
+    private void FixedUpdate()
+    {
+        superBar.fillAmount = (float)PlayerNetworking.Instance.superCharge / maxCharge;
+        if(Mathf.Clamp((float)PlayerNetworking.Instance.superCharge, 0f, maxCharge) == maxCharge)
+        {
+            superBar.color = Color.green;
+        }
+        else
+        {
+            superBar.color = Color.red;
         }
     }
 }
