@@ -60,7 +60,7 @@ public abstract class Tank : NetworkBehaviour
     protected TankStats stats;
 
     [HideInInspector]
-    public Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
+    protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
 
     [HideInInspector]
     protected GameObject bullet, pointer;
@@ -181,6 +181,7 @@ public abstract class Tank : NetworkBehaviour
         bulletInstance.transform.SetParent(bulletEmpty);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+        //bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
         Spawn(bulletInstance);
         bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
 
@@ -207,7 +208,7 @@ public abstract class Tank : NetworkBehaviour
 
     protected abstract void SpecialMove();
 
-    //[Server]
+    [Server]
     protected IEnumerator AddAmmo(float time)
     {
         yield return new WaitForSeconds(time);

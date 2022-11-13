@@ -9,12 +9,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
 {
     public static PlayerNetworking Instance { get; private set; }
 
-    /*
-    [field : SyncVar]
-    public Tank ControlledPawn { get; private set; }
-    */
 
-    [SyncVar]
     public Tank ControlledPawn;
 
     [field : SyncVar]

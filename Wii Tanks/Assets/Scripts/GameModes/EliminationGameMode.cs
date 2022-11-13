@@ -59,10 +59,11 @@ public sealed class EliminationGameMode : GameMode
 
     //When a team has no players left, the round ends, points are given, and a new round starts
 
+    [Server]
     public override void OnKilled(PlayerNetworking playerNetworking)
     {
 
-        if (waitingForNewRound || !IsServer)
+        if (waitingForNewRound)
             return;
 
         switch (playerNetworking.Color)
@@ -172,7 +173,8 @@ public sealed class EliminationGameMode : GameMode
 
         foreach (Transform child in bulletEmpty)
         {
-            child.GetComponent<Bullet>().Despawn();
+            if (child.GetComponent<Bullet>().IsSpawned)
+                child.GetComponent<Bullet>().Despawn();
         }
 
         yield return new WaitForSeconds(2.0f);

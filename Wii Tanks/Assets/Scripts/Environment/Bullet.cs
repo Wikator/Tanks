@@ -35,9 +35,8 @@ public abstract class Bullet : NetworkBehaviour
     [SerializeField, Tooltip("Unstoppable bullets are not destroyed when colliding with tanks or other bullets")]
     protected bool isUnstoppable;
 
-
-
     //Once spawn, bullet will be given force, and cannot be slown down by any means, unless destroyed
+
 
     private void Awake()
     {
@@ -45,25 +44,28 @@ public abstract class Bullet : NetworkBehaviour
     }
 
 
+
     [Server]
     public void AfterSpawning(Transform bulletSpawn, int angle)
     {
-        GetComponent<SphereCollider>().enabled = true;
         transform.SetPositionAndRotation(bulletSpawn.position, bulletSpawn.rotation);
         transform.Rotate(new Vector3(0f, angle, 0f));
-        rigidBody.velocity = transform.forward * moveSpeed;
-        ClearTrail();
-
+        transform.GetChild(0).GetComponent<TrailRenderer>().Clear();
+        ClearTrail(bulletSpawn, angle);
+        //rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
     }
 
     [ObserversRpc(RunLocally = true)]
-    private void ClearTrail()
+    private void ClearTrail(Transform bulletSpawn, int angle)
     {
-        transform.GetChild(0).GetComponent<TrailRenderer>().Clear();
         Debug.LogWarning("Cleared");
     }
 
-
+    public override void OnStartNetwork()
+    {
+        base.OnStartNetwork();
+        StartCoroutine(TrailRendererMethod());
+    }
 
 
     //Bullet's stats are saved in the FixedUpdate, so that the bullet will not slow down after hitting the wall
@@ -81,6 +83,27 @@ public abstract class Bullet : NetworkBehaviour
         GetComponent<SphereCollider>().enabled = false;
         yield return new WaitForSeconds(0.6f);
         Despawn();
+    }
+
+
+    private IEnumerator TrailRendererMethod()
+    {
+        transform.GetChild(0).GetComponent<TrailRenderer>().emitting = false;
+        for (int i = 0; i < 4; i++)
+        {
+            transform.GetChild(0).GetComponent<TrailRenderer>().Clear();
+            yield return new WaitForFixedUpdate();
+        }
+        AddForce();
+        transform.GetChild(0).GetComponent<TrailRenderer>().emitting = true;
+        transform.GetChild(0).GetComponent<TrailRenderer>().Clear();
+    }
+
+    [Server]
+    private void AddForce()
+    {
+        GetComponent<SphereCollider>().enabled = true;
+        //rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
     }
 }
 
