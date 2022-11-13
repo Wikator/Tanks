@@ -128,6 +128,7 @@ MonoBehaviour:
     timeToReload: 4
     timeToAddAmmo: 1.5
     maxAmmo: 2
+  poolBullets: 0
   controllingPlayer: {fileID: 0}
   fastModeStats:
     moveSpeed: 10
@@ -163,7 +164,7 @@ MonoBehaviour:
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 24
+  <PrefabId>k__BackingField: 26
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 10079323669521036525

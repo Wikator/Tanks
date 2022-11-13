@@ -52,7 +52,7 @@ public abstract class Bullet : NetworkBehaviour
         transform.Rotate(new Vector3(0f, angle, 0f));
         transform.GetChild(0).GetComponent<TrailRenderer>().Clear();
         ClearTrail(bulletSpawn, angle);
-        //rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
+        rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
     }
 
     [ObserversRpc(RunLocally = true)]
@@ -64,7 +64,19 @@ public abstract class Bullet : NetworkBehaviour
     public override void OnStartNetwork()
     {
         base.OnStartNetwork();
-        StartCoroutine(TrailRendererMethod());
+        if (gameObject.GetComponent<NetworkObject>().GetDefaultDespawnType() == DespawnType.Pool)
+        {
+            StartCoroutine(TrailRendererMethod());
+        }
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        if (gameObject.GetComponent<NetworkObject>().GetDefaultDespawnType() == DespawnType.Destroy)
+        {
+            rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
+        }
     }
 
 

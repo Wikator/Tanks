@@ -17,12 +17,22 @@ public sealed class DestroyerTank : Tank
 
         ammoCount = 0;
 
-        NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(specialBullet, true);
-        bulletInstance.transform.SetParent(bulletEmpty);
-        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-        Spawn(bulletInstance);
-        bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
+        if (poolBullets)
+        {
+            NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(specialBullet, true);
+            bulletInstance.transform.SetParent(bulletEmpty);
+            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+            Spawn(bulletInstance);
+            bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
+        }
+        else
+        {
+            GameObject bulletInstance = Instantiate(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+            Spawn(bulletInstance);
+        }
 
         NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
         flashInstance.transform.SetParent(muzzleFlashEmpty);

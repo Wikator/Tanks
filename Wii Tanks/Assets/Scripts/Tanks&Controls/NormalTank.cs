@@ -23,12 +23,22 @@ public sealed class NormalTank : Tank
     {
         for (int i = 0; i < 20; i++)
         {
-            NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
-            bulletInstance.transform.SetParent(bulletEmpty);
-            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-            Spawn(bulletInstance);
-            bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
+            if (poolBullets)
+            {
+                NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
+                bulletInstance.transform.SetParent(bulletEmpty);
+                bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+                Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+                Spawn(bulletInstance);
+                bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
+            }
+            else
+            {
+                GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+                bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+                Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+                Spawn(bulletInstance);
+            }
 
             NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
             flashInstance.transform.SetParent(muzzleFlashEmpty);

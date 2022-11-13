@@ -59,6 +59,9 @@ public abstract class Tank : NetworkBehaviour
     [SerializeField]
     protected TankStats stats;
 
+    [SerializeField]
+    protected bool poolBullets;
+
     [HideInInspector]
     protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
 
@@ -177,19 +180,23 @@ public abstract class Tank : NetworkBehaviour
     [ServerRpc]
     protected virtual void Fire()
     {
-        NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
-        bulletInstance.transform.SetParent(bulletEmpty);
-        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-        //bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
-        Spawn(bulletInstance);
-        bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
-
-        /*
-        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-        Spawn(bulletInstance);*/
+        if (poolBullets)
+        {
+            NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
+            bulletInstance.transform.SetParent(bulletEmpty);
+            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+            //bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
+            Spawn(bulletInstance);
+            bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
+        }
+        else
+        {
+            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+            Spawn(bulletInstance);
+        }
 
         NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
         flashInstance.transform.SetParent(muzzleFlashEmpty);

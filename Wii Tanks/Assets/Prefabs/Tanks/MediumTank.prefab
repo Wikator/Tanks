@@ -1189,10 +1189,7 @@ MonoBehaviour:
     timeToReload: 2
     timeToAddAmmo: 0.6
     maxAmmo: 5
-  bulletSpawn: {fileID: 0}
-  bulletEmpty: {fileID: 0}
-  muzzleFlashSpawn: {fileID: 0}
-  muzzleFlashEmpty: {fileID: 0}
+  poolBullets: 0
   controllingPlayer: {fileID: 0}
 --- !u!114 &7392597686560367510
 MonoBehaviour:
@@ -1220,7 +1217,7 @@ MonoBehaviour:
   _isGlobal: 0
   _defaultDespawnType: 1
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 41
+  <PrefabId>k__BackingField: 45
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 16701890880064380447

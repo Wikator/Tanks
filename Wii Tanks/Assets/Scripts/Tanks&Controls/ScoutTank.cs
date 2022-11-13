@@ -20,13 +20,24 @@ public class ScoutTank : Tank
     {
         for (int angle = -spreadAngle; angle < spreadAngle*2; angle += spreadAngle)
         {
-            NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
-            bulletInstance.transform.SetParent(bulletEmpty);
-            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-            Spawn(bulletInstance);
-            bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
-            bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, angle);
+            if (poolBullets)
+            {
+                NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
+                bulletInstance.transform.SetParent(bulletEmpty);
+                bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+                Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+                Spawn(bulletInstance);
+                //bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
+                bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, angle);
+            }
+            else
+            {
+                GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+                bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
+                bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+                Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+                Spawn(bulletInstance);
+            }
 
 
             NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
