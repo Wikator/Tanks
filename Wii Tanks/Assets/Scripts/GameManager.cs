@@ -13,15 +13,12 @@ public sealed class GameManager : NetworkBehaviour
     [SyncObject]
     public readonly SyncList<PlayerNetworking> players = new();
 
-    [SyncObject]
-    public readonly SyncDictionary<string, int> scores = new();
-
 
     [SyncVar]
     public string gameMode;
 
 
-    [field : SyncVar]
+    [field: SyncVar]
     public bool GameInProgress { get; private set; }
 
 
@@ -33,7 +30,6 @@ public sealed class GameManager : NetworkBehaviour
     {
         Instance = this;
         InstanceFinder.SceneManager.OnLoadEnd += OnSceneLoaded;
-        scores.OnChange += OnScoreChange;
         GameInProgress = false;
     }
 
@@ -47,7 +43,6 @@ public sealed class GameManager : NetworkBehaviour
     private void OnDestroy()
     {
         Instance = null;
-        scores.OnChange -= OnScoreChange;
     }
 
 
@@ -57,16 +52,6 @@ public sealed class GameManager : NetworkBehaviour
         CanStart = players.All(player => player.IsReady);
     }
 
-    private void OnScoreChange(SyncDictionaryOperation op, string key, int value, bool asServer)
-    {
-        if (!MainView.Instance)
-            return;
-
-        if (op == SyncDictionaryOperation.Set)
-        {
-            MainView.Instance.UpdateScore(key, value);
-        }
-    }
 
     private void OnSceneLoaded(SceneLoadEndEventArgs args)
     {
@@ -95,6 +80,14 @@ public sealed class GameManager : NetworkBehaviour
         }
 
         return (playersReady);
+    }
+
+    [Server]
+    public void EndGame()
+    {
+        GameInProgress = false;
+        gameMode = "GameFinished";
+        UIManager.Instance.SetUpAllUI(GameInProgress, gameMode);
     }
 
 

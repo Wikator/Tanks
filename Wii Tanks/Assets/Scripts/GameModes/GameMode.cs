@@ -12,38 +12,32 @@ public abstract class GameMode : NetworkBehaviour
     [SyncObject]
     public readonly SyncDictionary<string, Transform[]> spawns = new();
 
+
+    [SyncObject]
+    public readonly SyncDictionary<string, int> scores = new();
+
     private void Awake()
     {
         Instance = this;
+        scores.OnChange += OnScoreChange;
     }
 
-    [Server]
-    public void LoadEndScene()
+    private void OnDestroy()
     {
-        List<NetworkObject> movedObjects = new()
-        {
-            GameManager.Instance.GetComponent<NetworkObject>()
-        };
-
-        foreach (PlayerNetworking player in GameManager.Instance.players)
-        {
-            movedObjects.Add(player.GetComponent<NetworkObject>());
-        }
-
-        LoadOptions loadOptions = new()
-        {
-            AutomaticallyUnload = true,
-        };
-
-        SceneLoadData sld = new("EndScreen")
-        {
-            MovedNetworkObjects = movedObjects.ToArray(),
-            ReplaceScenes = ReplaceOption.All,
-            Options = loadOptions
-        };
-
-        InstanceFinder.SceneManager.LoadGlobalScenes(sld);
+        scores.OnChange -= OnScoreChange;
     }
+
+    private void OnScoreChange(SyncDictionaryOperation op, string key, int value, bool asServer)
+    {
+        if (!MainView.Instance)
+            return;
+
+        if (op == SyncDictionaryOperation.Set)
+        {
+            MainView.Instance.UpdateScore(key, value);
+        }
+    }
+
 
 
     //Those methods need to be abstract, so that they can be called when referencing this class, rather than its subclasses
@@ -52,5 +46,5 @@ public abstract class GameMode : NetworkBehaviour
 
     public abstract Vector3 FindSpawnPosition(string color);
 
-    public void PointScored(string team, int numberOfPoints) => GameManager.Instance.scores[team] += numberOfPoints;
+    public void PointScored(string team, int numberOfPoints) => scores[team] += numberOfPoints;
 }

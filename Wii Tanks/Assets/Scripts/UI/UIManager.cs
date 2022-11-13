@@ -44,6 +44,9 @@ public sealed class UIManager : NetworkBehaviour
                 case "Elimination":
                     Show<EliminationLobbyView>();
                     break;
+                case "GameFinished":
+                    Show<EndScreen>();
+                    break;
                 default:
                     Show<GameModesView>();
                     break;

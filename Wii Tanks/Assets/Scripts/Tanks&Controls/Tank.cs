@@ -309,7 +309,7 @@ public abstract class Tank : NetworkBehaviour
     [Replicate]
     private void Move(MoveData data, bool asServer, bool replaying = false)
     {
-        if (!IsSpawned)
+        if (!IsSpawned || !GameManager.Instance.GameInProgress)
             return;
 
         controller.Move((float)TimeManager.TickDelta * stats.moveSpeed * data.MoveAxis * transform.forward);

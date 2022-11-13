@@ -10,7 +10,7 @@ public sealed class DeathmatchGameMode : GameMode
     private int spawnCount;
 
     [SyncObject]
-    public readonly SyncTimer time = new SyncTimer();
+    public readonly SyncTimer time = new();
 
     [SerializeField]
     private int matchLength;
@@ -35,18 +35,18 @@ public sealed class DeathmatchGameMode : GameMode
             spawns["NoTeams"][i] = spawnsParent.GetChild(i).transform;
         }
 
-        GameManager.Instance.scores["Green"] = 0;
-        GameManager.Instance.scores["Red"] = 0;
-        GameManager.Instance.scores["Cyan"] = 0;
-        GameManager.Instance.scores["Purple"] = 0;
-        GameManager.Instance.scores["Yellow"] = 0;
-        GameManager.Instance.scores["Blue"] = 0;
+        scores["Green"] = 0;
+        scores["Red"] = 0;
+        scores["Cyan"] = 0;
+        scores["Purple"] = 0;
+        scores["Yellow"] = 0;
+        scores["Blue"] = 0;
     }
 
-    [Server(Logging = LoggingType.Off)]
+
     private void Update()
     {
-        if (IsServer && GameManager.Instance.GameInProgress)
+        if (GameManager.Instance.GameInProgress)
         {
             if (time.Remaining > 0)
             {
@@ -54,7 +54,7 @@ public sealed class DeathmatchGameMode : GameMode
             }
             else
             {
-                LoadEndScene();
+                GameManager.Instance.EndGame();
             }
         }
     }

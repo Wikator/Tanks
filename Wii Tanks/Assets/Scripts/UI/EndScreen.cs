@@ -1,20 +1,12 @@
 using System.Linq;
 using UnityEngine;
 using TMPro;
-using FishNet.Object;
 
-public sealed class EndScreen : NetworkBehaviour
+public sealed class EndScreen : View
 {
     [SerializeField]
     private TextMeshProUGUI leaderboardText;
 
-
-    public override void OnStartNetwork()
-    {
-        base.OnStartNetwork();
-
-        SetText();
-    }
 
     public override void OnStartServer()
     {
@@ -29,15 +21,18 @@ public sealed class EndScreen : NetworkBehaviour
         }
     }
 
-    //[ObserversRpc]
-    private void SetText()
+    private void OnEnable()
     {
-        string[] colors = GameManager.Instance.scores.Keys.ToArray();
+        SetText();
+    }
+
+    public void SetText()
+    {
+        string[] colors = GameMode.Instance.scores.Keys.ToArray();
 
         foreach (string color in colors)
         {
-            leaderboardText.text = leaderboardText.text + color + ": " + GameManager.Instance.scores[color] + "\n";
-
+            leaderboardText.text = leaderboardText.text + color + ": " + GameMode.Instance.scores[color] + "\n";
         }
     }
 }

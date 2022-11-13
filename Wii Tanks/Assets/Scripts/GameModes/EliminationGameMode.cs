@@ -53,8 +53,8 @@ public sealed class EliminationGameMode : GameMode
             spawns["Red"][i] = redSpawnsParent.GetChild(i).transform;
         }
 
-        GameManager.Instance.scores["Green"] = 0;
-        GameManager.Instance.scores["Red"] = 0;
+        scores["Green"] = 0;
+        scores["Red"] = 0;
     }
 
     //When a team has no players left, the round ends, points are given, and a new round starts
@@ -73,9 +73,9 @@ public sealed class EliminationGameMode : GameMode
                 {
                     PointScored("Red", 1);
 
-                    if (GameManager.Instance.scores["Red"] == pointsToWin)
+                    if (scores["Red"] == pointsToWin)
                     {
-                        LoadEndScene();
+                        UIManager.Instance.Show<EndScreen>();
                     }
                     else
                     {
@@ -88,9 +88,9 @@ public sealed class EliminationGameMode : GameMode
                 {
                     PointScored("Green", 1);
 
-                    if (GameManager.Instance.scores["Green"] == pointsToWin)
+                    if (scores["Green"] == pointsToWin)
                     {
-                        LoadEndScene();
+                        UIManager.Instance.Show<EndScreen>();
                     }
                     else
                     {
