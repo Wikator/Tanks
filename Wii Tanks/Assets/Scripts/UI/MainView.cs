@@ -14,7 +14,7 @@ public abstract class MainView : View
     private TextMeshProUGUI ammoCountText;
 
     [SerializeField]
-    private Image superBar;
+    private Slider superBar;
 
     public float maxCharge = 1000;
 
@@ -39,14 +39,14 @@ public abstract class MainView : View
     [Client]
     private void FixedUpdate()
     {
-        superBar.fillAmount = (float)PlayerNetworking.Instance.superCharge / maxCharge;
+        superBar.value = (float)PlayerNetworking.Instance.superCharge / maxCharge;
         if(Mathf.Clamp((float)PlayerNetworking.Instance.superCharge, 0f, maxCharge) == maxCharge)
         {
-            superBar.color = Color.green;
+            superBar.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.green;
         }
         else
         {
-            superBar.color = Color.red;
+            superBar.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.red;
         }
     }
 }

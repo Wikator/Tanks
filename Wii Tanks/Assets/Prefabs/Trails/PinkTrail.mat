@@ -10,8 +10,6 @@ Material:
   m_Name: PinkTrail
   m_Shader: {fileID: -6465566751694194690, guid: f8c30e3e89c3a5343a6a90cd3edbeb6a, type: 3}
   m_ValidKeywords:
-  - _ALPHATEST_ON
-  - _ALPHATOMASK_ON
   - _DISABLE_SSR_TRANSPARENT
   - _DOUBLESIDED_ON
   - _ENABLE_FOG_ON_TRANSPARENT
@@ -52,17 +50,17 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
-    - _AlphaCutoffEnable: 1
+    - _AlphaCutoffEnable: 0
     - _AlphaDstBlend: 10
     - _AlphaSrcBlend: 1
-    - _AlphaToMask: 1
+    - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 1
     - _BlendMode: 0
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 0
     - _CullModeForward: 0
     - _DepthOffsetEnable: 0
-    - _DissolveScale: 35
+    - _DissolveScale: 75
     - _DoubleSidedEnable: 1
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
@@ -98,7 +96,7 @@ Material:
     - _TransparentZWrite: 0
     - _UseShadowThreshold: 1
     - _ZTestDepthEqualForOpaque: 4
-    - _ZTestGBuffer: 3
+    - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
     - _ZWrite: 0
     m_Colors:

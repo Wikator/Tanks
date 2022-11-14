@@ -122,6 +122,7 @@ MonoBehaviour:
   player: {fileID: 0}
   rigidBody: {fileID: 0}
   isUnstoppable: 0
+  chargeTimeToAdd: 0
   ricochetCount: 3
 --- !u!54 &-5833880829761614842
 Rigidbody:
@@ -509,7 +510,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.5294075
+        value: 0.6700325
         inSlope: 0
         outSlope: 0
         tangentMode: 0
