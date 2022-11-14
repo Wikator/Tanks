@@ -61,9 +61,6 @@ public abstract class Tank : NetworkBehaviour
     [SerializeField]
     private TextMesh namePlate;
 
-    //[SerializeField]
-    //protected TankStats stats;
-
     [SerializeField]
     protected bool poolBullets;
 

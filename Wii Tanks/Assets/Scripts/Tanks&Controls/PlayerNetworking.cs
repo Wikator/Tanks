@@ -153,7 +153,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         if (TankType == "None")
             return;
 
-        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "Pawn").WaitForCompletion(), FindObjectOfType<GameMode>().FindSpawnPosition(Color), Quaternion.identity, transform);
+        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "Pawn").WaitForCompletion(), GameMode.Instance.FindSpawnPosition(Color), Quaternion.identity, transform);
         ControlledPawn = playerInstance.GetComponent<Tank>();
         ControlledPawn.controllingPlayer = this;
         Spawn(playerInstance, Owner);
