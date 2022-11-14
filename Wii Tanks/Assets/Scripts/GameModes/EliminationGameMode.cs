@@ -63,7 +63,7 @@ public sealed class EliminationGameMode : GameMode
     public override void OnKilled(PlayerNetworking playerNetworking)
     {
 
-        if (waitingForNewRound)
+        if (waitingForNewRound || !GameManager.Instance.GameInProgress)
             return;
 
         switch (playerNetworking.Color)
@@ -75,7 +75,7 @@ public sealed class EliminationGameMode : GameMode
 
                     if (scores["Red"] == pointsToWin)
                     {
-                        UIManager.Instance.Show<EndScreen>();
+                        GameManager.Instance.EndGame();
                     }
                     else
                     {
@@ -90,7 +90,7 @@ public sealed class EliminationGameMode : GameMode
 
                     if (scores["Green"] == pointsToWin)
                     {
-                        UIManager.Instance.Show<EndScreen>();
+                        GameManager.Instance.EndGame();
                     }
                     else
                     {
@@ -105,6 +105,7 @@ public sealed class EliminationGameMode : GameMode
     //This recursive method tried to find an avaible spawn
     //If none are avaible, StackOverflowException is cought, so the tank needs to spawn in random spawn regardless if it's avaible or not
 
+    [Server]
     public override Vector3 FindSpawnPosition(string color)
     {
         int randomNumber = color switch

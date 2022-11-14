@@ -246,8 +246,12 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
+    [Client]
     private void Update()
     {
+        if (!IsSpawned)
+            return;
+
         namePlate.transform.LookAt(cam.transform);
 
         namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
@@ -280,7 +284,6 @@ public abstract class Tank : NetworkBehaviour
 
             if (controllingPlayer.superCharge >= stats.requiredSuperCharge)
             {
-                Debug.Log("Charged");
                 canUseSuper = true;
             }
             else
@@ -309,7 +312,7 @@ public abstract class Tank : NetworkBehaviour
     [Replicate]
     private void Move(MoveData data, bool asServer, bool replaying = false)
     {
-        if (!IsSpawned || !GameManager.Instance.GameInProgress)
+        if (!GameManager.Instance.GameInProgress)
             return;
 
         controller.Move((float)TimeManager.TickDelta * stats.moveSpeed * data.MoveAxis * transform.forward);

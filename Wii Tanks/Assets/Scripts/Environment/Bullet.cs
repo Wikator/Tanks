@@ -23,7 +23,7 @@ public abstract class Bullet : NetworkBehaviour
     }
 
     [SerializeField]
-    public float moveSpeed;
+    protected float moveSpeed;
 
     [HideInInspector]
     public PlayerNetworking player;
@@ -53,14 +53,7 @@ public abstract class Bullet : NetworkBehaviour
         transform.SetPositionAndRotation(bulletSpawn.position, bulletSpawn.rotation);
         transform.Rotate(new Vector3(0f, angle, 0f));
         transform.GetChild(0).GetComponent<TrailRenderer>().Clear();
-        ClearTrail(bulletSpawn, angle);
         rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
-    }
-
-    [ObserversRpc(RunLocally = true)]
-    private void ClearTrail(Transform bulletSpawn, int angle)
-    {
-        Debug.LogWarning("Cleared");
     }
 
     public override void OnStartNetwork()

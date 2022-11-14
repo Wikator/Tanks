@@ -1108,7 +1108,7 @@ GameObject:
   - component: {fileID: 4587066124602853833}
   - component: {fileID: 1614322564335573653}
   - component: {fileID: 910725472926647060}
-  - component: {fileID: 1523010370480634555}
+  - component: {fileID: 3700316539493184656}
   m_Layer: 0
   m_Name: MediumTank
   m_TagString: Tank
@@ -1124,7 +1124,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6195028800111504128}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1000, y: 1000, z: 1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1209,14 +1209,14 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 1103874108160757826}
   - {fileID: 4587066124602853833}
-  - {fileID: 1523010370480634555}
+  - {fileID: 3700316539493184656}
   - {fileID: 5117780781581832194}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 5810208872173986972}
   _isNetworked: 1
   _isGlobal: 0
-  _defaultDespawnType: 1
+  _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 41
   _scenePathHash: 0
@@ -1449,7 +1449,7 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
---- !u!114 &1523010370480634555
+--- !u!114 &3700316539493184656
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1477,7 +1477,7 @@ MonoBehaviour:
   _maintainedVelocity: 0
   _resendType: 0
   _resendInterval: 30
-  _networkTransform: {fileID: 5117780781581832194}
+  _networkTransform: {fileID: 4587066124602853833}
 --- !u!1 &9117340223325786551
 GameObject:
   m_ObjectHideFlags: 0

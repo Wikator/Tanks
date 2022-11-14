@@ -62,7 +62,7 @@ public sealed class DeathmatchGameMode : GameMode
 
     //Each tank will loose a point and respawn after some time
     //Only DeathmachGameMode currently uses this method
-
+    [Server]
     public override void OnKilled(PlayerNetworking playerNetworking)
     {
         StartCoroutine(Respawn(playerNetworking, 1.5f));
@@ -74,14 +74,12 @@ public sealed class DeathmatchGameMode : GameMode
     //If none are avaible, StackOverflowException is cought, so the tank needs to spawn in random spawn regardless if it's avaible or not
     //Color variable is unnecessary here, but still needs to be here because it's used by the abstract method
 
+    [Server]
     public override Vector3 FindSpawnPosition(string color)
     {
         color = "NoTeams";
 
         Transform spawn = spawns[color][UnityEngine.Random.Range(0, spawnCount)];
-
-        if (!spawn)
-            return Vector3.zero;
 
         if (spawn.GetComponent<Spawn>().isOccupied)
         {
