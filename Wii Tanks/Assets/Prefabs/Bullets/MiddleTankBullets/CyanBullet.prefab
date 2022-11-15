@@ -35,7 +35,7 @@ Transform:
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1816831508154832325}
+  - {fileID: 1735651243581884739}
   - {fileID: 8445162539227705793}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -120,8 +120,8 @@ MonoBehaviour:
   _networkObjectCache: {fileID: -8405391744002029082}
   moveSpeed: 13
   player: {fileID: 0}
-  rigidBody: {fileID: 0}
   isUnstoppable: 0
+  chargeTimeToAdd: 0
   ricochetCount: 1
 --- !u!54 &-5833880829761614842
 Rigidbody:
@@ -209,7 +209,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
---- !u!1 &9112384289087838213
+--- !u!1 &5564469443083372086
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,8 +217,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1816831508154832325}
-  - component: {fileID: 2837775872390497415}
+  - component: {fileID: 1735651243581884739}
+  - component: {fileID: 4116408167789194191}
   m_Layer: 7
   m_Name: Trail
   m_TagString: Untagged
@@ -226,14 +226,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1816831508154832325
+--- !u!4 &1735651243581884739
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9112384289087838213}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_GameObject: {fileID: 5564469443083372086}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -241,14 +241,14 @@ Transform:
   m_Father: {fileID: 2837156206530728899}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!96 &2837775872390497415
+--- !u!96 &4116408167789194191
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9112384289087838213}
+  m_GameObject: {fileID: 5564469443083372086}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -283,7 +283,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.7
+  m_Time: 0.6
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1.5
@@ -300,17 +300,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.23886436
-        value: 0.98319244
-        inSlope: 0.6294784
-        outSlope: 0.6294784
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.6422276
-        value: 0.90756416
+        time: 0.6493382
+        value: 0.9045429
         inSlope: -0.39760897
         outSlope: -0.39760897
         tangentMode: 0

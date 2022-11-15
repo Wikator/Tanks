@@ -78,6 +78,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 3260047397942440531}
   _networkObjectCache: {fileID: 3260047397942440531}
   ControlledPawn: {fileID: 0}
+  superCharge: 0
 --- !u!114 &-7317939241241333854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c71fd7f855ec523429999fc4e14a1928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _overrideType: 2
+  _overrideType: 3
   _updateHostVisibility: 0
   _observerConditions:
   - {fileID: 0}
