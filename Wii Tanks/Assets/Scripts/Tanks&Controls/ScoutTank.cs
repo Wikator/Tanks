@@ -18,6 +18,9 @@ public class ScoutTank : Tank
     [ServerRpc]
     protected override void Fire()
     {
+        if (ammoCount <= 0)
+            return;
+
         for (int angle = -spreadAngle; angle < spreadAngle*2; angle += spreadAngle)
         {
             if (poolBullets)
@@ -63,6 +66,9 @@ public class ScoutTank : Tank
     [ServerRpc]
     protected override void SpecialMove()
     {
+        if (!canUseSuper)
+            return;
+
         if (routine != null)
         {
             StopCoroutine(routine);

@@ -9,6 +9,9 @@ public sealed class DestroyerTank : Tank
     [ServerRpc]
     protected override void SpecialMove()
     {
+        if (!canUseSuper)
+            return;
+
         if (routine != null)
         {
             StopCoroutine(routine);

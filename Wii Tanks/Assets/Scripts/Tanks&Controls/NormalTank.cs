@@ -8,6 +8,9 @@ public sealed class NormalTank : Tank
     [ServerRpc]
     protected override void SpecialMove()
     {
+        if (!canUseSuper)
+            return;
+
         if (routine != null)
         {
             StopCoroutine(routine);
