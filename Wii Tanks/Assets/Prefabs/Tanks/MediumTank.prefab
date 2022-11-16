@@ -917,14 +917,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4769049130103943627}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6970665313150589550}
-  m_Father: {fileID: 3510504823743185033}
-  m_RootOrder: 1
+  m_Father: {fileID: 7963829885618234196}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5117780781581832194
 MonoBehaviour:
@@ -1000,7 +1000,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3510504823743185033}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1944268896798516266
 MeshRenderer:
@@ -1108,6 +1108,7 @@ GameObject:
   - component: {fileID: 4587066124602853833}
   - component: {fileID: 1614322564335573653}
   - component: {fileID: 910725472926647060}
+  - component: {fileID: 5903924068263357696}
   m_Layer: 0
   m_Name: MediumTank
   m_TagString: Tank
@@ -1128,7 +1129,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7963829885618234196}
-  - {fileID: 1798131415440317305}
   - {fileID: 2666355922719941308}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -1208,7 +1208,7 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: 1103874108160757826}
   - {fileID: 4587066124602853833}
-  - {fileID: 0}
+  - {fileID: 5903924068263357696}
   - {fileID: 5117780781581832194}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
@@ -1448,6 +1448,35 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &5903924068263357696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6195028800111504128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 402926ef33e0a894d9fec352693988ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 7392597686560367510}
+  _networkObjectCache: {fileID: 7392597686560367510}
+  _graphicalObject: {fileID: 7963829885618234196}
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _ownerInterpolation: 1
+  _predictionType: 0
+  _rigidbody: {fileID: 0}
+  _rigidbody2d: {fileID: 0}
+  _spectatorSmoothingDuration: 0.025
+  _spectatorInterpolation: 1
+  _overflowMultiplier: 0.1
+  _maintainedVelocity: 0
+  _resendType: 0
+  _resendInterval: 30
+  _networkTransform: {fileID: 4587066124602853833}
 --- !u!1 &9117340223325786551
 GameObject:
   m_ObjectHideFlags: 0
@@ -1479,7 +1508,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1798131415440317305}
   m_Father: {fileID: 3510504823743185033}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

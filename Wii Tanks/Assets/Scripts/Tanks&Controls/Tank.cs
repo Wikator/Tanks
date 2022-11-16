@@ -12,16 +12,12 @@ public abstract class Tank : NetworkBehaviour
     {
         public float MoveAxis;
         public float RotateAxis;
-        public bool FireWeapon;
-        public bool UseSuper;
         public Vector3 TurretLookDirection;
 
-        public MoveData(float moveAxis, float rotateAxis, bool fireWeapon, bool useSuper, Vector3 turretLookDirection)
+        public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection)
         {
             MoveAxis = moveAxis;
             RotateAxis = rotateAxis;
-            FireWeapon = fireWeapon;
-            UseSuper = useSuper;
             TurretLookDirection = turretLookDirection;
         }
     }
@@ -53,7 +49,7 @@ public abstract class Tank : NetworkBehaviour
     }
 
     [SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
-    private bool canUseSuper = true;
+    protected bool canUseSuper = false;
 
     [SerializeField]
     private bool animateShader;
@@ -81,7 +77,6 @@ public abstract class Tank : NetworkBehaviour
     private float rotateAxis;
 
     private bool isSubscribed = false;
-    private bool firingQueued = false, superQueued = false;
 
     private GameMode gameModeManager;
     private CharacterController controller;
@@ -113,7 +108,7 @@ public abstract class Tank : NetworkBehaviour
         base.OnStartNetwork();
         cam = Camera.main;
         controller = GetComponent<CharacterController>();
-        turret = transform.GetChild(1);
+        turret = transform.GetChild(0).GetChild(0);
         SubscribeToTimeManager(true);
     }
 
@@ -186,9 +181,37 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
+
+    [Client]
+    private void Update()
+    {
+        if (!IsSpawned)
+            return;
+
+        namePlate.transform.LookAt(cam.transform);
+
+        namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
+
+        if (!IsOwner || !GameManager.Instance.GameInProgress)
+            return;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Fire();
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            SpecialMove();
+        }
+    }
+
     [ServerRpc]
     protected virtual void Fire()
     {
+        if (ammoCount <= 0)
+            return;
+
         if (poolBullets)
         {
             NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
@@ -213,6 +236,7 @@ public abstract class Tank : NetworkBehaviour
         flashInstance.transform.SetParent(muzzleFlashEmpty);
         flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
         Spawn(flashInstance);
+
 
         if (routine != null)
         {
@@ -243,23 +267,6 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
-    [Client]
-    private void Update()
-    {
-        if (!IsSpawned)
-            return;
-
-        namePlate.transform.LookAt(cam.transform);
-
-        namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
-
-        if (!IsOwner)
-            return;
-
-        firingQueued |= Input.GetMouseButtonDown(0);
-
-        superQueued |= Input.GetMouseButtonDown(1);
-    }
 
     private void TimeManager_OnTick()
     {
@@ -299,10 +306,7 @@ public abstract class Tank : NetworkBehaviour
 
         Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
 
-        data = new MoveData(moveAxis, rotateAxis, firingQueued, superQueued, hit.point);
-
-        firingQueued = false;
-        superQueued = false;
+        data = new MoveData(moveAxis, rotateAxis, hit.point);
     }
 
 
@@ -321,19 +325,6 @@ public abstract class Tank : NetworkBehaviour
         {
             turret.LookAt(data.TurretLookDirection, Vector3.up);
             turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
-        }
-
-        if (!replaying && !asServer)
-        {
-            if (data.FireWeapon && ammoCount > 0)
-            {
-                Fire();
-            }
-            if (data.UseSuper && canUseSuper)
-            {
-                Debug.Log("test");
-                SpecialMove();
-            }
         }
     }
 
