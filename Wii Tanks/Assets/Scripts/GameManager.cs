@@ -14,7 +14,7 @@ public sealed class GameManager : NetworkBehaviour
     public readonly SyncList<PlayerNetworking> players = new();
 
 
-    [SyncVar]
+    //[SyncVar]
     public string gameMode;
 
 
@@ -64,6 +64,8 @@ public sealed class GameManager : NetworkBehaviour
         }
     }
 
+
+    [Client]
     public int NumberOfReadyPlayers()
     {
         int playersReady = 0;
@@ -98,14 +100,14 @@ public sealed class GameManager : NetworkBehaviour
 
         UIManager.Instance.SetUpAllUI(GameInProgress, gameMode);
 
-        if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
-        {
-            eliminationGameMode.waitingForNewRound = false;
-        }
-
         foreach (PlayerNetworking player in players)
         {
             player.SpawnTank();
+        }
+
+        if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
+        {
+            eliminationGameMode.waitingForNewRound = false;
         }
     }
 

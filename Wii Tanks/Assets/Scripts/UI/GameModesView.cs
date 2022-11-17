@@ -11,6 +11,9 @@ public sealed class GameModesView : View
     [SerializeField]
     private Button eliminationButton;
 
+    [SerializeField]
+    private Button takedownButton;
+
 
     //Game mode selection screen
     //Each player can choose a game mode
@@ -25,6 +28,8 @@ public sealed class GameModesView : View
         deathmatchButton.onClick.AddListener(() => ChangeGameMode("Deathmatch"));
 
         eliminationButton.onClick.AddListener(() => ChangeGameMode("Elimination"));
+
+        takedownButton.onClick.AddListener(() => ChangeGameMode("Takedown"));
     }
 
 

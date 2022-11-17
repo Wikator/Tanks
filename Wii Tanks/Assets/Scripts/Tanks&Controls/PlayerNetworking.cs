@@ -159,13 +159,15 @@ public sealed class PlayerNetworking : NetworkBehaviour
         Spawn(playerInstance, Owner);
     }
 
+
+    //Method for when a tank needs to be killed in order to start a new round
+
     public void DespawnTank()
     {
         if (ControlledPawn)
         {
             if (ControlledPawn.IsSpawned)
             {
-                Debug.LogWarning("Test");
                 ControlledPawn.GameOver();
             }
         }

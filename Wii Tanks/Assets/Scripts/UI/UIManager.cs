@@ -29,6 +29,7 @@ public sealed class UIManager : NetworkBehaviour
                 case "Deathmatch":
                     Show<DeathmatchMainView>();
                     break;
+                case "Takedown":
                 case "Elimination":
                     Show<EliminationMainView>();
                     break;
@@ -41,6 +42,7 @@ public sealed class UIManager : NetworkBehaviour
                 case "Deathmatch":
                     Show<DeathmatchLobbyView>();
                     break;
+                case "Takedown":
                 case "Elimination":
                     Show<EliminationLobbyView>();
                     break;

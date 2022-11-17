@@ -5,7 +5,7 @@ using System.Collections;
 using UnityEngine;
 using FishNet.Object;
 
-public sealed class EliminationGameMode : GameMode
+public class EliminationGameMode : GameMode
 {
     //Each player will be added to the HashSet appropriote to their chosen team
 
@@ -138,7 +138,7 @@ public sealed class EliminationGameMode : GameMode
 
 
     [Server]
-    public void StartNewRound(GameManager gameManager)
+    protected virtual void StartNewRound(GameManager gameManager)
     {
         foreach (PlayerNetworking player in gameManager.players)
         {
