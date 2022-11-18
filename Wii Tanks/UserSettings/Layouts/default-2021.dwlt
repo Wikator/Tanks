@@ -2371,8 +2371,12 @@ MonoBehaviour:
     m_Image: {fileID: -5467254957812901981, guid: 0000000000000000d000000000000000, type: 0}
     m_Tooltip: 
   m_Pos:
+<<<<<<< Updated upstream
     serializedVersion: 2
     x: 1274
+=======
+    serializedVersion: 274
+>>>>>>> Stashed changes
     y: 951
     width: 883
     height: 392

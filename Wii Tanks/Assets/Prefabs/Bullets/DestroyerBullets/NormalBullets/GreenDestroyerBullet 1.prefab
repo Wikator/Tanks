@@ -337,7 +337,6 @@ MonoBehaviour:
   _networkObjectCache: {fileID: -8405391744002029082}
   moveSpeed: 22
   player: {fileID: 0}
-  rigidBody: {fileID: 0}
   isUnstoppable: 0
   chargeTimeToAdd: 0
   ricochetCount: 3
@@ -405,7 +404,7 @@ MonoBehaviour:
     Position: 1
     Rotation: 1
     Scale: 0
-  _interpolation: 2
+  _interpolation: 5
   _extrapolation: 2
   _enableTeleport: 1
   _teleportThreshold: 1
