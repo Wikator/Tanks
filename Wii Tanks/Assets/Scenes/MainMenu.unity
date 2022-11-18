@@ -473,11 +473,7 @@ MonoBehaviour:
   _latencySimulator:
     _enabled: 0
     _simulateHost: 0
-<<<<<<< Updated upstream
-    _latency: 30
-=======
     _latency: 20
->>>>>>> Stashed changes
     _outOfOrder: 0.14499999582767487
     _packetLoss: 0.22599999606609344
 --- !u!114 &780823214
