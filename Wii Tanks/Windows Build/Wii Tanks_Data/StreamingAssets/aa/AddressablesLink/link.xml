@@ -11,6 +11,7 @@
     <type fullname="PlayerNetworking" preserve="all" />
     <type fullname="ScoutBulletScript" preserve="all" />
     <type fullname="ScoutTank" preserve="all" />
+    <type fullname="StockBattleGameMode" preserve="all" />
     <type fullname="TakedownGameMode" preserve="all" />
     <type fullname="Tank/TankStats" preserve="nothing" serialized="true" />
   </assembly>

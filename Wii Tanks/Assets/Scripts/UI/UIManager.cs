@@ -29,6 +29,9 @@ public sealed class UIManager : NetworkBehaviour
                 case "Deathmatch":
                     Show<DeathmatchMainView>();
                     break;
+                case "StockBattle":
+                    Show<StockBattleMainView>();
+                    break;
                 case "Takedown":
                 case "Elimination":
                     Show<EliminationMainView>();
@@ -39,6 +42,7 @@ public sealed class UIManager : NetworkBehaviour
         {
             switch (gameMode)
             {
+                case "StockBattle":
                 case "Deathmatch":
                     Show<DeathmatchLobbyView>();
                     break;

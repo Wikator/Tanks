@@ -32,7 +32,7 @@ public sealed class NormalBulletScript : Bullet
             if (ricochetsLeft < 0)
             {
                 rigidBody.velocity = Vector3.zero;
-                Despawn();
+                StartCoroutine(DespawnItself());
             }
             else
             {
@@ -56,7 +56,7 @@ public sealed class NormalBulletScript : Bullet
                     {
                         player.superCharge += chargeTimeToAdd;
 
-                        if (GameManager.Instance.gameMode == "Deathmatch")
+                        if (GameManager.Instance.gameMode == "Deathmatch" || GameManager.Instance.gameMode == "StockBattle")
                         {
                             GameMode.Instance.PointScored(player.Color, 1);
                         }

@@ -32,7 +32,25 @@ public sealed class EndScreen : View
 
         foreach (string color in colors)
         {
-            leaderboardText.text = leaderboardText.text + color + ": " + GameMode.Instance.scores[color] + "\n";
+            leaderboardText.text += color + ": " + GameMode.Instance.scores[color] + "\n";
+        }
+
+        if (FindObjectOfType<StockBattleGameMode>())
+        {
+            PlayerNetworking winner = null;
+
+            foreach (PlayerNetworking player in GameManager.Instance.players)
+            {
+                if (!FindObjectOfType<StockBattleGameMode>().defeatedPlayers.Contains(player))
+                {
+                    winner = player;
+                    break;
+                }
+            }
+
+            leaderboardText.text += "\n";
+
+            leaderboardText.text += "Winner: " + winner.Color;
         }
     }
 }

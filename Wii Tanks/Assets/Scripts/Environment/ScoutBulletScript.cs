@@ -20,7 +20,7 @@ public sealed class ScoutBulletScript : Bullet
                 {
                     player.superCharge += chargeTimeToAdd;
 
-                    if (GameManager.Instance.gameMode == "Deathmatch")
+                    if (GameManager.Instance.gameMode == "Deathmatch" || GameManager.Instance.gameMode == "StockBattle")
                     {
                         GameMode.Instance.PointScored(player.Color, 1);
                     }

@@ -2,10 +2,9 @@ using System;
 using UnityEngine;
 using System.Collections;
 using FishNet.Object.Synchronizing;
-using FishNet.Managing.Logging;
 using FishNet.Object;
 
-public sealed class DeathmatchGameMode : GameMode
+public class DeathmatchGameMode : GameMode
 {
     private int spawnCount;
 

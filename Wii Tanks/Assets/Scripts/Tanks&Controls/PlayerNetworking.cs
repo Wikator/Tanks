@@ -100,26 +100,36 @@ public sealed class PlayerNetworking : NetworkBehaviour
             
         GameManager.Instance.players.Remove(this);
 
-        if (GameManager.Instance.gameMode == "Deathmatch" || !FindObjectOfType<EliminationGameMode>())
+        if (GameManager.Instance.gameMode == "Deathmatch")
             return;
 
+        
         EliminationGameMode eliminationGameMode = FindObjectOfType<EliminationGameMode>();
-
-        if (eliminationGameMode.greenTeam.Contains(this))
-        {
-            eliminationGameMode.greenTeam.Remove(this);
-        }
-
-        if (eliminationGameMode.redTeam.Contains(this))
-        {
-            eliminationGameMode.redTeam.Remove(this);
-        }
 
         if (eliminationGameMode)
         {
+            if (eliminationGameMode.greenTeam.Contains(this))
+            {
+                eliminationGameMode.greenTeam.Remove(this);
+            }
+
+            if (eliminationGameMode.redTeam.Contains(this))
+            {
+                eliminationGameMode.redTeam.Remove(this);
+            }
+
             eliminationGameMode.OnKilled(this);
         }
+        
+        StockBattleGameMode stockBattleGameMode = FindObjectOfType<StockBattleGameMode>();
 
+        if (stockBattleGameMode)
+        {
+            if (stockBattleGameMode.defeatedPlayers.Contains(this))
+            {
+                stockBattleGameMode.defeatedPlayers.Remove(this);
+            }
+        }
     }
 
     private void Update()

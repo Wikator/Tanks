@@ -253,6 +253,10 @@ MonoBehaviour:
     m_Address: TakedownManager
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 55e0d0ddf311ff84bbf8f26d4debc095
+    m_Address: StockBattleManager
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
   m_SchemaSet:

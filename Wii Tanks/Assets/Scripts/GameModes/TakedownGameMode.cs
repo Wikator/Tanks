@@ -1,6 +1,4 @@
-using FishNet.Object.Synchronizing;
 using System;
-using System.Linq;
 using System.Collections;
 using UnityEngine;
 using FishNet.Object;
