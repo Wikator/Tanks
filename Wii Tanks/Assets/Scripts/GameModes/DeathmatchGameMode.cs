@@ -15,6 +15,9 @@ public sealed class DeathmatchGameMode : GameMode
     [SerializeField]
     private int matchLength;
 
+    [SerializeField]
+    private float respawnTime;
+
 
     //Before start of the game, this script finds and saves all possible spawn points
 
@@ -65,7 +68,7 @@ public sealed class DeathmatchGameMode : GameMode
     [Server]
     public override void OnKilled(PlayerNetworking playerNetworking)
     {
-        StartCoroutine(Respawn(playerNetworking, 1.5f));
+        StartCoroutine(Respawn(playerNetworking, respawnTime));
         PointScored(playerNetworking.Color, -1);
     }
 

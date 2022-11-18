@@ -49,6 +49,7 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 8879372807245646093}
   _networkObjectCache: {fileID: 8879372807245646093}
   matchLength: 240
+  respawnTime: 1.5
 --- !u!114 &8879372807245646093
 MonoBehaviour:
   m_ObjectHideFlags: 0
