@@ -812,7 +812,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -2088,9 +2087,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c4f34ccfc919943abd3dca22819b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 4
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 11224236}
   ammoCountText: {fileID: 697863750}
   superBar: {fileID: 205581051}
@@ -2392,7 +2391,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &245223688
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2962,7 +2961,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -4194,7 +4192,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &460406865
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4331,7 +4329,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -4574,9 +4571,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21938d10b70b2394987cd90cc2ce80e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   toggleReadyButtonText: {fileID: 1757358711}
   playersReadyCountText: {fileID: 961085443}
   chosenTankTypeText: {fileID: 621394673}
@@ -4789,7 +4786,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -5661,7 +5657,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -5764,9 +5759,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2756c2416f7f68d48b2605064a9d237a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 1176298820}
   ammoCountText: {fileID: 2065937916}
   superBar: {fileID: 1596339667}
@@ -9329,9 +9324,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd3cfe5a6de67d42922482b42792d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 6
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   leaderboardText: {fileID: 960870169}
 --- !u!224 &876695622
 RectTransform:
@@ -9659,16 +9654,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
-  _networkBehaviours: []
+  _networkBehaviours:
+  - {fileID: 1465859096}
+  - {fileID: 479651371}
+  - {fileID: 1660308933}
+  - {fileID: 687528176}
+  - {fileID: 196571495}
+  - {fileID: 1465189912}
+  - {fileID: 876695621}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
   _defaultDespawnType: 0
@@ -9691,7 +9686,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -10610,7 +10604,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -11199,7 +11192,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -11842,7 +11834,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -12147,7 +12138,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -12542,7 +12532,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -13393,7 +13382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1223301430
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14306,7 +14295,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1296953903
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14515,7 +14504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1315704872
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14688,7 +14677,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -15039,7 +15027,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -15415,9 +15402,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1778d1240805cd46b01d649a106396b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 5
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 425740677}
   ammoCountText: {fileID: 1171827266}
   superBar: {fileID: 1879560095}
@@ -15477,8 +15464,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   deathmatchButton: {fileID: 1121017334}
   eliminationButton: {fileID: 155332623}
   takedownButton: {fileID: 1933258048}
@@ -15891,7 +15878,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -17095,9 +17081,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080cce53b16a21a4a98efe20c1d9ebf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   toggleReadyButtonText: {fileID: 287747091}
   playersReadyCountText: {fileID: 856142791}
   chosenTankTypeText: {fileID: 983447056}
@@ -17542,7 +17528,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -17949,7 +17934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1789303974
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19720,7 +19705,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}
@@ -21156,7 +21140,6 @@ MonoBehaviour:
   - {fileID: 1168345035}
   - {fileID: 1322204525}
   - {fileID: 1372799824}
-  - {fileID: 0}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1987924923}

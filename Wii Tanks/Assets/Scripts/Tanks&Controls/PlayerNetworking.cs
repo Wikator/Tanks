@@ -145,7 +145,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
         if (IsHost)
         {
             ServerManager.StopConnection(true);
-            ClientManager.StopConnection();
         }
         else
         {
