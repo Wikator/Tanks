@@ -28,7 +28,7 @@ public class ScoutTank : Tank
                 NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
                 bulletInstance.transform.SetParent(bulletEmpty);
                 bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-                bulletInstance.GetComponent<Bullet>().chargeTimeToAdd = stats.onKillSuperCharge;
+                bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
                 Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
                 Spawn(bulletInstance);
                 //bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
@@ -39,7 +39,7 @@ public class ScoutTank : Tank
                 GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
                 bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
                 bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-                bulletInstance.GetComponent<Bullet>().chargeTimeToAdd = stats.onKillSuperCharge;
+                bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
                 Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
                 Spawn(bulletInstance);
             }

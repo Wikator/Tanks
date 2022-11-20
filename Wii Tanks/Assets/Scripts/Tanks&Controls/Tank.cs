@@ -49,7 +49,7 @@ public abstract class Tank : NetworkBehaviour
     }
 
     [SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
-    protected bool canUseSuper = false;
+    protected bool canUseSuper;
 
     [SerializeField]
     private bool animateShader;
@@ -64,7 +64,7 @@ public abstract class Tank : NetworkBehaviour
     protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
 
     [HideInInspector]
-    protected GameObject bullet, pointer;
+    protected GameObject bullet;
 
     [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly)]
     protected int ammoCount;
@@ -116,10 +116,10 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        controller.enabled =  IsServer || IsOwner;
+        controller.enabled =  IsOwner;
         namePlate.text = controllingPlayer.PlayerUsername;
         raycastLayer = (1 << 9);
-        ChangeColours(controllingPlayer.Color);
+        ChangeColours(controllingPlayer.color);
 
         if (IsOwner)
             MainView.Instance.maxCharge = stats.requiredSuperCharge;
@@ -128,6 +128,7 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
+        controller.enabled = true;
         canUseSuper = false;
         gameModeManager = FindObjectOfType<GameMode>();
         bulletSpawn = turret.GetChild(0).GetChild(0);
@@ -137,6 +138,18 @@ public abstract class Tank : NetworkBehaviour
         muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
         ammoCount = stats.maxAmmo;
     }
+
+    public override void OnStopNetwork()
+    {
+        base.OnStopNetwork();
+
+        if (TimeManager)
+        {
+            SubscribeToTimeManager(false);
+        }
+    }
+
+
 
     [Client]
     public virtual void ChangeColours(string color)
@@ -165,20 +178,9 @@ public abstract class Tank : NetworkBehaviour
         explosionInstance.transform.SetParent(explosionEmpty);
         explosionInstance.transform.SetPositionAndRotation(transform.position, transform.rotation);
         Spawn(explosionInstance);
-        Despawn();
         controllingPlayer.ControlledPawn = null;
         gameModeManager.OnKilled(controllingPlayer);
-    }
-
-
-    public override void OnStopNetwork()
-    {
-        base.OnStopNetwork();
-
-        if (TimeManager)
-        {
-            SubscribeToTimeManager(false);
-        }
+        Despawn();
     }
 
 
@@ -217,9 +219,8 @@ public abstract class Tank : NetworkBehaviour
             NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
             bulletInstance.transform.SetParent(bulletEmpty);
             bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-            bulletInstance.GetComponent<Bullet>().chargeTimeToAdd = stats.onKillSuperCharge;
+            bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
             Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-            //bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
             Spawn(bulletInstance);
             bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
         }
@@ -227,7 +228,7 @@ public abstract class Tank : NetworkBehaviour
         {
             GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
             bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-            bulletInstance.GetComponent<Bullet>().chargeTimeToAdd = stats.onKillSuperCharge;
+            bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
             Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
             Spawn(bulletInstance);
         }
@@ -276,15 +277,13 @@ public abstract class Tank : NetworkBehaviour
         if (IsOwner)
         {
             Reconciliation(default, false);
-            GatherInputs(out MoveData data);
-            Move(data, false);
+            Move(GatherInputs(), false);
         }
 
         if (IsServer)
         {
             Move(default, true);
-            ReconcileData rd = new(transform.position, transform.rotation, turret.rotation);
-            Reconciliation(rd, true);
+            Reconciliation(new ReconcileData(transform.position, transform.rotation, turret.rotation), true);
 
             if (controllingPlayer.superCharge >= stats.requiredSuperCharge)
             {
@@ -299,14 +298,14 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
-    private void GatherInputs(out MoveData data)
+    private MoveData GatherInputs()
     {
         moveAxis = Input.GetAxis("Vertical");
         rotateAxis = Input.GetAxis("Horizontal");
 
         Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
 
-        data = new MoveData(moveAxis, rotateAxis, hit.point);
+        return new MoveData(moveAxis, rotateAxis, hit.point);
     }
 
 

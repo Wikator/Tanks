@@ -121,7 +121,6 @@ MonoBehaviour:
   moveSpeed: 13
   player: {fileID: 0}
   isUnstoppable: 0
-  chargeTimeToAdd: 0
   ricochetCount: 1
 --- !u!54 &-5833880829761614842
 Rigidbody:
@@ -162,7 +161,7 @@ MonoBehaviour:
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 40
+  <PrefabId>k__BackingField: 41
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 16184000349985061264

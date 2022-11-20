@@ -21,22 +21,15 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
 
 
-    [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
-    public string Color { get; [ServerRpc(RunLocally = true)] set; }
+    [SyncVar]
+    public string color;
 
-
-    //[field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
     public string TankType { get; [ServerRpc(RunLocally = true)] set; }
 
 
     [field: SyncVar(ReadPermissions = ReadPermission.ExcludeOwner)]
     public bool IsReady { get; [ServerRpc(RunLocally = true)] set; }
 
-
-
-
-    //[field: SyncObject(ReadPermissions = ReadPermission.OwnerOnly)]
-    //public SyncTimer SuperCharge { get; [ServerRpc(RunLocally = true)] set; }
 
     [SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
     public double superCharge;
@@ -73,7 +66,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         if (!IsOwner)
             return;
 
-        Color = "None";
+        color = "None";
         TankType = "None";
 
         Instance = this;
@@ -148,8 +141,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         }
         else
         {
-            if (IsClient)
-                ClientManager.StopConnection();
+            ClientManager.StopConnection();
         }
 
         if (IsOwner)
@@ -162,7 +154,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         if (TankType == "None")
             return;
 
-        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "Pawn").WaitForCompletion(), GameMode.Instance.FindSpawnPosition(Color), Quaternion.identity, transform);
+        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "Pawn").WaitForCompletion(), GameMode.Instance.FindSpawnPosition(color), Quaternion.identity, transform);
         ControlledPawn = playerInstance.GetComponent<Tank>();
         ControlledPawn.controllingPlayer = this;
         Spawn(playerInstance, Owner);
@@ -187,28 +179,39 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
 
     [ServerRpc]
-    public void SetTeams(string color)
+    public void SetTeam(string color)
     {
         EliminationGameMode eliminationGameMode = FindObjectOfType<EliminationGameMode>();
 
         switch (color)
         {
             case "Green":
-                if (eliminationGameMode.redTeam.Contains(this))
-                    eliminationGameMode.redTeam.Remove(this);
-
-                if (!eliminationGameMode.greenTeam.Contains(this))
+                if (!eliminationGameMode.greenTeam.Contains(this) && eliminationGameMode.greenTeam.Count < 3)
+                {
+                    if (eliminationGameMode.redTeam.Contains(this))
+                    {
+                        eliminationGameMode.redTeam.Remove(this);
+                    }
                     eliminationGameMode.greenTeam.Add(this);
+                    this.color = color;
+                }
                 break;
             case "Red":
-                if (eliminationGameMode.greenTeam.Contains(this))
-                    eliminationGameMode.greenTeam.Remove(this);
-
-                if (!eliminationGameMode.redTeam.Contains(this))
+                if (!eliminationGameMode.redTeam.Contains(this) && eliminationGameMode.redTeam.Count < 3)
+                {
+                    if (eliminationGameMode.greenTeam.Contains(this))
+                    {
+                        eliminationGameMode.greenTeam.Remove(this);
+                    }
                     eliminationGameMode.redTeam.Add(this);
+                    this.color = color;
+                }
                 break;
         }
     }
+
+    [ServerRpc]
+    public void SetColor(string color) => this.color = color;
 
 
 

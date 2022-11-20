@@ -39,7 +39,7 @@ public abstract class LobbyView : View
 
         toggleReadyButtonText.color = PlayerNetworking.Instance.IsReady ? Color.green : Color.red;
 
-        if (PlayerNetworking.Instance.Color == "None" || PlayerNetworking.Instance.TankType == "None")
+        if (PlayerNetworking.Instance.color == "None" || PlayerNetworking.Instance.TankType == "None")
         {
             toggleReadyButton.interactable = false;
         }

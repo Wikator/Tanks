@@ -40,8 +40,8 @@ public sealed class TakedownGameMode : EliminationGameMode
 
         base.OnKilled(playerNetworking);
 
-        StartCoroutine(Respawn(playerNetworking, respawnTime[playerNetworking.Color]));
-        respawnTime[playerNetworking.Color] *= 1.5f;
+        StartCoroutine(Respawn(playerNetworking, respawnTime[playerNetworking.color]));
+        respawnTime[playerNetworking.color] *= 1.5f;
     }
 
 

@@ -29,8 +29,7 @@ public sealed class EliminationLobbyView : LobbyView
 
         foreach (Button button in colorButtons)
         {
-            button.onClick.AddListener(() => PlayerNetworking.Instance.Color = button.name);
-            button.onClick.AddListener(() => PlayerNetworking.Instance.SetTeams(button.name));
+            button.onClick.AddListener(() => PlayerNetworking.Instance.SetTeam(button.name));
         }
 
         foreach (Button button in tankTypesButtons)
@@ -73,8 +72,7 @@ public sealed class EliminationLobbyView : LobbyView
                     redPlayerTags[i].gameObject.SetActive(false);
                 }
             }
-        }
-        
+        }  
     }
 }
 

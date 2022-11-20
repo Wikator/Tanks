@@ -26,7 +26,7 @@ public sealed class DeathmatchLobbyView : LobbyView
 
         foreach (Button button in colorButtons)
         {
-            button.onClick.AddListener(() => PlayerNetworking.Instance.Color = button.name);
+            button.onClick.AddListener(() => PlayerNetworking.Instance.SetColor(button.name));
         }
 
         foreach (Button button in tankTypesButtons)
@@ -53,13 +53,13 @@ public sealed class DeathmatchLobbyView : LobbyView
 
             foreach (PlayerNetworking player in GameManager.Instance.players)
             {
-                if (player.Color == button.name)
+                if (player.color == button.name)
                 {
                     button.gameObject.SetActive(false);
 
                     foreach (LobbyPlayerTag tag in playerTags)
                     {
-                        if (tag.color == player.Color)
+                        if (tag.color == player.color)
                         {
                             tag.gameObject.SetActive(true);
                             tag.steamID = player.PlayerSteamID;

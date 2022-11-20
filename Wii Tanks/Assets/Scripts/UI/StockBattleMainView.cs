@@ -19,7 +19,7 @@ public class StockBattleMainView : MainView
     {
         if (IsClient)
         {
-            lifeRemainingText.text = "Life: " + Convert.ToString(stockBattleGameMode.lifeRemaining[PlayerNetworking.Instance.Color]);
+            lifeRemainingText.text = "Life: " + Convert.ToString(stockBattleGameMode.lifeRemaining[PlayerNetworking.Instance.color]);
         }
     }
 }

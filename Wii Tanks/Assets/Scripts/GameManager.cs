@@ -9,13 +9,11 @@ public sealed class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    public string gameMode;
+
 
     [SyncObject]
     public readonly SyncList<PlayerNetworking> players = new();
-
-
-    //[SyncVar]
-    public string gameMode;
 
 
     [field: SyncVar]
@@ -33,9 +31,9 @@ public sealed class GameManager : NetworkBehaviour
         GameInProgress = false;
     }
 
-    public override void OnStartClient()
+    public override void OnStartServer()
     {
-        base.OnStartClient();
+        base.OnStartServer();
         gameMode = "None";
     }
 
@@ -68,10 +66,10 @@ public sealed class GameManager : NetworkBehaviour
     [Client]
     public int NumberOfReadyPlayers()
     {
-        int playersReady = 0;
-
         if (players.Count == 0)
             return 0;
+
+        int playersReady = 0;
 
         foreach (PlayerNetworking player in players)
         {
@@ -81,7 +79,7 @@ public sealed class GameManager : NetworkBehaviour
             }
         }
 
-        return (playersReady);
+        return playersReady;
     }
 
     [Server]

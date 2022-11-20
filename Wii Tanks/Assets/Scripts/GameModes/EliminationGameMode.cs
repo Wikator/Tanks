@@ -66,7 +66,7 @@ public class EliminationGameMode : GameMode
         if (waitingForNewRound || !GameManager.Instance.GameInProgress)
             return;
 
-        switch (playerNetworking.Color)
+        switch (playerNetworking.color)
         {
             case "Green":
                 if (greenTeam.All(player => !player.ControlledPawn) && greenTeam.Count != 0)

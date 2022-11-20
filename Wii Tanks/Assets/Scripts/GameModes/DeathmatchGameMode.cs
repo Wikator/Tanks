@@ -68,7 +68,7 @@ public class DeathmatchGameMode : GameMode
     public override void OnKilled(PlayerNetworking playerNetworking)
     {
         StartCoroutine(Respawn(playerNetworking, respawnTime));
-        PointScored(playerNetworking.Color, -1);
+        PointScored(playerNetworking.color, -1);
     }
 
 

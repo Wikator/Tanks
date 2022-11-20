@@ -62,9 +62,9 @@ public class StockBattleGameMode : GameMode
     [Server]
     public override void OnKilled(PlayerNetworking playerNetworking)
     {
-        lifeRemaining[playerNetworking.Color] -= 1;
+        lifeRemaining[playerNetworking.color] -= 1;
 
-        if (lifeRemaining[playerNetworking.Color] == 0)
+        if (lifeRemaining[playerNetworking.color] == 0)
         {
             defeatedPlayers.Add(playerNetworking);
 

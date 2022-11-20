@@ -18,11 +18,11 @@ public sealed class ScoutBulletScript : Bullet
             {
                 if (other.GetComponent<Tank>().controllingPlayer != player && other.GetComponent<Tank>().IsSpawned)
                 {
-                    player.superCharge += chargeTimeToAdd;
+                    player.superCharge += ChargeTimeToAdd;
 
                     if (GameManager.Instance.gameMode == "Deathmatch" || GameManager.Instance.gameMode == "StockBattle")
                     {
-                        GameMode.Instance.PointScored(player.Color, 1);
+                        GameMode.Instance.PointScored(player.color, 1);
                     }
 
                     other.GetComponent<Tank>().GameOver();

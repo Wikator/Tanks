@@ -54,11 +54,11 @@ public sealed class NormalBulletScript : Bullet
                 {
                     if (collision.gameObject != player.ControlledPawn.gameObject)
                     {
-                        player.superCharge += chargeTimeToAdd;
+                        player.superCharge += ChargeTimeToAdd;
 
                         if (GameManager.Instance.gameMode == "Deathmatch" || GameManager.Instance.gameMode == "StockBattle")
                         {
-                            GameMode.Instance.PointScored(player.Color, 1);
+                            GameMode.Instance.PointScored(player.color, 1);
                         }
                     }
                 }

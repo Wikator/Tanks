@@ -50,7 +50,7 @@ public sealed class EndScreen : View
 
             leaderboardText.text += "\n";
 
-            leaderboardText.text += "Winner: " + winner.Color;
+            leaderboardText.text += "Winner: " + winner.color;
         }
     }
 }
