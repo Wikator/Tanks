@@ -54,7 +54,7 @@ public abstract class Bullet : NetworkBehaviour
 
     //Bullet's stats are saved in the FixedUpdate, so that the bullet will not slow down after hitting the wall
 
-    [Server]
+    [Server(Logging = FishNet.Managing.Logging.LoggingType.Off)]
     private void FixedUpdate()
     {
         currentVelocity = rigidBody.velocity;

@@ -35,6 +35,9 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public double superCharge;
 
 
+    public bool ShowPlayerNames { get; private set; }
+
+
 
 
 
@@ -65,6 +68,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
         if (!IsOwner)
             return;
+
+        ShowPlayerNames = true;
 
         color = "None";
         TankType = "None";
@@ -125,11 +130,20 @@ public sealed class PlayerNetworking : NetworkBehaviour
         }
     }
 
+    [Client]
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && IsOwner)
+        if (IsOwner)
         {
-            DisconnectFromGame();
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                DisconnectFromGame();
+            }
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                ShowPlayerNames = !ShowPlayerNames;
+            }
         }
     }
 

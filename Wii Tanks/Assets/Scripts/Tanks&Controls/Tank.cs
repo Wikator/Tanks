@@ -116,7 +116,8 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        controller.enabled =  IsOwner;
+        Debug.Log(IsServer);
+        controller.enabled = IsServer || IsOwner;
         namePlate.text = controllingPlayer.PlayerUsername;
         raycastLayer = (1 << 9);
         ChangeColours(controllingPlayer.color);
@@ -128,7 +129,6 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-        controller.enabled = true;
         canUseSuper = false;
         gameModeManager = FindObjectOfType<GameMode>();
         bulletSpawn = turret.GetChild(0).GetChild(0);
@@ -190,9 +190,16 @@ public abstract class Tank : NetworkBehaviour
         if (!IsSpawned)
             return;
 
-        namePlate.transform.LookAt(cam.transform);
-
-        namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
+        if (PlayerNetworking.Instance.ShowPlayerNames)
+        {
+            namePlate.gameObject.SetActive(true);
+            namePlate.transform.LookAt(cam.transform);
+            namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
+        }
+        else
+        {
+            namePlate.gameObject.SetActive(false);
+        }
 
         if (!IsOwner || !GameManager.Instance.GameInProgress)
             return;
