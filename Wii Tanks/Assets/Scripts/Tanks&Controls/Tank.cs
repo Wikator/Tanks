@@ -136,6 +136,12 @@ public abstract class Tank : NetworkBehaviour
         explosionEmpty = GameObject.Find("Explosions").transform;
         muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
         ammoCount = stats.maxAmmo;
+
+        if (GameManager.Instance.gameMode == "Mayhem")
+        {
+            stats.requiredSuperCharge = 10;
+            controllingPlayer.superCharge = stats.requiredSuperCharge;
+        }
     }
 
     public override void OnStopNetwork()

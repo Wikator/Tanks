@@ -5,7 +5,7 @@ using FishNet.Object.Synchronizing;
 using FishNet.Object;
 using System.Collections.Generic;
 
-public class StockBattleGameMode : GameMode
+public sealed class StockBattleGameMode : GameMode
 {
     [SyncObject]
     public readonly SyncDictionary<string, int> lifeRemaining = new();
@@ -82,7 +82,7 @@ public class StockBattleGameMode : GameMode
 
     //This recursive method tried to find an avaible spawn
     //If none are avaible, StackOverflowException is cought, so the tank needs to spawn in random spawn regardless if it's avaible or not
-    //Color variable is unnecessary here, but still needs to be here because it's used by the abstract method
+    //Color variable is unnecessary, but still needs to be here because it's used by the abstract method
 
     [Server]
     public override Vector3 FindSpawnPosition(string color)
