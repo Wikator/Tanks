@@ -46,7 +46,7 @@ public sealed class EliminationLobbyView : LobbyView
 
     private void Update()
     {
-        if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
+        if (FindObjectOfType<EliminationGameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
         {
             for (int i = 0; i < 3; i++)
             {

@@ -10,6 +10,13 @@ public sealed class TakedownGameMode : EliminationGameMode
 
     private readonly Dictionary<string, float> respawnTime = new();
 
+
+    [SerializeField]
+    private float originalRespawnTime;
+    
+    [SerializeField]
+    private float respawnTimeMultiplier;
+
     public override void OnStartServer()
     {
         base.OnStartServer();
@@ -25,8 +32,8 @@ public sealed class TakedownGameMode : EliminationGameMode
             spawns["Respawn"][i] = respawnSpawnsParent.GetChild(i).transform;
         }
 
-        respawnTime["Green"] = 3f;
-        respawnTime["Red"] = 3f;
+        respawnTime["Green"] = originalRespawnTime;
+        respawnTime["Red"] = originalRespawnTime;
     }
 
     //When a team has no players left, the round ends, points are given, and a new round starts
@@ -41,7 +48,7 @@ public sealed class TakedownGameMode : EliminationGameMode
         base.OnKilled(playerNetworking);
 
         StartCoroutine(Respawn(playerNetworking, respawnTime[playerNetworking.color]));
-        respawnTime[playerNetworking.color] *= 1.5f;
+        respawnTime[playerNetworking.color] *= respawnTimeMultiplier;
     }
 
 
@@ -88,8 +95,8 @@ public sealed class TakedownGameMode : EliminationGameMode
         base.StartNewRound(gameManager);
 
         StopAllCoroutines();
-        respawnTime["Green"] = 3f;
-        respawnTime["Red"] = 3f;
+        respawnTime["Green"] = originalRespawnTime;
+        respawnTime["Red"] = originalRespawnTime;
     }
 
     private IEnumerator Respawn(PlayerNetworking controllingPLayer, float time)

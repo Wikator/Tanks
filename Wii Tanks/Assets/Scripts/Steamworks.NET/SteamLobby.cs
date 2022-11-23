@@ -38,10 +38,7 @@ public class SteamLobby : MonoBehaviour
     private void OnLobbyCreated(LobbyCreated_t callback)
     {
         if (callback.m_eResult != EResult.k_EResultOK)
-        {
-            Debug.LogWarning("Lobby creation failed!");
             return;
-        }
 
         LobbyID = new CSteamID(callback.m_ulSteamIDLobby);
 
@@ -51,8 +48,6 @@ public class SteamLobby : MonoBehaviour
 
         var username = SteamFriends.GetPersonaName();
         SteamMatchmaking.SetLobbyData(LobbyID, "name", $"{username}'s lobby");
-
-        Debug.Log("Hosted Lobby Successfully");
     }
 
     private void OnGameLobbyJoinRequested(GameLobbyJoinRequested_t callback)
@@ -66,7 +61,5 @@ public class SteamLobby : MonoBehaviour
         string hostAddress = SteamMatchmaking.GetLobbyData(LobbyID, HOST_ADDRESS_KEY);
 
         InstanceFinder.ClientManager.StartConnection(hostAddress);
-
-        Debug.Log("Connected to Lobby Successfully");
     }
 }

@@ -1,8 +1,5 @@
-using FishNet;
-using FishNet.Managing.Scened;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class GameMode : NetworkBehaviour

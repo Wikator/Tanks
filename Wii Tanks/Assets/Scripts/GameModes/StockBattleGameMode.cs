@@ -11,7 +11,7 @@ public class StockBattleGameMode : GameMode
     public readonly SyncDictionary<string, int> lifeRemaining = new();
 
     [HideInInspector]
-    public List<PlayerNetworking> defeatedPlayers = new();
+    public static List<PlayerNetworking> defeatedPlayers = new();
 
 
     private int spawnCount;

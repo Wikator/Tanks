@@ -41,7 +41,7 @@ public sealed class EndScreen : View
 
             foreach (PlayerNetworking player in GameManager.Instance.players)
             {
-                if (!FindObjectOfType<StockBattleGameMode>().defeatedPlayers.Contains(player))
+                if (!StockBattleGameMode.defeatedPlayers.Contains(player))
                 {
                     winner = player;
                     break;

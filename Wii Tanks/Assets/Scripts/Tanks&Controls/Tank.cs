@@ -48,14 +48,11 @@ public abstract class Tank : NetworkBehaviour
         public int onKillSuperCharge;
     }
 
-    [SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
-    protected bool canUseSuper;
+    [SerializeField]
+    protected TankStats stats;
 
     [SerializeField]
     private bool animateShader;
-
-    [SerializeField]
-    private TextMesh namePlate;
 
     [SerializeField]
     protected bool poolBullets;
@@ -65,6 +62,9 @@ public abstract class Tank : NetworkBehaviour
 
     [HideInInspector]
     protected GameObject bullet;
+
+    [SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
+    protected bool canUseSuper;
 
     [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly)]
     protected int ammoCount;
@@ -85,12 +85,11 @@ public abstract class Tank : NetworkBehaviour
     protected GameObject muzzleFlash;
     private Camera cam;
 
-    private LayerMask raycastLayer;
+    private TextMesh namePlate;
 
     protected Coroutine routine;
 
-    [SerializeField]
-    protected TankStats stats;
+    private LayerMask raycastLayer;
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     private void OnAmmoChange(int oldAmmo, int newAmmo, bool asServer)
@@ -116,8 +115,8 @@ public abstract class Tank : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        Debug.Log(IsServer);
         controller.enabled = IsServer || IsOwner;
+        namePlate = transform.GetChild(1).GetComponent<TextMesh>();
         namePlate.text = controllingPlayer.PlayerUsername;
         raycastLayer = (1 << 9);
         ChangeColours(controllingPlayer.color);
@@ -190,15 +189,18 @@ public abstract class Tank : NetworkBehaviour
         if (!IsSpawned)
             return;
 
-        if (PlayerNetworking.Instance.ShowPlayerNames)
+        if (namePlate)
         {
-            namePlate.gameObject.SetActive(true);
-            namePlate.transform.LookAt(cam.transform);
-            namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
-        }
-        else
-        {
-            namePlate.gameObject.SetActive(false);
+            if (PlayerNetworking.Instance.ShowPlayerNames)
+            {
+                namePlate.gameObject.SetActive(true);
+                namePlate.transform.LookAt(cam.transform);
+                namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
+            }
+            else
+            {
+                namePlate.gameObject.SetActive(false);
+            }
         }
 
         if (!IsOwner || !GameManager.Instance.GameInProgress)

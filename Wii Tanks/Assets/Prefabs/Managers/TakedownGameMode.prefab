@@ -96,3 +96,5 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 0}
   waitingForNewRound: 1
   pointsToWin: 5
+  originalRespawnTime: 3
+  respawnTimeMultiplier: 1.5

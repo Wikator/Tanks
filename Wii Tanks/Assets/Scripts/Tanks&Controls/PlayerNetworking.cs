@@ -118,14 +118,12 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
             eliminationGameMode.OnKilled(this);
         }
-        
-        StockBattleGameMode stockBattleGameMode = FindObjectOfType<StockBattleGameMode>();
 
-        if (stockBattleGameMode)
+        if (FindObjectOfType<StockBattleGameMode>())
         {
-            if (stockBattleGameMode.defeatedPlayers.Contains(this))
+            if (StockBattleGameMode.defeatedPlayers.Contains(this))
             {
-                stockBattleGameMode.defeatedPlayers.Remove(this);
+                StockBattleGameMode.defeatedPlayers.Remove(this);
             }
         }
     }
