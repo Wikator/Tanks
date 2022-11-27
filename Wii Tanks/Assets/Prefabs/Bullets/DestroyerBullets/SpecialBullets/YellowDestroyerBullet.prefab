@@ -121,7 +121,6 @@ MonoBehaviour:
   moveSpeed: 45
   player: {fileID: 0}
   isUnstoppable: 1
-  chargeTimeToAdd: 0
   ricochetCount: 8
 --- !u!54 &-5833880829761614842
 Rigidbody:
@@ -187,7 +186,7 @@ MonoBehaviour:
     Position: 1
     Rotation: 1
     Scale: 0
-  _interpolation: 6
+  _interpolation: 7
   _extrapolation: 2
   _enableTeleport: 1
   _teleportThreshold: 1

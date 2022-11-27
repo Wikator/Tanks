@@ -855,7 +855,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2515254716077868462}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.3173347}
+  m_LocalPosition: {x: 0, y: 0, z: 0.539}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1179,10 +1179,6 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 7392597686560367510}
   _networkObjectCache: {fileID: 7392597686560367510}
-  animateShader: 1
-  namePlate: {fileID: 4172510493872014141}
-  poolBullets: 0
-  controllingPlayer: {fileID: 0}
   stats:
     moveSpeed: 5
     rotateSpeed: 150
@@ -1191,6 +1187,11 @@ MonoBehaviour:
     maxAmmo: 5
     requiredSuperCharge: 150
     onKillSuperCharge: 15
+  animateShader: 1
+  poolBullets: 0
+  canUseSuper: 0
+  ammoCount: 0
+  controllingPlayer: {fileID: 0}
 --- !u!114 &7392597686560367510
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1470,6 +1471,8 @@ MonoBehaviour:
   _predictionType: 0
   _rigidbody: {fileID: 0}
   _rigidbody2d: {fileID: 0}
+  _spectatorSmoothPosition: 1
+  _spectatorSmoothRotation: 1
   _spectatorSmoothingDuration: 0.025
   _spectatorInterpolation: 1
   _overflowMultiplier: 0.1

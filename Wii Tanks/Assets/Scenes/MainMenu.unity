@@ -471,9 +471,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Transport: {fileID: 780823216}
   _latencySimulator:
-    _enabled: 0
+    _enabled: 1
     _simulateHost: 0
-    _latency: 20
+    _latency: 25
     _outOfOrder: 0.14499999582767487
     _packetLoss: 0.22599999606609344
 --- !u!114 &780823214

@@ -121,7 +121,6 @@ MonoBehaviour:
   moveSpeed: 22
   player: {fileID: 0}
   isUnstoppable: 0
-  chargeTimeToAdd: 0
   ricochetCount: 3
 --- !u!54 &-5833880829761614842
 Rigidbody:
@@ -162,7 +161,7 @@ MonoBehaviour:
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 35
+  <PrefabId>k__BackingField: 37
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 14129773408238125495
@@ -187,7 +186,7 @@ MonoBehaviour:
     Position: 1
     Rotation: 1
     Scale: 0
-  _interpolation: 6
+  _interpolation: 7
   _extrapolation: 2
   _enableTeleport: 1
   _teleportThreshold: 1
