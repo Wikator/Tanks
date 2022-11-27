@@ -4,7 +4,7 @@ A simple game I'm working on
 
 This project is being made using Unity Engine, using FishNetworking as its multiplayer solution
 
-Currently there are 2 modes, 4 maps, 3 tank types, and 6 player colors to choose from
+Currently there are 5 modes, 4 maps, 3 tank types, and 6 player colors to choose from
 
 ![Picture.png](Picture.png)
 
