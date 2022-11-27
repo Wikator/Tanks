@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using FishNet.Object;
+using FishNet.Connection;
 
 public abstract class MainView : View
 {
@@ -40,7 +41,8 @@ public abstract class MainView : View
     private void FixedUpdate()
     {
         superBar.value = (float)PlayerNetworking.Instance.superCharge / maxCharge;
-        if(Mathf.Clamp((float)PlayerNetworking.Instance.superCharge, 0f, maxCharge) == maxCharge)
+
+        if (Mathf.Clamp((float)PlayerNetworking.Instance.superCharge, 0f, maxCharge) == maxCharge)
         {
             superBar.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.green;
         }
@@ -48,5 +50,12 @@ public abstract class MainView : View
         {
             superBar.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.red;
         }
+    }
+
+
+    [TargetRpc]
+    public void SetMaxCharge(NetworkConnection networkConnection, float maxCharge)
+    {
+        this.maxCharge = maxCharge;
     }
 }

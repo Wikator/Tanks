@@ -9,7 +9,7 @@ public sealed class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-
+    [SyncVar]
     public string gameMode;
 
 

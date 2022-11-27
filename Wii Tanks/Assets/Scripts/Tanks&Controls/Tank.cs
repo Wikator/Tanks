@@ -63,7 +63,10 @@ public abstract class Tank : NetworkBehaviour
     [HideInInspector]
     protected GameObject bullet;
 
-    [SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
+    //[SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
+    //protected bool canUseSuper;
+
+    [SyncVar]
     protected bool canUseSuper;
 
     [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly)]
@@ -108,6 +111,13 @@ public abstract class Tank : NetworkBehaviour
         cam = Camera.main;
         controller = GetComponent<CharacterController>();
         turret = transform.GetChild(0).GetChild(0);
+
+        if (GameManager.Instance.gameMode == "Mayhem")
+        {
+            stats.requiredSuperCharge = 10;
+            controllingPlayer.superCharge = stats.requiredSuperCharge;
+        }
+
         SubscribeToTimeManager(true);
     }
 
@@ -122,7 +132,9 @@ public abstract class Tank : NetworkBehaviour
         ChangeColours(controllingPlayer.color);
 
         if (IsOwner)
+        {
             MainView.Instance.maxCharge = stats.requiredSuperCharge;
+        }
     }
 
     public override void OnStartServer()
@@ -136,12 +148,6 @@ public abstract class Tank : NetworkBehaviour
         explosionEmpty = GameObject.Find("Explosions").transform;
         muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
         ammoCount = stats.maxAmmo;
-
-        if (GameManager.Instance.gameMode == "Mayhem")
-        {
-            stats.requiredSuperCharge = 10;
-            controllingPlayer.superCharge = stats.requiredSuperCharge;
-        }
     }
 
     public override void OnStopNetwork()
@@ -202,6 +208,15 @@ public abstract class Tank : NetworkBehaviour
                 namePlate.gameObject.SetActive(true);
                 namePlate.transform.LookAt(cam.transform);
                 namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
+
+                if (canUseSuper)
+                {
+                    namePlate.color = Color.green;
+                }
+                else
+                {
+                    namePlate.color = Color.white;
+                }
             }
             else
             {
