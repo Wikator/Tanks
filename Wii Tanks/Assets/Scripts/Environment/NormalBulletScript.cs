@@ -56,7 +56,7 @@ public sealed class NormalBulletScript : Bullet
                     {
                         player.superCharge += ChargeTimeToAdd;
 
-                        if (GameManager.Instance.gameMode == "Deathmatch" || GameManager.Instance.gameMode == "StockBattle")
+                        if (GameManager.Instance.gameMode == "Deathmatch" || GameManager.Instance.gameMode == "StockBattle" || GameManager.Instance.gameMode == "Mayhem")
                         {
                             GameMode.Instance.PointScored(player.color, 1);
                         }
