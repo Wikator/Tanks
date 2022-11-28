@@ -14,7 +14,7 @@ public sealed class GameManager : NetworkBehaviour
 
 
     [SyncObject]
-    public readonly SyncList<PlayerNetworking> players = new();
+    public readonly SyncHashSet<PlayerNetworking> players = new();
 
 
     [field: SyncVar]

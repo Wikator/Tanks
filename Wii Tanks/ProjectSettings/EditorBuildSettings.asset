@@ -10,7 +10,7 @@ EditorBuildSettings:
     guid: 75b33f195b013694eb3d7859fb7e91a0
   - enabled: 1
     path: Assets/Scenes/MapSelection.unity
-    guid: dd7f37d261dc3e441afdacd8d21de02d
+    guid: 1094fb8b4cb2b8148b8f244fce643309
   - enabled: 1
     path: Assets/Scenes/Arena1.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab

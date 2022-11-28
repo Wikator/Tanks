@@ -188,7 +188,7 @@ MonoBehaviour:
     Scale: 0
   _interpolation: 7
   _extrapolation: 2
-  _enableTeleport: 1
+  _enableTeleport: 0
   _teleportThreshold: 1
   _clientAuthoritative: 0
   _sendToOwner: 0

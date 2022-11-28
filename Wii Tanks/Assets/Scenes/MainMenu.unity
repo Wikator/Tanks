@@ -473,7 +473,7 @@ MonoBehaviour:
   _latencySimulator:
     _enabled: 1
     _simulateHost: 0
-    _latency: 25
+    _latency: 28
     _outOfOrder: 0.14499999582767487
     _packetLoss: 0.22599999606609344
 --- !u!114 &780823214
