@@ -7,20 +7,6 @@ public sealed class EndScreen : View
     [SerializeField]
     private TextMeshProUGUI leaderboardText;
 
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-
-        foreach (PlayerNetworking player in GameManager.Instance.players)
-        {
-            if (player.ControlledPawn)
-            {
-                player.ControlledPawn.Despawn();
-            }
-        }
-    }
-
     private void OnEnable()
     {
         SetText();

@@ -1,11 +1,9 @@
 using FishNet;
-using FishNet.Managing.Scened;
-using FishNet.Object;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ArenaSelectionScene : NetworkBehaviour
+public class ArenaSelectionScene : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] allArenasArray = new GameObject[5];
@@ -21,6 +19,9 @@ public class ArenaSelectionScene : NetworkBehaviour
 
     [SerializeField]
     private float rotateSpeed;
+
+    [SerializeField]
+    private bool testLocally;
 
 
     private void Start()
@@ -47,7 +48,7 @@ public class ArenaSelectionScene : NetworkBehaviour
 
     private void Update()
     {
-        if (rotating || !InstanceFinder.IsHost)
+        if (rotating)
             return;
 
 
@@ -131,59 +132,58 @@ public class ArenaSelectionScene : NetworkBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            foreach (GameObject arena in allArenasArray)
+            FindObjectOfType<DefaultScene>().SetOnlineScene(ChosenArena());
+
+            if (testLocally)
             {
-                if (arena.transform.position == Vector3.zero)
-                {
-                    LoadScene(arena.name);
-                }
+                InstanceFinder.ServerManager.StartConnection();
+                InstanceFinder.ClientManager.StartConnection();
             }
-        }
-    }
+            else
+            {
+                FindObjectOfType<SteamLobby>().HostLobby();
+            }
+		}
+	}
+
 
 
     private void FixedUpdate()
     {
         if (rotating)
         {
-            foreach (GameObject arena in allArenasArray)
-            {
-                arena.transform.position = Vector3.MoveTowards(arena.transform.position, allArenasDictionary[arena], rotateSpeed);
+            MoveAllArenas();		
+		}
+	}
 
-                if (arena.transform.position == allArenasDictionary[arena])
-                {
-                    arena.transform.position = allArenasDictionary[arena];
 
-                    rotating = false;
-                }
-            }
-        }
-    }
 
-    [ServerRpc(RequireOwnership = false)]
-    private void LoadScene(string sceneName)
-    {
-        List<NetworkObject> movedObjects = new();
+	private void MoveAllArenas()
+	{
+		foreach (GameObject arena in allArenasArray)
+		{
+			arena.transform.position = Vector3.MoveTowards(arena.transform.position, allArenasDictionary[arena], rotateSpeed);
 
-        foreach (PlayerNetworking player in GameManager.Instance.players)
-        {
-            movedObjects.Add(player.gameObject.GetComponent<NetworkObject>());
-        }
+			if (arena.transform.position == allArenasDictionary[arena])
+			{
+				arena.transform.position = allArenasDictionary[arena];
 
-        movedObjects.Add(GameManager.Instance.gameObject.GetComponent<NetworkObject>());
+				rotating = false;
+			}
+		}
+	}
 
-        LoadOptions loadOptions = new()
-        {
-            AutomaticallyUnload = true,
-        };
 
-        SceneLoadData sld = new(sceneName)
-        {
-            MovedNetworkObjects = movedObjects.ToArray(),
-            ReplaceScenes = ReplaceOption.All,
-            Options = loadOptions
-        };
+	private string ChosenArena()
+	{
+		foreach (GameObject arena in allArenasArray)
+		{
+			if (arena.transform.position == Vector3.zero)
+			{
+				return arena.name;
+			}
+		}
 
-        InstanceFinder.SceneManager.LoadGlobalScenes(sld);
-    }
+		return null;
+	}
 }

@@ -1,11 +1,10 @@
 using FishNet;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public sealed class Menu : MonoBehaviour
 {
-    private SteamLobby steamLobby;
-
     [SerializeField]
     private bool testLocally;
 
@@ -21,18 +20,14 @@ public sealed class Menu : MonoBehaviour
     //With a PlayFlow dedicated server active, hostButton should be disabled
 
     private void Awake()
-    {
-        steamLobby = FindObjectOfType<SteamLobby>();
-
+    {       
         if (testLocally)
         {
-            hostButton.onClick.AddListener(() => InstanceFinder.ServerManager.StartConnection());
-            hostButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
-            connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
+			connectButton.gameObject.SetActive(true);
+			
+			connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
         }
-        else
-        {
-            hostButton.onClick.AddListener(steamLobby.HostLobby);
-        }
+
+        hostButton.onClick.AddListener(() => SceneManager.LoadScene("MapSelection"));
     }
 }

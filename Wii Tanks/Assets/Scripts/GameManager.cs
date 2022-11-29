@@ -28,7 +28,6 @@ public sealed class GameManager : NetworkBehaviour
     private void Awake()
     {
         Instance = this;
-        InstanceFinder.SceneManager.OnLoadEnd += OnSceneLoaded;
         GameInProgress = false;
     }
 
@@ -36,7 +35,9 @@ public sealed class GameManager : NetworkBehaviour
     {
         base.OnStartServer();
         gameMode = "None";
-    }
+
+		UIManager.Instance.SetUpAllUI(false, gameMode);
+	}
 
 
     private void OnDestroy()
@@ -49,18 +50,6 @@ public sealed class GameManager : NetworkBehaviour
     public void Update()
     {
         CanStart = players.All(player => player.IsReady);
-    }
-
-
-    private void OnSceneLoaded(SceneLoadEndEventArgs args)
-    {
-        if (!args.QueueData.AsServer)
-            return;
-
-        if (args.LoadedScenes[0].name != "MapSelection" && args.LoadedScenes[0].name != "EndScreen")
-        {
-            UIManager.Instance.SetUpAllUI(GameInProgress, gameMode);
-        }
     }
 
 

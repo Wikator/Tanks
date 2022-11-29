@@ -31,7 +31,7 @@ public sealed class GameModesView : View
 
         base.Init();
 
-        deathmatchButton.onClick.AddListener(() => ChangeGameMode("Deathmatch"));
+		deathmatchButton.onClick.AddListener(() => ChangeGameMode("Deathmatch"));
 
         eliminationButton.onClick.AddListener(() => ChangeGameMode("Elimination"));
 
