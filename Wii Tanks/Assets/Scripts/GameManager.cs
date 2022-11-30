@@ -1,9 +1,9 @@
 using FishNet;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using FishNet.Managing.Scened;
 using FishNet.Managing.Logging;
 using System.Linq;
+using UnityEngine;
 
 public sealed class GameManager : NetworkBehaviour
 {
@@ -25,11 +25,21 @@ public sealed class GameManager : NetworkBehaviour
     public bool CanStart { get; private set; }
 
 
-    private void Awake()
+    [SerializeField]
+    private bool animateBackground;
+
+
+	private void Awake()
     {
         Instance = this;
         GameInProgress = false;
-    }
+
+
+		if (!animateBackground)
+		{
+			Destroy(GameObject.Find("Plane"));
+		}
+	}
 
     public override void OnStartServer()
     {

@@ -49,9 +49,10 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 8389937073475334881}
   _networkObjectCache: {fileID: 8389937073475334881}
-  canStart: 0
-  gameInProgress: 0
   gameMode: None
+  <GameInProgress>k__BackingField: 0
+  <CanStart>k__BackingField: 0
+  animateBackground: 1
 --- !u!114 &8389937073475334881
 MonoBehaviour:
   m_ObjectHideFlags: 0

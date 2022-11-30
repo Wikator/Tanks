@@ -1,21 +1,26 @@
 using FishNet;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class ArenaSelectionScene : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] allArenasArray = new GameObject[5];
 
+    [SerializeField]
+	[ColorUsage(hdr: true, showAlpha: true)]
+    private Color[] backgroundColors = new Color[5];
+
+    [SerializeField]
+    [ColorUsage(hdr: true, showAlpha: true)]
+    private Color oldColor;
+
     private readonly Dictionary<GameObject, Vector3> allArenasDictionary = new();
 
     private bool rotating;
 
     private readonly Vector3[] arenaPositions = new Vector3[7];
-
-    [SerializeField]
-    private Button inviteButton;
+	
 
     [SerializeField]
     private float rotateSpeed;
@@ -23,11 +28,13 @@ public class ArenaSelectionScene : MonoBehaviour
     [SerializeField]
     private bool testLocally;
 
+    private Renderer backgroundRenderer;
+
+    public float lerpValue;
+
 
     private void Start()
     {
-        inviteButton.onClick.AddListener(() => Steamworks.SteamFriends.ActivateGameOverlayInviteDialog(SteamLobby.LobbyID));
-
         rotating = false;
 
         arenaPositions[0] = new Vector3(-345, -105, 210);
@@ -42,7 +49,9 @@ public class ArenaSelectionScene : MonoBehaviour
         {
             allArenasDictionary[allArenasArray[i]] = allArenasArray[i].transform.position;
         }
-    }
+
+		backgroundRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
+	}
 
 
 
@@ -56,7 +65,11 @@ public class ArenaSelectionScene : MonoBehaviour
         {
             rotating = true;
 
-            for (int i = 0; i < 6; i++)
+            lerpValue = 1 / 56f;
+
+            oldColor = backgroundRenderer.material.color;
+
+			for (int i = 0; i < 6; i++)
             {
                 foreach (GameObject arena in allArenasArray)
                 {
@@ -95,7 +108,11 @@ public class ArenaSelectionScene : MonoBehaviour
         {
             rotating = true;
 
-            for (int i = 6; i > 0; i--)
+            lerpValue = 0f;
+
+			oldColor = backgroundRenderer.material.color;
+
+			for (int i = 6; i > 0; i--)
             {
                 foreach (GameObject arena in allArenasArray)
                 {
@@ -147,17 +164,28 @@ public class ArenaSelectionScene : MonoBehaviour
 	}
 
 
-
     private void FixedUpdate()
     {
         if (rotating)
         {
-            MoveAllArenas();		
+            MoveAllArenas();
+
+			// Slowly change back ground color to the color in array of same index as an arena that has a value in dictionary as vector3.zero
+			for (int i = 0; i < 5; i++)
+			{
+				if (allArenasDictionary[allArenasArray[i]] == Vector3.zero)
+				{
+					backgroundRenderer.material.color = Color.Lerp(oldColor, backgroundColors[i], lerpValue);
+					lerpValue += 1 / 56f;
+					break;
+				}
+			}
 		}
 	}
 
 
 
+	
 	private void MoveAllArenas()
 	{
 		foreach (GameObject arena in allArenasArray)

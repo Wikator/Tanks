@@ -147,17 +147,22 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
     private void DisconnectFromGame()
     {
+
+        if (!IsOwner)
+            return;
+		
+		
+        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
+
         if (IsHost)
         {
+            ClientManager.StopConnection();
             ServerManager.StopConnection(true);
         }
         else
         {
             ClientManager.StopConnection();
         }
-
-        if (IsOwner)
-            SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
     }
 
     [Server]
@@ -233,4 +238,15 @@ public sealed class PlayerNetworking : NetworkBehaviour
         PlayerSteamID = steamID;
         PlayerUsername = SteamFriends.GetFriendPersonaName((CSteamID)steamID);
     }
+
+	
+
+	[ServerRpc]
+	public void SetTankType(string tankType) => TankType = tankType;
+
+	[ServerRpc]
+	public void SetReady(bool isReady) => IsReady = isReady;
+
+	[ServerRpc]
+	public void SetSuperCharge(double superCharge) => this.superCharge = superCharge;
 }

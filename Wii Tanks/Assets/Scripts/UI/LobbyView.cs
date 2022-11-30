@@ -2,6 +2,8 @@ using System;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using Steamworks;
+
 
 public abstract class LobbyView : View
 {
@@ -17,6 +19,9 @@ public abstract class LobbyView : View
     [SerializeField]
     protected Button startGameButton;
 
+    [SerializeField]
+    private Button inviteButton;
+
 
     private void Awake()
     {
@@ -26,12 +31,19 @@ public abstract class LobbyView : View
         startGameButton.interactable = false;
     }
 
+	public override void Init()
+	{
+		base.Init();
 
-    //Each player will have to choose a color and tank type, thanks to the subclasses EliminationLobbyView and DeathmatchLobbyView
-    //Only when both are chosen toggleReadyButton will become interactable
-    //Once all players are ready, startGameButton will become interactable
+		inviteButton.onClick.AddListener(() => SteamFriends.ActivateGameOverlayInviteDialog(SteamLobby.LobbyID));
+	}
 
-    private void LateUpdate()
+
+	//Each player will have to choose a color and tank type, thanks to the subclasses EliminationLobbyView and DeathmatchLobbyView
+	//Only when both are chosen toggleReadyButton will become interactable
+	//Once all players are ready, startGameButton will become interactable
+
+	private void LateUpdate()
     {
         if (!Initialized)
             return;
