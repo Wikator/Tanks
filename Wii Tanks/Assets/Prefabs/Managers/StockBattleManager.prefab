@@ -48,9 +48,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 8879372807245646093}
   _networkObjectCache: {fileID: 8879372807245646093}
-  defeatedPlayers: []
   respawnTime: 4
-  playerLife: 2
+  playerLife: 7
 --- !u!114 &8879372807245646093
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -142,7 +142,12 @@ public sealed class PlayerNetworking : NetworkBehaviour
             {
                 ShowPlayerNames = !ShowPlayerNames;
             }
-        }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+        }	
     }
 
     private void DisconnectFromGame()

@@ -30,10 +30,10 @@ public class ArenaSelectionScene : MonoBehaviour
 
     private Renderer backgroundRenderer;
 
-    public float lerpValue;
+    private float lerpValue;
 
 
-    private void Start()
+	private void Start()
     {
         rotating = false;
 
