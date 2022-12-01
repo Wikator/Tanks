@@ -156,8 +156,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
         if (!IsOwner)
             return;
 		
-		
-        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
 
         if (IsHost)
         {
@@ -168,6 +166,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
         {
             ClientManager.StopConnection();
         }
+
+        SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
     }
 
     [Server]
