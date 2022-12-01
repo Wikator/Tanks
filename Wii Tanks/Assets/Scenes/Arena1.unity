@@ -378,6 +378,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &65033751
 MonoBehaviour:
@@ -610,8 +611,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 87989897}
   m_LocalRotation: {x: -0.34484765, y: 0, z: 0, w: 0.9386587}
-  m_LocalPosition: {x: 0, y: -152, z: 129}
-  m_LocalScale: {x: 75, y: 75, z: 75}
+  m_LocalPosition: {x: 0, y: -23, z: 19.3}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -3019,6 +3020,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!1 &325790651
 GameObject:
@@ -5004,6 +5006,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &461069330
 MonoBehaviour:
@@ -5853,6 +5856,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &542391662
 MonoBehaviour:
@@ -7507,7 +7511,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh168680
+  m_Name: pb_Mesh173662
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -7742,6 +7746,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &675665449
 MonoBehaviour:
@@ -11898,6 +11903,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!1 &920511574
 GameObject:
@@ -12949,6 +12955,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &964500172
 MonoBehaviour:
@@ -13448,6 +13455,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!54 &1037496800
 Rigidbody:
@@ -13687,6 +13695,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &1096226578
 MonoBehaviour:
@@ -13961,6 +13970,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &1142779258
 MonoBehaviour:
@@ -14594,6 +14604,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &1168345036
 MonoBehaviour:
@@ -16197,6 +16208,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &1322204526
 MonoBehaviour:
@@ -16869,6 +16881,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &1372799825
 MonoBehaviour:
@@ -18129,6 +18142,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!54 &1516522468
 Rigidbody:
@@ -20028,6 +20042,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &1724315283
 MonoBehaviour:
@@ -21193,6 +21208,7 @@ GameObject:
   - component: {fileID: 1908877509}
   - component: {fileID: 1908877508}
   - component: {fileID: 1908877507}
+  - component: {fileID: 1908877512}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -21403,6 +21419,49 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 40.345, y: 0, z: 0}
+--- !u!114 &1908877512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908877506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  _networkBehaviours: []
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
+  _isNetworked: 1
+  _isGlobal: 0
+  _defaultDespawnType: 0
+  NetworkObserver: {fileID: 0}
+  <PrefabId>k__BackingField: -1
+  _scenePathHash: 1946476478
+  <SceneId>k__BackingField: 8360052819329795184
+  <AssetPathHash>k__BackingField: 0
+  _sceneNetworkObjects:
+  - {fileID: 65033750}
+  - {fileID: 301616680}
+  - {fileID: 461069329}
+  - {fileID: 542391661}
+  - {fileID: 675665448}
+  - {fileID: 913320639}
+  - {fileID: 964500171}
+  - {fileID: 1037496799}
+  - {fileID: 1096226577}
+  - {fileID: 1142779257}
+  - {fileID: 1168345035}
+  - {fileID: 1322204525}
+  - {fileID: 1372799824}
+  - {fileID: 1516522467}
+  - {fileID: 1724315282}
+  - {fileID: 1908877512}
+  - {fileID: 1987924923}
 --- !u!1 &1914371970
 GameObject:
   m_ObjectHideFlags: 0
@@ -22093,6 +22152,7 @@ MonoBehaviour:
   - {fileID: 1372799824}
   - {fileID: 1516522467}
   - {fileID: 1724315282}
+  - {fileID: 1908877512}
   - {fileID: 1987924923}
 --- !u!114 &1987924924
 MonoBehaviour:
