@@ -5,6 +5,7 @@ using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.Rendering.HighDefinition;
 
 public abstract class Tank : NetworkBehaviour
 {
@@ -78,6 +79,7 @@ public abstract class Tank : NetworkBehaviour
 
     private float moveAxis;
     private float rotateAxis;
+    
 
     private bool isSubscribed = false;
 
@@ -87,6 +89,7 @@ public abstract class Tank : NetworkBehaviour
     private GameObject explosion;
     protected GameObject muzzleFlash;
     private Camera cam;
+    private Material tankMaterial, turretMaterial;
 
     private TextMesh namePlate;
 
@@ -161,27 +164,7 @@ public abstract class Tank : NetworkBehaviour
     }
 
 
-
-    [Client]
-    public virtual void ChangeColours(string color)
-    {
-        if (animateShader)
-        {
-            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-            gameObject.GetComponent<Light>().color = transform.GetChild(0).GetComponent<MeshRenderer>().material.GetColor("_Color01");
-        }
-        else
-        {
-            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
-            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
-        }
-        explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
-        muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
-    }
-
-
-    [Server]
+        [Server]
     public void GameOver()
     {
         ammoCount = 0;
@@ -200,6 +183,7 @@ public abstract class Tank : NetworkBehaviour
     {
         if (!IsSpawned)
             return;
+
 
         if (namePlate)
         {
@@ -237,6 +221,17 @@ public abstract class Tank : NetworkBehaviour
             SpecialMove();
         }
     }
+
+
+	[Client]
+	private void FixedUpdate()
+	{
+
+		if (!IsSpawned || !tankMaterial || !turretMaterial)
+			return;
+
+        SpawnAnimation();
+	}
 
     [ServerRpc]
     protected virtual void Fire()
@@ -366,6 +361,65 @@ public abstract class Tank : NetworkBehaviour
 
         turret.rotation = data.TurretRotation;
     }
+
+
+
+
+    [Client]
+    public virtual void ChangeColours(string color)
+    {
+        if (animateShader)
+        {
+            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
+            tankMaterial = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
+            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
+            turretMaterial = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
+            gameObject.GetComponent<HDAdditionalLightData>().color = tankMaterial.GetColor("_Color01");
+            gameObject.GetComponent<HDAdditionalLightData>().intensity = 0f;
+            tankMaterial.SetFloat("_CurrentAppearence", 0.34f);
+            turretMaterial.SetFloat("_CurrentAppearence", 0.3f);
+            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
+            turret.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
+        }
+        else
+        {
+            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
+            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
+        }
+        explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
+        muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
+    }
+
+    [Client]
+    private void SpawnAnimation()
+    {
+        if (turretMaterial.GetFloat("_CurrentAppearence") > -0.3f)
+        {
+            if (tankMaterial.GetFloat("_CurrentAppearence") > -0f)
+            {
+                tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - 0.01f);
+            }
+            else
+            {
+                if (tankMaterial.GetFloat("_CurrentAppearence") > -0.3f)
+                {
+                    turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - 0.01f);
+                    tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - 0.01f);
+                }
+                else
+                {
+                    turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - 0.01f);
+                }
+            }
+        }
+
+		if (gameObject.GetComponent<HDAdditionalLightData>().intensity < 0.15f)
+		{
+			gameObject.GetComponent<HDAdditionalLightData>().intensity += 0.003f;
+		}
+    }
+
+	
 
     private void SubscribeToTimeManager(bool subscribe)
     {

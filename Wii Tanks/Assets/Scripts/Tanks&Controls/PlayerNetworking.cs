@@ -168,7 +168,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         }
 
         SteamMatchmaking.LeaveLobby(SteamLobby.LobbyID);
-    }
+	}
 
     [Server]
     public void SpawnTank()
@@ -195,8 +195,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
             }
         }
     }
-    
-
+	
+	
     //Methods that are called when in the lobby, when choosing colors, teams etc.
 
 

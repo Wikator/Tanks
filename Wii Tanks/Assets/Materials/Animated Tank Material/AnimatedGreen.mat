@@ -201,6 +201,7 @@ Material:
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 0
     - _CullModeForward: 0
+    - _CurrentAppearence: 0.8
     - _Cutoff: 0.5
     - _DecalColorMask0: 15
     - _DecalColorMask1: 15
@@ -323,7 +324,7 @@ Material:
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 1}
     - _Color01: {r: 0.4172561, g: 5.041486, b: 0, a: 0}
-    - _Color02: {r: 0, g: 10.003338, b: 0.8322823, a: 1}
+    - _Color02: {r: 0, g: 13.355241, b: 0.023285598, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

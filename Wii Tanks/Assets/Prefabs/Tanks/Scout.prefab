@@ -118,10 +118,6 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 5934193943603683480}
   _networkObjectCache: {fileID: 5934193943603683480}
-  animateShader: 1
-  namePlate: {fileID: 1771862346876275753}
-  poolBullets: 0
-  controllingPlayer: {fileID: 0}
   stats:
     moveSpeed: 6.5
     rotateSpeed: 200
@@ -130,6 +126,11 @@ MonoBehaviour:
     maxAmmo: 2
     requiredSuperCharge: 100
     onKillSuperCharge: 8
+  animateShader: 1
+  poolBullets: 0
+  canUseSuper: 0
+  ammoCount: 0
+  controllingPlayer: {fileID: 0}
   fastModeStats:
     moveSpeed: 10
     rotateSpeed: 300
@@ -157,6 +158,7 @@ MonoBehaviour:
   _networkBehaviours:
   - {fileID: -4450608807010333337}
   - {fileID: 5917894747852750349}
+  - {fileID: 7386396111392364836}
   - {fileID: 3959685331348714482}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
@@ -409,9 +411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402926ef33e0a894d9fec352693988ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 255
+  _componentIndexCache: 2
   _addedNetworkObject: {fileID: 5934193943603683480}
-  _networkObjectCache: {fileID: 0}
+  _networkObjectCache: {fileID: 5934193943603683480}
   _graphicalObject: {fileID: 4902180302580971272}
   _enableTeleport: 0
   _teleportThreshold: 1
@@ -419,6 +421,8 @@ MonoBehaviour:
   _predictionType: 0
   _rigidbody: {fileID: 0}
   _rigidbody2d: {fileID: 0}
+  _spectatorSmoothPosition: 1
+  _spectatorSmoothRotation: 1
   _spectatorSmoothingDuration: 0.025
   _spectatorInterpolation: 1
   _overflowMultiplier: 0.1
@@ -713,7 +717,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2431325994553910532}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1699,7 +1703,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7741647899709150957}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1787,7 +1791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 2
+  _componentIndexCache: 3
   _addedNetworkObject: {fileID: 5934193943603683480}
   _networkObjectCache: {fileID: 5934193943603683480}
   _synchronizeParent: 0
