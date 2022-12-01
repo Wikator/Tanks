@@ -1031,8 +1031,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 3
-  _addedNetworkObject: {fileID: 1898037711}
-  _networkObjectCache: {fileID: 1898037711}
+  _addedNetworkObject: {fileID: 1898037715}
+  _networkObjectCache: {fileID: 1898037715}
   toggleReadyButtonText: {fileID: 1024292145}
   playersReadyCountText: {fileID: 1496463615}
   chosenTankTypeText: {fileID: 205241224}
@@ -1403,6 +1403,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678125250255687
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -1419,7 +1420,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &65033751
@@ -1632,8 +1632,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 7
-  _addedNetworkObject: {fileID: 1898037711}
-  _networkObjectCache: {fileID: 1898037711}
+  _addedNetworkObject: {fileID: 1898037715}
+  _networkObjectCache: {fileID: 1898037715}
   leaderboardText: {fileID: 124418283}
 --- !u!224 &68821029
 RectTransform:
@@ -2480,8 +2480,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 1898037711}
-  _networkObjectCache: {fileID: 1898037711}
+  _addedNetworkObject: {fileID: 1898037715}
+  _networkObjectCache: {fileID: 1898037715}
   deathmatchButton: {fileID: 820533074}
   eliminationButton: {fileID: 645221735}
   takedownButton: {fileID: 2057910750}
@@ -2836,8 +2836,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 5
-  _addedNetworkObject: {fileID: 1898037711}
-  _networkObjectCache: {fileID: 1898037711}
+  _addedNetworkObject: {fileID: 1898037715}
+  _networkObjectCache: {fileID: 1898037715}
   scoreText: {fileID: 1139645969}
   ammoCountText: {fileID: 1970377879}
   superBar: {fileID: 1049494176}
@@ -3911,6 +3911,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678125269691398
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -3927,7 +3928,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!1 &325790651
@@ -5668,6 +5668,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678126096584072
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -5684,7 +5685,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &461069330
@@ -6337,6 +6337,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678127670891265
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -6353,7 +6354,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &495770094
@@ -7540,6 +7540,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678124887990473
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -7556,7 +7557,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &542391662
@@ -9675,6 +9675,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678125103087780
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -9691,7 +9692,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &675665449
@@ -13253,8 +13253,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 1898037711}
-  _networkObjectCache: {fileID: 1898037711}
+  _addedNetworkObject: {fileID: 1898037715}
+  _networkObjectCache: {fileID: 1898037715}
   toggleReadyButtonText: {fileID: 1168969720}
   playersReadyCountText: {fileID: 131344872}
   chosenTankTypeText: {fileID: 856646653}
@@ -14946,6 +14946,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678126987255569
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -14962,7 +14963,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &964500172
@@ -16160,6 +16160,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678126337759818
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -16176,7 +16177,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!54 &1037496800
@@ -16703,6 +16703,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678124417869418
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -16719,7 +16720,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &1096226578
@@ -16949,6 +16949,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678127149073669
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -16965,7 +16966,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &1142779258
@@ -17266,6 +17266,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678125991420804
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -17282,7 +17283,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &1168345036
@@ -18604,6 +18604,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678125532206936
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -18620,7 +18621,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &1322204526
@@ -18740,8 +18740,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 2
-  _addedNetworkObject: {fileID: 1898037711}
-  _networkObjectCache: {fileID: 1898037711}
+  _addedNetworkObject: {fileID: 1898037715}
+  _networkObjectCache: {fileID: 1898037715}
   toggleReadyButtonText: {fileID: 654920761}
   playersReadyCountText: {fileID: 98097866}
   chosenTankTypeText: {fileID: 252555648}
@@ -18953,6 +18953,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678123953973544
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -18969,7 +18970,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &1372799825
@@ -20577,6 +20577,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678126303824754
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -20593,7 +20594,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!54 &1516522468
@@ -22089,8 +22089,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 4
-  _addedNetworkObject: {fileID: 1898037711}
-  _networkObjectCache: {fileID: 1898037711}
+  _addedNetworkObject: {fileID: 1898037715}
+  _networkObjectCache: {fileID: 1898037715}
   scoreText: {fileID: 1807641944}
   ammoCountText: {fileID: 2100791703}
   superBar: {fileID: 267428400}
@@ -22226,8 +22226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 6
-  _addedNetworkObject: {fileID: 1898037711}
-  _networkObjectCache: {fileID: 1898037711}
+  _addedNetworkObject: {fileID: 1898037715}
+  _networkObjectCache: {fileID: 1898037715}
   scoreText: {fileID: 808718352}
   ammoCountText: {fileID: 818711413}
   superBar: {fileID: 992828064}
@@ -23037,6 +23037,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678126920334096
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -23053,7 +23054,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &1724315283
@@ -23753,6 +23753,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678125852184886
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -23769,7 +23770,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &1770821450
@@ -24805,7 +24805,7 @@ GameObject:
   - component: {fileID: 1898037714}
   - component: {fileID: 1898037713}
   - component: {fileID: 1898037712}
-  - component: {fileID: 1898037711}
+  - component: {fileID: 1898037715}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -24841,59 +24841,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1898037711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1898037709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: 134760996}
-  - {fileID: 824600177}
-  - {fileID: 1334706921}
-  - {fileID: 43435071}
-  - {fileID: 1632977887}
-  - {fileID: 230288928}
-  - {fileID: 1637631294}
-  - {fileID: 68821028}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _defaultDespawnType: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
-  _scenePathHash: 1497724588
-  <SceneId>k__BackingField: 6432678126353932490
-  <AssetPathHash>k__BackingField: 0
-  _sceneNetworkObjects:
-  - {fileID: 65033750}
-  - {fileID: 301616680}
-  - {fileID: 461069329}
-  - {fileID: 495770093}
-  - {fileID: 542391661}
-  - {fileID: 675665448}
-  - {fileID: 964500171}
-  - {fileID: 1037496799}
-  - {fileID: 1096226577}
-  - {fileID: 1142779257}
-  - {fileID: 1168345035}
-  - {fileID: 1322204525}
-  - {fileID: 1372799824}
-  - {fileID: 1516522467}
-  - {fileID: 1724315282}
-  - {fileID: 1770821449}
-  - {fileID: 1898037711}
-  - {fileID: 1987924923}
-  - {fileID: 7408554978619748788}
 --- !u!114 &1898037712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24955,6 +24902,59 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1898037715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1898037709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <IsNested>k__BackingField: 0
+  <ComponentIndex>k__BackingField: 0
+  _networkBehaviours:
+  - {fileID: 134760996}
+  - {fileID: 824600177}
+  - {fileID: 1334706921}
+  - {fileID: 43435071}
+  - {fileID: 1632977887}
+  - {fileID: 230288928}
+  - {fileID: 1637631294}
+  - {fileID: 68821028}
+  <ParentNetworkObject>k__BackingField: {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
+  _isNetworked: 1
+  _isGlobal: 0
+  _defaultDespawnType: 0
+  NetworkObserver: {fileID: 0}
+  <PrefabId>k__BackingField: -1
+  _scenePathHash: 1497724588
+  <SceneId>k__BackingField: 6432678126850276094
+  <AssetPathHash>k__BackingField: 0
+  _sceneNetworkObjects:
+  - {fileID: 1898037715}
+  - {fileID: 65033750}
+  - {fileID: 301616680}
+  - {fileID: 461069329}
+  - {fileID: 495770093}
+  - {fileID: 542391661}
+  - {fileID: 675665448}
+  - {fileID: 964500171}
+  - {fileID: 1037496799}
+  - {fileID: 1096226577}
+  - {fileID: 1142779257}
+  - {fileID: 1168345035}
+  - {fileID: 1322204525}
+  - {fileID: 1372799824}
+  - {fileID: 1516522467}
+  - {fileID: 1724315282}
+  - {fileID: 1770821449}
+  - {fileID: 1987924923}
+  - {fileID: 7408554978619748788}
 --- !u!1 &1921034222
 GameObject:
   m_ObjectHideFlags: 0
@@ -25831,6 +25831,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678127183549916
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -25847,7 +25848,6 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
 --- !u!114 &1987924924
@@ -27669,6 +27669,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 6432678126174023649
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
+  - {fileID: 1898037715}
   - {fileID: 65033750}
   - {fileID: 301616680}
   - {fileID: 461069329}
@@ -27685,6 +27686,5 @@ MonoBehaviour:
   - {fileID: 1516522467}
   - {fileID: 1724315282}
   - {fileID: 1770821449}
-  - {fileID: 1898037711}
   - {fileID: 1987924923}
   - {fileID: 7408554978619748788}
