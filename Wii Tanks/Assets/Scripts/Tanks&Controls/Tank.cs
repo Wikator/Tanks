@@ -384,7 +384,9 @@ public abstract class Tank : NetworkBehaviour
             gameObject.GetComponent<HDAdditionalLightData>().intensity = 0f;
             tankMaterial.SetFloat("_CurrentAppearence", 0.34f);
             turretMaterial.SetFloat("_CurrentAppearence", 0.3f);
-        }
+			transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
+            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
+		}
         else
         {
             transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
