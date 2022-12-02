@@ -15083,7 +15083,7 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0, a: 1}
   oldColor: {r: 0, g: 0, b: 0, a: 0}
   rotateSpeed: 2.5
-  testLocally: 1
+  testLocally: 0
 --- !u!4 &831866722
 Transform:
   m_ObjectHideFlags: 0
@@ -27774,7 +27774,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh40218
+  m_Name: pb_Mesh90654
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

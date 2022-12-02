@@ -27,6 +27,7 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: 791d9943c09f2504fad60c2286ce08f0, type: 3}
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _ALPHATOMASK_ON
   - _DISABLE_SSR_TRANSPARENT
   - _DOUBLESIDED_ON
   m_InvalidKeywords:
@@ -192,8 +193,8 @@ Material:
     - _AlphaCutoffShadow: 0.5
     - _AlphaDstBlend: 0
     - _AlphaSrcBlend: 1
-    - _AlphaToMask: 0
-    - _AlphaToMaskInspectorValue: 0
+    - _AlphaToMask: 1
+    - _AlphaToMaskInspectorValue: 1
     - _Anisotropy: 0
     - _BlendMode: 0
     - _BumpScale: 1

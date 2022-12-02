@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 2560
     height: 1349
   m_ShowMode: 4
-  m_Title: FresnelMaterial
+  m_Title: Hierarchy
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 97
+  controlID: 56
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 98
+  controlID: 57
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 99
+  controlID: 45
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -189,8 +189,8 @@ MonoBehaviour:
     y: 0
     width: 429
     height: 877
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: MaterialGraphEditWindow
+  m_Name: SceneView
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -215,9 +215,9 @@ MonoBehaviour:
     y: 0
     width: 1704
     height: 877
-  m_MinSize: {x: 102, y: 121}
+  m_MinSize: {x: 202, y: 221}
   m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 18}
+  m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
   - {fileID: 17}
@@ -225,8 +225,8 @@ MonoBehaviour:
   - {fileID: 19}
   - {fileID: 20}
   - {fileID: 12}
-  m_Selected: 2
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1387,22 +1387,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Materials/Animated Tank Material
+    - Assets/Prefabs/Tanks
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 75
   m_LastFolders:
-  - Assets/Materials/Animated Tank Material
+  - Assets/Prefabs/Tanks
   m_LastFoldersGridSize: 75
   m_LastProjectPath: D:\GitHub WiiTanks\WiiTanks\Wii Tanks
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 39}
-    m_SelectedIDs: e2870000
-    m_LastClickedID: 34786
-    m_ExpandedIDs: 00000000a8870000aa870000ac870000ae870000b0870000b2870000b4870000b6870000b8870000ba870000bc870000be870000c0870000c2870000c4870000c6870000c8870000ca870000cc870000ec87000000ca9a3b
+    scrollPos: {x: 0, y: 131}
+    m_SelectedIDs: 42a80000
+    m_LastClickedID: 43074
+    m_ExpandedIDs: 00000000a6870000a8870000aa870000ac870000ae870000b0870000b2870000b4870000b6870000b8870000ba870000bc870000be870000c0870000c2870000c4870000c6870000c8870000ca870000ea87000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1430,7 +1430,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000a8870000aa870000ac870000ae870000b0870000b2870000b4870000b6870000b8870000ba870000bc870000be870000c0870000c2870000c4870000c6870000c8870000ca870000cc870000
+    m_ExpandedIDs: 00000000a6870000a8870000aa870000ac870000ae870000b0870000b2870000b4870000b6870000b8870000ba870000bc870000be870000c0870000c2870000c4870000c6870000c8870000ca870000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1474,7 +1474,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 10}
+      m_ClientGUIView: {fileID: 9}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -1519,21 +1519,21 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 0204fdffde04fdff2e3ffdff0a40fdffcc4bfdff504efdff2c4ffdff406efdff1c6ffdff2a7afdff067bfdffca90fdfff291fdff3a92fdff4a92fdff5c92fdff6c92fdff9292fdff9692fdffa092fdffd893fdff2895fdffb69bfdff4aeffdff56effdff6aeffdffa8f3fdff84f4fdffdc0bfeffe80bfefffc0bfeff4a10feff2611feff6a2cfefff831feffd432feffd648feffe248fefff648feff084dfeffe44dfeffc825ffff9026ffff34fbffff3a350100
+      m_ExpandedIDs: 04b4fdff32b5fdff7ab5fdff8ab5fdff9cb5fdffacb5fdffd2b5fdffd6b5fdffe0b5fdff50d7fdff5cd7fdff70d7fdffc0dafdff9cdbfdff32e2fdff5ee3fdff18e7fdff28e7fdff3ae7fdff4ae7fdff88e7fdff90e7fdff9ae7fdff62f3fdff54f5fdff2ef7fdff08f9fdffc0fafdff72fdfdff0601feff5824feff3425feff5470feff3071feff4c86feff5886feff6c86feff8c8bfeff688cfeff7a48ffffdc4cffffb84dffff9858fffff05effff6867ffff4468ffff34fbffffe4800000eac30000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
+        m_Name: MediumTank(Clone)
+        m_OriginalName: MediumTank(Clone)
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 0
+        m_UserData: -96660
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 11
+        m_OriginalEventType: 0
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 8}
       m_SearchString: 
@@ -1801,9 +1801,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -42.059486, y: -58.05328, z: -32.32052}
+    m_Target: {x: 5.7783527, y: 1.2808146, z: 5.468962}
     speed: 2
-    m_Value: {x: -42.059486, y: -58.05328, z: -32.32052}
+    m_Value: {x: 5.7783527, y: 1.2808146, z: 5.468962}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1850,13 +1850,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.16207246, y: 0.8362996, z: -0.3408458, w: -0.39785653}
+    m_Target: {x: -0.15152165, y: 0.39912522, z: -0.06712197, w: -0.90188247}
     speed: 2
-    m_Value: {x: -0.16206191, y: 0.8362452, z: -0.34082362, w: -0.39783064}
+    m_Value: {x: -0.15150975, y: 0.39909387, z: -0.06711669, w: -0.9018116}
   m_Size:
-    m_Target: 59.69908
+    m_Target: 0.74642307
     speed: 2
-    m_Value: 59.69908
+    m_Value: 0.74642307
   m_Ortho:
     m_Target: 0
     speed: 2

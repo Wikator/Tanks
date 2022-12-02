@@ -58,6 +58,9 @@ public abstract class Tank : NetworkBehaviour
     [SerializeField]
     protected bool poolBullets;
 
+    [SerializeField]
+    private float maxLightIntensity;
+
     [HideInInspector]
     protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
 
@@ -67,10 +70,10 @@ public abstract class Tank : NetworkBehaviour
     //[SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
     //protected bool canUseSuper;
 
-    [SyncVar]
+    [SyncVar, HideInInspector]
     protected bool canUseSuper;
 
-    [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly)]
+    [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly), HideInInspector]
     protected int ammoCount;
 
     [SyncVar, HideInInspector]
@@ -108,7 +111,8 @@ public abstract class Tank : NetworkBehaviour
         MainView.Instance.UpdateAmmo(newAmmo);
     }
 
-    public override void OnStartNetwork()
+
+	public override void OnStartNetwork()
     {
         base.OnStartNetwork();
         cam = Camera.main;
@@ -150,7 +154,9 @@ public abstract class Tank : NetworkBehaviour
         bulletEmpty = GameObject.Find("Bullets").transform;
         explosionEmpty = GameObject.Find("Explosions").transform;
         muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
-        ammoCount = stats.maxAmmo;
+        ammoCount = 0;
+
+        routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }
 
     public override void OnStopNetwork()
@@ -164,7 +170,7 @@ public abstract class Tank : NetworkBehaviour
     }
 
 
-        [Server]
+    [Server]
     public void GameOver()
     {
         ammoCount = 0;
@@ -226,7 +232,7 @@ public abstract class Tank : NetworkBehaviour
 	[Client]
 	private void FixedUpdate()
 	{
-
+		    
 		if (!IsSpawned || !tankMaterial || !turretMaterial)
 			return;
 
@@ -378,8 +384,6 @@ public abstract class Tank : NetworkBehaviour
             gameObject.GetComponent<HDAdditionalLightData>().intensity = 0f;
             tankMaterial.SetFloat("_CurrentAppearence", 0.34f);
             turretMaterial.SetFloat("_CurrentAppearence", 0.3f);
-            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
-            turret.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
         }
         else
         {
@@ -409,6 +413,12 @@ public abstract class Tank : NetworkBehaviour
                 else
                 {
                     turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - 0.01f);
+
+
+                    if (gameObject.GetComponent<HDAdditionalLightData>().intensity < maxLightIntensity)
+                    {
+                        gameObject.GetComponent<HDAdditionalLightData>().intensity += 0.00005f;
+                    }
                 }
             }
         }

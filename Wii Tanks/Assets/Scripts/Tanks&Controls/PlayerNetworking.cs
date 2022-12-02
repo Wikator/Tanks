@@ -180,6 +180,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
         ControlledPawn = playerInstance.GetComponent<Tank>();
         ControlledPawn.controllingPlayer = this;
         Spawn(playerInstance, Owner);
+        playerInstance.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
+        playerInstance.transform.GetChild(0).GetChild(0).transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
 
