@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1756170158413085814}
   - component: {fileID: 1756170158413085815}
   - component: {fileID: 1756170158413085812}
-  - component: {fileID: -2129653262185311579}
-  - component: {fileID: -175645542875120151}
+  - component: {fileID: -2336113246774033870}
+  - component: {fileID: -66634627157859736}
   m_Layer: 0
-  m_Name: GreenExplosion
+  m_Name: BlueExplosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58,11 +58,8 @@ VisualEffect:
       m_Array: []
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 0, y: 4.237095, z: 0.022183742, w: 1}
+      - m_Value: {x: 0, y: 1.3214067, z: 5.6568537, w: 1}
         m_Name: Color01
-        m_Overridden: 1
-      - m_Value: {x: 0.20392157, y: 2, z: 0, w: 0}
-        m_Name: Color02
         m_Overridden: 1
     m_Uint:
       m_Array: []
@@ -118,7 +115,7 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &-2129653262185311579
+--- !u!114 &-2336113246774033870
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -133,19 +130,19 @@ MonoBehaviour:
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
-  - {fileID: -175645542875120151}
+  - {fileID: -66634627157859736}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
   _defaultDespawnType: 1
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 17
+  <PrefabId>k__BackingField: 44
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 7413406622056937004
+  <AssetPathHash>k__BackingField: 1031872979569031564
   _sceneNetworkObjects: []
---- !u!114 &-175645542875120151
+--- !u!114 &-66634627157859736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,7 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: -2129653262185311579}
-  _networkObjectCache: {fileID: -2129653262185311579}
+  _addedNetworkObject: {fileID: -2336113246774033870}
+  _networkObjectCache: {fileID: -2336113246774033870}
   timeToDestroy: 3.5
   destroyOnSpawn: 1

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Rendering.HighDefinition;
@@ -94,7 +93,7 @@ public abstract class Tank_SP : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.Instance.GameInProgress)
+        if (!GameManager_SP.Instance.GameInProgress)
             return;
 
         Move(GatherInputs());
@@ -125,7 +124,7 @@ public abstract class Tank_SP : MonoBehaviour
             return;
 
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-        bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
+        bulletInstance.GetComponent<Bullet_SP>().ChargeTimeToAdd = stats.onKillSuperCharge;
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 
 		Instantiate(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
@@ -208,8 +207,8 @@ public abstract class Tank_SP : MonoBehaviour
             transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
             turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
         }
-        explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
-        muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
+        explosion = Addressables.LoadAssetAsync<GameObject>(color + "ExplosionSP").WaitForCompletion();
+        muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlashSP").WaitForCompletion();
     }
 
     private void SpawnAnimation()

@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 1756170158413085814}
   - component: {fileID: 1756170158413085815}
   - component: {fileID: 1756170158413085812}
-  - component: {fileID: -3315385785087075695}
-  - component: {fileID: 677920192285612488}
+  - component: {fileID: 8467129693267662819}
   m_Layer: 0
   m_Name: YellowExplosion
   m_TagString: Untagged
@@ -112,7 +111,7 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &-3315385785087075695
+--- !u!114 &8467129693267662819
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,38 +120,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1756170158413085813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
+  m_Script: {fileID: 11500000, guid: df6adb62ae0deb64bbf838c544e8dea0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: 677920192285612488}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _defaultDespawnType: 1
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 16
-  _scenePathHash: 0
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 7233014876660129668
-  _sceneNetworkObjects: []
---- !u!114 &677920192285612488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1756170158413085813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d743951da3ccf748b3ba5781dc240a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: -3315385785087075695}
-  _networkObjectCache: {fileID: -3315385785087075695}
   timeToDestroy: 3.5
   destroyOnSpawn: 1
