@@ -11,9 +11,9 @@
     <type fullname="PlayerNetworking" preserve="all" />
     <type fullname="ScoutBulletScript" preserve="all" />
     <type fullname="ScoutTank" preserve="all" />
+    <type fullname="Stats" preserve="all" />
     <type fullname="StockBattleGameMode" preserve="all" />
     <type fullname="TakedownGameMode" preserve="all" />
-    <type fullname="Tank/TankStats" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="FishNet.Generated, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="FishNet.Component.Prediction.PredictedObject" preserve="all" />
