@@ -4508,7 +4508,7 @@ MonoBehaviour:
   _tickRate: 60
   _pingInterval: 1
   _timingInterval: 1
-  _physicsMode: 1
+  _physicsMode: 0
 --- !u!114 &284736234
 MonoBehaviour:
   m_ObjectHideFlags: 0

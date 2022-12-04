@@ -405,6 +405,34 @@ MonoBehaviour:
     m_Address: YellowExplosionSP
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7cc6965f2e79c8e4c9b35ac8425c5907
+    m_Address: MediumTankPawnSP
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5ea161edfeef5714cbe4276f2567275d
+    m_Address: ScoutPawnSP
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fae0f84d281e27e4aa5dfdb1d2d7198a
+    m_Address: DestroyerPawnSP
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5dbc04e345c53ec409550fa7c6b23728
+    m_Address: Assets/Prefabs/Player.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a7b6a9f128a09474384352af2c6bd8a5
+    m_Address: EnemyNormalTankPawnSP
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 34300c8f2691de740848ae7129b9f5f8
+    m_Address: EnemyDestroyerPawnSP
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3822bd848e9f2cf4398d7778d7c9e23a
+    m_Address: EnemyScoutPawnSP
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
   m_SchemaSet:

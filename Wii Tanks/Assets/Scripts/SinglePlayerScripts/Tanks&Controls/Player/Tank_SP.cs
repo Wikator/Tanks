@@ -93,8 +93,8 @@ public abstract class Tank_SP : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager_SP.Instance.GameInProgress)
-            return;
+        //if (!GameManager_SP.Instance.GameInProgress)
+        //   return;
 
         Move(GatherInputs());
 
@@ -171,8 +171,8 @@ public abstract class Tank_SP : MonoBehaviour
 
     private void Move(MoveData data)
     {
-        if (!GameManager.Instance.GameInProgress)
-            return;
+        //if (!GameManager_SP.Instance.GameInProgress)
+        //    return;
 
         controller.Move(Time.deltaTime * stats.moveSpeed * data.MoveAxis * transform.forward);
         transform.Rotate(new Vector3(0f, data.RotateAxis * stats.rotateSpeed * Time.deltaTime, 0f));

@@ -50,10 +50,11 @@ public sealed class NormalBullet_SP : Bullet_SP
                 if (collision.gameObject != Player.ControlledPawn.gameObject)
                 {
                     Player.Instance.superCharge += ChargeTimeToAdd;
+
                 }
             }
-
             collision.gameObject.GetComponent<Tank_SP>().GameOver();
+
 
             if (!isUnstoppable)
             {
@@ -80,5 +81,11 @@ public sealed class NormalBullet_SP : Bullet_SP
                 transform.position = currentPosition;
             }
         }
+
+	    if (collision.gameObject.CompareTag("Enemy"))
+		{
+			collision.gameObject.GetComponent<EnemyAI>().GameOver();
+			Destroy(gameObject);
+		}
     }
 }

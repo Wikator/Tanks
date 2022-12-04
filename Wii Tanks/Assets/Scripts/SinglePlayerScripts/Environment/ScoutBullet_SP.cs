@@ -13,7 +13,7 @@ public sealed class ScoutBullet_SP : Bullet_SP
         {
             if (other.GetComponent<Tank_SP>() != Player.ControlledPawn)
             {
-                Player.Instance.superCharge += ChargeTimeToAdd;
+                //Player.Instance.superCharge += ChargeTimeToAdd;
 
 
                 other.GetComponent<Tank_SP>().GameOver();
@@ -48,7 +48,13 @@ public sealed class ScoutBullet_SP : Bullet_SP
 
         if (other.CompareTag("Bullet"))
         {
-            StartCoroutine(other.GetComponent<Bullet_SP>().DespawnItself());
+            if (other.gameObject.name == gameObject.name)
+            {
+				Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
+                return;
+			}
+
+		    StartCoroutine(other.GetComponent<Bullet_SP>().DespawnItself());
 
             if (!isUnstoppable)
             {

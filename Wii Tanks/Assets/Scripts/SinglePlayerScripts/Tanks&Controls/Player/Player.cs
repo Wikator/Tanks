@@ -9,11 +9,12 @@ public sealed class Player : MonoBehaviour
     public static Tank ControlledPawn;
 
 
+	[HideInInspector]
     public string color;
 
     public string TankType { get; set; }
 
-
+	
     public double superCharge;
 
 
