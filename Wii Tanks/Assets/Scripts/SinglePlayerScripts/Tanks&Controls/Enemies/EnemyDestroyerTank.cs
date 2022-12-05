@@ -5,8 +5,10 @@ public class EnemyDestroyerTank : EnemyAI
 {
 	protected override void Fire()
 	{
-		Instantiate(Addressables.LoadAssetAsync<GameObject>("RedDestroyerBulletSP").WaitForCompletion(), turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation);
+		GameObject bulletInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(color + "DestroyerBulletSP").WaitForCompletion(), turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation, GameObject.Find("Bullets").transform);
+		Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+		bulletInstance.GetComponent<Bullet_SP>().owningCollider = gameObject.GetComponent<BoxCollider>();
 
-		Instantiate(Addressables.LoadAssetAsync<GameObject>("RedMuzzleFlashSP").WaitForCompletion(), turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation, GameObject.Find("MuzzleFlashes").transform);
+		Instantiate(muzzleFlash, turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation, GameObject.Find("MuzzleFlashes").transform);
 	}
 }

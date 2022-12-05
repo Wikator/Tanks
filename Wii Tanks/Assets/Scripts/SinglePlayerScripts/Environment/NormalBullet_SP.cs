@@ -36,10 +36,9 @@ public sealed class NormalBullet_SP : Bullet_SP
                 rigidBody.velocity = currentVelocity;
                 transform.position = currentPosition;
                 rigidBody.velocity = Vector3.Reflect(-collision.relativeVelocity, collision.contacts[0].normal).normalized * moveSpeed;
-                if (Player.ControlledPawn)
-                {
-                    Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), Player.ControlledPawn.GetComponent<BoxCollider>(), false);
-                }
+
+				if (owningCollider)
+                    Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), owningCollider, false);
             }
         }
 

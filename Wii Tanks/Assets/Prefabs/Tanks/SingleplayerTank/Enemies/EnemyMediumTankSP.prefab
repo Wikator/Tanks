@@ -1150,7 +1150,8 @@ MonoBehaviour:
     m_Bits: 4096
   walkPointRange: 25
   timeBetweenAttacks: 1.4
-  sightRange: 15
+  roundSightRange: 8
+  forwardSightRange: 20
 --- !u!195 &8100809859714740319
 NavMeshAgent:
   m_ObjectHideFlags: 0

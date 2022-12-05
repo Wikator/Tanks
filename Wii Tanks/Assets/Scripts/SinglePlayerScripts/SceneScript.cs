@@ -5,7 +5,7 @@ using UnityEngine.AddressableAssets;
 
 public class SceneScript : MonoBehaviour
 {
-    private Transform[] spawns = new Transform[8];
+    private readonly Transform[] spawns = new Transform[8];
 
     void Start()
     {

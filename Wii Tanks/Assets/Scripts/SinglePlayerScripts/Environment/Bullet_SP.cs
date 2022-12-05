@@ -17,6 +17,9 @@ public abstract class Bullet_SP : MonoBehaviour
     public int ChargeTimeToAdd { protected get; set; }
 
 
+    public Collider owningCollider;
+
+
     protected virtual void Start()
     {
         rigidBody = GetComponent<Rigidbody>();

@@ -126,6 +126,7 @@ public abstract class Tank_SP : MonoBehaviour
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         bulletInstance.GetComponent<Bullet_SP>().ChargeTimeToAdd = stats.onKillSuperCharge;
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+        bulletInstance.GetComponent<Bullet_SP>().owningCollider = gameObject.GetComponent<BoxCollider>();
 
 		Instantiate(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
 
@@ -177,7 +178,7 @@ public abstract class Tank_SP : MonoBehaviour
         controller.Move(Time.deltaTime * stats.moveSpeed * data.MoveAxis * transform.forward);
         transform.Rotate(new Vector3(0f, data.RotateAxis * stats.rotateSpeed * Time.deltaTime, 0f));
 
-        transform.position = new Vector3(transform.position.x, 0.8f, transform.position.z);
+        //transform.position = new Vector3(transform.position.x, 0.8f, transform.position.z);
 
         if (data.TurretLookDirection != Vector3.zero)
         {

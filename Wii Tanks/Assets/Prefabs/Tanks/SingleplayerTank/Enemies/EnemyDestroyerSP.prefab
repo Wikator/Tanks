@@ -1110,7 +1110,8 @@ MonoBehaviour:
     m_Bits: 4096
   walkPointRange: 25
   timeBetweenAttacks: 2.5
-  sightRange: 20
+  roundSightRange: 10
+  forwardSightRange: 25
 --- !u!1 &4868853028976921381
 GameObject:
   m_ObjectHideFlags: 0

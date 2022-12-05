@@ -24,7 +24,7 @@ public abstract class EnemyAI : MonoBehaviour
 	private bool alreadyAttacked;
 
 	[SerializeField]
-	private float sightRange;
+	private float roundSightRange, forwardSightRange;
 	private bool playerInSightRange;
 
 	private Material tankMaterial, turretMaterial;
@@ -33,27 +33,62 @@ public abstract class EnemyAI : MonoBehaviour
 	private GameObject explosion;
 	protected GameObject muzzleFlash;
 
+	protected string color;
+
 
 	private void Awake()
 	{
+		switch (Random.Range(0, 5))
+		{
+			case 0:
+				color = "Red";
+				break;
+			case 1:
+				color = "Blue";
+				break;
+			case 2:
+				color = "Cyan";
+				break;
+			case 3:
+				color = "Yellow";
+				break;
+			case 4:
+				color = "Purple";
+				break;
+		}
+	
+		
+
 		agent = GetComponent<NavMeshAgent>();
 		//target = Player.Instance.gameObject.transform;
 		target = GameObject.Find("MediumTankSP").transform;
 		agent.updateRotation = false;
-		turret = transform.GetChild(0).GetChild(0);
+		turret = transform.GetChild(0).GetChild(0);;
 
-		explosion = Addressables.LoadAssetAsync<GameObject>("RedExplosionSP").WaitForCompletion();
-
-		ChangeColours("Red");
+		ChangeColours(color);
 	}
 
+	private void FixedUpdate()
+	{
 
+		if (!tankMaterial || !turretMaterial)
+			return;
+
+		SpawnAnimation();
+	}
 
 	private void Update()
 	{
-		SpawnAnimation();
-		
-		playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+		if (Physics.Raycast(turret.GetChild(0).GetChild(0).position, transform.forward + transform.forward * 2.5f, forwardSightRange, whatIsPlayer) && !playerInSightRange)
+		{
+			Debug.Log("found");
+		}
+
+		playerInSightRange = Physics.CheckSphere(transform.position, roundSightRange, whatIsPlayer) || Physics.Raycast(turret.GetChild(0).GetChild(0).position + transform.forward * 2.5f, transform.forward, forwardSightRange, whatIsPlayer); 
+
+
+
+
 
 		Patroling();
 
@@ -61,6 +96,10 @@ public abstract class EnemyAI : MonoBehaviour
 		{
 			//ChasePlayer();
 			AttackPlayer();
+		}
+		else
+		{
+			turret.transform.Rotate(50 * Time.deltaTime * Vector3.up);
 		}
 	}
 
@@ -146,8 +185,8 @@ public abstract class EnemyAI : MonoBehaviour
 		transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
 		turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
 		
-		//explosion = Addressables.LoadAssetAsync<GameObject>(color + "ExplosionSP").WaitForCompletion();
-		//muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlashSP").WaitForCompletion();
+		explosion = Addressables.LoadAssetAsync<GameObject>(color + "ExplosionSP").WaitForCompletion();
+		muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlashSP").WaitForCompletion();
 	}
 
 	private void SpawnAnimation()

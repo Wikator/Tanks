@@ -18,6 +18,7 @@ public sealed class Menu : MonoBehaviour
     private Button singlePlayerButton;
 
 
+
 	//Start-up screen
 	//User will have a choice to either host a server or connect as a client
 	//With a PlayFlow dedicated server active, hostButton should be disabled
@@ -32,5 +33,8 @@ public sealed class Menu : MonoBehaviour
         }
 
         hostButton.onClick.AddListener(() => SceneManager.LoadScene("MapSelection"));
+
+		singlePlayerButton.onClick.AddListener(() => SceneManager.LoadScene("MapSelection_SP"));
 	}
 }
+
