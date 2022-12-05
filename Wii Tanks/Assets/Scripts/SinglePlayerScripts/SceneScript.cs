@@ -5,16 +5,18 @@ using UnityEngine.AddressableAssets;
 
 public class SceneScript : MonoBehaviour
 {
-    private readonly Transform[] spawns = new Transform[8];
+	private List<Spawn_SP> spawns = new();
+
+	private int numberOfSpawns;
 
     void Start()
     {
-		int i = 0;
+		numberOfSpawns = 0;
 		
 		foreach (Transform spawn in GameObject.Find("DeathmatchSpawns").transform)
 		{
-			spawns[i] = spawn;
-			i++;
+			spawns.Add(spawn.GetComponent<Spawn_SP>());
+			numberOfSpawns++;
 		}
 	}
 
@@ -27,16 +29,22 @@ public class SceneScript : MonoBehaviour
 		if (Random.Range(0, 1000) < 1)
 		{
 
+			Spawn_SP chosenSpawn = spawns[Random.Range(0, numberOfSpawns)];
+
+			if (chosenSpawn.isOccupied)
+				return;
+
+
 			switch (Random.Range(0, 3))
 			{
 				case 0:
-					Instantiate(Addressables.LoadAssetAsync<GameObject>("EnemyNormalTankPawnSP").WaitForCompletion(), spawns[Random.Range(0, 8)].position, Quaternion.identity, GameObject.Find("Enemies").transform);
+					Instantiate(Addressables.LoadAssetAsync<GameObject>("EnemyNormalTankPawnSP").WaitForCompletion(), chosenSpawn.transform.position, Quaternion.identity, GameObject.Find("Enemies").transform);
 					break;
 				case 1:
-					Instantiate(Addressables.LoadAssetAsync<GameObject>("EnemyDestroyerPawnSP").WaitForCompletion(), spawns[Random.Range(0, 8)].position, Quaternion.identity, GameObject.Find("Enemies").transform);
+					Instantiate(Addressables.LoadAssetAsync<GameObject>("EnemyDestroyerPawnSP").WaitForCompletion(), chosenSpawn.transform.position, Quaternion.identity, GameObject.Find("Enemies").transform);
 					break;
 				case 2:
-					Instantiate(Addressables.LoadAssetAsync<GameObject>("EnemyScoutPawnSP").WaitForCompletion(), spawns[Random.Range(0, 8)].position, Quaternion.identity, GameObject.Find("Enemies").transform);
+					Instantiate(Addressables.LoadAssetAsync<GameObject>("EnemyScoutPawnSP").WaitForCompletion(), chosenSpawn.transform.position, Quaternion.identity, GameObject.Find("Enemies").transform);
 					break;
 			}
 			

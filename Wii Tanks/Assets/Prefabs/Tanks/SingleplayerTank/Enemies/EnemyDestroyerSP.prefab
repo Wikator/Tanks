@@ -1111,7 +1111,7 @@ MonoBehaviour:
   walkPointRange: 25
   timeBetweenAttacks: 2.5
   roundSightRange: 10
-  forwardSightRange: 25
+  forwardSightRange: 75
 --- !u!1 &4868853028976921381
 GameObject:
   m_ObjectHideFlags: 0

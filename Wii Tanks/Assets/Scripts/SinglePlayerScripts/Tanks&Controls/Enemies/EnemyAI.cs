@@ -5,14 +5,14 @@ using UnityEngine.Rendering.HighDefinition;
 
 public abstract class EnemyAI : MonoBehaviour
 {
-	private NavMeshAgent agent;
+	protected NavMeshAgent agent;
 
-	private Transform target;
+	protected Transform target;
 
 	public LayerMask whatIsGround, whatIsWall, whatIsPlayer;
 
-	private Vector3 walkPoint;
-	private bool walkPointSet;
+	protected Vector3 walkPoint;
+	protected bool walkPointSet;
 
 	protected Transform turret;
 
@@ -79,28 +79,35 @@ public abstract class EnemyAI : MonoBehaviour
 
 	private void Update()
 	{
-		if (Physics.Raycast(turret.GetChild(0).GetChild(0).position, transform.forward + transform.forward * 2.5f, forwardSightRange, whatIsPlayer) && !playerInSightRange)
+
+		if (!playerInSightRange && (Physics.CheckSphere(transform.position, roundSightRange, whatIsPlayer) || Physics.Raycast(turret.GetChild(0).GetChild(0).position + turret.GetChild(0).GetChild(0).transform.transform.forward * 1.5f, turret.GetChild(0).GetChild(0).transform.forward, forwardSightRange, whatIsPlayer)))
 		{
-			Debug.Log("found");
+			walkPointSet = false;
+			Debug.Log("Reset");
 		}
 
-		playerInSightRange = Physics.CheckSphere(transform.position, roundSightRange, whatIsPlayer) || Physics.Raycast(turret.GetChild(0).GetChild(0).position + transform.forward * 2.5f, transform.forward, forwardSightRange, whatIsPlayer); 
+
+		playerInSightRange = Physics.CheckSphere(transform.position, roundSightRange, whatIsPlayer) || Physics.Raycast(turret.GetChild(0).GetChild(0).position + turret.GetChild(0).GetChild(0).transform.transform.forward * 1.5f, turret.GetChild(0).GetChild(0).transform.forward, forwardSightRange, whatIsPlayer);
+
+		Debug.DrawRay(turret.GetChild(0).GetChild(0).position + turret.GetChild(0).GetChild(0).transform.transform.forward * 1.5f, turret.GetChild(0).GetChild(0).transform.transform.forward * forwardSightRange, Color.red);
 
 
-
-
-
-		Patroling();
 
 		if (playerInSightRange)
 		{
-			//ChasePlayer();
+			ChasePlayer();
 			AttackPlayer();
 		}
 		else
 		{
+			Patroling();
 			turret.transform.Rotate(50 * Time.deltaTime * Vector3.up);
 		}
+
+		Vector3 distanceToWalkPoint = transform.position - walkPoint;
+
+		if (distanceToWalkPoint.magnitude < 1f)
+			walkPointSet = false;
 	}
 
 
@@ -136,10 +143,8 @@ public abstract class EnemyAI : MonoBehaviour
 				walkPointSet = true;
 	}
 
-	private void ChasePlayer()
-	{
-		agent.SetDestination(target.position);
-	}
+	protected abstract void ChasePlayer();
+
 
 	private void AttackPlayer()
 	{
