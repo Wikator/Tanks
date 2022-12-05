@@ -56,7 +56,7 @@ MonoBehaviour:
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 36
+  <PrefabId>k__BackingField: 35
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 14746796781269019939
@@ -78,6 +78,10 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 3260047397942440531}
   _networkObjectCache: {fileID: 3260047397942440531}
   ControlledPawn: {fileID: 0}
+  <PlayerSteamID>k__BackingField: 0
+  <PlayerUsername>k__BackingField: 
+  color: 
+  <IsReady>k__BackingField: 0
   superCharge: 0
 --- !u!114 &-7317939241241333854
 MonoBehaviour:
