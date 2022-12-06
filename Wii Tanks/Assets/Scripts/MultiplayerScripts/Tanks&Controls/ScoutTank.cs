@@ -23,26 +23,12 @@ public class ScoutTank : Tank
 
         for (int angle = -spreadAngle; angle < spreadAngle*2; angle += spreadAngle)
         {
-            if (poolBullets)
-            {
-                NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
-                bulletInstance.transform.SetParent(bulletEmpty);
-                bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-                bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
-                Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-                Spawn(bulletInstance);
-                //bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
-                bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, angle);
-            }
-            else
-            {
-                GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-                bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
-                bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-                bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
-                Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-                Spawn(bulletInstance);
-            }
+            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+            bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
+            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+            bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+            Spawn(bulletInstance);
 
 
             NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
@@ -53,7 +39,7 @@ public class ScoutTank : Tank
         }
 
 
-        if (routine != null)
+        if (routine)
         {
             StopCoroutine(routine);
             routine = null;
@@ -69,7 +55,7 @@ public class ScoutTank : Tank
         if (!canUseSuper)
             return;
 
-        if (routine != null)
+        if (routine)
         {
             StopCoroutine(routine);
             routine = null;
@@ -94,7 +80,7 @@ public class ScoutTank : Tank
 
         if (ammoCount >= stats.maxAmmo)
         {
-            if (routine != null)
+            if (routine)
             {
                 StopCoroutine(routine);
                 routine = null;

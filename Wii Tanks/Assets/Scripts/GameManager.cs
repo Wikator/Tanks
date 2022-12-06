@@ -100,7 +100,7 @@ public sealed class GameManager : NetworkBehaviour
 
         foreach (PlayerNetworking player in players)
         {
-            player.SpawnTank();
+            StartCoroutine(player.SpawnTank(0f));
         }
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))

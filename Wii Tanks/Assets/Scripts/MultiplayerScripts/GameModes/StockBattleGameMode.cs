@@ -75,7 +75,7 @@ public sealed class StockBattleGameMode : GameMode
         }
         else
         {
-            StartCoroutine(Respawn(playerNetworking, respawnTime));
+            StartCoroutine(playerNetworking.SpawnTank(respawnTime));
         }
     }
 
@@ -110,9 +110,4 @@ public sealed class StockBattleGameMode : GameMode
         }
     }
 
-    private IEnumerator Respawn(PlayerNetworking controllingPLayer, float time)
-    {
-        yield return new WaitForSeconds(time);
-        controllingPLayer.SpawnTank();
-    }
 }
