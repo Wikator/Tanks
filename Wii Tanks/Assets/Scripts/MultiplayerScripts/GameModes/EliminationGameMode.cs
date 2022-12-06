@@ -142,13 +142,15 @@ public class EliminationGameMode : GameMode
     {
         foreach (PlayerNetworking player in gameManager.players)
         {
-            player.SpawnTank();
+            startCoroutine(player.SpawnTank(0f));
         }
 
-        if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
+        /*if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
         {
             eliminationGameMode.waitingForNewRound = false;
-        }
+        }*/
+
+        waitingForNewRound = false;
     }
 
 

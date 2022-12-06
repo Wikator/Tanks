@@ -47,7 +47,7 @@ public sealed class TakedownGameMode : EliminationGameMode
 
         base.OnKilled(playerNetworking);
 
-        StartCoroutine(Respawn(playerNetworking, respawnTime[playerNetworking.color]));
+        StartCoroutine(playerNetworking.SpawnTank(respawnTime[playerNetworking.color]));
         respawnTime[playerNetworking.color] *= respawnTimeMultiplier;
     }
 
@@ -97,12 +97,5 @@ public sealed class TakedownGameMode : EliminationGameMode
         StopAllCoroutines();
         respawnTime["Green"] = originalRespawnTime;
         respawnTime["Red"] = originalRespawnTime;
-    }
-
-    private IEnumerator Respawn(PlayerNetworking controllingPLayer, float time)
-    {
-        yield return new WaitForSeconds(time);
-        if (!waitingForNewRound && GameManager.Instance.GameInProgress)
-            controllingPLayer.SpawnTank();
     }
 }
