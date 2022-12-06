@@ -88,6 +88,9 @@ public abstract class Tank : NetworkBehaviour
 
     private LayerMask raycastLayer;
 
+
+    private const float MAX_PASSED_TIME = 0.3f;
+
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
     private void OnAmmoChange(int oldAmmo, int newAmmo, bool asServer)
     {
@@ -207,7 +210,7 @@ public abstract class Tank : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Fire();
+            ClientFire();
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -226,7 +229,8 @@ public abstract class Tank : NetworkBehaviour
 
         SpawnAnimation();
 	}
-
+    
+    /*
     [ServerRpc]
     protected virtual void Fire()
     {
@@ -266,6 +270,64 @@ public abstract class Tank : NetworkBehaviour
 
         ammoCount--;
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
+    }*/
+
+
+    private void ClientFire()
+    {
+        if (ammoCount <= 0)
+            return;
+
+        Vector3 position = bulletSpawn.position;
+        Vector3 direction = bulletSpawn.forward;
+
+        SpawnProjectile(position, direction, TimeManager.Tick);
+
+        ServerFire(position, direction, TimeManager.Tick);
+    }
+
+
+    [ServerRpc]
+    private void ServerFire(Vector3 position, Vector3 direction, uint tick)
+    {
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+            routine = null;
+        }
+
+        ammoCount--;
+        routine = StartCoroutine(AddAmmo(stats.timeToReload));
+
+        float passedTime = (float)TimeManager.TimePassed(tick, false);
+
+        passedTime = Mathf.Min(MAX_PASSED_TIME / 2f, passedTime);
+
+        SpawnProjectile(position, direction, passedTime);
+
+        ObserversFire(position, direction, tick);
+    }
+
+    [ObserversRpc(IncludeOwner = false)]
+    private void ObserversFire(Vector3 position, Vector3 direction, uint tick)
+    {
+        float passedTime = (float)TimeManager.TimePassed(tick, false);
+
+        passedTime = Mathf.Min(MAX_PASSED_TIME, passedTime);
+
+        SpawnProjectile(position, direction, passedTime);
+
+    }
+
+
+
+    private void SpawnProjectile(Vector3 position, Vector3 direction, float passedTime)
+    {
+        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+        bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
+        bulletInstance.GetComponent<Bullet>().Initialize(direction, passedTime);
+        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
     }
 
     protected abstract void SpecialMove();

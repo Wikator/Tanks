@@ -21,34 +21,65 @@ public abstract class Bullet : NetworkBehaviour
 
     //Once spawn, bullet will be given force, and cannot be slown down by any means, unless destroyed
 
-    [Server]
-    public void AfterSpawning(Transform bulletSpawn, int angle)
+    /* [Server]
+     public void AfterSpawning(Transform bulletSpawn, int angle)
+     {
+         rigidBody = GetComponent<Rigidbody>();
+         transform.SetPositionAndRotation(bulletSpawn.position, bulletSpawn.rotation);
+         transform.Rotate(new Vector3(0f, angle, 0f));
+         transform.GetChild(0).GetComponent<TrailRenderer>().Clear();
+         rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
+     }
+
+     public override void OnStartNetwork()
+     {
+         base.OnStartNetwork();
+
+         if (gameObject.GetComponent<NetworkObject>().GetDefaultDespawnType() == DespawnType.Pool)
+         {
+             StartCoroutine(TrailRendererMethod());
+         }
+     }
+
+     public override void OnStartServer()
+     {
+         base.OnStartServer();
+         if (gameObject.GetComponent<NetworkObject>().GetDefaultDespawnType() == DespawnType.Destroy)
+         {
+             rigidBody = GetComponent<Rigidbody>();
+             rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
+         }
+     }*/
+
+
+    private Vector3 direction;
+
+    private float passedTime = 0f;
+
+    public void Initialize(Vector3 direction, float passedTime)
     {
-        rigidBody = GetComponent<Rigidbody>();
-        transform.SetPositionAndRotation(bulletSpawn.position, bulletSpawn.rotation);
-        transform.Rotate(new Vector3(0f, angle, 0f));
-        transform.GetChild(0).GetComponent<TrailRenderer>().Clear();
-        rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
+        this.direction = direction;
+        this.passedTime = passedTime;
     }
 
-    public override void OnStartNetwork()
+    private void Update()
     {
-        base.OnStartNetwork();
-        
-        if (gameObject.GetComponent<NetworkObject>().GetDefaultDespawnType() == DespawnType.Pool)
-        {
-            StartCoroutine(TrailRendererMethod());
-        }
-    }
+        float passedTimeDelta = 0f;
 
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        if (gameObject.GetComponent<NetworkObject>().GetDefaultDespawnType() == DespawnType.Destroy)
+        if (passedTime > 0f)
         {
-            rigidBody = GetComponent<Rigidbody>();
-            rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
+            float step = (passedTime * 0.08f);
+            passedTime -= step;
+
+            if (passedTime <= (passedTimeDelta / 2f))
+            {
+                step += passedTime;
+                passedTime = 0f;
+            }
+            passedTimeDelta -= step;
         }
+
+        transform.position += moveSpeed * passedTime * Time.deltaTime * direction;
     }
 
 
