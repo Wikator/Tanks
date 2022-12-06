@@ -41,12 +41,6 @@ public abstract class Tank : NetworkBehaviour
     protected Stats stats;
 
     [SerializeField]
-    private bool animateShader;
-
-    [SerializeField]
-    protected bool poolBullets;
-
-    [SerializeField]
     private float maxLightIntensity;
 
     [HideInInspector]
@@ -74,7 +68,6 @@ public abstract class Tank : NetworkBehaviour
 
     private bool isSubscribed = false;
 
-    private GameMode gameModeManager;
     private CharacterController controller;
     private Transform explosionEmpty, turret;
     private GameObject explosion;
@@ -136,7 +129,6 @@ public abstract class Tank : NetworkBehaviour
     {
         base.OnStartServer();
         canUseSuper = false;
-        gameModeManager = FindObjectOfType<GameMode>();
         bulletSpawn = turret.GetChild(0).GetChild(0);
         muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
         bulletEmpty = GameObject.Find("Bullets").transform;
@@ -167,7 +159,7 @@ public abstract class Tank : NetworkBehaviour
         explosionInstance.transform.SetPositionAndRotation(transform.position, transform.rotation);
         Spawn(explosionInstance);
         controllingPlayer.ControlledPawn = null;
-        gameModeManager.OnKilled(controllingPlayer);
+        GameMode.Instance.OnKilled(controllingPlayer);
         Despawn();
     }
 
@@ -233,24 +225,11 @@ public abstract class Tank : NetworkBehaviour
         if (ammoCount <= 0)
             return;
 
-        if (poolBullets)
-        {
-            NetworkObject bulletInstance = NetworkManager.GetPooledInstantiated(bullet, true);
-            bulletInstance.transform.SetParent(bulletEmpty);
-            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-            bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
-            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-            Spawn(bulletInstance);
-            bulletInstance.GetComponent<Bullet>().AfterSpawning(bulletSpawn, 0);
-        }
-        else
-        {
-            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-            bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
-            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-            Spawn(bulletInstance);
-        }
+        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+        bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
+        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+        Spawn(bulletInstance);
 
         NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
         flashInstance.transform.SetParent(muzzleFlashEmpty);
@@ -258,7 +237,7 @@ public abstract class Tank : NetworkBehaviour
         Spawn(flashInstance);
 
 
-        if (routine != null)
+        if (routine)
         {
             StopCoroutine(routine);
             routine = null;
@@ -362,24 +341,16 @@ public abstract class Tank : NetworkBehaviour
     [Client]
     public virtual void ChangeColours(string color)
     {
-        if (animateShader)
-        {
-            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-            tankMaterial = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
-            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-            turretMaterial = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
-            gameObject.GetComponent<HDAdditionalLightData>().color = tankMaterial.GetColor("_Color01");
-            gameObject.GetComponent<HDAdditionalLightData>().intensity = 0f;
-            tankMaterial.SetFloat("_CurrentAppearence", 0.34f);
-            turretMaterial.SetFloat("_CurrentAppearence", 0.3f);
-			transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
-            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
-		}
-        else
-        {
-            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
-            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
-        }
+        transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
+        tankMaterial = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
+        turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
+        turretMaterial = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
+        gameObject.GetComponent<HDAdditionalLightData>().color = tankMaterial.GetColor("_Color01");
+        gameObject.GetComponent<HDAdditionalLightData>().intensity = 0f;
+        tankMaterial.SetFloat("_CurrentAppearence", 0.34f);
+        turretMaterial.SetFloat("_CurrentAppearence", 0.3f);
+		transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
+        turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
         explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
         muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
     }
