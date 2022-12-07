@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8389937073475334883}
-  - component: {fileID: 8389937073475334882}
   - component: {fileID: 8389937073475334881}
   - component: {fileID: 5644105714423375356}
+  - component: {fileID: 4631544965974453680}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -34,25 +34,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8389937073475334882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8389937073475334880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60d83628e0f044e4eb2a8c5a6759c318, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 8389937073475334881}
-  _networkObjectCache: {fileID: 8389937073475334881}
-  gameMode: None
-  <GameInProgress>k__BackingField: 0
-  <CanStart>k__BackingField: 0
-  animateBackground: 1
 --- !u!114 &8389937073475334881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68,14 +49,14 @@ MonoBehaviour:
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
   _networkBehaviours:
-  - {fileID: 8389937073475334882}
+  - {fileID: 4631544965974453680}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
+  <PrefabId>k__BackingField: 37
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 17870652867440448128
@@ -97,3 +78,22 @@ MonoBehaviour:
   _updateHostVisibility: 1
   _observerConditions:
   - {fileID: 11400000, guid: 2033f54fd2794464bae08fa5a55c8996, type: 2}
+--- !u!114 &4631544965974453680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8389937073475334880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f378252157af7c24885b0cc68dcc3d40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 0
+  _addedNetworkObject: {fileID: 8389937073475334881}
+  _networkObjectCache: {fileID: 8389937073475334881}
+  gameMode: 
+  <GameInProgress>k__BackingField: 0
+  <CanStart>k__BackingField: 0
+  animateBackground: 1

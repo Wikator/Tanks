@@ -6,13 +6,13 @@ public sealed class DestroyerTank : Tank
 {
     private GameObject specialBullet;
 
-    [ServerRpc]
+    [Client]
     protected override void SpecialMove()
     {
         if (!canUseSuper)
             return;
 
-        if (routine)
+        if (routine != null)
         {
             StopCoroutine(routine);
             routine = null;
@@ -20,19 +20,68 @@ public sealed class DestroyerTank : Tank
 
         controllingPlayer.superCharge = 0;
 
-        ammoCount = 0;
+        AmmoCount = 0;
 
-        GameObject bulletInstance = Instantiate(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-        Spawn(bulletInstance);
+        if (ammoCount <= 0)
+            return;
 
-        NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
-        flashInstance.transform.SetParent(muzzleFlashEmpty);
-        flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
-        Spawn(flashInstance);
+        Vector3 position = bulletSpawn.position;
+        Vector3 direction = bulletSpawn.forward;
+
+        SpawnProjectile(position, direction, 0f);
+
+        SuperServerFire(position, direction, TimeManager.Tick);
+
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+            routine = null;
+        }
+
+        AmmoCount--;
+        routine = StartCoroutine(AddAmmo(stats.timeToReload));
 
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
+    }
+
+    [ServerRpc]
+    private void SuperServerFire(Vector3 position, Vector3 direction, uint tick)
+    {
+        //if (IsClient)
+        //return;
+        /*
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+            routine = null;
+        }
+
+        AmmoCount--;
+        routine = StartCoroutine(AddAmmo(stats.timeToReload));
+        */
+        SuperObserversFire(position, direction, tick);
+    }
+
+    [ObserversRpc(IncludeOwner = false)]
+    private void SuperObserversFire(Vector3 position, Vector3 direction, uint tick)
+    {
+        float passedTime = (float)TimeManager.TimePassed(tick, false);
+
+        passedTime = Mathf.Min(MAX_PASSED_TIME, passedTime);
+
+        SpawnSuperProjectile(position, direction, passedTime);
+
+    }
+
+
+
+    private void SpawnSuperProjectile(Vector3 position, Vector3 direction, float passedTime)
+    {
+        GameObject bulletInstance = ObjectPoolManager.GetPooledInstantiated(specialBullet, position, Quaternion.identity, bulletEmpty);
+        bulletInstance.GetComponent<Bullet>().Initialize(direction, passedTime, controllingPlayer, stats.onKillSuperCharge, gameObject.GetComponent<BoxCollider>());
+
+
+        ObjectPoolManager.GetPooledInstantiated(muzzleFlash, muzzleFlashSpawn.position, muzzleFlashSpawn.rotation, muzzleFlashEmpty);
     }
 
     public override void ChangeColours(string color)

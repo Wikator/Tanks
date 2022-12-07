@@ -5,13 +5,17 @@ using UnityEngine.AddressableAssets;
 
 public sealed class NormalTank : Tank
 {
-    [ServerRpc]
+    [Client]
     protected override void SpecialMove()
     {
+        Debug.Log(1);
+
         if (!canUseSuper)
             return;
 
-        if (routine)
+        Debug.Log(2);
+
+        if (routine != null)
         {
             StopCoroutine(routine);
             routine = null;
@@ -19,28 +23,31 @@ public sealed class NormalTank : Tank
 
         controllingPlayer.superCharge = 0;
 
-        ammoCount = 0;
+        AmmoCount = 0;
         StartCoroutine(Barrage());
     }
 
-    [Server]
+
     private IEnumerator Barrage()
     {
         for (int i = 0; i < 20; i++)
         {
-            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
-            Spawn(bulletInstance);
-
-            NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
-            flashInstance.transform.SetParent(muzzleFlashEmpty);
-            flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
-            Spawn(flashInstance);
+            SuperClientFire();
 
             yield return new WaitForSeconds(0.2f);
         }
         routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
+    }
+
+    private void SuperClientFire()
+    {
+
+        Vector3 position = bulletSpawn.position;
+        Vector3 direction = bulletSpawn.forward;
+
+        SpawnProjectile(position, direction, 0f);
+
+        ServerFire(position, direction, TimeManager.Tick);
     }
 
     public override void ChangeColours(string color)

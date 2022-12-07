@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 4861142848706350065}
   - component: {fileID: 395589313797093913}
   - component: {fileID: 6540275222597250297}
-  - component: {fileID: 3092781018172726821}
-  - component: {fileID: -2486695098518188872}
+  - component: {fileID: -3041967767883473477}
   m_Layer: 0
   m_Name: RedMuzzleFlash
   m_TagString: Untagged
@@ -4881,7 +4880,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &3092781018172726821
+--- !u!114 &-3041967767883473477
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4890,38 +4889,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 3308670783762246637}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d743951da3ccf748b3ba5781dc240a2, type: 3}
+  m_Script: {fileID: 11500000, guid: 942ca6a19a721744aab8f222816caa66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: -2486695098518188872}
-  _networkObjectCache: {fileID: -2486695098518188872}
   timeToDestroy: 1
   destroyOnSpawn: 1
---- !u!114 &-2486695098518188872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3308670783762246637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: 3092781018172726821}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _defaultDespawnType: 1
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 18
-  _scenePathHash: 0
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 12860746078239941485
-  _sceneNetworkObjects: []

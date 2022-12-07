@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2846345153017054527}
   - component: {fileID: -4227543758443852699}
   - component: {fileID: -5833880829761614842}
-  - component: {fileID: -8405391744002029082}
   m_Layer: 7
   m_Name: YellowBullet
   m_TagString: Bullet
@@ -62,9 +61,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00247c0eec91f7148a62be1fb0d41594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: -8405391744002029082}
-  _networkObjectCache: {fileID: -8405391744002029082}
   moveSpeed: 13
   player: {fileID: 0}
   isUnstoppable: 0
@@ -85,34 +81,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 3
---- !u!114 &-8405391744002029082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2456512010136705151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: -4227543758443852699}
-  - {fileID: 0}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _defaultDespawnType: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 10
-  _scenePathHash: 0
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 5072998951198714382
-  _sceneNetworkObjects: []
 --- !u!1 &3145280894857783419
 GameObject:
   m_ObjectHideFlags: 0

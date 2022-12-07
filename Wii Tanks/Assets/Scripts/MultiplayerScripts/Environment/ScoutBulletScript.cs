@@ -1,3 +1,4 @@
+using FishNet;
 using FishNet.Managing.Logging;
 using FishNet.Object;
 using UnityEngine;
@@ -9,53 +10,45 @@ public sealed class ScoutBulletScript : Bullet
 
     //This bullet cannot ricochet
 
-    [Server(Logging = LoggingType.Off)]
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Tank"))
         {
             if (player)
             {
-                if (other.GetComponent<Tank>().controllingPlayer != player && other.GetComponent<Tank>().IsSpawned)
+                if (InstanceFinder.IsServer)
                 {
-                    player.superCharge += ChargeTimeToAdd;
-
-                    if (GameManager.Instance.gameMode == "Deathmatch" || GameManager.Instance.gameMode == "StockBattle" || GameManager.Instance.gameMode == "Mayhem")
+                    if (other.GetComponent<Tank>().IsSpawned)
                     {
-                        GameMode.Instance.PointScored(player.color, 1);
-                    }
+                        player.superCharge += ChargeTimeToAdd;
 
-                    other.GetComponent<Tank>().GameOver();
+                        if (GameManager.Instance.gameMode == "Deathmatch" || GameManager.Instance.gameMode == "StockBattle" || GameManager.Instance.gameMode == "Mayhem")
+                        {
+                            GameMode.Instance.PointScored(player.color, 1);
+                        }
 
-                    if (!isUnstoppable)
-                    {
-                        Despawn();
-                    }
-                    else
-                    {
-                        Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
-                        rigidBody.velocity = currentVelocity;
-                        transform.position = currentPosition;
+                        other.GetComponent<Tank>().GameOver();
                     }
                 }
             }
             else
             {
-                if (other.GetComponent<Tank>().IsSpawned)
+                if (InstanceFinder.IsServer)
                 {
-                    other.GetComponent<Tank>().GameOver();
-
-                    if (!isUnstoppable)
+                    if (other.GetComponent<Tank>().IsSpawned)
                     {
-                        Despawn();
-                    }
-                    else
-                    {
-                        Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
-                        rigidBody.velocity = currentVelocity;
-                        transform.position = currentPosition;
+                        other.GetComponent<Tank>().GameOver();
                     }
                 }
+            }
+
+            if (!isUnstoppable)
+            {
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
             }
         }
 
@@ -70,12 +63,10 @@ public sealed class ScoutBulletScript : Bullet
             else
             {
                 Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
-                rigidBody.velocity = currentVelocity;
-                transform.position = currentPosition;
             }
         }
 
-        if(other.CompareTag("Arena"))
+        if(other.gameObject.CompareTag("Arena"))
         {
             StartCoroutine(DespawnItself());
         }

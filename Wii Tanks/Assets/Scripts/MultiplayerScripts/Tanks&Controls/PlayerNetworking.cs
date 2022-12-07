@@ -1,7 +1,7 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System;
-using System.Generic;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Steamworks;
@@ -10,7 +10,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
 {
     public static PlayerNetworking Instance { get; private set; }
 
-
+    [SyncVar]
     public Tank ControlledPawn;
 
     [field : SyncVar]
@@ -175,7 +175,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public IEnumerator SpawnTank(float time)
     {
         yield return new WaitForSeconds(time);
-        if (TankType != "None" && !waitingForNewRound && GameManager.Instance.GameInProgress)
+        if (TankType != "None" && GameManager.Instance.GameInProgress)
         {
             GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "Pawn").WaitForCompletion(), GameMode.Instance.FindSpawnPosition(color), Quaternion.identity, transform);
             ControlledPawn = playerInstance.GetComponent<Tank>();

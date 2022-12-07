@@ -142,7 +142,7 @@ public class EliminationGameMode : GameMode
     {
         foreach (PlayerNetworking player in gameManager.players)
         {
-            startCoroutine(player.SpawnTank(0f));
+            StartCoroutine(player.SpawnTank(0f));
         }
 
         /*if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
@@ -168,8 +168,8 @@ public class EliminationGameMode : GameMode
 
         foreach (Transform child in bulletEmpty)
         {
-            if (child.GetComponent<Bullet>().IsSpawned)
-                child.GetComponent<Bullet>().Despawn();
+            //if (child.GetComponent<Bullet>().IsSpawned)
+                //child.GetComponent<Bullet>().Despawn();
         }
 
         yield return new WaitForSeconds(2.0f);
