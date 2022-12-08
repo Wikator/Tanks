@@ -6,10 +6,10 @@ public sealed class Player : MonoBehaviour
     public static Player Instance { get; private set; }
 
 
-    public static Tank ControlledPawn;
+    public Tank_SP ControlledPawn { get; private set; }
 
 
-	[HideInInspector]
+    [HideInInspector]
     public string color;
 
     public string TankType { get; set; }
@@ -27,7 +27,7 @@ public sealed class Player : MonoBehaviour
 	private void Start()
 	{
         color = "None";
-        TankType = "None";
+        TankType = "MediumTank";
     }
 
 
@@ -37,15 +37,22 @@ public sealed class Player : MonoBehaviour
         {
             Application.Quit();
         }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            SpawnTank();
+        }
+
+        Debug.Log(ControlledPawn);
     }
 
     public void SpawnTank()
     {
-        if (TankType == "None")
+        if (TankType == "None" || ControlledPawn)
             return;
 
-        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "PawnSP").WaitForCompletion(), GameMode.Instance.FindSpawnPosition(color), Quaternion.identity, transform);
-        ControlledPawn = playerInstance.GetComponent<Tank>();
+        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "PawnSP").WaitForCompletion(), new Vector3(-23.84f, 0.8f, -15.7f), Quaternion.identity, transform);
+        ControlledPawn = playerInstance.GetComponent <Tank_SP>();
         playerInstance.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
         playerInstance.transform.GetChild(0).GetChild(0).transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
     }

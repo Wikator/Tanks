@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6414677140297764447}
   - component: {fileID: 7578051312291039337}
   - component: {fileID: 6605712020691005321}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TurretGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -845,7 +845,7 @@ GameObject:
   - component: {fileID: 9193667467423949452}
   - component: {fileID: 757756091611421853}
   - component: {fileID: 3286197909709284336}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: DestroyerSP
   m_TagString: Tank
   m_Icon: {fileID: 0}
@@ -1107,7 +1107,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5117794245464423642}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TurretTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1139,7 +1139,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 510486753240285065}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1174,7 +1174,7 @@ GameObject:
   - component: {fileID: 2506216742650272057}
   - component: {fileID: 3736235264636284814}
   - component: {fileID: 2108767078640340348}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Armour
   m_TagString: Tank
   m_Icon: {fileID: 0}
@@ -1500,7 +1500,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4953388133822800349}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}

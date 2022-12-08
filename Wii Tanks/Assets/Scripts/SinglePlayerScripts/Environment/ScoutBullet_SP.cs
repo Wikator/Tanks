@@ -11,7 +11,7 @@ public sealed class ScoutBullet_SP : Bullet_SP
     {
         if (other.gameObject.CompareTag("Tank"))
         {
-            if (other.GetComponent<Tank_SP>() != Player.ControlledPawn)
+            if (other.GetComponent<Tank_SP>() != Player.Instance.ControlledPawn)
             {
                 //Player.Instance.superCharge += ChargeTimeToAdd;
 
