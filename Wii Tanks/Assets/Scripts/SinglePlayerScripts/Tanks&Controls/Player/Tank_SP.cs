@@ -240,7 +240,7 @@ public abstract class Tank_SP : MonoBehaviour
             }
         }
 
-        if (gameObject.GetComponent<HDAdditionalLightData>().intensity < 0.15f)
+        if (gameObject.GetComponent<HDAdditionalLightData>().intensity < maxLightIntensity)
         {
             gameObject.GetComponent<HDAdditionalLightData>().intensity += 0.003f;
         }

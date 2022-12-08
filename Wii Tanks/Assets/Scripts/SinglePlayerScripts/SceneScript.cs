@@ -26,7 +26,7 @@ public class SceneScript : MonoBehaviour
 		if (!GameObject.Find("MediumTankSP"))
 			return;
 		
-		if (Random.Range(0, 300) < 1)
+		if (Random.Range(0, 250) < 1)
 		{
 
 			Spawn_SP chosenSpawn = spawns[Random.Range(0, numberOfSpawns)];
