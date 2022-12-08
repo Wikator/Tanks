@@ -20,7 +20,7 @@ public sealed class ScoutBullet_SP : Bullet_SP
 
                 if (!isUnstoppable)
                 {
-					Destroy(gameObject);
+					gameObject.SetActive(false);
 				}
                 else
                 {
@@ -35,7 +35,7 @@ public sealed class ScoutBullet_SP : Bullet_SP
 
                 if (!isUnstoppable)
                 {
-					Destroy(gameObject);
+					gameObject.SetActive(false);
 				}
                 else
                 {

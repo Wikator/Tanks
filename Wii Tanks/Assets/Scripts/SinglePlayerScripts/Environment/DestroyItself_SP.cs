@@ -10,7 +10,7 @@ public sealed class DestroyItself_SP : MonoBehaviour
     private bool destroyOnSpawn;
 
 
-    private void Start()
+    private void OnEnable()
     {
         if (destroyOnSpawn)
             StartCoroutine(DespawnItselfDeleyed());
@@ -19,6 +19,6 @@ public sealed class DestroyItself_SP : MonoBehaviour
     public IEnumerator DespawnItselfDeleyed()
     {
         yield return new WaitForSeconds(timeToDestroy);
-		Destroy(gameObject);
+        gameObject.SetActive(false);
 	}
 }

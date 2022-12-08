@@ -20,10 +20,21 @@ public abstract class Bullet_SP : MonoBehaviour
     public Collider owningCollider;
 
 
-    protected virtual void Start()
+    private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
+    }
+
+    private void OnDisable()
+    {
+        rigidBody.velocity = Vector3.zero;
+    }
+
+    protected virtual void OnEnable()
+    {
         rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
+        GetComponent<SphereCollider>().enabled = true;
+        transform.GetChild(0).GetComponent<TrailRenderer>().Clear();
     }
 
     private void FixedUpdate()
@@ -39,7 +50,7 @@ public abstract class Bullet_SP : MonoBehaviour
         rigidBody.velocity = Vector3.zero;
         GetComponent<SphereCollider>().enabled = false;
         yield return new WaitForSeconds(0.6f);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
 

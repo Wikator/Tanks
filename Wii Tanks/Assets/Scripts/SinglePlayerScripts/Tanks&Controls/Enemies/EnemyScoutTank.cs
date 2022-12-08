@@ -7,16 +7,12 @@ public class EnemyScoutTank : EnemyAI
 	{
 		for (int i = -3; i <= 3; i += 3)
 		{
-			GameObject bulletInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(color + "ScoutBulletSP").WaitForCompletion(), turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation, GameObject.Find("Bullets").transform);
-
-			bulletInstance.transform.Rotate(0, i, 0);
+			GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>(color + "ScoutBulletSP").WaitForCompletion(), turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation * Quaternion.Euler(Vector3.up * i), GameObject.Find("Bullets").transform);
 
 			Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 			bulletInstance.GetComponent<Bullet_SP>().owningCollider = gameObject.GetComponent<BoxCollider>();
 
-			GameObject flashInstance = Instantiate(muzzleFlash, turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation, GameObject.Find("MuzzleFlashes").transform);
-
-			flashInstance.transform.Rotate(0, i, 0);
+			GameObject flashInstance = ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation * Quaternion.Euler(Vector3.up * i), GameObject.Find("MuzzleFlashes").transform);
 		}
 	}
 

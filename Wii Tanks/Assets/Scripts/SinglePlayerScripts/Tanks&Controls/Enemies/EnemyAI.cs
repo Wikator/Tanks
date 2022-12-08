@@ -38,6 +38,15 @@ public abstract class EnemyAI : MonoBehaviour
 
 	private void Awake()
 	{
+		agent = GetComponent<NavMeshAgent>();
+		//target = Player.Instance.gameObject.transform;
+		target = GameObject.Find("MediumTankSP").transform;
+		agent.updateRotation = false;
+		turret = transform.GetChild(0).GetChild(0);;
+	}
+
+    private void OnEnable()
+    {
 		switch (Random.Range(0, 5))
 		{
 			case 0:
@@ -56,19 +65,11 @@ public abstract class EnemyAI : MonoBehaviour
 				color = "Purple";
 				break;
 		}
-	
-		
-
-		agent = GetComponent<NavMeshAgent>();
-		//target = Player.Instance.gameObject.transform;
-		target = GameObject.Find("MediumTankSP").transform;
-		agent.updateRotation = false;
-		turret = transform.GetChild(0).GetChild(0);;
-
+        
 		ChangeColours(color);
 	}
 
-	private void FixedUpdate()
+    private void FixedUpdate()
 	{
 
 		if (!tankMaterial || !turretMaterial)
@@ -170,8 +171,8 @@ public abstract class EnemyAI : MonoBehaviour
 
 	public void GameOver()
 	{
-		Instantiate(explosion, transform.position, transform.rotation, GameObject.Find("Explosions").transform);
-		Destroy(gameObject);
+		ObjectPoolManager_SP.GetPooledInstantiated(explosion, transform.position, transform.rotation, GameObject.Find("Explosions").transform);
+		gameObject.SetActive(false);
 	}
 
 

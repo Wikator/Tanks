@@ -10,9 +10,9 @@ public sealed class NormalBullet_SP : Bullet_SP
 	//Bullet used by Medium Tanks and Destroyers
 
 
-	protected override void Start()
+	protected override void OnEnable()
 	{
-		base.Start();
+		base.OnEnable();
 		ricochetsLeft = ricochetCount;
 	}
 
@@ -57,7 +57,7 @@ public sealed class NormalBullet_SP : Bullet_SP
 
             if (!isUnstoppable)
             {
-                Destroy(gameObject);
+                gameObject.SetActive(false);
 			}
             else
             {
@@ -84,7 +84,7 @@ public sealed class NormalBullet_SP : Bullet_SP
 	    if (collision.gameObject.CompareTag("Enemy"))
 		{
 			collision.gameObject.GetComponent<EnemyAI>().GameOver();
-			Destroy(gameObject);
-		}
+            gameObject.SetActive(false);
+        }
     }
 }

@@ -20,13 +20,13 @@ public class SceneScript : MonoBehaviour
 		}
 	}
 
-    // Update is called once per frame
-    void Update()
+
+    private void FixedUpdate()
     {
 		if (!GameObject.Find("MediumTankSP"))
 			return;
 		
-		if (Random.Range(0, 1000) < 1)
+		if (Random.Range(0, 300) < 1)
 		{
 
 			Spawn_SP chosenSpawn = spawns[Random.Range(0, numberOfSpawns)];
@@ -38,13 +38,13 @@ public class SceneScript : MonoBehaviour
 			switch (Random.Range(0, 3))
 			{
 				case 0:
-					Instantiate(Addressables.LoadAssetAsync<GameObject>("EnemyNormalTankPawnSP").WaitForCompletion(), chosenSpawn.transform.position, Quaternion.identity, GameObject.Find("Enemies").transform);
+					ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyNormalTankPawnSP").WaitForCompletion(), chosenSpawn.transform.position, Quaternion.identity, GameObject.Find("Enemies").transform);
 					break;
 				case 1:
-					Instantiate(Addressables.LoadAssetAsync<GameObject>("EnemyDestroyerPawnSP").WaitForCompletion(), chosenSpawn.transform.position, Quaternion.identity, GameObject.Find("Enemies").transform);
+					ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyDestroyerPawnSP").WaitForCompletion(), chosenSpawn.transform.position, Quaternion.identity, GameObject.Find("Enemies").transform);
 					break;
 				case 2:
-					Instantiate(Addressables.LoadAssetAsync<GameObject>("EnemyScoutPawnSP").WaitForCompletion(), chosenSpawn.transform.position, Quaternion.identity, GameObject.Find("Enemies").transform);
+					ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyScoutPawnSP").WaitForCompletion(), chosenSpawn.transform.position, Quaternion.identity, GameObject.Find("Enemies").transform);
 					break;
 			}
 			
