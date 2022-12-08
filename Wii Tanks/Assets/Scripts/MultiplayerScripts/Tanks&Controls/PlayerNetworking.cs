@@ -35,12 +35,15 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public double superCharge;
 
 
-    public bool ShowPlayerNames { get; private set; }
+    public bool showPlayerNames;
 
 
 
 
-
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     //Each player will add themself to the players list in the GameManager class
 
@@ -69,12 +72,10 @@ public sealed class PlayerNetworking : NetworkBehaviour
         if (!IsOwner)
             return;
 
-        ShowPlayerNames = true;
+        showPlayerNames = true;
 
         color = "None";
         TankType = "None";
-
-        Instance = this;
 
         SetSteamID(SteamUser.GetSteamID().m_SteamID);
     }
@@ -128,29 +129,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
         }
     }
 
-    [Client]
-    private void Update()
-    {
-        if (IsOwner)
-        {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                DisconnectFromGame();
-            }
 
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                ShowPlayerNames = !ShowPlayerNames;
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                Application.Quit();
-            }
-        }	
-    }
-
-    private void DisconnectFromGame()
+    public void DisconnectFromGame()
     {
 
         if (!IsOwner)

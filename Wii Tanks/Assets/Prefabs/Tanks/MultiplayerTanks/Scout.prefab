@@ -119,8 +119,6 @@ MonoBehaviour:
   _addedNetworkObject: {fileID: 5934193943603683480}
   _networkObjectCache: {fileID: 5934193943603683480}
   stats: {fileID: 11400000, guid: 9ba1df5b576102349b1d9b298ec6ba88, type: 2}
-  animateShader: 1
-  poolBullets: 0
   maxLightIntensity: 0.15
   canUseSuper: 0
   ammoCount: 0
@@ -765,7 +763,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2868133035155401144
 Transform:
   m_ObjectHideFlags: 0
