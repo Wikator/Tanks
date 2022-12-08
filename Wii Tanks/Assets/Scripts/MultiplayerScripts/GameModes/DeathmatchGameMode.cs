@@ -67,7 +67,7 @@ public class DeathmatchGameMode : GameMode
     [Server]
     public override void OnKilled(PlayerNetworking playerNetworking)
     {
-        StartCoroutine(playerNetworking.SpawnTank(respawnTime));
+        StartCoroutine(Respawn(playerNetworking, respawnTime));
         PointScored(playerNetworking.color, -1);
     }
 
@@ -100,5 +100,11 @@ public class DeathmatchGameMode : GameMode
             spawn.GetComponent<Spawn>().isOccupied = true;
             return spawn.position;
         }
+    }
+
+    private IEnumerator Respawn(PlayerNetworking controllingPLayer, float time)
+    {
+        yield return new WaitForSeconds(time);
+        controllingPLayer.SpawnTank();
     }
 }

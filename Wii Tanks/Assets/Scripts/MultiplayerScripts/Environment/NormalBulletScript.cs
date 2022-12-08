@@ -1,4 +1,6 @@
-using FishNet;
+using FishNet.Connection;
+using FishNet.Managing.Logging;
+using FishNet.Object;
 using UnityEngine;
 
 public sealed class NormalBulletScript : Bullet
@@ -6,33 +8,37 @@ public sealed class NormalBulletScript : Bullet
     [SerializeField]
     private int ricochetCount;
 
-    public int ricochetsLeft;
+    private int ricochetsLeft;
 
     //Bullet used by Medium Tanks and Destroyers
 
 
-
-    private void OnEnable()
+    public override void OnSpawnServer(NetworkConnection connection)
     {
+        base.OnSpawnServer(connection);
         ricochetsLeft = ricochetCount;
     }
-
 
     //After hitting the wall, bullet will reflect its direction in relation to the wall, and also change its speed so that the impact will not slow it down
     //If a tank is hit, the bullet will destroy it and give a score to the bullet's owner, if the game mode is set to Deathmatch
 
+    [Server(Logging = LoggingType.Off)]
     private void OnCollisionEnter(Collision collision)
     {
+
         if (collision.gameObject.CompareTag("Arena"))
         {
             ricochetsLeft--;
             if (ricochetsLeft < 0)
             {
+                rigidBody.velocity = Vector3.zero;
                 StartCoroutine(DespawnItself());
             }
             else
             {
-                direction = Vector3.Reflect(direction, collision.contacts[0].normal).normalized ;
+                rigidBody.velocity = currentVelocity;
+                transform.position = currentPosition;
+                rigidBody.velocity = Vector3.Reflect(-collision.relativeVelocity, collision.contacts[0].normal).normalized * moveSpeed;
                 if (player.ControlledPawn)
                 {
                     Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), player.ControlledPawn.GetComponent<BoxCollider>(), false);
@@ -42,35 +48,33 @@ public sealed class NormalBulletScript : Bullet
 
         if (collision.gameObject.CompareTag("Tank"))
         {
-
-            if (InstanceFinder.IsServer)
+            if (player)
             {
-                if (player)
+                if (player.ControlledPawn)
                 {
-                    if (player.ControlledPawn)
+                    if (collision.gameObject != player.ControlledPawn.gameObject)
                     {
-                        if (collision.gameObject != player.ControlledPawn.gameObject)
-                        {
-                            player.superCharge += ChargeTimeToAdd;
+                        player.superCharge += ChargeTimeToAdd;
 
-                            if (GameManager.Instance.gameMode == "Deathmatch" || GameManager.Instance.gameMode == "StockBattle" || GameManager.Instance.gameMode == "Mayhem")
-                            {
-                                GameMode.Instance.PointScored(player.color, 1);
-                            }
+                        if (GameManager.Instance.gameMode == "Deathmatch" || GameManager.Instance.gameMode == "StockBattle" || GameManager.Instance.gameMode == "Mayhem")
+                        {
+                            GameMode.Instance.PointScored(player.color, 1);
                         }
                     }
                 }
-
-                collision.gameObject.GetComponent<Tank>().GameOver();
             }
+
+            collision.gameObject.GetComponent<Tank>().GameOver();
 
             if (!isUnstoppable)
             {
-                gameObject.SetActive(false);
+                Despawn();
             }
             else
             {
                 Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), collision.collider);
+                rigidBody.velocity = currentVelocity;
+                transform.position = currentPosition;
             }
         }
 
@@ -83,9 +87,9 @@ public sealed class NormalBulletScript : Bullet
             else
             {
                 Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), collision.collider);
+                rigidBody.velocity = currentVelocity;
+                transform.position = currentPosition;
             }
         }
     }
-
-
 }

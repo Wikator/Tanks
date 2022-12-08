@@ -55,20 +55,9 @@ public abstract class Tank : NetworkBehaviour
     [SyncVar, HideInInspector]
     protected bool canUseSuper;
 	
+    [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly), HideInInspector]
     protected int ammoCount;
 
-    protected int AmmoCount
-    {
-        get
-        {
-            return ammoCount;
-        }
-        set
-        {
-            ammoCount = value;
-            MainView.Instance.UpdateAmmo(ammoCount);
-        }
-    }
     [SyncVar, HideInInspector]
     public PlayerNetworking controllingPlayer;
 
@@ -92,9 +81,16 @@ public abstract class Tank : NetworkBehaviour
 
     private LayerMask raycastLayer;
 
+    [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
+    private void OnAmmoChange(int oldAmmo, int newAmmo, bool asServer)
+    {
+        ammoCount = newAmmo;
 
-    protected const float MAX_PASSED_TIME = 0.3f;
+        if (!MainView.Instance || !IsOwner)
+            return;
 
+        MainView.Instance.UpdateAmmo(newAmmo);
+    }
 
 
 	public override void OnStartNetwork()
@@ -113,34 +109,33 @@ public abstract class Tank : NetworkBehaviour
         SubscribeToTimeManager(true);
     }
 
-    
+
     public override void OnStartClient()
     {
         base.OnStartClient();
-        
         controller.enabled = IsServer || IsOwner;
         namePlate = transform.GetChild(1).GetComponent<TextMesh>();
         namePlate.text = controllingPlayer.PlayerUsername;
-        muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
-        muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
-        bulletSpawn = turret.GetChild(0).GetChild(0);
-        bulletEmpty = GameObject.Find("Bullets").transform;
         raycastLayer = (1 << 9);
         ChangeColours(controllingPlayer.color);
-        
-        if (IsOwner && !IsServer)
+
+        if (IsOwner)
         {
             MainView.Instance.maxCharge = stats.requiredSuperCharge;
-            routine = StartCoroutine(AddAmmo(stats.timeToReload));
         }
     }
 
     public override void OnStartServer()
     {
         base.OnStartServer();
-        
         canUseSuper = false;
+        bulletSpawn = turret.GetChild(0).GetChild(0);
+        muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
+        bulletEmpty = GameObject.Find("Bullets").transform;
         explosionEmpty = GameObject.Find("Explosions").transform;
+        muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
+        ammoCount = 0;
+
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }
 
@@ -158,7 +153,7 @@ public abstract class Tank : NetworkBehaviour
     [Server]
     public void GameOver()
     {
-        AmmoCount = 0;
+        ammoCount = 0;
         NetworkObject explosionInstance = NetworkManager.GetPooledInstantiated(explosion, true);
         explosionInstance.transform.SetParent(explosionEmpty);
         explosionInstance.transform.SetPositionAndRotation(transform.position, transform.rotation);
@@ -167,7 +162,6 @@ public abstract class Tank : NetworkBehaviour
         GameMode.Instance.OnKilled(controllingPlayer);
         Despawn();
     }
-
 
 
     [Client]
@@ -205,7 +199,7 @@ public abstract class Tank : NetworkBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            ClientFire();
+            Fire();
         }
 
         if (Input.GetMouseButtonDown(1))
@@ -225,18 +219,23 @@ public abstract class Tank : NetworkBehaviour
         SpawnAnimation();
 	}
 
-
-    protected void ClientFire()
+    [ServerRpc]
+    protected virtual void Fire()
     {
         if (ammoCount <= 0)
             return;
 
-        Vector3 position = bulletSpawn.position;
-        Vector3 direction = bulletSpawn.forward;
+        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+        bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
+        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+        Spawn(bulletInstance);
 
-        SpawnProjectile(position, direction, 0f);
+        NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
+        flashInstance.transform.SetParent(muzzleFlashEmpty);
+        flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
+        Spawn(flashInstance);
 
-        ServerFire(position, direction, TimeManager.Tick);
 
         if (routine != null)
         {
@@ -244,58 +243,18 @@ public abstract class Tank : NetworkBehaviour
             routine = null;
         }
 
-        AmmoCount--;
+        ammoCount--;
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
-    }
-
-
-    [ServerRpc]
-    protected void ServerFire(Vector3 position, Vector3 direction, uint tick)
-    {
-        //if (IsClient)
-        //return;
-        /*
-        if (routine != null)
-        {
-            StopCoroutine(routine);
-            routine = null;
-        }
-
-        AmmoCount--;
-        routine = StartCoroutine(AddAmmo(stats.timeToReload));
-        */
-
-        ObserversFire(position, direction, tick);
-    }
-
-    [ObserversRpc(IncludeOwner = false)]
-    private void ObserversFire(Vector3 position, Vector3 direction, uint tick)
-    {
-        float passedTime = (float)TimeManager.TimePassed(tick, false);
-
-        passedTime = Mathf.Min(MAX_PASSED_TIME, passedTime);
-
-        SpawnProjectile(position, direction, passedTime);
-
-    }
-
-
-
-    protected virtual void SpawnProjectile(Vector3 position, Vector3 direction, float passedTime)
-    {
-        GameObject bulletInstance = ObjectPoolManager.GetPooledInstantiated(bullet, position, Quaternion.identity, bulletEmpty);
-        bulletInstance.GetComponent<Bullet>().Initialize(direction, passedTime, controllingPlayer, stats.onKillSuperCharge, gameObject.GetComponent<BoxCollider>());
-
-        ObjectPoolManager.GetPooledInstantiated(muzzleFlash, muzzleFlashSpawn.position, muzzleFlashSpawn.rotation, muzzleFlashEmpty);
     }
 
     protected abstract void SpecialMove();
 
 
+    [Server]
     protected IEnumerator AddAmmo(float time)
     {
         yield return new WaitForSeconds(time);
-        AmmoCount++;
+        ammoCount++;
 
         if (ammoCount != stats.maxAmmo)
         {

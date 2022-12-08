@@ -142,15 +142,13 @@ public class EliminationGameMode : GameMode
     {
         foreach (PlayerNetworking player in gameManager.players)
         {
-            StartCoroutine(player.SpawnTank(0f));
+            player.SpawnTank();
         }
 
-        /*if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
+        if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
         {
             eliminationGameMode.waitingForNewRound = false;
-        }*/
-
-        waitingForNewRound = false;
+        }
     }
 
 
@@ -168,8 +166,8 @@ public class EliminationGameMode : GameMode
 
         foreach (Transform child in bulletEmpty)
         {
-            //if (child.GetComponent<Bullet>().IsSpawned)
-                //child.GetComponent<Bullet>().Despawn();
+            if (child.GetComponent<Bullet>().IsSpawned)
+                child.GetComponent<Bullet>().Despawn();
         }
 
         yield return new WaitForSeconds(2.0f);

@@ -1,7 +1,6 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using Steamworks;
@@ -10,7 +9,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
 {
     public static PlayerNetworking Instance { get; private set; }
 
-    [SyncVar]
+
     public Tank ControlledPawn;
 
     [field : SyncVar]
@@ -172,18 +171,17 @@ public sealed class PlayerNetworking : NetworkBehaviour
 	}
 
     [Server]
-    public IEnumerator SpawnTank(float time)
+    public void SpawnTank()
     {
-        yield return new WaitForSeconds(time);
-        if (TankType != "None" && GameManager.Instance.GameInProgress)
-        {
-            GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "Pawn").WaitForCompletion(), GameMode.Instance.FindSpawnPosition(color), Quaternion.identity, transform);
-            ControlledPawn = playerInstance.GetComponent<Tank>();
-            ControlledPawn.controllingPlayer = this;
-            Spawn(playerInstance, Owner);
-            playerInstance.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
-            playerInstance.transform.GetChild(0).GetChild(0).transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
-        }
+        if (TankType == "None")
+            return;
+
+        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "Pawn").WaitForCompletion(), GameMode.Instance.FindSpawnPosition(color), Quaternion.identity, transform);
+        ControlledPawn = playerInstance.GetComponent<Tank>();
+        ControlledPawn.controllingPlayer = this;
+        Spawn(playerInstance, Owner);
+        playerInstance.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
+        playerInstance.transform.GetChild(0).GetChild(0).transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
 

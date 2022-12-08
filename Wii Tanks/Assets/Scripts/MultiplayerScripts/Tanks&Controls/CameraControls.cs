@@ -4,9 +4,6 @@ public class CameraControls : MonoBehaviour
 {
     private Transform middlePoint;
 
-    [SerializeField]
-    private bool isTurnedOn;
-
     private void Start()
     {
         middlePoint = GameObject.Find("MiddlePoint").transform;
@@ -18,10 +15,6 @@ public class CameraControls : MonoBehaviour
 
     private void Update()
     {
-        if (!isTurnedOn)
-            return;
-
-
         if (Input.GetKey(KeyCode.Q))
         {
             transform.RotateAround(middlePoint.position, Vector3.up, 50 * Time.deltaTime);

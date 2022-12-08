@@ -15,15 +15,38 @@ public class ScoutTank : Tank
     private int spreadAngle;
 
 
-    protected override void SpawnProjectile(Vector3 position, Vector3 direction, float passedTime)
+    [ServerRpc]
+    protected override void Fire()
     {
-        for (int angle = -spreadAngle; angle < spreadAngle * 2; angle += spreadAngle)
-        {
-            GameObject bulletInstance = ObjectPoolManager.GetPooledInstantiated(bullet, position, Quaternion.identity, bulletEmpty);
-            bulletInstance.GetComponent<Bullet>().Initialize(Quaternion.Euler(0, angle, 0) * direction, passedTime, controllingPlayer, stats.onKillSuperCharge, gameObject.GetComponent<BoxCollider>());
+        if (ammoCount <= 0)
+            return;
 
-            ObjectPoolManager.GetPooledInstantiated(muzzleFlash, muzzleFlashSpawn.position, muzzleFlashSpawn.rotation, muzzleFlashEmpty);
+        for (int angle = -spreadAngle; angle < spreadAngle*2; angle += spreadAngle)
+        {
+            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+            bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
+            bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
+            bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+            Spawn(bulletInstance);
+
+
+            NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
+            flashInstance.transform.SetParent(muzzleFlashEmpty);
+            flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
+            flashInstance.transform.Rotate(new Vector3(0f, angle, 0f));
+            Spawn(flashInstance);
         }
+
+
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+            routine = null;
+        }
+
+        ammoCount--;
+        routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }
 
     [ServerRpc]
@@ -63,7 +86,7 @@ public class ScoutTank : Tank
                 routine = null;
             }
 
-            AmmoCount = stats.maxAmmo;
+            ammoCount = stats.maxAmmo;
         }
     }
      
