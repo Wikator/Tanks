@@ -173,7 +173,7 @@ public abstract class Tank : NetworkBehaviour
 
         if (namePlate)
         {
-            if (PlayerNetworking.Instance.ShowPlayerNames)
+            if (PlayerNetworking.Instance.showPlayerNames)
             {
                 namePlate.gameObject.SetActive(true);
                 namePlate.transform.LookAt(cam.transform);
