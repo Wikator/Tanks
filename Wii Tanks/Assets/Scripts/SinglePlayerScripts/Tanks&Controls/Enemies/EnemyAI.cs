@@ -40,7 +40,7 @@ public abstract class EnemyAI : MonoBehaviour
 	{
 		agent = GetComponent<NavMeshAgent>();
 		//target = Player.Instance.gameObject.transform;
-		target = GameObject.Find("MediumTankSP").transform;
+		target = Player.Instance.ControlledPawn.transform;
 		agent.updateRotation = false;
 		turret = transform.GetChild(0).GetChild(0);;
 	}

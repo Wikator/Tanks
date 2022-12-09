@@ -433,6 +433,30 @@ MonoBehaviour:
     m_Address: EnemyScoutPawnSP
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 43c5ef960d3873e41acbd90921eb9f96
+    m_Address: BlueTrail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8dcfb3ca7aef5764089babde494d81ad
+    m_Address: CyanTrail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ab2421d82fff15846920659ec5582a29
+    m_Address: GreenTrail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: a8a75c0036f19074ca5ac04d3b4279bc
+    m_Address: PinkTrail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ae26d409095a016479c1c79a4c748d9c
+    m_Address: RedTrail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: bcb13fa8b3eba3b46aa5682958e762b3
+    m_Address: YellowTrail
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
   m_SchemaSet:

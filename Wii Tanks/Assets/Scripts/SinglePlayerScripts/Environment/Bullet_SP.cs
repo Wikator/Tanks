@@ -6,7 +6,6 @@ public abstract class Bullet_SP : MonoBehaviour
     [SerializeField]
     protected float moveSpeed;
 
-
     protected Rigidbody rigidBody;
 
     protected Vector3 currentVelocity, currentPosition;
@@ -18,6 +17,7 @@ public abstract class Bullet_SP : MonoBehaviour
 
 
     public Collider owningCollider;
+
 
 
     private void Awake()

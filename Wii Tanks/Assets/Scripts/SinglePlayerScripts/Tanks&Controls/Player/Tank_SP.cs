@@ -39,7 +39,6 @@ public abstract class Tank_SP : MonoBehaviour
     [HideInInspector]
     protected bool canUseSuper;
 
-    [HideInInspector]
     protected int ammoCount;
 
 
@@ -138,6 +137,8 @@ public abstract class Tank_SP : MonoBehaviour
 
         ammoCount--;
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
+
+        MainView_SP.Instance.UpdateAmmo(ammoCount);
     }
 
     protected abstract void SpecialMove();
@@ -156,6 +157,8 @@ public abstract class Tank_SP : MonoBehaviour
         {
             routine = null;
         }
+
+        MainView_SP.Instance.UpdateAmmo(ammoCount);
     }
 
 

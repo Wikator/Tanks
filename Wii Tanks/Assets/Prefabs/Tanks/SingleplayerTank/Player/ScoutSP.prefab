@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2926850046043457212}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 2047439078720476243}
   - component: {fileID: 1794315633374406578}
   - component: {fileID: 4125509917077362912}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ScoutSP
   m_TagString: Tank
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ GameObject:
   - component: {fileID: 2627701806895837806}
   - component: {fileID: 8979185520705293335}
   - component: {fileID: 4710979424030155658}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Armour
   m_TagString: Tank
   m_Icon: {fileID: 0}
@@ -640,7 +640,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6175278204753993612}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -675,7 +675,7 @@ GameObject:
   - component: {fileID: 3996922431440753188}
   - component: {fileID: 2197155434306701331}
   - component: {fileID: 8217491843468364060}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TurretGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1502,7 +1502,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7557857471640936600}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TurretTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}

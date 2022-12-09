@@ -23,7 +23,8 @@ public class SceneScript : MonoBehaviour
 
     private void FixedUpdate()
     {
-		if (!GameObject.Find("MediumTankSP"))
+
+		if (!Player.Instance.ControlledPawn)
 			return;
 		
 		if (Random.Range(0, 250) < 1)

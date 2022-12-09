@@ -44,9 +44,9 @@ public sealed class NormalBullet_SP : Bullet_SP
 
         if (collision.gameObject.CompareTag("Tank"))
         {
-            if (Player.ControlledPawn)
+            if (Player.Instance.ControlledPawn)
             {
-                if (collision.gameObject != Player.ControlledPawn.gameObject)
+                if (collision.gameObject != Player.Instance.ControlledPawn.gameObject)
                 {
                     Player.Instance.superCharge += ChargeTimeToAdd;
 
