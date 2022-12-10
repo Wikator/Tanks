@@ -81,6 +81,7 @@ public sealed class NormalBullet_SP : Bullet_SP
 	    if (collision.gameObject.CompareTag("Enemy"))
 		{
             Player.Instance.score += 1;
+            Player.Instance.superCharge += ChargeTimeToAdd;
             MainView_SP.Instance.UpdateScore(Player.Instance.score);
             collision.gameObject.GetComponent<EnemyAI>().GameOver();
             gameObject.SetActive(false);

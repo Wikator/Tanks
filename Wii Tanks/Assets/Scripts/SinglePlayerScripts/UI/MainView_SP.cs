@@ -38,14 +38,6 @@ public class MainView_SP : MonoBehaviour
         scoreText.text = "Score: " + newScore;
     }
 
-    public virtual void UpdateScore(string color, int newScore)
-    {
-        if (Player.Instance.color == color)
-        {
-            scoreText.text = "Score: " + newScore;
-        }
-    }
-
     private void FixedUpdate()
     {
         superBar.value = (float)Player.Instance.superCharge / maxCharge;

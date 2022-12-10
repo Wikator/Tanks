@@ -19,8 +19,8 @@ public abstract class Tank_SP : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    protected Stats stats;
+    //[SerializeField]
+    public Stats stats;
 
     [SerializeField]
     private bool animateShader;
@@ -37,7 +37,7 @@ public abstract class Tank_SP : MonoBehaviour
 
 
     [HideInInspector]
-    protected bool canUseSuper;
+    public bool canUseSuper;
 
     protected int ammoCount;
 
@@ -78,6 +78,7 @@ public abstract class Tank_SP : MonoBehaviour
         explosionEmpty = GameObject.Find("Explosions").transform;
         muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
         ammoCount = 0;
+        MainView_SP.Instance.maxCharge = stats.requiredSuperCharge;
 
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }

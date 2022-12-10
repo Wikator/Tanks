@@ -16,6 +16,7 @@ public sealed class NormalTank_SP : Tank_SP
         }
 
         Player.Instance.superCharge = 0;
+        canUseSuper = false;
 
         ammoCount = 0;
         StartCoroutine(Barrage());

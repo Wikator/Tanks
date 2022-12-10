@@ -45,7 +45,17 @@ public sealed class Player : MonoBehaviour
             SpawnTank();
         }
 
-        Debug.Log(ControlledPawn);
+        if (ControlledPawn)
+        {
+            if (superCharge < ControlledPawn.stats.requiredSuperCharge)
+            {
+                superCharge += Time.deltaTime;
+            }
+            else
+            {
+                ControlledPawn.canUseSuper = true;
+            }
+        }
     }
 
     public void SpawnTank()
