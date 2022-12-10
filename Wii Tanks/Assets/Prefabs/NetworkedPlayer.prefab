@@ -83,6 +83,7 @@ MonoBehaviour:
   color: 
   <IsReady>k__BackingField: 0
   superCharge: 0
+  showPlayerNames: 0
 --- !u!114 &-7317939241241333854
 MonoBehaviour:
   m_ObjectHideFlags: 0
