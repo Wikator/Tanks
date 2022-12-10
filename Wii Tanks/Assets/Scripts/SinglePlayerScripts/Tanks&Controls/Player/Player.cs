@@ -17,6 +17,8 @@ public sealed class Player : MonoBehaviour
 	
     public double superCharge;
 
+    public int score = 0;
+
 
 
 	private void Awake()

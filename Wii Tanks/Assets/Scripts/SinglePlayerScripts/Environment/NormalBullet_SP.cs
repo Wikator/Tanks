@@ -44,14 +44,11 @@ public sealed class NormalBullet_SP : Bullet_SP
 
         if (collision.gameObject.CompareTag("Tank"))
         {
-            if (Player.Instance.ControlledPawn)
+            if (collision.gameObject != Player.Instance.ControlledPawn.gameObject)
             {
-                if (collision.gameObject != Player.Instance.ControlledPawn.gameObject)
-                {
-                    Player.Instance.superCharge += ChargeTimeToAdd;
-
-                }
+                Player.Instance.superCharge += ChargeTimeToAdd;
             }
+
             collision.gameObject.GetComponent<Tank_SP>().GameOver();
 
 
@@ -83,7 +80,9 @@ public sealed class NormalBullet_SP : Bullet_SP
 
 	    if (collision.gameObject.CompareTag("Enemy"))
 		{
-			collision.gameObject.GetComponent<EnemyAI>().GameOver();
+            Player.Instance.score += 1;
+            MainView_SP.Instance.UpdateScore(Player.Instance.score);
+            collision.gameObject.GetComponent<EnemyAI>().GameOver();
             gameObject.SetActive(false);
         }
     }

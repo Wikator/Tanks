@@ -47,7 +47,6 @@ public class EnemyScoutTank : EnemyAI
 
 		if (walkPointSet)
 		{
-			Debug.Log(walkPoint);
 			agent.SetDestination(walkPoint);
 		}
 

@@ -5,7 +5,7 @@ using UnityEngine.AddressableAssets;
 
 public class SceneScript : MonoBehaviour
 {
-	private List<Spawn_SP> spawns = new();
+	private readonly List<Spawn_SP> spawns = new();
 
 	private int numberOfSpawns;
 

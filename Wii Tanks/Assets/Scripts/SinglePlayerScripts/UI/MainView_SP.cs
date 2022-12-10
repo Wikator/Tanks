@@ -33,6 +33,11 @@ public class MainView_SP : MonoBehaviour
         ammoCountText.text = "Ammo:" + newAmmoCount;
     }
 
+    public void UpdateScore(int newScore)
+    {
+        scoreText.text = "Score: " + newScore;
+    }
+
     public virtual void UpdateScore(string color, int newScore)
     {
         if (Player.Instance.color == color)
