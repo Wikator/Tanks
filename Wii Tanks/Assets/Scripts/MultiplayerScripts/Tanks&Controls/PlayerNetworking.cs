@@ -39,12 +39,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
 
 
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-
     //Each player will add themself to the players list in the GameManager class
 
     public override void OnStartServer()
@@ -71,6 +65,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
         if (!IsOwner)
             return;
+
+        Instance = this;
 
         showPlayerNames = true;
 
