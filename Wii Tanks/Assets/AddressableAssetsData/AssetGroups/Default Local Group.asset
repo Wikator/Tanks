@@ -141,7 +141,7 @@ MonoBehaviour:
     m_Address: GameManager
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 6c62193c7eb49994cbde018e484837f5
+  - m_GUID: 849057e33fd186f4ea10d2647d6fc4e0
     m_Address: PlayerNetworking
     m_ReadOnly: 0
     m_SerializedLabels: []

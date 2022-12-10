@@ -8,9 +8,9 @@
     <type fullname="LobbyPlayerTag" preserve="all" />
     <type fullname="NormalBulletScript" preserve="all" />
     <type fullname="NormalTank" preserve="all" />
-    <type fullname="PlayerNetworking" preserve="all" />
     <type fullname="ScoutBulletScript" preserve="all" />
     <type fullname="ScoutTank" preserve="all" />
+    <type fullname="Spawn" preserve="all" />
     <type fullname="Stats" preserve="all" />
     <type fullname="StockBattleGameMode" preserve="all" />
     <type fullname="TakedownGameMode" preserve="all" />
