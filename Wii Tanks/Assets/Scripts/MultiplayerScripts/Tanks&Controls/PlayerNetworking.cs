@@ -162,16 +162,18 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
 
     //Method for when a tank needs to be killed in order to start a new round
-
-    public void DespawnTank()
+    [Server]
+    public void StartDespawningTank()
     {
         if (ControlledPawn)
         {
             if (ControlledPawn.IsSpawned)
             {
-                ControlledPawn.GameOver();
+                ControlledPawn.isDespawning = true;
             }
         }
+
+        ControlledPawn = null;
     }
 	
 	

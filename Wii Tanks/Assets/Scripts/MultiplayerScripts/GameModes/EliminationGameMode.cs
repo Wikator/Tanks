@@ -170,7 +170,7 @@ public class EliminationGameMode : GameMode
                 child.GetComponent<Bullet>().Despawn();
         }
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(3.0f);
 
         StartNewRound(GameManager.Instance);
     }

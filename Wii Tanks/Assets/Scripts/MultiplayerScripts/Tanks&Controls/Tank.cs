@@ -68,6 +68,9 @@ public abstract class Tank : NetworkBehaviour
 
     private bool isSubscribed = false;
 
+    [SyncVar]
+    public bool isDespawning = false;
+
     private CharacterController controller;
     private Transform explosionEmpty, turret;
     private GameObject explosion;
@@ -99,6 +102,7 @@ public abstract class Tank : NetworkBehaviour
         cam = Camera.main;
         controller = GetComponent<CharacterController>();
         turret = transform.GetChild(0).GetChild(0);
+        isDespawning = false;
 
         if (GameManager.Instance.gameMode == "Mayhem")
         {
@@ -164,6 +168,15 @@ public abstract class Tank : NetworkBehaviour
     }
 
 
+    [ServerRpc]
+    public void DespawnForNewRound()
+    {
+        isDespawning = false;
+        ammoCount = 0;
+        Despawn();
+    }
+
+
     [Client]
     private void Update()
     {
@@ -194,7 +207,7 @@ public abstract class Tank : NetworkBehaviour
             }
         }
 
-        if (!IsOwner || !GameManager.Instance.GameInProgress)
+        if (!IsOwner || !GameManager.Instance.GameInProgress || isDespawning)
             return;
 
         if (Input.GetMouseButtonDown(0))
@@ -216,7 +229,14 @@ public abstract class Tank : NetworkBehaviour
 		if (!IsSpawned || !tankMaterial || !turretMaterial)
 			return;
 
-        SpawnAnimation();
+        if (isDespawning)
+        {
+            DespawnAnimation();
+        }
+        else
+        {
+            SpawnAnimation();
+        }
 	}
 
     [ServerRpc]
@@ -347,8 +367,8 @@ public abstract class Tank : NetworkBehaviour
         turretMaterial = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
         gameObject.GetComponent<HDAdditionalLightData>().color = tankMaterial.GetColor("_Color01");
         gameObject.GetComponent<HDAdditionalLightData>().intensity = 0f;
-        tankMaterial.SetFloat("_CurrentAppearence", 0.34f);
-        turretMaterial.SetFloat("_CurrentAppearence", 0.3f);
+        tankMaterial.SetFloat("_CurrentAppearence", 0.4f);
+        turretMaterial.SetFloat("_CurrentAppearence", 0.4f);
 		transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
         turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
         explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
@@ -358,15 +378,20 @@ public abstract class Tank : NetworkBehaviour
     [Client]
     private void SpawnAnimation()
     {
-        if (turretMaterial.GetFloat("_CurrentAppearence") > -0.3f)
+        if (turretMaterial.GetFloat("_CurrentAppearence") > -0.4f)
         {
             if (tankMaterial.GetFloat("_CurrentAppearence") > -0f)
             {
                 tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - 0.01f);
+
+                if (gameObject.GetComponent<HDAdditionalLightData>().intensity < maxLightIntensity)
+                {
+                    gameObject.GetComponent<HDAdditionalLightData>().intensity += 0.0025f;
+                }
             }
             else
             {
-                if (tankMaterial.GetFloat("_CurrentAppearence") > -0.3f)
+                if (tankMaterial.GetFloat("_CurrentAppearence") > -0.4f)
                 {
                     turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - 0.01f);
                     tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - 0.01f);
@@ -374,20 +399,44 @@ public abstract class Tank : NetworkBehaviour
                 else
                 {
                     turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - 0.01f);
+                }
+            }
+        }
+    }
+
+    [Client]
+    private void DespawnAnimation()
+    {
+        if (tankMaterial.GetFloat("_CurrentAppearence") < 0.4f)
+        {
+            if (turretMaterial.GetFloat("_CurrentAppearence") < 0f)
+            {
+                turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") + 0.01f);
+            }
+            else
+            {
+                if (turretMaterial.GetFloat("_CurrentAppearence") < 0.4f)
+                {
+                    turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") + 0.01f);
+                    tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + 0.01f);
+                }
+                else
+                {
+                    tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + 0.01f);
 
 
-                    if (gameObject.GetComponent<HDAdditionalLightData>().intensity < maxLightIntensity)
+                    if (gameObject.GetComponent<HDAdditionalLightData>().intensity > 0)
                     {
-                        gameObject.GetComponent<HDAdditionalLightData>().intensity += 0.00005f;
+                        gameObject.GetComponent<HDAdditionalLightData>().intensity -= 0.0035f;
+
                     }
                 }
             }
         }
-
-		if (gameObject.GetComponent<HDAdditionalLightData>().intensity < 0.15f)
-		{
-			gameObject.GetComponent<HDAdditionalLightData>().intensity += 0.003f;
-		}
+        else
+        {
+            DespawnForNewRound();
+        }
     }
 
 	

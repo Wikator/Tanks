@@ -15083,7 +15083,7 @@ MonoBehaviour:
   - {r: 1, g: 0, b: 0, a: 1}
   oldColor: {r: 0, g: 0, b: 0, a: 0}
   rotateSpeed: 2.5
-  testLocally: 0
+  testLocally: 1
 --- !u!4 &831866722
 Transform:
   m_ObjectHideFlags: 0

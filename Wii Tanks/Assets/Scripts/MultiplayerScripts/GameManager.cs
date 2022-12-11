@@ -115,7 +115,7 @@ public sealed class GameManager : NetworkBehaviour
     {
         foreach (PlayerNetworking player in players)
         {
-            player.DespawnTank();
+            player.StartDespawningTank();
         }
     }
 }
