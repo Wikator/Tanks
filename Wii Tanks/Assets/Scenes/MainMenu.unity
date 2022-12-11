@@ -175,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcc9df095445e946a9b5ffaa562536a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testLocally: 1
+  testLocally: 0
   hostButton: {fileID: 1054116378}
   connectButton: {fileID: 1682144410}
   singlePlayerButton: {fileID: 0}
@@ -506,9 +506,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34e4a322dca349547989b14021da4e23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Transport: {fileID: 1323912220}
+  Transport: {fileID: 1323912232}
   _latencySimulator:
-    _enabled: 1
+    _enabled: 0
     _simulateHost: 0
     _latency: 28
     _outOfOrder: 0.14499999582767487
@@ -656,9 +656,9 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1323912219}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83388b377abc619488363ef63286e73f, type: 3}
+  m_Script: {fileID: 11500000, guid: 400639878008206409ec440eb16c3007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _steamAppID: 480
@@ -1275,7 +1275,7 @@ GameObject:
   - component: {fileID: 1692967057}
   - component: {fileID: 1692967058}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: SteamManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
