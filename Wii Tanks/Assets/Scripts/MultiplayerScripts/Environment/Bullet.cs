@@ -1,6 +1,8 @@
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 public abstract class Bullet : NetworkBehaviour
 {
@@ -17,7 +19,13 @@ public abstract class Bullet : NetworkBehaviour
     [SerializeField, Tooltip("Unstoppable bullets are not destroyed when colliding with tanks or other bullets")]
     protected bool isUnstoppable;
 
+    [SyncVar]
+    private bool isDespawning = false;
+
     public int ChargeTimeToAdd { protected get; set; }
+
+
+    private const float LIGHT_INTENSITY = 0.5f;
 
     //Once spawn, bullet will be given force, and cannot be slown down by any means, unless destroyed
 
@@ -49,23 +57,41 @@ public abstract class Bullet : NetworkBehaviour
             rigidBody = GetComponent<Rigidbody>();
             rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
         }
+
+        isDespawning = false;
+    }
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        transform.GetChild(1).GetComponent<HDAdditionalLightData>().intensity = LIGHT_INTENSITY;
     }
 
 
     //Bullet's stats are saved in the FixedUpdate, so that the bullet will not slow down after hitting the wall
 
-    [Server(Logging = FishNet.Managing.Logging.LoggingType.Off)]
+    //[Server(Logging = FishNet.Managing.Logging.LoggingType.Off)]
     private void FixedUpdate()
     {
         currentVelocity = rigidBody.velocity;
         currentPosition = transform.position;
+
+        if (isDespawning)
+            TurnOffLight();
     }
 
     //Thanks to this method, bullet's trail will linger for a bit after the bullet despawns
 
+    [Client]
+    private void TurnOffLight()
+    {
+        transform.GetChild(1).GetComponent<HDAdditionalLightData>().intensity -= 0.015f;
+    }
+
     [Server]
     public IEnumerator DespawnItself()
     {
+        isDespawning = true;
         rigidBody.velocity = Vector3.zero;
         GetComponent<SphereCollider>().enabled = false;
         yield return new WaitForSeconds(0.6f);
