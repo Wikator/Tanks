@@ -88,6 +88,7 @@ public abstract class Tank_SP : MonoBehaviour
     {
         ammoCount = 0;
         ObjectPoolManager_SP.GetPooledInstantiated(explosion, transform.position, transform.rotation, explosionEmpty);
+        UIManager_SP.Instance.Show<GameOverView_SP>();
 		Destroy(gameObject);
 	}
 

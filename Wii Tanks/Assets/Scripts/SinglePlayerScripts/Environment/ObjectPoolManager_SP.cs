@@ -3,7 +3,7 @@ using UnityEngine;
 
 public sealed class ObjectPoolManager_SP : MonoBehaviour
 {
-    public static Dictionary<GameObject, HashSet<GameObject>> pooledObjects = new();
+    private readonly static Dictionary<GameObject, HashSet<GameObject>> pooledObjects = new();
 
     public static GameObject GetPooledInstantiated(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
     {
@@ -32,6 +32,11 @@ public sealed class ObjectPoolManager_SP : MonoBehaviour
         GameObject newObject = Instantiate(prefab, position, rotation, parent);
         pooledObjects[prefab].Add(newObject);
         return newObject;
+    }
+
+    public static void ResetObjectPool()
+    {
+        pooledObjects.Clear();
     }
 }
 

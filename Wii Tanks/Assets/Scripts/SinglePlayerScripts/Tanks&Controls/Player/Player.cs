@@ -30,6 +30,8 @@ public sealed class Player : MonoBehaviour
 	{
         color = "None";
         TankType = "MediumTank";
+
+        SpawnTank();
     }
 
 
@@ -40,10 +42,6 @@ public sealed class Player : MonoBehaviour
             Application.Quit();
         }
 
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            SpawnTank();
-        }
 
         if (ControlledPawn)
         {

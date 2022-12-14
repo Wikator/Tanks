@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class MainView_SP : MonoBehaviour
+public class MainView_SP : View_SP
 {
     public static MainView_SP Instance { get; private set; }
 
