@@ -61,7 +61,7 @@ public sealed class Player : MonoBehaviour
         if (TankType == "None" || ControlledPawn)
             return;
 
-        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "PawnSP").WaitForCompletion(), new Vector3(-23.84f, 0.8f, -15.7f), Quaternion.identity, transform);
+        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "PawnSP").WaitForCompletion(), GameMode_SP.Instance.FindPlayerSpawn(), Quaternion.identity, transform);
         ControlledPawn = playerInstance.GetComponent <Tank_SP>();
         playerInstance.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
         playerInstance.transform.GetChild(0).GetChild(0).transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;

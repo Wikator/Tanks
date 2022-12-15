@@ -8,11 +8,13 @@ public class CampaignModeManager_SP : MonoBehaviour
 
     [SerializeField]
     private GameObject[] allArenasArray = new GameObject[5];
-    
 
-    private List<Spawn_SP> enemySpawns = new();
+    [HideInInspector]
+    public List<Spawn_SP> enemySpawns = new();
 
-    private Spawn_SP playerSpawn;
+    [HideInInspector]
+    public Spawn_SP playerSpawn;
+
     [SerializeField]
     private  List <GameObject> allCurrentArenas = new();
 
@@ -90,6 +92,7 @@ public class CampaignModeManager_SP : MonoBehaviour
                         allCurrentArenas.Remove(arena);
                         Destroy(arena);
                         rotating = false;
+                        StartGame();
                         break;
                     }
                 }
@@ -111,32 +114,25 @@ public class CampaignModeManager_SP : MonoBehaviour
     }
 
 
-    public Vector3 FindPlayerSpawn()
-    {
-        return playerSpawn.transform.position;
-    }
-
-    public Vector3 FindEnemySpawn()
-    {
-        Spawn_SP chosenSpawn = enemySpawns[Random.Range(0, enemySpawns.Count)];
-
-        if (chosenSpawn.isOccupied)
-        {
-            return FindEnemySpawn();
-        }
-
-        return chosenSpawn.transform.position;
-    }
-
     public void StartGame()
     {
-        allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[2], Quaternion.identity));
+        if (allCurrentArenas.Count == 0)
+        {
+            allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[2], Quaternion.identity));
 
-        GameObject secondArena = Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[3], Quaternion.identity);
-        UpdateSpawns(secondArena.transform.GetChild(0));
-        allCurrentArenas.Add(secondArena);
+            GameObject secondArena = Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[3], Quaternion.identity);
+            allCurrentArenas.Add(secondArena);
 
-        allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[4], Quaternion.identity));
+            allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[4], Quaternion.identity));
+
+            backgroundRenderer.material.color = secondArena.GetComponent<SceneInfo_SP>().backgroundColor;
+        }
+
+        UpdateSpawns(allCurrentArenas[1].transform.GetChild(0));
+
+
+
+        GameMode_SP.Instance.StartNewRound();
     }
 
     
@@ -157,6 +153,6 @@ public class CampaignModeManager_SP : MonoBehaviour
         lerpValue = 0f;
 
         oldColor = backgroundRenderer.material.color;
-        newColor = backgroundColors[Random.Range(0, 5)];
+        newColor = allCurrentArenas[2].GetComponent<SceneInfo_SP>().backgroundColor;
     }
 }

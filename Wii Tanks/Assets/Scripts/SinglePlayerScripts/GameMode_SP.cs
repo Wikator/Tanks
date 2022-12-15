@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
-public abstract class GameMode_SP : MonoBehaviour
+public class GameMode_SP : MonoBehaviour
 {
     public static GameMode_SP Instance { get; private set; }
-	
 
-    public readonly Dictionary<string, Transform[]> spawns = new();
+
+
 
 
     public readonly List<EnemyAI> enemyTeam = new();
@@ -34,24 +35,13 @@ public abstract class GameMode_SP : MonoBehaviour
         Transform enemiesSpawnsParent = GameObject.Find("EnemySpawns").transform;
 
         enemySpawnCount = enemiesSpawnsParent.childCount;
-
-        spawns["Player"] = new Transform[1];
-        spawns["Red"] = new Transform[enemySpawnCount];
-
-        spawns["Player"][0] = GameObject.Find("EnemySpawns").transform;
-
-        for (int i = 0; i < enemySpawnCount; i++)
-        {
-            spawns["Red"][i] = enemiesSpawnsParent.GetChild(i).transform;
-        }
     }
 
     //When a team has no players left, the round ends, points are given, and a new round starts
 
     public void OnKilled(bool isPlayer)
     {
-
-        if (!GameManager.Instance.GameInProgress)
+        if (!GameManager_SP.Instance.GameInProgress)
             return;
 
         switch (isPlayer)
@@ -60,42 +50,60 @@ public abstract class GameMode_SP : MonoBehaviour
 				GameManager_SP.Instance.EndGame();
 				break;
             case false:
-                if (enemyTeam.Count != 0)
+                if (enemyTeam.Count == 0)
                 {
-					GameManager_SP.Instance.EndGame();
-				}
+                    Player.Instance.DespawnTank();
+
+                    foreach (Transform child in bulletEmpty)
+                    {
+                        child.gameObject.SetActive(false);
+                    }
+
+                    CampaignModeManager_SP.Instance.NextMap();
+                }
                 break;
         }
     }
 
 
-    //This recursive method tried to find an avaible spawn
-    //If none are avaible, StackOverflowException is cought, so the tank needs to spawn in random spawn regardless if it's avaible or not
 
-    public Vector3 FindSpawnPosition(bool isPlayer)
+
+    public Vector3 FindPlayerSpawn()
     {
+        return CampaignModeManager_SP.Instance.playerSpawn.transform.position;
+    }
 
-        if (isPlayer)
+    public Vector3 FindEnemySpawn()
+    {
+        Spawn_SP chosenSpawn = CampaignModeManager_SP.Instance.enemySpawns[Random.Range(0, CampaignModeManager_SP.Instance.enemySpawns.Count)];
+
+        if (chosenSpawn.isOccupied)
         {
-            return spawns["Player"][0].position;
+            return FindEnemySpawn();
         }
-        else
-        {
-            Transform randomSpawn = spawns["Enemies"][Random.Range(0, enemySpawnCount)];
-			try
-			{
-				return randomSpawn.position;
-			}
-			catch (System.StackOverflowException)
-			{
-				return randomSpawn.position;
-			}
-		}
+
+        return chosenSpawn.transform.position;
     }
 
 
-    protected void StartNewRound(GameManager_SP gameManager)
+    public void StartNewRound()
     {
 		Player.Instance.SpawnTank();
+
+        for (int i = 0; i < Random.Range(3, 8); i++)
+        {
+            switch (Random.Range(0, 3))
+            {
+                case 0:
+                    enemyTeam.Add(ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyNormalTankPawnSP").WaitForCompletion(), FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform).GetComponent<EnemyAI>());
+                    break;
+                case 1:
+                    enemyTeam.Add(ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyDestroyerPawnSP").WaitForCompletion(), FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform).GetComponent<EnemyAI>());
+                    break;
+                case 2:
+                    enemyTeam.Add(ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyScoutPawnSP").WaitForCompletion(), FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform).GetComponent<EnemyAI>());
+                    break;
+            }
+        }
     }
 }

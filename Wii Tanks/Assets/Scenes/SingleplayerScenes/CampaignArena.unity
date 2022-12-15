@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 438806817ceffc8489e35460769ef9b5, type: 2}
+  m_LightingDataAsset: {fileID: 0}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 4eba498c76ad0bf4f9e675516dc486d2, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -122,7 +122,7 @@ NavMeshSettings:
     preserveTilesOutsideBounds: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 23800000, guid: e9c8f4dc6d5d4c74983ee38cd7500b5b, type: 2}
+  m_NavMeshData: {fileID: 0}
 --- !u!1 &154112189
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +766,7 @@ GameObject:
   - component: {fileID: 966775247}
   - component: {fileID: 966775246}
   - component: {fileID: 966775248}
+  - component: {fileID: 966775249}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -813,17 +814,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allArenasArray:
-  - {fileID: 2706646567728714327, guid: 940ad7f073c78e94091123d7aa11225e, type: 3}
+  - {fileID: 5686634895875090004, guid: 940ad7f073c78e94091123d7aa11225e, type: 3}
   - {fileID: 1334486091191318712, guid: 0814bc891c0ef974896f4c1f9cc3a39a, type: 3}
   - {fileID: 328515342679602769, guid: b12ac6fe1d6592b4884c1313de16b81b, type: 3}
   - {fileID: 3681093606910145238, guid: 488c979089ab53940a27a92f54d8ecfb, type: 3}
   - {fileID: 3923964018551756153, guid: 15670857d2c3b1b4f9e9091ba911b008, type: 3}
+  enemySpawns: []
+  playerSpawn: {fileID: 0}
+  allCurrentArenas: []
   backgroundColors:
   - {r: 0.5019608, g: 0, b: 0.18039216, a: 1}
   - {r: 0.18039216, g: 0.6039216, b: 0, a: 1}
-  - {r: 0.16862746, g: 0, b: 0.8862745, a: 0}
+  - {r: 0.16862746, g: 0, b: 0.8862745, a: 1}
   - {r: 0.9372549, g: 0.4627451, b: 0, a: 1}
   - {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &966775249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 966775245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b235bc0ee7c2dd4449880e0f45938649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1003622428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1659,7 +1675,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh37164
+  m_Name: pb_Mesh39944
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2

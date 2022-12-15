@@ -129,7 +129,6 @@ GameObject:
   - component: {fileID: 5686634895779452132}
   - component: {fileID: 5686634895779452135}
   - component: {fileID: 5686634895779452134}
-  - component: {fileID: 7403111145249188941}
   m_Layer: 13
   m_Name: Wall4
   m_TagString: Arena
@@ -1072,25 +1071,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0000002, z: 4.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7403111145249188941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5686634895779452128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92d8452b07e6d214aa5f8ddb2d1eb946, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lights: []
-  renderers: []
-  renderersLightmapIndex: 
-  renderersLightmapOffsetScale: []
-  texturesColor: []
-  texturesDir: []
-  texturesShadow: []
 --- !u!1 &5686634895856714859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1186,6 +1166,8 @@ GameObject:
   - component: {fileID: 5686634895875090005}
   - component: {fileID: 5686634895875089954}
   - component: {fileID: 3226048218087881953}
+  - component: {fileID: 4599115074227950251}
+  - component: {fileID: -1745130344412578474}
   m_Layer: 6
   m_Name: Arena1
   m_TagString: Arena
@@ -1201,7 +1183,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5686634895875090004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -39.239544, y: 0.5000011, z: -24.41117}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3273,18 +3255,66 @@ MonoBehaviour:
   - {fileID: 5686634896668494741}
   - {fileID: 5686634895779452133}
   - {fileID: 5686634897269883242}
-  renderersLightmapIndex: 000000000000000000000000000000000000000000000000
+  renderersLightmapIndex: 000000000100000001000000000000000000000002000000
   renderersLightmapOffsetScale:
   - {x: 1.0339149, y: 1.0339149, z: -0.0206783, w: -0.0206783}
-  - {x: 0.11942213, y: 0.11942213, z: 0.1128163, w: 0.7628999}
-  - {x: 0.11942213, y: 0.11942213, z: 0.1128163, w: 0.8791108}
-  - {x: 0.11942213, y: 0.11942213, z: -0.0023884429, w: 0.8791108}
-  - {x: 0.11942213, y: 0.11942213, z: -0.0023884429, w: 0.7628999}
-  - {x: 1.0347731, y: 1.0347731, z: -0.020695463, w: -0.020695463}
+  - {x: 0.11942213, y: 0.11942213, z: 0.86772877, w: 0.7628999}
+  - {x: 0.11942213, y: 0.11942213, z: 0.86772877, w: 0.8791108}
+  - {x: 0.11942213, y: 0.11942213, z: 0.8667522, w: 0.8791108}
+  - {x: 0.11942213, y: 0.11942213, z: 0.8667522, w: 0.7628999}
+  - {x: 0.51738656, y: 0.51738656, z: -0.010347731, w: -0.010347731}
   texturesColor:
-  - {fileID: 0}
-  texturesDir: []
+  - {fileID: 2800000, guid: b2c283355e62d2b4d910b698670b1f40, type: 2}
+  - {fileID: 2800000, guid: 0e20cc0aa09c6f544b7209d8953b2d59, type: 2}
+  - {fileID: 2800000, guid: 875c8da9f70e570448e3a99ef5e1c10e, type: 2}
+  texturesDir:
+  - {fileID: 2800000, guid: 4a42c4e85d140af40a515adf352480de, type: 2}
+  - {fileID: 2800000, guid: a9908a6b5016b2746b4cab30daeced1a, type: 2}
+  - {fileID: 2800000, guid: 8eac6b7fca6b2c44d9f137e686fc4230, type: 2}
   texturesShadow: []
+--- !u!114 &4599115074227950251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5686634895875090004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.083333336
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: af64379cdf4f7f54b8d1267f50908cf6, type: 2}
+  m_BuildHeightMesh: 0
+--- !u!114 &-1745130344412578474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5686634895875090004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a45d4144e45426945ada481dd737af3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backgroundColor: {r: 0.5019608, g: 0, b: 0.18039216, a: 1}
 --- !u!1 &5686634895881444907
 GameObject:
   m_ObjectHideFlags: 0
@@ -3376,7 +3406,6 @@ GameObject:
   - component: {fileID: 5686634895889129251}
   - component: {fileID: 5686634895889129250}
   - component: {fileID: 5686634895889129309}
-  - component: {fileID: 8820479588169452548}
   m_Layer: 13
   m_Name: Wall1
   m_TagString: Arena
@@ -4319,25 +4348,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0000002, z: 4.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8820479588169452548
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5686634895889129311}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92d8452b07e6d214aa5f8ddb2d1eb946, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lights: []
-  renderers: []
-  renderersLightmapIndex: 
-  renderersLightmapOffsetScale: []
-  texturesColor: []
-  texturesDir: []
-  texturesShadow: []
 --- !u!1 &5686634895929383636
 GameObject:
   m_ObjectHideFlags: 0
@@ -4462,7 +4472,6 @@ GameObject:
   - component: {fileID: 5686634896668494740}
   - component: {fileID: 5686634896668494743}
   - component: {fileID: 5686634896668494742}
-  - component: {fileID: 2285357958760745875}
   m_Layer: 13
   m_Name: Wall3
   m_TagString: Arena
@@ -5405,25 +5414,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0000002, z: 4.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2285357958760745875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5686634896668494736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92d8452b07e6d214aa5f8ddb2d1eb946, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lights: []
-  renderers: []
-  renderersLightmapIndex: 
-  renderersLightmapOffsetScale: []
-  texturesColor: []
-  texturesDir: []
-  texturesShadow: []
 --- !u!1 &5686634896693744614
 GameObject:
   m_ObjectHideFlags: 0
@@ -5591,7 +5581,6 @@ GameObject:
   - component: {fileID: 5686634896768144684}
   - component: {fileID: 5686634896768144687}
   - component: {fileID: 5686634896768144686}
-  - component: {fileID: 1150700033933709168}
   m_Layer: 13
   m_Name: Wall2
   m_TagString: Arena
@@ -6534,25 +6523,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.0000002, z: 4.5}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1150700033933709168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5686634896768144680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92d8452b07e6d214aa5f8ddb2d1eb946, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lights: []
-  renderers: []
-  renderersLightmapIndex: 
-  renderersLightmapOffsetScale: []
-  texturesColor: []
-  texturesDir: []
-  texturesShadow: []
 --- !u!1 &5686634896973187585
 GameObject:
   m_ObjectHideFlags: 0
@@ -6645,7 +6615,6 @@ GameObject:
   - component: {fileID: 5686634897269883236}
   - component: {fileID: 5686634897269883239}
   - component: {fileID: 5686634897269883238}
-  - component: {fileID: 8564639171830579153}
   m_Layer: 13
   m_Name: Wall5
   m_TagString: Arena
@@ -7481,25 +7450,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 15.75, y: 1, z: 4}
   m_Center: {x: -9.9, y: 0, z: 0}
---- !u!114 &8564639171830579153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5686634897269883232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92d8452b07e6d214aa5f8ddb2d1eb946, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lights: []
-  renderers: []
-  renderersLightmapIndex: 
-  renderersLightmapOffsetScale: []
-  texturesColor: []
-  texturesDir: []
-  texturesShadow: []
 --- !u!1 &5686634897273827856
 GameObject:
   m_ObjectHideFlags: 0
