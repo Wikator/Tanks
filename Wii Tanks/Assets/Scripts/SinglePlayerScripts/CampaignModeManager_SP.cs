@@ -13,8 +13,8 @@ public class CampaignModeManager_SP : MonoBehaviour
     private List<Spawn_SP> enemySpawns = new();
 
     private Spawn_SP playerSpawn;
-    
-    private readonly List <GameObject> allCurrentArenas = new();
+    [SerializeField]
+    private  List <GameObject> allCurrentArenas = new();
 
     [SerializeField]
     [ColorUsage(hdr: true, showAlpha: true)]
@@ -53,6 +53,7 @@ public class CampaignModeManager_SP : MonoBehaviour
         arenaPositions[6] = new Vector3(345, -105, 210);
 
         backgroundRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
+        //allCurrentArenas.Add(null);
         Instance = this;
     }
 
@@ -84,7 +85,13 @@ public class CampaignModeManager_SP : MonoBehaviour
                 {
                     arena.transform.position = allArenasDictionary[arena];
 
-                    rotating = false;
+                    if (arena.transform.position == arenaPositions[1])
+                    {
+                        allCurrentArenas.Remove(arena);
+                        Destroy(arena);
+                        rotating = false;
+                        break;
+                    }
                 }
             }
         }
@@ -123,9 +130,11 @@ public class CampaignModeManager_SP : MonoBehaviour
 
     public void StartGame()
     {
-        GameObject firstArena = Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[3], Quaternion.identity);
-        UpdateSpawns(firstArena.transform.GetChild(0));
-        allCurrentArenas.Add(firstArena);
+        allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[2], Quaternion.identity));
+
+        GameObject secondArena = Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[3], Quaternion.identity);
+        UpdateSpawns(secondArena.transform.GetChild(0));
+        allCurrentArenas.Add(secondArena);
 
         allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[4], Quaternion.identity));
     }
@@ -135,7 +144,7 @@ public class CampaignModeManager_SP : MonoBehaviour
     {
         allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[5], Quaternion.identity));
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             if (allCurrentArenas[i])
             {
