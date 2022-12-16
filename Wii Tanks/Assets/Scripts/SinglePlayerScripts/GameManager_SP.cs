@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 
 public sealed class GameManager_SP : MonoBehaviour
@@ -18,18 +17,8 @@ public sealed class GameManager_SP : MonoBehaviour
         UIManager_SP.Instance.Init();
         UIManager_SP.Instance.Show<MainView_SP>();
         ObjectPoolManager_SP.ResetObjectPool();
-
-        CampaignModeManager_SP.Instance.StartGame();
     }
 
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            CampaignModeManager_SP.Instance.NextMap();
-        }
-    }
 
     public void EndGame()
     {

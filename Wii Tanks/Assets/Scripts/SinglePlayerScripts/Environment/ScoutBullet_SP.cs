@@ -72,5 +72,12 @@ public sealed class ScoutBullet_SP : Bullet_SP
         {
             StartCoroutine(DespawnItself());
         }
+
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            Player.Instance.superCharge += ChargeTimeToAdd;
+            other.gameObject.GetComponent<EnemyAI>().GameOver();
+            gameObject.SetActive(false);
+        }
     }
 }

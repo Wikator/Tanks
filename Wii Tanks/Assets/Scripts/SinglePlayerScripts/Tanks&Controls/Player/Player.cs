@@ -24,12 +24,12 @@ public sealed class Player : MonoBehaviour
 	private void Awake()
 	{
 		Instance = this;
-	}
+        TankType = "MediumTank";
+    }
 
 	private void Start()
 	{
-        color = "None";
-        TankType = "MediumTank";
+
 
         SpawnTank();
     }
@@ -61,7 +61,7 @@ public sealed class Player : MonoBehaviour
         if (TankType == "None" || ControlledPawn)
             return;
 
-        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "PawnSP").WaitForCompletion(), GameMode_SP.Instance.FindPlayerSpawn(), Quaternion.identity, transform);
+        GameObject playerInstance = Instantiate(Addressables.LoadAssetAsync<GameObject>(TankType + "PawnSP").WaitForCompletion(), CampaignSpawnManager_SP.Instance.FindPlayerSpawn(), Quaternion.identity, transform);
         ControlledPawn = playerInstance.GetComponent <Tank_SP>();
         playerInstance.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
         playerInstance.transform.GetChild(0).GetChild(0).transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;

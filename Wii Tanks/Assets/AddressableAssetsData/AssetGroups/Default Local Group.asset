@@ -457,6 +457,26 @@ MonoBehaviour:
     m_Address: YellowTrail
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 940ad7f073c78e94091123d7aa11225e
+    m_Address: Arena1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 0814bc891c0ef974896f4c1f9cc3a39a
+    m_Address: Arena2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: b12ac6fe1d6592b4884c1313de16b81b
+    m_Address: Arena3
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 488c979089ab53940a27a92f54d8ecfb
+    m_Address: Arena4
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 15670857d2c3b1b4f9e9091ba911b008
+    m_Address: Arena5
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
   m_SchemaSet:
