@@ -24,7 +24,8 @@ public class CampaignSpawnManager_SP : SpawnManager_SP
         switch (killedTank.tag)
         {
             case "Tank":
-				GameManager_SP.Instance.EndGame();
+                //UIManager_SP.Instance.Show<GameOverView_SP>();
+				//GameManager_SP.Instance.EndGame();
 				break;
             case "Enemy":
                 enemyTeam.Remove(killedTank.GetComponent<EnemyAI>());

@@ -33,6 +33,8 @@ public class CampaignModeManager_SP : MonoBehaviour
 
     private const float ROTATE_SPEED = 2.5f;
 
+    private static int level;
+
     private void Awake()
     {
         rotating = false;
@@ -51,10 +53,13 @@ public class CampaignModeManager_SP : MonoBehaviour
         {
             allArenasArray[i] = Addressables.LoadAssetAsync<GameObject>($"Arena{i + 1}").WaitForCompletion();
         }
+
+        level = 0;
     }
 
     private void Start()
     {
+        UIManager_SP.Instance.Show<CampaignMainView>();
         StartGame();
     }
 
@@ -124,7 +129,9 @@ public class CampaignModeManager_SP : MonoBehaviour
 
         UpdateSpawns(allCurrentArenas[1].transform.GetChild(0));
 
+        level += 1;
 
+        CampaignMainView.Instance1.UpdateLevelText(level);
 
         SpawnManager_SP.Instance.StartNewRound();
     }
