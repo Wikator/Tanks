@@ -1902,7 +1902,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3681093606910145238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 329.3914, y: 0, z: -135.1373}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3977,21 +3977,21 @@ MonoBehaviour:
   renderersLightmapIndex: 000000000100000002000000020000000100000003000000
   renderersLightmapOffsetScale:
   - {x: 1.0339149, y: 1.0339149, z: -0.0206783, w: -0.0206783}
-  - {x: 0.29046875, y: 0.29046875, z: 0.30083126, w: 0.7594789}
-  - {x: 0.29046875, y: 0.29046875, z: 0.27544063, w: 0.7594789}
-  - {x: 0.29046875, y: 0.29046875, z: -0.0058093756, w: 0.7594789}
-  - {x: 0.29046875, y: 0.29046875, z: 0.58208126, w: 0.7594789}
-  - {x: 0.5932047, y: 0.5932047, z: -0.011864094, w: -0.011864094}
+  - {x: 0.5809375, y: 0.5809375, z: -0.011618751, w: -0.011618751}
+  - {x: 0.5809375, y: 0.5809375, z: -0.011618751, w: -0.011618751}
+  - {x: 0.5809375, y: 0.5809375, z: -0.011618751, w: 0.37701264}
+  - {x: 0.5809375, y: 0.5809375, z: -0.011618751, w: 0.37701264}
+  - {x: 1.0401397, y: 1.0401397, z: -0.020802796, w: -0.020802796}
   texturesColor:
-  - {fileID: 2800000, guid: 2adfb599a64fc494695ce90b75e542a4, type: 2}
-  - {fileID: 2800000, guid: b2c283355e62d2b4d910b698670b1f40, type: 2}
-  - {fileID: 2800000, guid: 0e20cc0aa09c6f544b7209d8953b2d59, type: 2}
-  - {fileID: 2800000, guid: 378d3e1174756474fb9105c9ba0fa09d, type: 2}
+  - {fileID: 2800000, guid: 46d378594bd2d124b9d78e2df48e5bea, type: 2}
+  - {fileID: 2800000, guid: b69e4616966702b43bd88f5066658f2a, type: 2}
+  - {fileID: 2800000, guid: 25f6d452b48611948b924d74e70c0ef0, type: 2}
+  - {fileID: 2800000, guid: c17fd13ce73c5e44aaed01184ffb67af, type: 2}
   texturesDir:
-  - {fileID: 2800000, guid: 60d9c9ec8731093488eae9a3bf168290, type: 2}
-  - {fileID: 2800000, guid: 4a42c4e85d140af40a515adf352480de, type: 2}
-  - {fileID: 2800000, guid: a9908a6b5016b2746b4cab30daeced1a, type: 2}
-  - {fileID: 2800000, guid: 09c2cb848ed477a4384580bffa80f8e0, type: 2}
+  - {fileID: 2800000, guid: 5fc1627ff90120d469c0d51ed4d53ce1, type: 2}
+  - {fileID: 2800000, guid: 3db09761ec67d3f458870e4bb60052f8, type: 2}
+  - {fileID: 2800000, guid: 1bab32a923b8a3b48875c0390261428d, type: 2}
+  - {fileID: 2800000, guid: 0b39f5c527136fd40a1bcf030ec5f459, type: 2}
   texturesShadow: []
 --- !u!114 &4267328353825585285
 MonoBehaviour:
