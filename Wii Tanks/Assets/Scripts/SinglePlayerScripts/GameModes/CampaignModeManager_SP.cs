@@ -1,46 +1,39 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public class CampaignModeManager_SP : MonoBehaviour
 {
-    public static CampaignModeManager_SP Instance { get; private set; }
+    private static GameObject[] allArenasArray = new GameObject[5];
 
-    [SerializeField]
-    private GameObject[] allArenasArray = new GameObject[5];
+    public static List<Spawn_SP> enemySpawns = new();
 
-    [HideInInspector]
-    public List<Spawn_SP> enemySpawns = new();
+    public static Spawn_SP playerSpawn;
 
-    [HideInInspector]
-    public Spawn_SP playerSpawn;
+    private static List <GameObject> allCurrentArenas = new();
 
-    [SerializeField]
-    private  List <GameObject> allCurrentArenas = new();
-
-    [SerializeField]
-    [ColorUsage(hdr: true, showAlpha: true)]
-    private Color[] backgroundColors = new Color[5];
     
 
     [ColorUsage(hdr: true, showAlpha: true)]
-    private  Color oldColor;
+    private static Color oldColor;
 
     [ColorUsage(hdr: true, showAlpha: true)]
-    private Color newColor;
+    private static Color newColor;
 
-    private readonly Dictionary<GameObject, Vector3> allArenasDictionary = new();
+    private static readonly Dictionary<GameObject, Vector3> allArenasDictionary = new();
 
-    private bool rotating;
+    private static bool rotating;
     
-    private readonly Vector3[] arenaPositions = new Vector3[7];
+    private static readonly Vector3[] arenaPositions = new Vector3[7];
 
 
-    private Renderer backgroundRenderer;
+    private static Renderer backgroundRenderer;
 
-    private float lerpValue;
+    private static float lerpValue;
 
     private const float ROTATE_SPEED = 2.5f;
+
+    private static int level;
 
     private void Awake()
     {
@@ -55,13 +48,19 @@ public class CampaignModeManager_SP : MonoBehaviour
         arenaPositions[6] = new Vector3(345, -105, 210);
 
         backgroundRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
-        //allCurrentArenas.Add(null);
-        Instance = this;
+
+        for (int i = 0; i < 5; i++)
+        {
+            allArenasArray[i] = Addressables.LoadAssetAsync<GameObject>($"Arena{i + 1}").WaitForCompletion();
+        }
+
+        level = 0;
     }
 
     private void Start()
     {
-
+        UIManager_SP.Instance.Show<CampaignMainView>();
+        StartGame();
     }
 
     private void FixedUpdate()
@@ -75,7 +74,7 @@ public class CampaignModeManager_SP : MonoBehaviour
         }
     }
 
-    private void MoveAllArenas()
+    private static void MoveAllArenas()
     {
         foreach (GameObject arena in allCurrentArenas)
         {
@@ -101,7 +100,7 @@ public class CampaignModeManager_SP : MonoBehaviour
     }
 
 
-    public void UpdateSpawns(Transform spawnParent)
+    public static void UpdateSpawns(Transform spawnParent)
     {
         enemySpawns.Clear();
 
@@ -114,7 +113,7 @@ public class CampaignModeManager_SP : MonoBehaviour
     }
 
 
-    public void StartGame()
+    public static void StartGame()
     {
         if (allCurrentArenas.Count == 0)
         {
@@ -130,13 +129,15 @@ public class CampaignModeManager_SP : MonoBehaviour
 
         UpdateSpawns(allCurrentArenas[1].transform.GetChild(0));
 
+        level += 1;
 
+        CampaignMainView.Instance1.UpdateLevelText(level);
 
-        GameMode_SP.Instance.StartNewRound();
+        SpawnManager_SP.Instance.StartNewRound();
     }
 
     
-    public void NextMap()
+    public static void NextMap()
     {
         allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[5], Quaternion.identity));
 

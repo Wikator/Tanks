@@ -2,54 +2,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-public class GameMode_SP : MonoBehaviour
+public class CampaignSpawnManager_SP : SpawnManager_SP
 {
-    public static GameMode_SP Instance { get; private set; }
-
-
-
-
-
     public readonly List<EnemyAI> enemyTeam = new();
 
-
     private Transform bulletEmpty;
-    private int enemySpawnCount;
 
-
-
-	//Before start of the game, this script finds and saves all possible spawn points
-	//There are different spawns for different teams, so they are seperated inside a dictionary
-
-
-	private void Awake()
-	{
-        Instance = this;
-	}
 
 	public void Start()
     {
-
         bulletEmpty = GameObject.Find("Bullets").transform;
-
-        Transform enemiesSpawnsParent = GameObject.Find("EnemySpawns").transform;
-
-        enemySpawnCount = enemiesSpawnsParent.childCount;
     }
 
     //When a team has no players left, the round ends, points are given, and a new round starts
 
-    public void OnKilled(bool isPlayer)
+    public override void OnKilled(GameObject killedTank)
     {
         if (!GameManager_SP.Instance.GameInProgress)
             return;
 
-        switch (isPlayer)
+        switch (killedTank.tag)
         {
-            case true:
-				GameManager_SP.Instance.EndGame();
+            case "Tank":
+                //UIManager_SP.Instance.Show<GameOverView_SP>();
+				//GameManager_SP.Instance.EndGame();
 				break;
-            case false:
+            case "Enemy":
+                enemyTeam.Remove(killedTank.GetComponent<EnemyAI>());
                 if (enemyTeam.Count == 0)
                 {
                     Player.Instance.DespawnTank();
@@ -59,7 +38,7 @@ public class GameMode_SP : MonoBehaviour
                         child.gameObject.SetActive(false);
                     }
 
-                    CampaignModeManager_SP.Instance.NextMap();
+                    CampaignModeManager_SP.NextMap();
                 }
                 break;
         }
@@ -68,14 +47,14 @@ public class GameMode_SP : MonoBehaviour
 
 
 
-    public Vector3 FindPlayerSpawn()
+    public override Vector3 FindPlayerSpawn()
     {
-        return CampaignModeManager_SP.Instance.playerSpawn.transform.position;
+        return CampaignModeManager_SP.playerSpawn.transform.position;
     }
 
-    public Vector3 FindEnemySpawn()
+    public override Vector3 FindEnemySpawn()
     {
-        Spawn_SP chosenSpawn = CampaignModeManager_SP.Instance.enemySpawns[Random.Range(0, CampaignModeManager_SP.Instance.enemySpawns.Count)];
+        Spawn_SP chosenSpawn = CampaignModeManager_SP.enemySpawns[Random.Range(0, CampaignModeManager_SP.enemySpawns.Count)];
 
         if (chosenSpawn.isOccupied)
         {
@@ -86,7 +65,7 @@ public class GameMode_SP : MonoBehaviour
     }
 
 
-    public void StartNewRound()
+    public override void StartNewRound()
     {
 		Player.Instance.SpawnTank();
 

@@ -22,7 +22,7 @@ public class MainView_SP : View_SP
 
     public float maxCharge = 1000;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         Instance = this;
     }

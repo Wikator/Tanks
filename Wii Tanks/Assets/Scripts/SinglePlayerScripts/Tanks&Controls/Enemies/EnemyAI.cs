@@ -172,8 +172,7 @@ public abstract class EnemyAI : MonoBehaviour
 
 	public void GameOver()
 	{
-		GameMode_SP.Instance.enemyTeam.Remove(this);
-		GameMode_SP.Instance.OnKilled(false);
+        SpawnManager_SP.Instance.OnKilled(gameObject);
         ObjectPoolManager_SP.GetPooledInstantiated(explosion, transform.position, transform.rotation, GameObject.Find("Explosions").transform);
 		gameObject.SetActive(false);
 	}

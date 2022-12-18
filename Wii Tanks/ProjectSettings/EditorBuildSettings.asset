@@ -44,5 +44,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SingleplayerScenes/Arena5_SP.unity
     guid: 462bef06fd6260d4ab7957b586af4a00
+  - enabled: 1
+    path: Assets/Scenes/SingleplayerScenes/CampaignArena.unity
+    guid: 1896a7960fd84004e81bc9c5cb0b1edb
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3655e42939b9a824cace268400c70908, type: 2}
