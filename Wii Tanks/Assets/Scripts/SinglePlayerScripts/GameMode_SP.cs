@@ -90,7 +90,7 @@ public class GameMode_SP : MonoBehaviour
     {
 		Player.Instance.SpawnTank();
 
-        for (int i = 0; i < Random.Range(3, 8); i++)
+        for (int i = 0; i < Random.Range(5, 16); i++)
         {
             switch (Random.Range(0, 3))
             {
