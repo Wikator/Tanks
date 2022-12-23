@@ -2,15 +2,25 @@
   <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="DeathmatchGameMode" preserve="all" />
     <type fullname="DestroyerTank" preserve="all" />
+    <type fullname="DestroyerTank_SP" preserve="all" />
     <type fullname="DestroyItself" preserve="all" />
+    <type fullname="DestroyItself_SP" preserve="all" />
     <type fullname="EliminationGameMode" preserve="all" />
+    <type fullname="EnemyDestroyerTank" preserve="all" />
+    <type fullname="EnemyMediumTank" preserve="all" />
+    <type fullname="EnemyScoutTank" preserve="all" />
     <type fullname="GameManager" preserve="all" />
     <type fullname="LobbyPlayerTag" preserve="all" />
+    <type fullname="NormalBullet_SP" preserve="all" />
     <type fullname="NormalBulletScript" preserve="all" />
     <type fullname="NormalTank" preserve="all" />
+    <type fullname="NormalTank_SP" preserve="all" />
+    <type fullname="Player" preserve="all" />
+    <type fullname="PlayerNetworking" preserve="all" />
+    <type fullname="ScoutBullet_SP" preserve="all" />
     <type fullname="ScoutBulletScript" preserve="all" />
     <type fullname="ScoutTank" preserve="all" />
-    <type fullname="Spawn" preserve="all" />
+    <type fullname="ScoutTank_SP" preserve="all" />
     <type fullname="Stats" preserve="all" />
     <type fullname="StockBattleGameMode" preserve="all" />
     <type fullname="TakedownGameMode" preserve="all" />
@@ -64,6 +74,9 @@
     <type fullname="TMPro.TMP_GlyphPairAdjustmentRecord" preserve="nothing" serialized="true" />
     <type fullname="TMPro.TMP_GlyphValueRecord" preserve="nothing" serialized="true" />
     <type fullname="TMPro.VertexGradient" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEngine.AIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.AI.NavMeshAgent" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.ComputeShader" preserve="all" />

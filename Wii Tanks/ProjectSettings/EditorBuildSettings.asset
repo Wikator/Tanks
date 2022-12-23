@@ -26,5 +26,26 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MultiplayerScenes/Arena5.unity
     guid: 686e64d2c3f3b06499e88bb6a6d7b44a
+  - enabled: 1
+    path: Assets/Scenes/SingleplayerScenes/MapSelection_SP.unity
+    guid: 8c05b60dec420a040bfddb588d84e3b1
+  - enabled: 1
+    path: Assets/Scenes/SingleplayerScenes/Arena1_SP.unity
+    guid: 44997de03d79c7d44a07105280d622f5
+  - enabled: 1
+    path: Assets/Scenes/SingleplayerScenes/Arena2_SP.unity
+    guid: 67e73a5faaf109949a4d5e78d5233df7
+  - enabled: 1
+    path: Assets/Scenes/SingleplayerScenes/Arena3_SP.unity
+    guid: a2d5714568137234e9104caa4f764d6f
+  - enabled: 1
+    path: Assets/Scenes/SingleplayerScenes/Arena4_SP.unity
+    guid: a0af9631f176e58439ef63a6fdecb4f5
+  - enabled: 1
+    path: Assets/Scenes/SingleplayerScenes/Arena5_SP.unity
+    guid: 462bef06fd6260d4ab7957b586af4a00
+  - enabled: 1
+    path: Assets/Scenes/SingleplayerScenes/CampaignArena.unity
+    guid: 1896a7960fd84004e81bc9c5cb0b1edb
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3655e42939b9a824cace268400c70908, type: 2}
