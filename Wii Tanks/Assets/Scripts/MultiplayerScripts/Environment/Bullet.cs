@@ -73,8 +73,11 @@ public abstract class Bullet : NetworkBehaviour
     //[Server(Logging = FishNet.Managing.Logging.LoggingType.Off)]
     private void FixedUpdate()
     {
-        currentVelocity = rigidBody.velocity;
-        currentPosition = transform.position;
+        if (IsServer)
+        {
+            currentVelocity = rigidBody.velocity;
+            currentPosition = transform.position;
+        }
 
         if (isDespawning)
             TurnOffLight();

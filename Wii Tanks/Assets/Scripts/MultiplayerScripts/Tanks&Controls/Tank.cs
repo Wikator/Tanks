@@ -257,6 +257,14 @@ public abstract class Tank : NetworkBehaviour
         if (ammoCount <= 0)
             return;
 
+        if (routine != null)
+        {
+            StopCoroutine(routine);
+        }
+
+        ammoCount--;
+        routine = StartCoroutine(AddAmmo(stats.timeToReload));
+
         GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
         bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
@@ -267,15 +275,6 @@ public abstract class Tank : NetworkBehaviour
         flashInstance.transform.SetParent(muzzleFlashEmpty);
         flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
         Spawn(flashInstance);
-
-
-        if (routine != null)
-        {
-            StopCoroutine(routine);
-        }
-
-        ammoCount--;
-        routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }
 
     protected abstract void SpecialMove();
