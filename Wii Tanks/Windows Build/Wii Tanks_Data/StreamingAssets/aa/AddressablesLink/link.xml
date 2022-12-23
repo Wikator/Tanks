@@ -16,11 +16,13 @@
     <type fullname="NormalTank" preserve="all" />
     <type fullname="NormalTank_SP" preserve="all" />
     <type fullname="Player" preserve="all" />
-    <type fullname="PlayerNetworking" preserve="all" />
+    <type fullname="SceneInfo_SP" preserve="all" />
     <type fullname="ScoutBullet_SP" preserve="all" />
     <type fullname="ScoutBulletScript" preserve="all" />
     <type fullname="ScoutTank" preserve="all" />
     <type fullname="ScoutTank_SP" preserve="all" />
+    <type fullname="Spawn" preserve="all" />
+    <type fullname="Spawn_SP" preserve="all" />
     <type fullname="Stats" preserve="all" />
     <type fullname="StockBattleGameMode" preserve="all" />
     <type fullname="TakedownGameMode" preserve="all" />
@@ -37,8 +39,14 @@
     <type fullname="FishNet.Object.TransformProperties" preserve="nothing" serialized="true" />
     <type fullname="FishNet.Serializing.TransformPackingData" preserve="nothing" serialized="true" />
   </assembly>
+  <assembly fullname="PrefabBaker, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="PrefabLightMapBaker.PrefabBaker" preserve="all" />
+  </assembly>
   <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
     <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.AI.Navigation, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="Unity.AI.Navigation.NavMeshSurface" preserve="all" />
   </assembly>
   <assembly fullname="Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.ProBuilder.ProBuilderMesh" preserve="all" />
@@ -77,6 +85,7 @@
   </assembly>
   <assembly fullname="UnityEngine.AIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.AI.NavMeshAgent" preserve="all" />
+    <type fullname="UnityEngine.AI.NavMeshData" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.ComputeShader" preserve="all" />

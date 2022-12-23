@@ -27,11 +27,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MultiplayerScenes/Arena5.unity
     guid: 686e64d2c3f3b06499e88bb6a6d7b44a
   - enabled: 1
-    path: Assets/Scenes/SingleplayerScenes/MapSelection_SP.unity
-    guid: 8c05b60dec420a040bfddb588d84e3b1
-  - enabled: 1
     path: Assets/Scenes/SingleplayerScenes/Arena1_SP.unity
-    guid: 44997de03d79c7d44a07105280d622f5
+    guid: 0cefaf1ad6dfeb246a503ecdb97a91bb
   - enabled: 1
     path: Assets/Scenes/SingleplayerScenes/Arena2_SP.unity
     guid: 67e73a5faaf109949a4d5e78d5233df7
@@ -44,6 +41,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SingleplayerScenes/Arena5_SP.unity
     guid: 462bef06fd6260d4ab7957b586af4a00
+  - enabled: 1
+    path: Assets/Scenes/SingleplayerScenes/MapSelection_SP.unity
+    guid: 8c05b60dec420a040bfddb588d84e3b1
   - enabled: 1
     path: Assets/Scenes/SingleplayerScenes/CampaignArena.unity
     guid: 1896a7960fd84004e81bc9c5cb0b1edb
