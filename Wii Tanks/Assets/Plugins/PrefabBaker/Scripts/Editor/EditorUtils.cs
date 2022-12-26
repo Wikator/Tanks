@@ -43,13 +43,13 @@ namespace PrefabLightMapBaker
 
         public static List<PrefabBaker> GetAllPrefabs()
         {
-            List<PrefabBaker> prefabs = new List<PrefabBaker>();
+            List<PrefabBaker> prefabs = new();
 
             foreach (var go in SceneManager.GetActiveScene().GetRootGameObjects())
             {
-                var prefab_component = go.GetComponent<PrefabBaker>();
-
-                if (prefab_component != null) prefabs.Add(prefab_component);
+                
+                if (go.TryGetComponent<PrefabBaker>(out var prefab_component))
+                    prefabs.Add(prefab_component);
             }
 
             return prefabs;
@@ -67,14 +67,15 @@ namespace PrefabLightMapBaker
                 .ToList();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
         public static void UpdateLightmaps(PrefabBaker prefab, List<MeshRenderer> renderers, List<SceneLightmap> lightmaps)
         {
-            List<Texture2D> listColor = new List<Texture2D>();
-            List<Texture2D> listDir = new List<Texture2D>();
-            List<Texture2D> listShadow = new List<Texture2D>();
-            List<Renderer> listRenderers = new List<Renderer>();
-            List<int> listIndexes = new List<int>();
-            List<Vector4> listScales = new List<Vector4>();
+            List<Texture2D> listColor = new();
+            List<Texture2D> listDir = new();
+            List<Texture2D> listShadow = new();
+            List<Renderer> listRenderers = new();
+            List<int> listIndexes = new();
+            List<Vector4> listScales = new();
 
             for (var i = 0; i < renderers.Count; ++i)
             {
@@ -142,10 +143,7 @@ namespace PrefabLightMapBaker
                 var scene = SceneManager.GetActiveScene();
                 var folder = System.IO.Path.GetDirectoryName(scene.path); // + dsc + scene.name;
                 var file = folder + dsc + prefab.name + ".prefab";
-
-                bool success;
-
-                GameObject result = PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, file, InteractionMode.AutomatedAction, out success);
+                PrefabUtility.SaveAsPrefabAssetAndConnect(prefab, file, InteractionMode.AutomatedAction, out bool success);
 
                 if (!success)
 
@@ -263,7 +261,7 @@ namespace PrefabLightMapBaker
                 r.realtimeLightmapIndex = -1;
             }
 
-            List<LightmapData> lmds = new List<LightmapData>();
+            List<LightmapData> lmds = new();
 
             foreach (var lmd in LightmapSettings.lightmaps)
             {

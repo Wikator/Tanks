@@ -84,8 +84,16 @@ public sealed class EndlessSpawnManager_SP : SpawnManager_SP
 
     public override void StartNewRound()
     {
+        StartCoroutine(SpawnPlayerAndEnemy());
+    }
+	
+	private IEnumerator SpawnPlayerAndEnemy()
+    {
 		Player.Instance.SpawnTank();
 
+		yield return new WaitForEndOfFrame();
+
 		ObjectPoolManager_SP.GetPooledInstantiated(enemyTanks[Random.Range(0, 3)], FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform);
+
 	}
 }
