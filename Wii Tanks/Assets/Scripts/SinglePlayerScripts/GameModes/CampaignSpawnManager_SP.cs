@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using ObjectPoolManager;
 
 public class CampaignSpawnManager_SP : SpawnManager_SP
 {

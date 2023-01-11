@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using ObjectPoolManager;
 
 public class ScoutTank_SP : Tank_SP
 {

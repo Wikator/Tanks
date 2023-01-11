@@ -962,6 +962,7 @@ MonoBehaviour:
   _shareIds: 1
   _startOnHeadless: 1
   _limitClientMTU: 1
+  _allowPredictedSpawning: 1
 --- !u!114 &1323912228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -975,6 +976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _updateOrder: 0
+  _timingType: 0
   _allowTickDropping: 1
   _maximumFrameTicks: 3
   _tickRate: 60
@@ -1015,7 +1017,7 @@ MonoBehaviour:
   _objectPool: {fileID: 0}
   _persistence: 0
   _logging: {fileID: 0}
-  _spawnablePrefabs: {fileID: 11400000, guid: ec64eb18c93ab344892891f33edbf82a, type: 2}
+  _spawnablePrefabs: {fileID: 11400000, guid: b10ea6753ba031946965f85b1f7fbceb, type: 2}
 --- !u!4 &1323912231
 Transform:
   m_ObjectHideFlags: 0

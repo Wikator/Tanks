@@ -1,6 +1,7 @@
 using FishNet.Object;
 using FishNet.Object.Prediction;
 using FishNet.Object.Synchronizing;
+using FishNet.Transporting;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
@@ -9,32 +10,46 @@ using UnityEngine.Rendering.HighDefinition;
 
 public abstract class Tank : NetworkBehaviour
 {
-    private struct MoveData
+    private struct MoveData : IReplicateData
     {
         public float MoveAxis;
         public float RotateAxis;
         public Vector3 TurretLookDirection;
 
+
+        private uint _tick;
+        public void Dispose() { }
+        public uint GetTick() => _tick;
+        public void SetTick(uint value) => _tick = value;
+
+        /*
         public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection)
         {
             MoveAxis = moveAxis;
             RotateAxis = rotateAxis;
             TurretLookDirection = turretLookDirection;
-        }
+        }*/
     }
 
-    private struct ReconcileData
+    private struct ReconcileData : IReconcileData
     {
         public Vector3 Position;
         public Quaternion TankRotation;
         public Quaternion TurretRotation;
 
+        /*
         public ReconcileData(Vector3 tankPosition, Quaternion tankRotation, Quaternion turretRotation)
         {
             Position = tankPosition;
             TankRotation = tankRotation;
             TurretRotation = turretRotation;
         }
+        */
+
+        private uint _tick;
+        public void Dispose() { }
+        public uint GetTick() => _tick;
+        public void SetTick(uint value) => _tick = value;
     }
 
     [SerializeField]
@@ -60,11 +75,6 @@ public abstract class Tank : NetworkBehaviour
 
     [SyncVar, HideInInspector]
     public PlayerNetworking controllingPlayer;
-
-
-    private float moveAxis;
-    private float rotateAxis;
-    
 
     private bool isSubscribed = false;
 
@@ -311,7 +321,11 @@ public abstract class Tank : NetworkBehaviour
         if (IsServer)
         {
             Move(default, true);
-            Reconciliation(new ReconcileData(transform.position, transform.rotation, turret.rotation), true);
+            ReconcileData reconcileData = default;
+            reconcileData.Position = transform.position;
+            reconcileData.TankRotation = transform.rotation;
+            reconcileData.TurretRotation = turret.rotation;
+            Reconciliation(reconcileData, true);
 
             if (controllingPlayer.superCharge >= stats.requiredSuperCharge)
             {
@@ -328,18 +342,21 @@ public abstract class Tank : NetworkBehaviour
 
     private MoveData GatherInputs()
     {
-        moveAxis = Input.GetAxis("Vertical");
-        rotateAxis = Input.GetAxis("Horizontal");
+        MoveData moveData = default;
+
+        moveData.MoveAxis =  Input.GetAxis("Vertical");
+        moveData.RotateAxis = Input.GetAxis("Horizontal");
 
         Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
+        moveData.TurretLookDirection = hit.point;
 
-        return new MoveData(moveAxis, rotateAxis, hit.point);
+        return moveData;
     }
 
 
     [Replicate]
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-    private void Move(MoveData data, bool asServer, bool replaying = false)
+    private void Move(MoveData data, bool asServer, Channel channel = Channel.Reliable , bool replaying = false)
     {
         if (!GameManager.Instance.GameInProgress)
             return;
@@ -358,7 +375,7 @@ public abstract class Tank : NetworkBehaviour
 
     [Reconcile]
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-    private void Reconciliation(ReconcileData data, bool asServer)
+    private void Reconciliation(ReconcileData data, bool asServer, Channel channel = Channel.Reliable)
     {
         transform.SetPositionAndRotation(data.Position, data.TankRotation);
 

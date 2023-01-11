@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
 using UnityEngine.Rendering.HighDefinition;
+using ObjectPoolManager;
 
 public abstract class EnemyAI : MonoBehaviour
 {
@@ -81,19 +82,14 @@ public abstract class EnemyAI : MonoBehaviour
 
 	private void Update()
 	{
-
+		
 		if (!playerInSightRange && (Physics.CheckSphere(transform.position, roundSightRange, whatIsPlayer) || Physics.Raycast(turret.GetChild(0).GetChild(0).position + turret.GetChild(0).GetChild(0).transform.transform.forward * 1.5f, turret.GetChild(0).GetChild(0).transform.forward, forwardSightRange, whatIsPlayer)))
 		{
 			walkPointSet = false;
-			Debug.Log("Reset");
+			agent.ResetPath();
 		}
-
-
+		
 		playerInSightRange = Physics.CheckSphere(transform.position, roundSightRange, whatIsPlayer) || Physics.Raycast(turret.GetChild(0).GetChild(0).position + turret.GetChild(0).GetChild(0).transform.transform.forward * 1.5f, turret.GetChild(0).GetChild(0).transform.forward, forwardSightRange, whatIsPlayer);
-
-		Debug.DrawRay(turret.GetChild(0).GetChild(0).position + turret.GetChild(0).GetChild(0).transform.transform.forward * 1.5f, turret.GetChild(0).GetChild(0).transform.transform.forward * forwardSightRange, Color.red);
-
-
 
 		if (playerInSightRange)
 		{
@@ -116,14 +112,13 @@ public abstract class EnemyAI : MonoBehaviour
 	private void Patroling()
 	{
 		if (!walkPointSet)
+		{
 			SearchWalkPoint();
+			agent.SetDestination(walkPoint);
+		}
 
 		if (agent.velocity.magnitude == 0)
-			SearchWalkPoint();
-
-
-		if (walkPointSet)
-			agent.SetDestination(walkPoint);
+			walkPointSet = false;
 
 		transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
 
@@ -154,7 +149,12 @@ public abstract class EnemyAI : MonoBehaviour
 
 		if (!alreadyAttacked)
 		{
-			// Attack code here
+			Physics.Raycast(turret.GetChild(0).GetChild(0).position + turret.GetChild(0).GetChild(0).transform.transform.forward * 1.5f, turret.GetChild(0).GetChild(0).transform.forward, out RaycastHit hit, forwardSightRange);
+
+			if (!hit.collider.CompareTag("Tank"))
+				return;
+
+
 			Fire();
 			
 			alreadyAttacked = true;

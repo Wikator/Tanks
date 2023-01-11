@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using ObjectPoolManager;
 
 public class EnemyMediumTank : EnemyAI
 {
@@ -15,24 +16,17 @@ public class EnemyMediumTank : EnemyAI
 	protected override void ChasePlayer()
 	{
 
-		if (!walkPointSet)
+		Vector3 distanceToWalkPoint = transform.position - walkPoint;
+
+		if (!walkPointSet || agent.velocity.magnitude == 0 || distanceToWalkPoint.magnitude < 1f)
 		{
-			float randomZ = Random.Range(-5, 5);
-			float randomX = Random.Range(-5, 5);
+			float randomZ = Random.Range(-5f, 5f);
+			float randomX = Random.Range(-5f, 5f);
 
-			walkPoint = new Vector3(target.transform.position.x + randomX, transform.position.y, target.transform.position.x + randomZ);
-			walkPointSet = true;
-			if (!Physics.Raycast(walkPoint + new Vector3(0, 15, 0), -transform.up, 25f, whatIsWall))
-				if (Physics.Raycast(walkPoint + new Vector3(0, 15, 0), -transform.up, 25f, whatIsGround))
-					walkPointSet = true;
-		}
+			randomZ = Mathf.Max(randomZ, Mathf.Sign(randomZ) * 0.75f);
+			randomX = Mathf.Max(randomX, Mathf.Sign(randomX) * 0.75f);
 
-		if (agent.velocity.magnitude == 0)
-		{
-			float randomZ = Random.Range(-5, 5);
-			float randomX = Random.Range(-5, 5);
-
-			walkPoint = new Vector3(target.transform.position.x + randomX, transform.position.y, target.transform.position.x + randomZ);
+			walkPoint = new Vector3(target.transform.position.x + randomX, transform.position.y, target.transform.position.z + randomZ);
 			walkPointSet = true;
 			if (!Physics.Raycast(walkPoint + new Vector3(0, 15, 0), -transform.up, 25f, whatIsWall))
 				if (Physics.Raycast(walkPoint + new Vector3(0, 15, 0), -transform.up, 25f, whatIsGround))
@@ -46,10 +40,5 @@ public class EnemyMediumTank : EnemyAI
 		}
 
 		transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
-
-		Vector3 distanceToWalkPoint = transform.position - walkPoint;
-
-		if (distanceToWalkPoint.magnitude < 1f)
-			walkPointSet = false;
 	}
 }

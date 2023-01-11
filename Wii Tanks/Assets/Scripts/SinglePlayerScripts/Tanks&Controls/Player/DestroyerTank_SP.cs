@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using ObjectPoolManager;
 
 public sealed class DestroyerTank_SP : Tank_SP
 {
@@ -20,7 +21,7 @@ public sealed class DestroyerTank_SP : Tank_SP
 
         ammoCount = 0;
 
-        GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 
         ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);

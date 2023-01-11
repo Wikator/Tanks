@@ -4,6 +4,7 @@ using FishNet.Managing;
 using FishNet.Managing.Client;
 using FishNet.Managing.Logging;
 using FishNet.Managing.Observing;
+using FishNet.Managing.Predicting;
 using FishNet.Managing.Scened;
 using FishNet.Managing.Server;
 using FishNet.Managing.Timing;
@@ -163,6 +164,10 @@ namespace FishNet.Object
         /// </summary>
         public SceneManager SceneManager { get; private set; }
         /// <summary>
+        /// PredictionManager for this object.
+        /// </summary>
+        public PredictionManager PredictionManager {get;private set;}
+        /// <summary>
         /// RollbackManager for this object.
         /// </summary>
         public RollbackManager RollbackManager { get; private set; }
@@ -180,13 +185,12 @@ namespace FishNet.Object
             {
                 if (error)
                 {
-                    bool staticLog = (NetworkManager == null);
-                    string errMsg = $"ComponentIndex of {componentIndex} is out of bounds on {gameObject.name} [id {ObjectId}]. This may occur if you have modified your gameObject/prefab without saving it, or the scene.";
+                    string message = $"ComponentIndex of {componentIndex} is out of bounds on {gameObject.name} [id {ObjectId}]. This may occur if you have modified your gameObject/prefab without saving it, or the scene.";
+                    if (NetworkManager == null)
+                        NetworkManager.StaticLogError(message);
+                    else
+                        NetworkManager.LogError(message);
 
-                    if (staticLog && NetworkManager.StaticCanLog(LoggingType.Error))
-                        Debug.LogError(errMsg);
-                    else if (!staticLog && NetworkManager.CanLog(LoggingType.Error))
-                        Debug.LogError(errMsg);
                 }
             }
 
@@ -252,19 +256,13 @@ namespace FishNet.Object
             {
                 canExecute = false;
                 if (warn)
-                {
-                    if (NetworkManager.StaticCanLog(LoggingType.Warning))
-                        Debug.LogWarning($"Cannot despawn {gameObject.name}, NetworkManager reference is null. This may occur if the object is not spawned or initialized.");
-                }
+                    NetworkManager.StaticLogWarning($"Cannot despawn {gameObject.name}, NetworkManager reference is null. This may occur if the object is not spawned or initialized.");
             }
             else if (IsDeinitializing)
             {
                 canExecute = false;
                 if (warn)
-                {
-                    if (NetworkManager.CanLog(LoggingType.Warning))
-                        Debug.LogWarning($"Cannot despawn {gameObject.name}, it is already deinitializing.");
-                }
+                    Debug.LogWarning($"Cannot despawn {gameObject.name}, it is already deinitializing.");
             }
 
             return canExecute;
