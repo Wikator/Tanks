@@ -17,18 +17,19 @@ public abstract class Tank : NetworkBehaviour
         public Vector3 TurretLookDirection;
 
 
-        private uint _tick;
-        public void Dispose() { }
-        public uint GetTick() => _tick;
-        public void SetTick(uint value) => _tick = value;
-
-        /*
-        public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection)
+        public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection) : this()
         {
             MoveAxis = moveAxis;
             RotateAxis = rotateAxis;
             TurretLookDirection = turretLookDirection;
-        }*/
+        }
+
+
+
+        private uint _tick;
+        public void Dispose() { }
+        public uint GetTick() => _tick;
+        public void SetTick(uint value) => _tick = value;  
     }
 
     private struct ReconcileData : IReconcileData
@@ -37,14 +38,15 @@ public abstract class Tank : NetworkBehaviour
         public Quaternion TankRotation;
         public Quaternion TurretRotation;
 
-        /*
-        public ReconcileData(Vector3 tankPosition, Quaternion tankRotation, Quaternion turretRotation)
+        
+        public ReconcileData(Vector3 tankPosition, Quaternion tankRotation, Quaternion turretRotation) : this()
         {
             Position = tankPosition;
             TankRotation = tankRotation;
             TurretRotation = turretRotation;
         }
-        */
+        
+
 
         private uint _tick;
         public void Dispose() { }
@@ -321,11 +323,7 @@ public abstract class Tank : NetworkBehaviour
         if (IsServer)
         {
             Move(default, true);
-            ReconcileData reconcileData = default;
-            reconcileData.Position = transform.position;
-            reconcileData.TankRotation = transform.rotation;
-            reconcileData.TurretRotation = turret.rotation;
-            Reconciliation(reconcileData, true);
+            Reconciliation(new ReconcileData(transform.position, transform.rotation, turret.rotation), true);
 
             if (controllingPlayer.superCharge >= stats.requiredSuperCharge)
             {
@@ -342,15 +340,13 @@ public abstract class Tank : NetworkBehaviour
 
     private MoveData GatherInputs()
     {
-        MoveData moveData = default;
 
-        moveData.MoveAxis =  Input.GetAxis("Vertical");
-        moveData.RotateAxis = Input.GetAxis("Horizontal");
+        float moveAxis = Input.GetAxis("Vertical");
+        float rotateAxis = Input.GetAxis("Horizontal");
 
         Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
-        moveData.TurretLookDirection = hit.point;
 
-        return moveData;
+        return new MoveData(moveAxis, rotateAxis, hit.point);
     }
 
 
