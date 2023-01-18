@@ -48,6 +48,12 @@ EditorBuildSettings:
     path: Assets/Scenes/SingleplayerScenes/Arena5_SP.unity
     guid: 462bef06fd6260d4ab7957b586af4a00
   - enabled: 1
+    path: Assets/Scenes/SingleplayerScenes/Arena6_SP.unity
+    guid: c65d4cbd6c8cb384eb3693acf1d5fcbb
+  - enabled: 1
+    path: Assets/Scenes/SingleplayerScenes/Arena7_SP.unity
+    guid: f7cf8b158632d4c4f8ee3da505f4eb15
+  - enabled: 1
     path: Assets/Scenes/SingleplayerScenes/MapSelection_SP.unity
     guid: 8c05b60dec420a040bfddb588d84e3b1
   - enabled: 1
