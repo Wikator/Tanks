@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 namespace ObjectPoolManager
 {
-    public sealed class ObjectPoolManager_SP : MonoBehaviour
+    public static class ObjectPoolManager_SP
     {
         private readonly static Dictionary<GameObject, HashSet<GameObject>> pooledObjects = new();
 
@@ -33,7 +31,7 @@ namespace ObjectPoolManager
 
         private static GameObject CreateNewObject(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
         {
-            GameObject newObject = Instantiate(prefab, position, rotation, parent);
+            GameObject newObject = Object.Instantiate(prefab, position, rotation, parent);
             pooledObjects[prefab].Add(newObject);
             return newObject;
         }

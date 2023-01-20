@@ -1,14 +1,13 @@
-using FishNet;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArenaSelectionScene : MonoBehaviour
+public abstract class ArenaSelectionScene : MonoBehaviour
 {
     [SerializeField]
     private GameObject[] allArenasArray = new GameObject[6];
 
     [SerializeField]
-	[ColorUsage(hdr: true, showAlpha: true)]
+    [ColorUsage(hdr: true, showAlpha: true)]
     private Color[] backgroundColors = new Color[6];
 
     [SerializeField]
@@ -20,13 +19,10 @@ public class ArenaSelectionScene : MonoBehaviour
     private bool rotating;
 
     private readonly Vector3[] arenaPositions = new Vector3[9];
-	
+
 
     [SerializeField]
     private float rotateSpeed;
-
-    [SerializeField]
-    private bool testLocally;
 
     private Renderer backgroundRenderer;
 
@@ -34,7 +30,7 @@ public class ArenaSelectionScene : MonoBehaviour
 
 
 
-	private void Start()
+    private void Start()
     {
         rotating = false;
 
@@ -53,8 +49,8 @@ public class ArenaSelectionScene : MonoBehaviour
             allArenasDictionary[allArenasArray[i]] = allArenasArray[i].transform.position;
         }
 
-		backgroundRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
-	}
+        backgroundRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
+    }
 
 
 
@@ -72,13 +68,13 @@ public class ArenaSelectionScene : MonoBehaviour
 
             oldColor = backgroundRenderer.material.color;
 
-			for (int i = 0; i < allArenasArray.Length + 1; i++)
+            for (int i = 0; i < allArenasArray.Length + 1; i++)
             {
                 foreach (GameObject arena in allArenasArray)
                 {
                     if (arena.transform.position == arenaPositions[i])
                     {
-                        allArenasDictionary[arena] = arenaPositions[i+1];
+                        allArenasDictionary[arena] = arenaPositions[i + 1];
                         break;
                     }
                 }
@@ -113,15 +109,15 @@ public class ArenaSelectionScene : MonoBehaviour
 
             lerpValue = 0f;
 
-			oldColor = backgroundRenderer.material.color;
+            oldColor = backgroundRenderer.material.color;
 
-			for (int i = allArenasArray.Length + 1; i > 0; i--)
+            for (int i = allArenasArray.Length + 1; i > 0; i--)
             {
                 foreach (GameObject arena in allArenasArray)
                 {
                     if (arena.transform.position == arenaPositions[i])
                     {
-                        allArenasDictionary[arena] = arenaPositions[i-1];
+                        allArenasDictionary[arena] = arenaPositions[i - 1];
                         break;
                     }
                 }
@@ -152,20 +148,9 @@ public class ArenaSelectionScene : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            FindObjectOfType<DefaultScene>().SetOnlineScene(ChosenArena());
-
-            if (testLocally)
-            {
-                InstanceFinder.ServerManager.StartConnection();
-                InstanceFinder.ClientManager.StartConnection();
-            }
-            else
-            {
-                FindObjectOfType<SteamLobby>().HostLobby();
-            }
-		}
-	}
-
+            OnSpacePressed(ChosenArena());
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -173,48 +158,46 @@ public class ArenaSelectionScene : MonoBehaviour
         {
             MoveAllArenas();
 
-			// Slowly change back ground color to the color in array of same index as an arena that has a value in dictionary as vector3.zero
-			for (int i = 0; i < allArenasArray.Length; i++)
-			{
-				if (allArenasDictionary[allArenasArray[i]] == Vector3.zero)
-				{
-					backgroundRenderer.material.color = Color.Lerp(oldColor, backgroundColors[i], lerpValue);
-					lerpValue += 1 / 56f;
-					break;
-				}
-			}
-		}
-	}
+            // Slowly change back ground color to the color in array of same index as an arena that has a value in dictionary as vector3.zero
+            for (int i = 0; i < allArenasArray.Length; i++)
+            {
+                if (allArenasDictionary[allArenasArray[i]] == Vector3.zero)
+                {
+                    backgroundRenderer.material.color = Color.Lerp(oldColor, backgroundColors[i], lerpValue);
+                    lerpValue += 1 / 56f;
+                    break;
+                }
+            }
+        }
+    }
 
+    private void MoveAllArenas()
+    {
+        foreach (GameObject arena in allArenasArray)
+        {
+            arena.transform.position = Vector3.MoveTowards(arena.transform.position, allArenasDictionary[arena], rotateSpeed);
 
+            if (arena.transform.position == allArenasDictionary[arena])
+            {
+                arena.transform.position = allArenasDictionary[arena];
 
-	
-	private void MoveAllArenas()
-	{
-		foreach (GameObject arena in allArenasArray)
-		{
-			arena.transform.position = Vector3.MoveTowards(arena.transform.position, allArenasDictionary[arena], rotateSpeed);
+                rotating = false;
+            }
+        }
+    }
 
-			if (arena.transform.position == allArenasDictionary[arena])
-			{
-				arena.transform.position = allArenasDictionary[arena];
+    private string ChosenArena()
+    {
+        foreach (GameObject arena in allArenasArray)
+        {
+            if (arena.transform.position == Vector3.zero)
+            {
+                return arena.name;
+            }
+        }
 
-				rotating = false;
-			}
-		}
-	}
+        return null;
+    }
 
-
-	private string ChosenArena()
-	{
-		foreach (GameObject arena in allArenasArray)
-		{
-			if (arena.transform.position == Vector3.zero)
-			{
-				return arena.name;
-			}
-		}
-
-		return null;
-	}
+    protected abstract void OnSpacePressed(string arenaName);
 }
