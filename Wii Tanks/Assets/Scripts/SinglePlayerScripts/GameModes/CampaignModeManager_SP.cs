@@ -4,7 +4,7 @@ using UnityEngine.AddressableAssets;
 
 public class CampaignModeManager_SP : MonoBehaviour
 {
-    private static GameObject[] allArenasArray = new GameObject[5];
+    private static GameObject[] allArenasArray = new GameObject[7];
 
     public static List<Spawn_SP> enemySpawns = new();
 
@@ -24,7 +24,7 @@ public class CampaignModeManager_SP : MonoBehaviour
 
     private static bool rotating;
     
-    private static readonly Vector3[] arenaPositions = new Vector3[7];
+    private static readonly Vector3[] arenaPositions = new Vector3[9];
 
 
     private static Renderer backgroundRenderer;
@@ -39,17 +39,19 @@ public class CampaignModeManager_SP : MonoBehaviour
     {
         rotating = false;
 
-        arenaPositions[0] = new Vector3(-345, -105, 210);
-        arenaPositions[1] = new Vector3(-230, -70, 140);
-        arenaPositions[2] = new Vector3(-115, -35, 70);
-        arenaPositions[3] = Vector3.zero;
-        arenaPositions[4] = new Vector3(115, -35, 70);
-        arenaPositions[5] = new Vector3(230, -70, 140);
-        arenaPositions[6] = new Vector3(345, -105, 210);
+        arenaPositions[0] = new Vector3(-460, -140, 280);
+        arenaPositions[1] = new Vector3(-345, -105, 210);
+        arenaPositions[2] = new Vector3(-230, -70, 140);
+        arenaPositions[3] = new Vector3(-115, -35, 70);
+        arenaPositions[4] = Vector3.zero;
+        arenaPositions[5] = new Vector3(115, -35, 70);
+        arenaPositions[6] = new Vector3(230, -70, 140);
+        arenaPositions[7] = new Vector3(345, -105, 210);
+        arenaPositions[8] = new Vector3(460, -140, 280);
 
         backgroundRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 7; i++)
         {
             allArenasArray[i] = Addressables.LoadAssetAsync<GameObject>($"Arena{i + 1}").WaitForCompletion();
         }
@@ -86,7 +88,7 @@ public class CampaignModeManager_SP : MonoBehaviour
                 {
                     arena.transform.position = allArenasDictionary[arena];
 
-                    if (arena.transform.position == arenaPositions[1])
+                    if (arena.transform.position == arenaPositions[2])
                     {
                         allCurrentArenas.Remove(arena);
                         Destroy(arena);
@@ -117,12 +119,12 @@ public class CampaignModeManager_SP : MonoBehaviour
     {
         if (allCurrentArenas.Count == 0)
         {
-            allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[2], Quaternion.identity));
+            allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 7)], arenaPositions[3], Quaternion.identity));
 
-            GameObject secondArena = Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[3], Quaternion.identity);
+            GameObject secondArena = Instantiate(allArenasArray[Random.Range(0, 7)], arenaPositions[4], Quaternion.identity);
             allCurrentArenas.Add(secondArena);
 
-            allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[4], Quaternion.identity));
+            allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 7)], arenaPositions[5], Quaternion.identity));
 
             backgroundRenderer.material.color = secondArena.GetComponent<SceneInfo_SP>().backgroundColor;
         }
@@ -139,13 +141,13 @@ public class CampaignModeManager_SP : MonoBehaviour
     
     public static void NextMap()
     {
-        allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 5)], arenaPositions[5], Quaternion.identity));
+        allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 7)], arenaPositions[6], Quaternion.identity));
 
         for (int i = 0; i < 4; i++)
         {
             if (allCurrentArenas[i])
             {
-                allArenasDictionary[allCurrentArenas[i]] = arenaPositions[i + 1];
+                allArenasDictionary[allCurrentArenas[i]] = arenaPositions[i + 2];
             }
         }
 

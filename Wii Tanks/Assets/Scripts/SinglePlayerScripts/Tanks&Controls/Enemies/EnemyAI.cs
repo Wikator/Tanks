@@ -120,7 +120,8 @@ public abstract class EnemyAI : MonoBehaviour
 		if (agent.velocity.magnitude == 0)
 			walkPointSet = false;
 
-		transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+		if (agent.velocity.normalized != Vector3.zero)
+			transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
 
 		Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
