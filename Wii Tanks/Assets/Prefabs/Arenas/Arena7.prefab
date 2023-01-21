@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5522588931449128533
 Transform:
@@ -44,14 +44,13 @@ GameObject:
   - component: {fileID: 5522588931520150397}
   - component: {fileID: 5522588931520150370}
   - component: {fileID: 5522588931520150371}
-  - component: {fileID: 5522588931520150369}
-  - component: {fileID: 5522588931520150368}
+  - component: {fileID: 2859947189932227227}
   m_Layer: 11
   m_Name: DeathmatchSpawn2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5522588931520150397
 Transform:
@@ -97,45 +96,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5522588931520150369
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5522588931520150374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: 5522588931520150368}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _initializeOrder: 0
-  _predictedSpawningType: 0
-  _defaultDespawnType: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
-  <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 0
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 0
-  _sceneNetworkObjects:
-  - {fileID: 5522588931520150369}
-  - {fileID: 5522588931722993117}
-  - {fileID: 5522588931546968600}
-  - {fileID: 5522588931575332034}
-  - {fileID: 5522588931949620218}
-  - {fileID: 5522588932094515421}
-  - {fileID: 5522588932628258204}
-  - {fileID: 5522588932997660603}
---- !u!114 &5522588931520150368
+--- !u!114 &2859947189932227227
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,9 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 5522588931520150369}
-  _networkObjectCache: {fileID: 5522588931520150369}
   isOccupied: 0
 --- !u!1 &5522588931546968601
 GameObject:
@@ -162,14 +120,13 @@ GameObject:
   - component: {fileID: 5522588931546968596}
   - component: {fileID: 5522588931546968597}
   - component: {fileID: 5522588931546968602}
-  - component: {fileID: 5522588931546968600}
-  - component: {fileID: 5522588931546968603}
+  - component: {fileID: 4598050374724181480}
   m_Layer: 11
   m_Name: DeathmatchSpawn8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5522588931546968596
 Transform:
@@ -215,45 +172,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5522588931546968600
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5522588931546968601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: 5522588931546968603}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _initializeOrder: 0
-  _predictedSpawningType: 0
-  _defaultDespawnType: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
-  <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 0
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 0
-  _sceneNetworkObjects:
-  - {fileID: 5522588931520150369}
-  - {fileID: 5522588931722993117}
-  - {fileID: 5522588931546968600}
-  - {fileID: 5522588931575332034}
-  - {fileID: 5522588931949620218}
-  - {fileID: 5522588932094515421}
-  - {fileID: 5522588932628258204}
-  - {fileID: 5522588932997660603}
---- !u!114 &5522588931546968603
+--- !u!114 &4598050374724181480
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -265,9 +184,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 5522588931546968600}
-  _networkObjectCache: {fileID: 5522588931546968600}
   isOccupied: 0
 --- !u!1 &5522588931575332035
 GameObject:
@@ -280,14 +196,13 @@ GameObject:
   - component: {fileID: 5522588931575332062}
   - component: {fileID: 5522588931575332063}
   - component: {fileID: 5522588931575332060}
-  - component: {fileID: 5522588931575332034}
-  - component: {fileID: 5522588931575332061}
+  - component: {fileID: 734221226221470148}
   m_Layer: 11
   m_Name: DeathmatchSpawn6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5522588931575332062
 Transform:
@@ -333,45 +248,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5522588931575332034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5522588931575332035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: 5522588931575332061}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _initializeOrder: 0
-  _predictedSpawningType: 0
-  _defaultDespawnType: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
-  <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 0
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 0
-  _sceneNetworkObjects:
-  - {fileID: 5522588931520150369}
-  - {fileID: 5522588931722993117}
-  - {fileID: 5522588931546968600}
-  - {fileID: 5522588931575332034}
-  - {fileID: 5522588931949620218}
-  - {fileID: 5522588932094515421}
-  - {fileID: 5522588932628258204}
-  - {fileID: 5522588932997660603}
---- !u!114 &5522588931575332061
+--- !u!114 &734221226221470148
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -383,9 +260,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 5522588931575332034}
-  _networkObjectCache: {fileID: 5522588931575332034}
   isOccupied: 0
 --- !u!1 &5522588931699081871
 GameObject:
@@ -408,12 +282,12 @@ GameObject:
   - component: {fileID: -697502920278215698}
   - component: {fileID: 2529356616685410296}
   - component: {fileID: 1386974645038584350}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Arena7
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &5522588931699081862
 Transform:
@@ -2583,14 +2457,13 @@ GameObject:
   - component: {fileID: 5522588931722993113}
   - component: {fileID: 5522588931722993118}
   - component: {fileID: 5522588931722993119}
-  - component: {fileID: 5522588931722993117}
-  - component: {fileID: 5522588931722993116}
+  - component: {fileID: 2667322874822259705}
   m_Layer: 11
   m_Name: DeathmatchSpawn1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5522588931722993113
 Transform:
@@ -2636,45 +2509,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5522588931722993117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5522588931722993090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: 5522588931722993116}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _initializeOrder: 0
-  _predictedSpawningType: 0
-  _defaultDespawnType: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
-  <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 0
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 0
-  _sceneNetworkObjects:
-  - {fileID: 5522588931520150369}
-  - {fileID: 5522588931722993117}
-  - {fileID: 5522588931546968600}
-  - {fileID: 5522588931575332034}
-  - {fileID: 5522588931949620218}
-  - {fileID: 5522588932094515421}
-  - {fileID: 5522588932628258204}
-  - {fileID: 5522588932997660603}
---- !u!114 &5522588931722993116
+--- !u!114 &2667322874822259705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2686,9 +2521,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 5522588931722993117}
-  _networkObjectCache: {fileID: 5522588931722993117}
   isOccupied: 0
 --- !u!1 &5522588931949620219
 GameObject:
@@ -2701,14 +2533,13 @@ GameObject:
   - component: {fileID: 5522588931949620214}
   - component: {fileID: 5522588931949620215}
   - component: {fileID: 5522588931949620212}
-  - component: {fileID: 5522588931949620218}
-  - component: {fileID: 5522588931949620213}
+  - component: {fileID: 222377383218132054}
   m_Layer: 11
   m_Name: DeathmatchSpawn4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5522588931949620214
 Transform:
@@ -2754,45 +2585,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5522588931949620218
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5522588931949620219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: 5522588931949620213}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _initializeOrder: 0
-  _predictedSpawningType: 0
-  _defaultDespawnType: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
-  <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 0
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 0
-  _sceneNetworkObjects:
-  - {fileID: 5522588931520150369}
-  - {fileID: 5522588931722993117}
-  - {fileID: 5522588931546968600}
-  - {fileID: 5522588931575332034}
-  - {fileID: 5522588931949620218}
-  - {fileID: 5522588932094515421}
-  - {fileID: 5522588932628258204}
-  - {fileID: 5522588932997660603}
---- !u!114 &5522588931949620213
+--- !u!114 &222377383218132054
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2804,9 +2597,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 5522588931949620218}
-  _networkObjectCache: {fileID: 5522588931949620218}
   isOccupied: 0
 --- !u!1 &5522588932094515394
 GameObject:
@@ -2819,14 +2609,13 @@ GameObject:
   - component: {fileID: 5522588932094515417}
   - component: {fileID: 5522588932094515422}
   - component: {fileID: 5522588932094515423}
-  - component: {fileID: 5522588932094515421}
-  - component: {fileID: 5522588932094515420}
+  - component: {fileID: 7294346858982576154}
   m_Layer: 11
   m_Name: DeathmatchSpawn7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5522588932094515417
 Transform:
@@ -2872,45 +2661,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5522588932094515421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5522588932094515394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: 5522588932094515420}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _initializeOrder: 0
-  _predictedSpawningType: 0
-  _defaultDespawnType: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
-  <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 0
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 0
-  _sceneNetworkObjects:
-  - {fileID: 5522588931520150369}
-  - {fileID: 5522588931722993117}
-  - {fileID: 5522588931546968600}
-  - {fileID: 5522588931575332034}
-  - {fileID: 5522588931949620218}
-  - {fileID: 5522588932094515421}
-  - {fileID: 5522588932628258204}
-  - {fileID: 5522588932997660603}
---- !u!114 &5522588932094515420
+--- !u!114 &7294346858982576154
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2922,9 +2673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 5522588932094515421}
-  _networkObjectCache: {fileID: 5522588932094515421}
   isOccupied: 0
 --- !u!1 &5522588932315858920
 GameObject:
@@ -2940,12 +2688,12 @@ GameObject:
   - component: {fileID: 5522588932315858916}
   - component: {fileID: 5522588932315858917}
   - component: {fileID: 5522588932315858922}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wall4
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &5522588932315858923
 Transform:
@@ -3283,12 +3031,12 @@ GameObject:
   - component: {fileID: 5522588932499657127}
   - component: {fileID: 5522588932499657124}
   - component: {fileID: 5522588932499657125}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wall2
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &5522588932499657130
 Transform:
@@ -3623,14 +3371,13 @@ GameObject:
   - component: {fileID: 5522588932628258200}
   - component: {fileID: 5522588932628258201}
   - component: {fileID: 5522588932628258206}
-  - component: {fileID: 5522588932628258204}
-  - component: {fileID: 5522588932628258207}
+  - component: {fileID: 34162235266650119}
   m_Layer: 11
   m_Name: DeathmatchSpawn5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5522588932628258200
 Transform:
@@ -3676,45 +3423,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5522588932628258204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5522588932628258205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: 5522588932628258207}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _initializeOrder: 0
-  _predictedSpawningType: 0
-  _defaultDespawnType: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
-  <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 0
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 0
-  _sceneNetworkObjects:
-  - {fileID: 5522588931520150369}
-  - {fileID: 5522588931722993117}
-  - {fileID: 5522588931546968600}
-  - {fileID: 5522588931575332034}
-  - {fileID: 5522588931949620218}
-  - {fileID: 5522588932094515421}
-  - {fileID: 5522588932628258204}
-  - {fileID: 5522588932997660603}
---- !u!114 &5522588932628258207
+--- !u!114 &34162235266650119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3726,9 +3435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 5522588932628258204}
-  _networkObjectCache: {fileID: 5522588932628258204}
   isOccupied: 0
 --- !u!1 &5522588932662559302
 GameObject:
@@ -3744,12 +3450,12 @@ GameObject:
   - component: {fileID: 5522588932662559298}
   - component: {fileID: 5522588932662559299}
   - component: {fileID: 5522588932662559296}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wall1
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &5522588932662559297
 Transform:
@@ -4084,14 +3790,13 @@ GameObject:
   - component: {fileID: 5522588932997660599}
   - component: {fileID: 5522588932997660596}
   - component: {fileID: 5522588932997660597}
-  - component: {fileID: 5522588932997660603}
-  - component: {fileID: 5522588932997660602}
+  - component: {fileID: 624182871062684628}
   m_Layer: 11
   m_Name: DeathmatchSpawn3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &5522588932997660599
 Transform:
@@ -4137,45 +3842,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &5522588932997660603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5522588932997660600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26b716c41e9b56b4baafaf13a523ba2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <IsNested>k__BackingField: 0
-  <ComponentIndex>k__BackingField: 0
-  _networkBehaviours:
-  - {fileID: 5522588932997660602}
-  <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField: []
-  _isNetworked: 1
-  _isGlobal: 0
-  _initializeOrder: 0
-  _predictedSpawningType: 0
-  _defaultDespawnType: 0
-  NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: -1
-  <SpawnableCollectionId>k__BackingField: 0
-  _scenePathHash: 0
-  <SceneId>k__BackingField: 0
-  <AssetPathHash>k__BackingField: 0
-  _sceneNetworkObjects:
-  - {fileID: 5522588931520150369}
-  - {fileID: 5522588931722993117}
-  - {fileID: 5522588931546968600}
-  - {fileID: 5522588931575332034}
-  - {fileID: 5522588931949620218}
-  - {fileID: 5522588932094515421}
-  - {fileID: 5522588932628258204}
-  - {fileID: 5522588932997660603}
---- !u!114 &5522588932997660602
+--- !u!114 &624182871062684628
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4187,9 +3854,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 5522588932997660603}
-  _networkObjectCache: {fileID: 5522588932997660603}
   isOccupied: 0
 --- !u!1 &5522588933067892975
 GameObject:
@@ -4205,12 +3869,12 @@ GameObject:
   - component: {fileID: 5522588933067892971}
   - component: {fileID: 5522588933067892968}
   - component: {fileID: 5522588933067892969}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wall5
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &5522588933067892974
 Transform:
@@ -4548,12 +4212,12 @@ GameObject:
   - component: {fileID: 5522588933328076091}
   - component: {fileID: 5522588933328076088}
   - component: {fileID: 5522588933328076089}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Wall3
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &5522588933328076094
 Transform:

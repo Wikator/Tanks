@@ -1,10 +1,7 @@
-using FishNet.Object;
-using FishNet.Object.Synchronizing;
 using UnityEngine;
 
-public class Spawn : NetworkBehaviour
+public class Spawn : MonoBehaviour
 {
-    [SyncVar]
     public bool isOccupied = false;
 
     private Collider other = null;

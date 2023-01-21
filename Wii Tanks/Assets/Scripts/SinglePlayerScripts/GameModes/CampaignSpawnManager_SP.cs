@@ -55,7 +55,7 @@ public class CampaignSpawnManager_SP : SpawnManager_SP
 
     public override Vector3 FindEnemySpawn()
     {
-        Spawn_SP chosenSpawn = CampaignModeManager_SP.enemySpawns[Random.Range(0, CampaignModeManager_SP.enemySpawns.Count)];
+        Spawn chosenSpawn = CampaignModeManager_SP.enemySpawns[Random.Range(0, CampaignModeManager_SP.enemySpawns.Count)];
 
         if (chosenSpawn.isOccupied)
         {

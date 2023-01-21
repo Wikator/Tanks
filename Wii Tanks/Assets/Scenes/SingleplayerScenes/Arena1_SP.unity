@@ -1468,7 +1468,7 @@ GameObject:
   - component: {fileID: 608499059}
   - component: {fileID: 608499062}
   - component: {fileID: 608499061}
-  - component: {fileID: 608499060}
+  - component: {fileID: 608499063}
   m_Layer: 11
   m_Name: DeathmatchSpawn7
   m_TagString: Untagged
@@ -1491,19 +1491,6 @@ Transform:
   m_Father: {fileID: 1566737513}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &608499060
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608499058}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOccupied: 0
 --- !u!54 &608499061
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1533,6 +1520,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 0.75, z: 5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &608499063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 608499058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOccupied: 0
 --- !u!1 &661903007
 GameObject:
   m_ObjectHideFlags: 0
@@ -2305,7 +2305,7 @@ GameObject:
   - component: {fileID: 913378660}
   - component: {fileID: 913378663}
   - component: {fileID: 913378662}
-  - component: {fileID: 913378661}
+  - component: {fileID: 913378664}
   m_Layer: 11
   m_Name: DeathmatchSpawn5
   m_TagString: Untagged
@@ -2328,19 +2328,6 @@ Transform:
   m_Father: {fileID: 1566737513}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &913378661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913378659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOccupied: 0
 --- !u!54 &913378662
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2370,6 +2357,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 0.75, z: 5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &913378664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 913378659}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOccupied: 0
 --- !u!1 &966775245
 GameObject:
   m_ObjectHideFlags: 0
@@ -3622,7 +3622,7 @@ GameObject:
   - component: {fileID: 1146139857}
   - component: {fileID: 1146139860}
   - component: {fileID: 1146139859}
-  - component: {fileID: 1146139858}
+  - component: {fileID: 1146139861}
   m_Layer: 11
   m_Name: DeathmatchSpawn8
   m_TagString: Untagged
@@ -3645,19 +3645,6 @@ Transform:
   m_Father: {fileID: 1566737513}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1146139858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1146139856}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOccupied: 0
 --- !u!54 &1146139859
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3687,6 +3674,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 0.75, z: 5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1146139861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1146139856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOccupied: 0
 --- !u!1 &1185042247
 GameObject:
   m_ObjectHideFlags: 0
@@ -3842,7 +3842,7 @@ GameObject:
   - component: {fileID: 1205408901}
   - component: {fileID: 1205408904}
   - component: {fileID: 1205408903}
-  - component: {fileID: 1205408902}
+  - component: {fileID: 1205408905}
   m_Layer: 11
   m_Name: DeathmatchSpawn2
   m_TagString: Untagged
@@ -3865,19 +3865,6 @@ Transform:
   m_Father: {fileID: 1566737513}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1205408902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1205408900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOccupied: 0
 --- !u!54 &1205408903
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3907,6 +3894,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 0.75, z: 5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1205408905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205408900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOccupied: 0
 --- !u!1 &1213746418
 GameObject:
   m_ObjectHideFlags: 0
@@ -5042,8 +5042,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274580003}
   m_LocalRotation: {x: -0.34484765, y: 0, z: 0, w: 0.9386587}
-  m_LocalPosition: {x: 0, y: -23, z: 19.3}
-  m_LocalScale: {x: 20, y: 15, z: 20}
+  m_LocalPosition: {x: 0, y: -152, z: 129}
+  m_LocalScale: {x: 75, y: 75, z: 75}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -6413,7 +6413,7 @@ GameObject:
   - component: {fileID: 1948933559}
   - component: {fileID: 1948933562}
   - component: {fileID: 1948933561}
-  - component: {fileID: 1948933560}
+  - component: {fileID: 1948933563}
   m_Layer: 11
   m_Name: DeathmatchSpawn3
   m_TagString: Untagged
@@ -6436,19 +6436,6 @@ Transform:
   m_Father: {fileID: 1566737513}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1948933560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1948933558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOccupied: 0
 --- !u!54 &1948933561
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6478,6 +6465,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 0.75, z: 5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &1948933563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1948933558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOccupied: 0
 --- !u!1 &1992867174
 GameObject:
   m_ObjectHideFlags: 0
@@ -6681,7 +6681,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992867174}
   m_LocalRotation: {x: 0.34484714, y: -0, z: -0, w: 0.9386589}
-  m_LocalPosition: {x: 0, y: 25, z: -34.21}
+  m_LocalPosition: {x: 0, y: 26, z: -36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6699,7 +6699,7 @@ GameObject:
   - component: {fileID: 2001131850}
   - component: {fileID: 2001131853}
   - component: {fileID: 2001131852}
-  - component: {fileID: 2001131851}
+  - component: {fileID: 2001131854}
   m_Layer: 11
   m_Name: DeathmatchSpawn4
   m_TagString: Untagged
@@ -6722,19 +6722,6 @@ Transform:
   m_Father: {fileID: 1566737513}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2001131851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2001131849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOccupied: 0
 --- !u!54 &2001131852
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6764,6 +6751,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 0.75, z: 5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &2001131854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001131849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOccupied: 0
 --- !u!1 &2010355773
 GameObject:
   m_ObjectHideFlags: 0
@@ -9830,7 +9830,7 @@ GameObject:
   - component: {fileID: 2046624522}
   - component: {fileID: 2046624525}
   - component: {fileID: 2046624524}
-  - component: {fileID: 2046624523}
+  - component: {fileID: 2046624526}
   m_Layer: 11
   m_Name: DeathmatchSpawn1
   m_TagString: Untagged
@@ -9853,19 +9853,6 @@ Transform:
   m_Father: {fileID: 1566737513}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2046624523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2046624521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOccupied: 0
 --- !u!54 &2046624524
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9895,6 +9882,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 0.75, z: 5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &2046624526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046624521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOccupied: 0
 --- !u!1 &2103055234
 GameObject:
   m_ObjectHideFlags: 0
@@ -11001,7 +11001,7 @@ GameObject:
   - component: {fileID: 2138674977}
   - component: {fileID: 2138674980}
   - component: {fileID: 2138674979}
-  - component: {fileID: 2138674978}
+  - component: {fileID: 2138674981}
   m_Layer: 11
   m_Name: DeathmatchSpawn6
   m_TagString: Untagged
@@ -11024,19 +11024,6 @@ Transform:
   m_Father: {fileID: 1566737513}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2138674978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2138674976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isOccupied: 0
 --- !u!54 &2138674979
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11066,3 +11053,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 5, y: 0.75, z: 5}
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &2138674981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138674976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isOccupied: 0

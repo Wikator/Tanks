@@ -22,7 +22,6 @@
     <type fullname="ScoutTank" preserve="all" />
     <type fullname="ScoutTank_SP" preserve="all" />
     <type fullname="Spawn" preserve="all" />
-    <type fullname="Spawn_SP" preserve="all" />
     <type fullname="Stats" preserve="all" />
     <type fullname="StockBattleGameMode" preserve="all" />
     <type fullname="TakedownGameMode" preserve="all" />

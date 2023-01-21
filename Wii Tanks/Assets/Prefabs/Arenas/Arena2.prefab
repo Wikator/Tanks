@@ -19,7 +19,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &1334486090954383730
 Transform:
@@ -354,13 +354,13 @@ GameObject:
   - component: {fileID: 1334486091124913978}
   - component: {fileID: 1334486091124913974}
   - component: {fileID: 1334486091124913975}
-  - component: {fileID: 1334486091124913969}
+  - component: {fileID: 7004351943102783629}
   m_Layer: 11
   m_Name: DeathmatchSpawn2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1334486091124913978
 Transform:
@@ -406,7 +406,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1334486091124913969
+--- !u!114 &7004351943102783629
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -415,7 +415,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334486091124913979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
@@ -445,7 +445,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &1334486091191318710
 Transform:
@@ -2598,13 +2598,13 @@ GameObject:
   - component: {fileID: 1334486091374001111}
   - component: {fileID: 1334486091374001107}
   - component: {fileID: 1334486091374001104}
-  - component: {fileID: 1334486091374001106}
+  - component: {fileID: 3952830605424629347}
   m_Layer: 11
   m_Name: DeathmatchSpawn6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1334486091374001111
 Transform:
@@ -2650,7 +2650,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1334486091374001106
+--- !u!114 &3952830605424629347
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2659,7 +2659,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334486091374001108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
@@ -2683,7 +2683,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &1334486091416274742
 Transform:
@@ -3280,7 +3280,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &1334486091466667367
 Transform:
@@ -3868,13 +3868,13 @@ GameObject:
   - component: {fileID: 1334486091483756296}
   - component: {fileID: 1334486091483756292}
   - component: {fileID: 1334486091483756293}
-  - component: {fileID: 1334486091483756295}
+  - component: {fileID: 3611327501460293832}
   m_Layer: 11
   m_Name: DeathmatchSpawn3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1334486091483756296
 Transform:
@@ -3920,7 +3920,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1334486091483756295
+--- !u!114 &3611327501460293832
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3929,7 +3929,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334486091483756297}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
@@ -3947,7 +3947,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1334486091744266913
 Transform:
@@ -3977,13 +3977,13 @@ GameObject:
   - component: {fileID: 1334486092106176396}
   - component: {fileID: 1334486092106176392}
   - component: {fileID: 1334486092106176393}
-  - component: {fileID: 1334486092106176395}
+  - component: {fileID: 6841781589607876160}
   m_Layer: 11
   m_Name: DeathmatchSpawn4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1334486092106176396
 Transform:
@@ -4029,7 +4029,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1334486092106176395
+--- !u!114 &6841781589607876160
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4038,7 +4038,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334486092106176397}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
@@ -4053,13 +4053,13 @@ GameObject:
   - component: {fileID: 1334486092363838119}
   - component: {fileID: 1334486092363838115}
   - component: {fileID: 1334486092363838112}
-  - component: {fileID: 1334486092363838114}
+  - component: {fileID: 6515272628296330300}
   m_Layer: 11
   m_Name: DeathmatchSpawn7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1334486092363838119
 Transform:
@@ -4105,7 +4105,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1334486092363838114
+--- !u!114 &6515272628296330300
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4114,7 +4114,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334486092363838116}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
@@ -4129,13 +4129,13 @@ GameObject:
   - component: {fileID: 1334486092583400973}
   - component: {fileID: 1334486092583400969}
   - component: {fileID: 1334486092583400974}
-  - component: {fileID: 1334486092583400968}
+  - component: {fileID: 9054299332827719601}
   m_Layer: 11
   m_Name: DeathmatchSpawn5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1334486092583400973
 Transform:
@@ -4181,7 +4181,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1334486092583400968
+--- !u!114 &9054299332827719601
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4190,7 +4190,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334486092583400978}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
@@ -4205,13 +4205,13 @@ GameObject:
   - component: {fileID: 1334486092860465746}
   - component: {fileID: 1334486092860465742}
   - component: {fileID: 1334486092860465743}
-  - component: {fileID: 1334486092860465737}
+  - component: {fileID: 279075294992934639}
   m_Layer: 11
   m_Name: DeathmatchSpawn1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1334486092860465746
 Transform:
@@ -4257,7 +4257,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1334486092860465737
+--- !u!114 &279075294992934639
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4266,7 +4266,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334486092860465747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
@@ -4290,7 +4290,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &1334486092905961161
 Transform:
@@ -4887,7 +4887,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 1
   m_IsActive: 1
 --- !u!4 &1334486092917348672
 Transform:
@@ -5475,13 +5475,13 @@ GameObject:
   - component: {fileID: 1334486092968274687}
   - component: {fileID: 1334486092968274680}
   - component: {fileID: 1334486092968274681}
-  - component: {fileID: 1334486092968274683}
+  - component: {fileID: 5506185977990967961}
   m_Layer: 11
   m_Name: DeathmatchSpawn8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1334486092968274687
 Transform:
@@ -5527,7 +5527,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!114 &1334486092968274683
+--- !u!114 &5506185977990967961
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5536,7 +5536,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1334486092968274684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e3855ec1e0f8e45a7afa1884ba74a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 4baa07f692e792f49b2a08f0374bef19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
@@ -5554,7 +5554,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 123
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &7192370126474622401
 Transform:

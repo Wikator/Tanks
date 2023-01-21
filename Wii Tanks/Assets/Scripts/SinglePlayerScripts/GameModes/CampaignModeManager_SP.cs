@@ -6,9 +6,9 @@ public class CampaignModeManager_SP : MonoBehaviour
 {
     private static GameObject[] allArenasArray = new GameObject[7];
 
-    public static List<Spawn_SP> enemySpawns = new();
+    public static List<Spawn> enemySpawns = new();
 
-    public static Spawn_SP playerSpawn;
+    public static Spawn playerSpawn;
 
     private static List <GameObject> allCurrentArenas = new();
 
@@ -106,11 +106,11 @@ public class CampaignModeManager_SP : MonoBehaviour
     {
         enemySpawns.Clear();
 
-        playerSpawn = spawnParent.GetChild(0).GetComponent<Spawn_SP>();
+        playerSpawn = spawnParent.GetChild(0).GetComponent<Spawn>();
 
         foreach (Transform spawn in spawnParent.GetChild(1))
         {
-            enemySpawns.Add(spawn.GetComponent<Spawn_SP>());
+            enemySpawns.Add(spawn.GetComponent<Spawn>());
         }
     }
 

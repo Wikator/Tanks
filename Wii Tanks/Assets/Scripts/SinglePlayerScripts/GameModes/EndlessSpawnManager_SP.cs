@@ -6,7 +6,7 @@ using ObjectPoolManager;
 
 public sealed class EndlessSpawnManager_SP : SpawnManager_SP
 {
-	private readonly List<Spawn_SP> spawns = new();
+	private readonly List<Spawn> spawns = new();
 
 	private int numberOfSpawns;
 
@@ -18,7 +18,7 @@ public sealed class EndlessSpawnManager_SP : SpawnManager_SP
 
 		foreach (Transform spawn in GameObject.Find("DeathmatchSpawns").transform)
 		{
-			spawns.Add(spawn.GetComponent<Spawn_SP>());
+			spawns.Add(spawn.GetComponent<Spawn>());
 			numberOfSpawns++;
 		}
 
@@ -43,7 +43,7 @@ public sealed class EndlessSpawnManager_SP : SpawnManager_SP
 
 	public override Vector3 FindEnemySpawn()
 	{
-		Spawn_SP chosenSpawn = spawns[Random.Range(0, numberOfSpawns)];
+		Spawn chosenSpawn = spawns[Random.Range(0, numberOfSpawns)];
 
 		if (chosenSpawn.isOccupied)
 		{
@@ -55,7 +55,7 @@ public sealed class EndlessSpawnManager_SP : SpawnManager_SP
 
 	public override Vector3 FindPlayerSpawn()
 	{
-		Spawn_SP chosenSpawn = spawns[Random.Range(0, numberOfSpawns)];
+		Spawn chosenSpawn = spawns[Random.Range(0, numberOfSpawns)];
 
 		if (chosenSpawn.isOccupied)
 		{

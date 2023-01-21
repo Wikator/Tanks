@@ -4,11 +4,11 @@ using UnityEngine;
 public abstract class ArenaSelectionScene : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] allArenasArray = new GameObject[6];
+    private GameObject[] allArenasArray = new GameObject[7];
 
     [SerializeField]
     [ColorUsage(hdr: true, showAlpha: true)]
-    private Color[] backgroundColors = new Color[6];
+    private Color[] backgroundColors = new Color[7];
 
     [SerializeField]
     [ColorUsage(hdr: true, showAlpha: true)]
@@ -64,7 +64,7 @@ public abstract class ArenaSelectionScene : MonoBehaviour
         {
             rotating = true;
 
-            lerpValue = 1 / 56f;
+            lerpValue = 0f;
 
             oldColor = backgroundRenderer.material.color;
 
