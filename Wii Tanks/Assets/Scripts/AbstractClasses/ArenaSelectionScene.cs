@@ -109,7 +109,7 @@ public abstract class ArenaSelectionScene : MonoBehaviour
 
             lerpValue = 0f;
 
-            oldColor = backgroundRenderer.material.color;
+            oldColor = backgroundRenderer.material.GetColor("_Color01");
 
             for (int i = allArenasArray.Length + 1; i > 0; i--)
             {
@@ -163,7 +163,7 @@ public abstract class ArenaSelectionScene : MonoBehaviour
             {
                 if (allArenasDictionary[allArenasArray[i]] == Vector3.zero)
                 {
-                    backgroundRenderer.material.color = Color.Lerp(oldColor, backgroundColors[i], lerpValue);
+                    backgroundRenderer.material.SetColor("_Color01", Color.Lerp(oldColor, backgroundColors[i], lerpValue));
                     lerpValue += 1 / 56f;
                     break;
                 }

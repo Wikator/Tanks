@@ -68,7 +68,7 @@ public sealed class Menu : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
 
-        backgroundRenderer.material.color = Color.Lerp(oldColor, targetColor, lerpValue);
+        backgroundRenderer.material.SetColor("_Color01", Color.Lerp(oldColor, targetColor, lerpValue));
         lerpValue += 1 / 200f;
 
         if (lerpValue >= 1f)

@@ -23,7 +23,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Arena3Background
+  m_Name: Arena3Background1
   m_Shader: {fileID: -6465566751694194690, guid: 871017e9267245a42acfb0a1e5f3d0d6, type: 3}
   m_ValidKeywords:
   - _DISABLE_SSR_TRANSPARENT
@@ -261,8 +261,8 @@ Material:
     - _Color: {r: 0.16826946, g: 0, b: 0.8879232, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
-    - _ElectricitySpeed1: {r: 0.0015, g: 0.0015, b: 0, a: 0}
-    - _ElectricitySpeed2: {r: -0.0015, g: -0.0015, b: 0, a: 0}
+    - _ElectricitySpeed1: {r: 0.0005, g: 0.0005, b: 0, a: 0}
+    - _ElectricitySpeed2: {r: -0.0005, g: -0.0005, b: 0, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}

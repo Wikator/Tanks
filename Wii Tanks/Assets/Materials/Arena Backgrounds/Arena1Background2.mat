@@ -23,8 +23,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Arena1Background
-  m_Shader: {fileID: -6465566751694194690, guid: 871017e9267245a42acfb0a1e5f3d0d6, type: 3}
+  m_Name: Arena1Background2
+  m_Shader: {fileID: -6465566751694194690, guid: d1359a6495caa0f4697678852a9cdee6, type: 3}
   m_ValidKeywords:
   - _DISABLE_SSR_TRANSPARENT
   m_InvalidKeywords:
@@ -154,6 +154,10 @@ Material:
     - _AlphaToMaskInspectorValue: 0
     - _Anisotropy: 0
     - _BlendMode: 4
+    - _Brightness: 3
+    - _Brightness_power: 3
+    - _Brightness_variation_scale: 0
+    - _Clip_treshold: 0.96
     - _CoatMask: 0
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 2
@@ -204,17 +208,20 @@ Material:
     - _NormalMapSpace: 0
     - _NormalScale: 1
     - _OpaqueCullMode: 2
+    - _Overall_scale: 18.98
     - _PPDLodThreshold: 5
     - _PPDMaxSamples: 15
     - _PPDMinSamples: 5
     - _PPDPrimitiveLength: 1
     - _PPDPrimitiveWidth: 1
+    - _Randomness: 5
     - _RayTracing: 0
     - _ReceivesSSR: 1
     - _ReceivesSSRTransparent: 0
     - _RefractionModel: 0
     - _RenderQueueType: 1
     - _RequireSplitLighting: 0
+    - _Rotation: 0
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
@@ -222,6 +229,7 @@ Material:
     - _SpecularAAThreshold: 0.2
     - _SpecularOcclusionMode: 1
     - _SrcBlend: 1
+    - _Star_scale: 3.94
     - _StencilRef: 0
     - _StencilRefDepth: 8
     - _StencilRefDistortionVec: 4
@@ -259,6 +267,7 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 0.5, g: 0, b: 0.17991495, a: 1}
+    - _Color01: {r: 0.5019608, g: 0, b: 0.18039216, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _ElectricitySpeed1: {r: 0.0005, g: 0.0005, b: 0, a: 0}
@@ -268,6 +277,7 @@ Material:
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
     - _InvPrimScale: {r: 1, g: 1, b: 0, a: 0}
     - _IridescenceThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
+    - _Offset: {r: -10, g: -10, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
     - _TransmittanceColor: {r: 1, g: 1, b: 1, a: 1}

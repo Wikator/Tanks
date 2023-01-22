@@ -23,7 +23,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Arena5Background 1
+  m_Name: Arena7Background1
   m_Shader: {fileID: -6465566751694194690, guid: 871017e9267245a42acfb0a1e5f3d0d6, type: 3}
   m_ValidKeywords:
   - _DISABLE_SSR_TRANSPARENT
@@ -258,11 +258,11 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
-    - _Color: {r: 0.21882667, g: 0.6039216, b: 0, a: 1}
+    - _Color: {r: 0, g: 0.21544455, b: 0.8509804, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
-    - _ElectricitySpeed1: {r: 0.0015, g: 0.0015, b: 0, a: 0}
-    - _ElectricitySpeed2: {r: -0.0015, g: -0.0015, b: 0, a: 0}
+    - _ElectricitySpeed1: {r: 0.0005, g: 0.0005, b: 0, a: 0}
+    - _ElectricitySpeed2: {r: -0.0005, g: -0.0005, b: 0, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissiveColor: {r: 0, g: 0, b: 0, a: 1}
     - _EmissiveColorLDR: {r: 0, g: 0, b: 0, a: 1}
