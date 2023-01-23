@@ -19,8 +19,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
     public string PlayerUsername { get; private set; }
 
 
-
-
     [SyncVar]
     public string color;
 
@@ -34,12 +32,16 @@ public sealed class PlayerNetworking : NetworkBehaviour
     [SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
     public double superCharge;
 
-
-    public bool showPlayerNames;
+    private GameObject background;
 
 
 
     //Each player will add themself to the players list in the GameManager class
+
+    private void Start()
+    {
+        background = GameObject.Find("Background");
+    }
 
     public override void OnStartServer()
     {
@@ -68,7 +70,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
         Instance = this;
 
-        showPlayerNames = true;
+        Settings.ShowPlayerNames = true;
 
         color = "None";
         TankType = "None";
@@ -122,6 +124,27 @@ public sealed class PlayerNetworking : NetworkBehaviour
             {
                 StockBattleGameMode.defeatedPlayers.Remove(this);
             }
+        }
+    }
+
+    private void Update()
+    {
+        if (!IsOwner)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            DisconnectFromGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Settings.ShowPlayerNames = !Settings.ShowPlayerNames;
+        }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            background.SetActive(!background.activeSelf);
         }
     }
 

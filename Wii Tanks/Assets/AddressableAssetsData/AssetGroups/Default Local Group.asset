@@ -485,6 +485,14 @@ MonoBehaviour:
     m_Address: Arena7
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 1c1e24d8afc9be14d9564fac4eb24441
+    m_Address: Background1
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5154697d502487e4998b6ba74557a14b
+    m_Address: Background2
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
   m_SchemaSet:

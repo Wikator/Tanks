@@ -7,6 +7,12 @@ using System.Collections;
 public sealed class Menu : MonoBehaviour
 {
     [SerializeField]
+    private GameObject mainMenu;
+
+    [SerializeField]
+    private GameObject settingsMenu;
+
+    [SerializeField]
     private bool testLocally;
 
     [SerializeField]
@@ -20,6 +26,18 @@ public sealed class Menu : MonoBehaviour
 
     [SerializeField]
     private Button campaignButton;
+
+    [SerializeField]
+    private Button settingsButton;
+
+    [SerializeField]
+    private Button background1Button;
+
+    [SerializeField]
+    private Button background2Button;
+
+    [SerializeField]
+    private Button goBackButton;
 
     [SerializeField]
     [ColorUsage(hdr: true, showAlpha: true)]
@@ -41,8 +59,10 @@ public sealed class Menu : MonoBehaviour
     //User will have a choice to either host a server or connect as a client
     //With a PlayFlow dedicated server active, hostButton should be disabled
 
-    private void Awake()
-    {       
+    private void Start()
+    {
+        Settings.ChosenBackground = "Background2";
+
         if (testLocally)
         {
 			connectButton.gameObject.SetActive(true);
@@ -55,12 +75,22 @@ public sealed class Menu : MonoBehaviour
 		endlessModeButton.onClick.AddListener(() => SceneManager.LoadScene("MapSelection_SP"));
         campaignButton.onClick.AddListener(() => SceneManager.LoadScene("CampaignArena"));
 
-        backgroundRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
+        settingsButton.onClick.AddListener(() => settingsMenu.SetActive(true));
+        settingsButton.onClick.AddListener(() => mainMenu.SetActive(false));
+        goBackButton.onClick.AddListener(() => settingsMenu.SetActive(false));
+        goBackButton.onClick.AddListener(() => mainMenu.SetActive(true));
+
+        background1Button.onClick.AddListener(() => Settings.ChosenBackground = "Background1");
+        background2Button.onClick.AddListener(() => Settings.ChosenBackground = "Background2");
+
+        backgroundRenderer = GameObject.Find("Background").GetComponent<Renderer>();
         targetColor = backgroundColors[0];
         oldColor = backgroundColors[0];
         lerpValue = 1f;
 
         StartCoroutine(AnimateColors());
+
+        //Settings.currentArena = "MainMenu";
     }
 
 
@@ -68,7 +98,7 @@ public sealed class Menu : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
 
-        backgroundRenderer.material.SetColor("_Color01", Color.Lerp(oldColor, targetColor, lerpValue));
+        backgroundRenderer.material.color = Color.Lerp(oldColor, targetColor, lerpValue);
         lerpValue += 1 / 200f;
 
         if (lerpValue >= 1f)

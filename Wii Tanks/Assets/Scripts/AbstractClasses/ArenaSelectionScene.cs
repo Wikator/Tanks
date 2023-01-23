@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public abstract class ArenaSelectionScene : MonoBehaviour
 {
@@ -24,11 +25,15 @@ public abstract class ArenaSelectionScene : MonoBehaviour
     [SerializeField]
     private float rotateSpeed;
 
-    private Renderer backgroundRenderer;
+    private MeshRenderer backgroundRenderer;
 
     private float lerpValue;
 
 
+    private void Awake()
+    {
+        backgroundRenderer = GameObject.Find("Background").GetComponent<MeshRenderer>();
+    }
 
     private void Start()
     {
@@ -49,7 +54,7 @@ public abstract class ArenaSelectionScene : MonoBehaviour
             allArenasDictionary[allArenasArray[i]] = allArenasArray[i].transform.position;
         }
 
-        backgroundRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
+        //Settings.currentArena = "ArenaSelection";
     }
 
 
@@ -109,7 +114,7 @@ public abstract class ArenaSelectionScene : MonoBehaviour
 
             lerpValue = 0f;
 
-            oldColor = backgroundRenderer.material.GetColor("_Color01");
+            oldColor = backgroundRenderer.material.color;
 
             for (int i = allArenasArray.Length + 1; i > 0; i--)
             {
@@ -163,7 +168,7 @@ public abstract class ArenaSelectionScene : MonoBehaviour
             {
                 if (allArenasDictionary[allArenasArray[i]] == Vector3.zero)
                 {
-                    backgroundRenderer.material.SetColor("_Color01", Color.Lerp(oldColor, backgroundColors[i], lerpValue));
+                    backgroundRenderer.material.color = Color.Lerp(oldColor, backgroundColors[i], lerpValue);
                     lerpValue += 1 / 56f;
                     break;
                 }

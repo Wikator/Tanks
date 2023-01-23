@@ -26,8 +26,7 @@ public class CampaignModeManager_SP : MonoBehaviour
     
     private static readonly Vector3[] arenaPositions = new Vector3[9];
 
-
-    private static Renderer backgroundRenderer;
+    private static MeshRenderer backgroundRenderer;
 
     private static float lerpValue;
 
@@ -49,7 +48,7 @@ public class CampaignModeManager_SP : MonoBehaviour
         arenaPositions[7] = new Vector3(345, -105, 210);
         arenaPositions[8] = new Vector3(460, -140, 280);
 
-        backgroundRenderer = GameObject.Find("Plane").GetComponent<Renderer>();
+        backgroundRenderer = GameObject.Find("Plane").GetComponent<MeshRenderer>();
 
         for (int i = 0; i < 7; i++)
         {

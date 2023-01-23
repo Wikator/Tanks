@@ -1972,7 +1972,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh88274
+  m_Name: pb_Mesh57680
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4977,6 +4977,7 @@ GameObject:
   - component: {fileID: 1274580006}
   - component: {fileID: 1274580005}
   - component: {fileID: 1274580004}
+  - component: {fileID: 1274580007}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -5004,7 +5005,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fd104d4c0587c13459ca941e9b6c10a5, type: 2}
+  - {fileID: 2100000, guid: 185322fb69757cc4bb77dd0460316ae0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5049,6 +5050,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: -40.345, y: 0, z: 0}
+--- !u!114 &1274580007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274580003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efc43c00f74d88045b175ab1ccfc89b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0.5019608, g: 0, b: 0.18039216, a: 1}
 --- !u!1 &1316563436
 GameObject:
   m_ObjectHideFlags: 0
@@ -5479,7 +5493,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh88164
+  m_Name: pb_Mesh57570
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
