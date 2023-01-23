@@ -4,7 +4,9 @@ A simple game I'm working on
 
 This project is being made using Unity Engine, using FishNetworking as its multiplayer solution
 
-Currently there are 5 modes, 4 maps, 3 tank types, and 6 player colors to choose from
+In Multiplayer, currently there are 5 modes, 7 maps, 3 tank types, and 6 player colors to choose from
+
+Singleplayer features 2 modes.
 
 ![Picture.png](Picture.png)
 
@@ -12,12 +14,11 @@ Currently there are 5 modes, 4 maps, 3 tank types, and 6 player colors to choose
 
 ## Known issues
 
--  ~~Turrets desync when using client side prediction~~ fixed
-
-- **End screen generates errors**
-   - *These errors do not crash the game*
+- **End screen sometimes displays wrong results**
 
 - **Perspective can mess up aim**
+
+- **Firing you weapons as client is delayed**
     
 ## To be added:
 
@@ -31,3 +32,5 @@ Currently there are 5 modes, 4 maps, 3 tank types, and 6 player colors to choose
     + ~~Epic Online Services will be implemented~~ Steam was used instead
     + Players can join P2P games now, but only through invites
 5. Cleaner UI
+6. Rewards from singleplayer, like colors
+7. Improved AI im singleplayer
