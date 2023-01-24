@@ -54,10 +54,52 @@
     <type fullname="UnityEngine.ProBuilder.SharedVertex" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.ProBuilder.UnwrapParameters" preserve="nothing" serialized="true" />
   </assembly>
+  <assembly fullname="Unity.RenderPipelines.Core.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Rendering.VolumeProfile" preserve="all" />
+    <type fullname="UnityEngine.Rendering.AnimationCurveParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.BoolParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.ClampedFloatParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.ClampedIntParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.ColorParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.FloatParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.FloatRangeParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.LayerMaskParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.MinFloatParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.NoInterpClampedIntParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.NoInterpMinFloatParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.NoInterpVector2Parameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.Texture2DParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.Texture3DParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.Vector2Parameter" preserve="nothing" serialized="true" />
+  </assembly>
   <assembly fullname="Unity.RenderPipelines.HighDefinition.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Rendering.HighDefinition.AmbientOcclusion" preserve="all" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.Bloom" preserve="all" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.ColorAdjustments" preserve="all" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.ContactShadows" preserve="all" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.DepthOfField" preserve="all" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.Exposure" preserve="all" />
     <type fullname="UnityEngine.Rendering.HighDefinition.HDAdditionalLightData" preserve="all" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.HDShadowSettings" preserve="all" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.Tonemapping" preserve="all" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.Vignette" preserve="all" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.WhiteBalance" preserve="all" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.AdaptationModeParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.BloomResolutionParameter" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.Rendering.HighDefinition.BoolScalableSettingValue" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.CascadeEndBorderParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.CascadePartitionSplitParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.DepthOfFieldModeParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.DepthOfFieldResolutionParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.ExposureModeParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.FocusDistanceModeParameter" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.Rendering.HighDefinition.IntScalableSettingValue" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.LuminanceSourceParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.MeteringModeParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.ScalableSettingLevelParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.TargetMidGrayParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.TonemappingModeParameter" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Rendering.HighDefinition.VignetteModeParameter" preserve="nothing" serialized="true" />
   </assembly>
   <assembly fullname="Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
     <type fullname="UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider" preserve="all" />

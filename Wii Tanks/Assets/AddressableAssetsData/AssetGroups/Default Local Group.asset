@@ -493,6 +493,10 @@ MonoBehaviour:
     m_Address: Background2
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 9d2935f37c38dab4190b32a0c59dfdbe
+    m_Address: Profile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 80e9f023e304ef34a8219b271ffab0cc, type: 2}
   m_SchemaSet:

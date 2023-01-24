@@ -18,13 +18,20 @@ public class MainView_SP : View_SP
     [SerializeField]
     private Slider superBar;
 
-    private float timeSurvived = 0f;
+    [HideInInspector]
+    public float TimeSurvived { get; private set; }
 
     public float maxCharge = 1000;
 
     protected virtual void Awake()
     {
         Instance = this;
+        TimeSurvived = 0f;
+    }
+
+    private void OnDisable()
+    {
+        PlayerPrefs.SetFloat("DeathmatchHighScore", Mathf.Max(TimeSurvived, PlayerPrefs.GetFloat("DeathmatchHighScore")));
     }
 
 
@@ -51,10 +58,10 @@ public class MainView_SP : View_SP
             superBar.transform.GetChild(1).GetChild(0).GetComponent<Image>().color = Color.red;
         }
 
-        timeSurvived += Time.deltaTime;
+        TimeSurvived += Time.deltaTime;
 
-        int minutesSurvived = Mathf.FloorToInt(timeSurvived / 60);
-        int secondsSurvived = Mathf.FloorToInt(timeSurvived % 60);
+        int minutesSurvived = Mathf.FloorToInt(TimeSurvived / 60);
+        int secondsSurvived = Mathf.FloorToInt(TimeSurvived % 60);
 
         timeSurvivedText.text = $"Time survived: {minutesSurvived:00}:{secondsSurvived:00}";
     }

@@ -35,7 +35,7 @@ public abstract class ArenaSelectionScene : MonoBehaviour
         backgroundRenderer = GameObject.Find("Background").GetComponent<MeshRenderer>();
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         rotating = false;
 

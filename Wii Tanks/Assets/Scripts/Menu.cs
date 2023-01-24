@@ -61,7 +61,16 @@ public sealed class Menu : MonoBehaviour
 
     private void Start()
     {
-        Settings.ChosenBackground = "Background2";
+        if (PlayerPrefs.GetString("Background") != "")
+        {
+            Settings.ChosenBackground = PlayerPrefs.GetString("Background");
+        }
+        else
+        {
+            Settings.ChosenBackground = "Background2";
+        }
+
+        
 
         if (testLocally)
         {
