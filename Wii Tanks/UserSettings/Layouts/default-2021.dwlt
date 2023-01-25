@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 100
+  controlID: 22
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 101
+  controlID: 23
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 102
+  controlID: 24
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -236,8 +236,8 @@ MonoBehaviour:
     y: 0
     width: 398
     height: 893
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 15}
@@ -319,8 +319,8 @@ MonoBehaviour:
     y: 0
     width: 441
     height: 1299
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 22}
   m_Panes:
   - {fileID: 22}
@@ -586,9 +586,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 864.87445, y: 316.81808, z: 267.557}
+    m_Target: {x: 205.38011, y: -321.36002, z: 120.950806}
     speed: 2
-    m_Value: {x: 864.87445, y: 316.81808, z: 267.557}
+    m_Value: {x: 205.38011, y: -321.36002, z: 120.950806}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -635,13 +635,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.13787901, y: 0.18069848, z: -0.02723294, w: 0.973612}
+    m_Target: {x: 0.3968822, y: 0.42919, z: -0.22010697, w: 0.7811205}
     speed: 2
-    m_Value: {x: 0.13785665, y: 0.18066917, z: -0.027228521, w: 0.97345406}
+    m_Value: {x: 0.39681953, y: 0.42912224, z: -0.22007221, w: 0.7809971}
   m_Size:
-    m_Target: 864.52234
+    m_Target: 530.7173
     speed: 2
-    m_Value: 864.52234
+    m_Value: 530.7173
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -699,7 +699,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: e01affff081cffffaa1fffffb61fffffd81ffffffa1fffff2020ffff3220ffff4220ffff5220ffff6c20ffff9220ffffb820ffffe220fffff620ffff0c21ffff2021ffff5e21ffff6c21ffff8021ffff6837ffff044fffffd050ffffb4faffff8c930000
+      m_ExpandedIDs: 5ee0ffff04e4ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -835,10 +835,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1480
-    y: 81
-    width: 857
-    height: 849
+    x: 398
+    y: 73
+    width: 1719
+    height: 872
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -3661,22 +3661,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Effects/Visual Effect Graphs
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 75
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Effects/Visual Effect Graphs
   m_LastFoldersGridSize: 75
   m_LastProjectPath: C:\Projects\WiiTanks\Wii Tanks
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 180}
-    m_SelectedIDs: 56950000
-    m_LastClickedID: 38230
-    m_ExpandedIDs: 00000000dc0200004495000046950000489500004a9500004c9500004e95000050950000529500005695000000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: b2c00000
+    m_LastClickedID: 49330
+    m_ExpandedIDs: 0000000062030000d8af0000daaf0000dcaf0000deaf0000e0af0000e2af0000e4af0000e6af0000e8af0000f2af000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -3704,7 +3704,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000004495000046950000489500004a9500004c9500004e95000050950000529500005495000056950000
+    m_ExpandedIDs: 0000000062030000d8af0000daaf0000dcaf0000deaf0000e0af0000e2af0000e4af0000e6af0000e8af0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
