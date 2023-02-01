@@ -12,19 +12,19 @@ namespace PrefabLightMapBaker
     {
         static void UpdateLightSettings()
         {
-            if(Lightmapping.giWorkflowMode != Lightmapping.GIWorkflowMode.OnDemand)
+            if (Lightmapping.giWorkflowMode != Lightmapping.GIWorkflowMode.OnDemand)
             {
                 Lightmapping.giWorkflowMode = Lightmapping.GIWorkflowMode.OnDemand;
 
-                Debug.LogWarning( "[PrefabBaker] GI work flowMode lightmapping settings set on demand" );
+                Debug.LogWarning("[PrefabBaker] GI work flowMode lightmapping settings set on demand");
             }
 
-            Lightmapping.lightingSettings.lightmapMaxSize = Window.TextureSize;
+            LightmapEditorSettings.maxAtlasSize = Window.TextureSize;
 
-            if( Window.QuickBake )
+            if (Window.QuickBake)
             {
-                LightmapEditorData.Backup( );
-                LightmapEditorData.SetProfileQuickBake( );
+                LightmapEditorData.Backup();
+                LightmapEditorData.SetProfileQuickBake();
             }
         }
 
@@ -32,75 +32,75 @@ namespace PrefabLightMapBaker
         {
             Debug.ClearDeveloperConsole();
 
-            UpdateLightSettings( );
+            UpdateLightSettings();
 
             // 1. Prepare objects for bake
 
             // Fetch PrefabVaker components from current active scene 
-            EditorUtils.GetAllPrefabs( ).ForEach( x => {
+            EditorUtils.GetAllPrefabs().ForEach(x => {
 
                 // Set all nested object as static for bake
-                EditorUtils.LockForBake( x.gameObject );
+                EditorUtils.LockForBake(x.gameObject);
 
-            } );
+            });
 
             // 2. Display progress dialog and await for bake complete in `BakeCompelte()`
-            BakeStart( );
+            BakeStart();
 
             // 3. Start baking 
-            Lightmapping.BakeAsync( );
+            Lightmapping.BakeAsync();
         }
 
 
-        static void BakeStart( )
+        static void BakeStart()
         {
             Lightmapping.bakeCompleted += OnBakeComplete;
             EditorApplication.update += BakeUpdate;
-            BakeUpdate( );
+            BakeUpdate();
         }
 
-        static void BakeUpdate( )
+        static void BakeUpdate()
         {
             var p = Lightmapping.buildProgress;
 
-            if( EditorUtility.DisplayCancelableProgressBar( "Boiling Prefabs", "Baking Them Lights...", p ) )
+            if (EditorUtility.DisplayCancelableProgressBar("Boiling Prefabs", "Baking them lights...", p))
             {
-                Lightmapping.ForceStop( );
+                Lightmapping.ForceStop();
 
-                BakeFinished( );
+                BakeFinished();
             }
         }
 
-        static void BakeFinished( )
+        static void BakeFinished()
         {
-            LightmapEditorData.Restore( );
+            LightmapEditorData.Restore();
             Lightmapping.bakeCompleted -= OnBakeComplete;
             EditorApplication.update -= BakeUpdate;
-            EditorUtility.ClearProgressBar( );
+            EditorUtility.ClearProgressBar();
         }
 
         static void OnBakeComplete()
         {
             // 4. Clear progress & events 
 
-            BakeFinished( );
+            BakeFinished();
 
             // 5. Fetch lightmaps, apply to prefab and save them in selected folder  
 
             SaveLightmaps();
 
-            if( Window.AutoClean )
+            if (Window.AutoClean)
             {
                 // 6. Delete scene lightmap data
 
-                Lightmapping.ClearLightingDataAsset( );
-                Lightmapping.ClearDiskCache( );
-                Lightmapping.Clear( );
+                Lightmapping.ClearLightingDataAsset();
+                Lightmapping.ClearDiskCache();
+                Lightmapping.Clear();
             }
 
             // 7. Combine prefab lightmaps with scene lightmaps 
 
-            EditorUtils.GetAllPrefabs( ).ForEach( x => Utils.Apply( x ) );
+            EditorUtils.GetAllPrefabs().ForEach(x => Utils.Apply(x));
         }
 
         public static List<SceneLightmap> SceneLightmapList;
@@ -117,76 +117,76 @@ namespace PrefabLightMapBaker
             var scene = SceneManager.GetActiveScene();
 
             folder_scene = Path.GetDirectoryName(scene.path) + dsc + scene.name + dsc;
-            
+
             // 5.2 Get all active MeshRenderers with valid lightmap index
 
-            EditorUtils.GetAllPrefabs().ForEach( prefab => {
+            EditorUtils.GetAllPrefabs().ForEach(prefab => {
 
-                var renderers = EditorUtils.GetValidRenderers( prefab.gameObject );
+                var renderers = EditorUtils.GetValidRenderers(prefab.gameObject);
 
                 // 5.3 Store scene lightmaps as assets in target folder
 
-                renderers.ForEach( r => GetOrSaveSceneLightmapToAsset( r.lightmapIndex, prefab.gameObject.name ) );
+                renderers.ForEach(r => GetOrSaveSceneLightmapToAsset(r.lightmapIndex, prefab.gameObject.name));
 
                 // 5.4 Reference the cloned light maps to the renderer
 
-                EditorUtils.UpdateLightmaps( prefab, renderers, SceneLightmapList );
-                
+                EditorUtils.UpdateLightmaps(prefab, renderers, SceneLightmapList);
+
                 // 5.5 Update prefab lights 
 
-                EditorUtils.UpdateLights( prefab );
+                EditorUtils.UpdateLights(prefab);
 
                 // 5.6 Save prefab asset in project 
 
-                EditorUtils.UpdatePrefab( prefab.gameObject );
+                EditorUtils.UpdatePrefab(prefab.gameObject);
 
-            } );
+            });
         }
 
-        static SceneLightmap GetOrSaveSceneLightmapToAsset( int lightmap_index, string name )
+        static SceneLightmap GetOrSaveSceneLightmapToAsset(int lightmap_index, string name)
         {
             // Return existing lightmap if matching texture is already in list 
 
-            var index = GetSceneLightMapIndex( lightmap_index );
+            var index = GetSceneLightMapIndex(lightmap_index);
 
-            if ( index > -1 ) return SceneLightmapList[ index ];
+            if (index > -1) return SceneLightmapList[index];
 
             // Store scene light map in target folder and register to list 
-            
-            SceneLightmap slm = SaveSceneLightmap( lightmap_index, name );
 
-            SceneLightmapList.Add( slm );
+            SceneLightmap slm = SaveSceneLightmap(lightmap_index, name);
+
+            SceneLightmapList.Add(slm);
 
             return slm;
         }
 
-        public static int GetSceneLightMapIndex( int lightMapIndex )
+        public static int GetSceneLightMapIndex(int lightMapIndex)
         {
-            for(var i = 0; i < SceneLightmapList.Count; ++i)
+            for (var i = 0; i < SceneLightmapList.Count; ++i)
 
-                if( SceneLightmapList[ i ].lightMapIndex == lightMapIndex ) return i;
+                if (SceneLightmapList[i].lightMapIndex == lightMapIndex) return i;
 
             return -1;
         }
 
-        public static SceneLightmap GetSceneLightmapFromRendererIndex( int rendererIndex )
+        public static SceneLightmap GetSceneLightmapFromRendererIndex(int rendererIndex)
         {
-            int idx = GetSceneLightMapIndex( rendererIndex );
+            int idx = GetSceneLightMapIndex(rendererIndex);
 
-            if( idx < 0 ) throw new System.Exception( "[PrefabBaker] SceneLightmap not found at index " + rendererIndex );
+            if (idx < 0) throw new System.Exception("[PrefabBaker] SceneLightmap not found at index " + rendererIndex);
 
-            return SceneLightmapList[ idx ];
+            return SceneLightmapList[idx];
         }
 
-        static SceneLightmap SaveSceneLightmap( int lightmap_index, string name )
+        static SceneLightmap SaveSceneLightmap(int lightmap_index, string name)
         {
             int i = lightmap_index;
 
-            SceneLightmap slm = new() { lightMapIndex = lightmap_index };
+            SceneLightmap slm = new SceneLightmap { lightMapIndex = lightmap_index };
 
             // Create folder if it doesn't exist
 
-            Directory.CreateDirectory( Window.folder );
+            Directory.CreateDirectory(Window.folder);
 
             // Update paths definitions 
 
@@ -194,41 +194,41 @@ namespace PrefabLightMapBaker
 
             string copyFrom, saveTo,
                 filename = folder_scene + "Lightmap-" + i,
-                newFile = Window.Preview_folder + dsc + name + dsc + name;
+                newFile = Window.preview_folder + dsc + name + dsc + name;
 
             // Save color texture
 
-            if( LightmapSettings.lightmaps[ i ].lightmapColor != null )
+            if (LightmapSettings.lightmaps[i].lightmapColor != null)
             {
                 copyFrom = $"{filename}_comp_light.exr";
-                saveTo = $"{newFile}_light-{ i }.asset";
+                saveTo = $"{newFile}_light-{i}.asset";
 
-                slm.texColor = EditorUtils.SaveLightmapAsset( copyFrom, saveTo );
+                slm.texColor = EditorUtils.SaveLightmapAsset(copyFrom, saveTo);
             }
 
             // Save directional texture 
 
-            var lightmapDir = LightmapSettings.lightmaps[ i ].lightmapDir;
+            var lightmapDir = LightmapSettings.lightmaps[i].lightmapDir;
 
-            if( lightmapDir != null)
+            if (lightmapDir != null)
             {
                 copyFrom = $"{filename}_comp_dir.png";
-                saveTo = $"{newFile}_dir-{ i }.asset";
+                saveTo = $"{newFile}_dir-{i}.asset";
 
-                slm.texDir = lightmapDir = EditorUtils.SaveLightmapAsset( copyFrom, saveTo );
+                slm.texDir = lightmapDir = EditorUtils.SaveLightmapAsset(copyFrom, saveTo);
             }
 
-            if( lightmapDir == null ) 
-                Debug.LogWarning( $"[PrefabBaker] Direction-lightmap { i } was not saved" );
+            if (lightmapDir == null)
+                Debug.LogWarning($"[PrefabBaker] Direction-lightmap {i} was not saved");
 
             // Save shadow texture 
 
-            if( LightmapSettings.lightmaps[ i ].shadowMask != null )
+            if (LightmapSettings.lightmaps[i].shadowMask != null)
             {
                 copyFrom = $"{filename}_comp_shadowmask.png";
-                saveTo = $"{newFile}_shadow-{ i }.asset";
+                saveTo = $"{newFile}_shadow-{i}.asset";
 
-                slm.texShadow = EditorUtils.SaveLightmapAsset( copyFrom, saveTo );
+                slm.texShadow = EditorUtils.SaveLightmapAsset(copyFrom, saveTo);
             }
 
             return slm;

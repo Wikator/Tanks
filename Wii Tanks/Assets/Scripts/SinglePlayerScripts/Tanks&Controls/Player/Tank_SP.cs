@@ -88,7 +88,7 @@ public abstract class Tank_SP : MonoBehaviour
     public void GameOver()
     {
         ammoCount = 0;
-        ObjectPoolManager_SP.GetPooledInstantiated(explosion, transform.position, transform.rotation, explosionEmpty);
+        ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(explosion, transform.position, transform.rotation, explosionEmpty);
         SpawnManager_SP.Instance.OnKilled(gameObject);
 		Destroy(gameObject);
 	}
@@ -125,12 +125,12 @@ public abstract class Tank_SP : MonoBehaviour
         if (ammoCount <= 0)
             return;
 
-        GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        GameObject bulletInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         bulletInstance.GetComponent<Bullet_SP>().ChargeTimeToAdd = stats.onKillSuperCharge;
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
         bulletInstance.GetComponent<Bullet_SP>().owningCollider = gameObject.GetComponent<BoxCollider>();
 
-        ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
+        ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
 
 		if (routine != null)
         {

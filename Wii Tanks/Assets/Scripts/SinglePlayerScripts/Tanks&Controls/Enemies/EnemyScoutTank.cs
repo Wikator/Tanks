@@ -4,16 +4,22 @@ using ObjectPoolManager;
 
 public class EnemyScoutTank : EnemyAI
 {
-	protected override void Fire()
+	protected override void OnEnable()
+	{
+		base.OnEnable();
+		normalBullet = Addressables.LoadAssetAsync<GameObject>(color + "ScoutBulletSP").WaitForCompletion();
+	}
+
+    protected override void Fire()
 	{
 		for (int i = -3; i <= 3; i += 3)
 		{
-			GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>(color + "ScoutBulletSP").WaitForCompletion(), turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation * Quaternion.Euler(Vector3.up * i), GameObject.Find("Bullets").transform);
+            GameObject bulletInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(normalBullet, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * i), bulletEmpty);
 
 			Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 			bulletInstance.GetComponent<Bullet_SP>().owningCollider = gameObject.GetComponent<BoxCollider>();
 
-			GameObject flashInstance = ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation * Quaternion.Euler(Vector3.up * i), GameObject.Find("MuzzleFlashes").transform);
+            GameObject flashInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * i), muzzleFlashEmpty);
 		}
 	}
 

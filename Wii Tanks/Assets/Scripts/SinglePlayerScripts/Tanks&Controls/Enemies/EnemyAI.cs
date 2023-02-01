@@ -9,6 +9,10 @@ public abstract class EnemyAI : MonoBehaviour
 	protected NavMeshAgent agent;
 
 	protected Transform target;
+	protected Transform bulletSpawn;
+	protected Transform bulletEmpty;
+	protected Transform muzzleFlashEmpty;
+	private Transform explosionEmpty;
 
 	public LayerMask whatIsGround, whatIsWall, whatIsPlayer;
 
@@ -32,6 +36,7 @@ public abstract class EnemyAI : MonoBehaviour
 
 
 	private GameObject explosion;
+	protected GameObject normalBullet;
 	protected GameObject muzzleFlash;
 
 	protected string color;
@@ -39,13 +44,19 @@ public abstract class EnemyAI : MonoBehaviour
 
 	private void Awake()
 	{
+		alreadyAttacked = true;
+		Invoke(nameof(ResetAttack), timeBetweenAttacks);
 		agent = GetComponent<NavMeshAgent>();
 		//target = Player.Instance.gameObject.transform;
 		agent.updateRotation = false;
-		turret = transform.GetChild(0).GetChild(0);;
+		turret = transform.GetChild(0).GetChild(0);
+		bulletSpawn = turret.GetChild(0).GetChild(0);
+		bulletEmpty = GameObject.Find("Bullets").transform;
+		muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
+		explosionEmpty = GameObject.Find("Explosions").transform;
 	}
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
 		target = Player.Instance.ControlledPawn.transform;
 
@@ -146,16 +157,24 @@ public abstract class EnemyAI : MonoBehaviour
 
 	private void AttackPlayer()
 	{
-		turret.LookAt(target.transform.position);
+		turret.LookAt(target.position);
 
 		if (!alreadyAttacked)
 		{
-			Physics.Raycast(turret.GetChild(0).GetChild(0).position + turret.GetChild(0).GetChild(0).transform.transform.forward * 1.5f, turret.GetChild(0).GetChild(0).transform.forward, out RaycastHit hit, forwardSightRange);
+			Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out RaycastHit hit, forwardSightRange);
 
 			if (!hit.collider.CompareTag("Tank"))
 				return;
-
-
+			/*
+			Vector3 direction = (target.transform.position - transform.position).normalized;
+			float distance = Vector3.Distance(target.transform.position, transform.position);
+			float distance2 = Vector3.Distance(target.transform.position, transform.position);
+			float timeToReachPlayer = distance2 / normalBullet.GetComponent<Bullet_SP>().moveSpeed;
+			Vector3 leadOffset = target.GetComponent<CharacterController>().velocity * timeToReachPlayer;
+			Vector3 predictedPosition = target.transform.position + leadOffset;
+			
+			turret.LookAt(predictedPosition);
+			*/
 			Fire();
 			
 			alreadyAttacked = true;
@@ -174,7 +193,7 @@ public abstract class EnemyAI : MonoBehaviour
 	public void GameOver()
 	{
         SpawnManager_SP.Instance.OnKilled(gameObject);
-        ObjectPoolManager_SP.GetPooledInstantiated(explosion, transform.position, transform.rotation, GameObject.Find("Explosions").transform);
+        ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(explosion, transform.position, transform.rotation, explosionEmpty);
 		gameObject.SetActive(false);
 	}
 

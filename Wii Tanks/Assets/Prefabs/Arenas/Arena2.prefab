@@ -19,7 +19,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486090954383730
 Transform:
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2092
+  m_VersionIndex: 2095
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -360,7 +360,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486091124913978
 Transform:
@@ -445,7 +445,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486091191318710
 Transform:
@@ -455,7 +455,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334486091191318712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14475.75, y: 0, z: 0}
+  m_LocalPosition: {x: 244.82312, y: 0, z: -190.82716}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2360,7 +2360,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 4869
+  m_VersionIndex: 4872
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2527,22 +2527,24 @@ MonoBehaviour:
   - {fileID: 1334486092917348733}
   - {fileID: 1334486091466667360}
   - {fileID: 1334486090954383727}
-  renderersLightmapIndex: 000000000100000001000000010000000100000002000000
+  renderersLightmapIndex: 000000000100000002000000010000000200000003000000
   renderersLightmapOffsetScale:
   - {x: 1.0339149, y: 1.0339149, z: -0.0206783, w: -0.0206783}
-  - {x: 0.48881978, y: 0.48881978, z: 0.4403976, w: 0.45799705}
   - {x: 0.48881978, y: 0.48881978, z: -0.009776397, w: -0.009776397}
+  - {x: 0.48881978, y: 0.48881978, z: 0.4403976, w: 0.3007783}
   - {x: 0.48881978, y: 0.48881978, z: -0.009776397, w: 0.45799705}
-  - {x: 0.48881978, y: 0.48881978, z: 0.4403976, w: -0.009776397}
+  - {x: 0.48881978, y: 0.48881978, z: -0.009776397, w: 0.3007783}
   - {x: 0.6306429, y: 0.6306429, z: -0.012612859, w: 0.5858248}
   texturesColor:
-  - {fileID: 2800000, guid: 9d3b830a066540b49ad589a34403096b, type: 2}
-  - {fileID: 2800000, guid: e01a0a9e644f5a74e8a74deb1feb41a4, type: 2}
-  - {fileID: 2800000, guid: cd591db112be6f448b1b8fb2a224071e, type: 2}
+  - {fileID: 2800000, guid: c17fd13ce73c5e44aaed01184ffb67af, type: 2}
+  - {fileID: 2800000, guid: 0d4c86c740229d744ab924f71b9f02a2, type: 2}
+  - {fileID: 2800000, guid: 55ba9bc984921364fa7fb1b93c0c0185, type: 2}
+  - {fileID: 2800000, guid: 4b36ae91701a1e7429e76cbc138e52fd, type: 2}
   texturesDir:
-  - {fileID: 2800000, guid: 7086757339629ba40a73ae33772762ad, type: 2}
-  - {fileID: 2800000, guid: 7e9665126531c064ca1ec807c64ddadc, type: 2}
-  - {fileID: 2800000, guid: 8e457926760f54c4e905dfb91c9db1ee, type: 2}
+  - {fileID: 2800000, guid: 0b39f5c527136fd40a1bcf030ec5f459, type: 2}
+  - {fileID: 2800000, guid: 6f4f536eba927d846bb91d0910f76be8, type: 2}
+  - {fileID: 2800000, guid: fac3aa733e9fee04782957de807c7e9d, type: 2}
+  - {fileID: 2800000, guid: 702543ef8c2b02645a745de119bd8751, type: 2}
   texturesShadow: []
 --- !u!114 &7415496948008845284
 MonoBehaviour:
@@ -2604,7 +2606,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486091374001111
 Transform:
@@ -2683,7 +2685,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486091416274742
 Transform:
@@ -3152,7 +3154,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3460
+  m_VersionIndex: 3463
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3280,7 +3282,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486091466667367
 Transform:
@@ -3749,7 +3751,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3463
+  m_VersionIndex: 3466
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -3874,7 +3876,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486091483756296
 Transform:
@@ -3947,7 +3949,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486091744266913
 Transform:
@@ -3983,7 +3985,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486092106176396
 Transform:
@@ -4059,7 +4061,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486092363838119
 Transform:
@@ -4135,7 +4137,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486092583400973
 Transform:
@@ -4211,7 +4213,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486092860465746
 Transform:
@@ -4290,7 +4292,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486092905961161
 Transform:
@@ -4759,7 +4761,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3457
+  m_VersionIndex: 3460
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4887,7 +4889,7 @@ GameObject:
   m_TagString: Arena
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 1
-  m_StaticEditorFlags: 1
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486092917348672
 Transform:
@@ -5356,7 +5358,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3460
+  m_VersionIndex: 3463
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -5481,7 +5483,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &1334486092968274687
 Transform:
@@ -5554,7 +5556,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 123
   m_IsActive: 1
 --- !u!4 &7192370126474622401
 Transform:

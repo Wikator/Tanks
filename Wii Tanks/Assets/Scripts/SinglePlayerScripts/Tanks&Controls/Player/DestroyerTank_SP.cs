@@ -21,10 +21,10 @@ public sealed class DestroyerTank_SP : Tank_SP
 
         ammoCount = 0;
 
-        GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        GameObject bulletInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 
-        ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
+        ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
 
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }

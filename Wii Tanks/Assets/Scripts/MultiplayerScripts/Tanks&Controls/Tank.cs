@@ -352,7 +352,7 @@ public abstract class Tank : NetworkBehaviour
 
     [Replicate]
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-    private void Move(MoveData data, bool asServer, Channel channel = Channel.Reliable , bool replaying = false)
+    private void Move(MoveData data, bool asServer, Channel channel = Channel.Unreliable, bool replaying = false)
     {
         if (!GameManager.Instance.GameInProgress)
             return;
@@ -371,7 +371,7 @@ public abstract class Tank : NetworkBehaviour
 
     [Reconcile]
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
-    private void Reconciliation(ReconcileData data, bool asServer, Channel channel = Channel.Reliable)
+    private void Reconciliation(ReconcileData data, bool asServer, Channel channel = Channel.Unreliable)
     {
         transform.SetPositionAndRotation(data.Position, data.TankRotation);
 

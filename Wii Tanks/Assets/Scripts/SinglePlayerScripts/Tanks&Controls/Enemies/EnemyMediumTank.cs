@@ -4,13 +4,19 @@ using ObjectPoolManager;
 
 public class EnemyMediumTank : EnemyAI
 {
-	protected override void Fire()
+    protected override void OnEnable()
+    {
+		base.OnEnable();
+		normalBullet = Addressables.LoadAssetAsync<GameObject>(color + "MediumTankBulletSP").WaitForCompletion();
+	}
+
+    protected override void Fire()
 	{
-		GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>(color + "MediumTankBulletSP").WaitForCompletion(), turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation, GameObject.Find("Bullets").transform);
+        GameObject bulletInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(normalBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
 		Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 		bulletInstance.GetComponent<Bullet_SP>().owningCollider = gameObject.GetComponent<BoxCollider>();
 
-		ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, turret.GetChild(0).GetChild(0).position, turret.GetChild(0).GetChild(0).rotation, GameObject.Find("MuzzleFlashes").transform);
+        ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
 	}
 
 	protected override void ChasePlayer()

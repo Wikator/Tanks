@@ -22,11 +22,11 @@ public class ScoutTank_SP : Tank_SP
 
         for (int angle = -spreadAngle; angle < spreadAngle * 2; angle += spreadAngle)
         {
-            GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), bulletEmpty);
+            GameObject bulletInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), bulletEmpty);
             bulletInstance.GetComponent<Bullet_SP>().ChargeTimeToAdd = stats.onKillSuperCharge;
 			Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 
-            ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), muzzleFlashEmpty);
+            ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), muzzleFlashEmpty);
 		}
 
 
