@@ -13,8 +13,7 @@ public class EnemyDestroyerTank : EnemyAI
 			tankBody = transform.GetChild(0).gameObject,
 			turretBody = turret.GetChild(0).gameObject,
 			mainBody = gameObject,
-			color = color,
-			tankType = "Destroyer"
+			color = color
 		};
 
 		TankSet tankSet = TankGraphics.ChangeTankColours(tankGet, "Singleplayer");
@@ -23,7 +22,7 @@ public class EnemyDestroyerTank : EnemyAI
 		turretMaterial = tankSet.turretMaterial;
 		explosion = tankSet.explosion;
 		muzzleFlash = tankSet.muzzleFlash;
-		bullet = tankSet.bullet;
+		bullet = TankGraphics.ChangeBulletColour(color, "Destroyer", "Singleplayer");
 	}
 	protected override void Fire()
 	{
@@ -31,7 +30,7 @@ public class EnemyDestroyerTank : EnemyAI
 		Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 		bulletInstance.GetComponent<Bullet_SP>().owningCollider = gameObject.GetComponent<BoxCollider>();
 
-        ObjectPoolManager.ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
+        ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
 	}
 
 	protected override void ChasePlayer()

@@ -65,8 +65,7 @@ public abstract class Tank_SP : MonoBehaviour
             tankBody = transform.GetChild(0).gameObject,
             turretBody = turret.GetChild(0).gameObject,
             mainBody = gameObject,
-            color = "Green",
-            tankType = Player.Instance.TankType
+            color = "Green"
         };
 
         TankSet tankSet = TankGraphics.ChangeTankColours(tankGet, "Singleplayer");
@@ -75,7 +74,7 @@ public abstract class Tank_SP : MonoBehaviour
         turretMaterial = tankSet.turretMaterial;
         explosion = tankSet.explosion;
         muzzleFlash = tankSet.muzzleFlash;
-        bullet = tankSet.bullet;
+        bullet = TankGraphics.ChangeBulletColour("Green", Player.Instance.TankType, "Singleplayer");
 
         canUseSuper = false;
         bulletSpawn = turret.GetChild(0).GetChild(0);

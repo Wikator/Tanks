@@ -13,8 +13,7 @@ public class EnemyMediumTank : EnemyAI
 			tankBody = transform.GetChild(0).gameObject,
 			turretBody = turret.GetChild(0).gameObject,
 			mainBody = gameObject,
-			color = color,
-			tankType = "MediumTank"
+			color = color
 		};
 
 		TankSet tankSet = TankGraphics.ChangeTankColours(tankGet, "Singleplayer");
@@ -23,7 +22,7 @@ public class EnemyMediumTank : EnemyAI
 		turretMaterial = tankSet.turretMaterial;
 		explosion = tankSet.explosion;
 		muzzleFlash = tankSet.muzzleFlash;
-		bullet = tankSet.bullet;
+		bullet = TankGraphics.ChangeBulletColour(color, "MediumTank", "Singleplayer");
 	}
 	protected override void Fire()
 	{

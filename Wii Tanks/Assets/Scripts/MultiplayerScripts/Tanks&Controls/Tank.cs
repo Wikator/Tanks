@@ -143,7 +143,6 @@ public abstract class Tank : NetworkBehaviour
             turretBody = turret.GetChild(0).gameObject,
             mainBody = gameObject,
             color = controllingPlayer.color,
-            tankType = controllingPlayer.TankType
         };
 
         TankSet tankSet = TankGraphics.ChangeTankColours(tankGet, "Multiplayer");
@@ -152,7 +151,6 @@ public abstract class Tank : NetworkBehaviour
         turretMaterial = tankSet.turretMaterial;
         explosion = tankSet.explosion;
         muzzleFlash = tankSet.muzzleFlash;
-        bullet = tankSet.bullet;
 
         if (IsOwner)
         {
@@ -166,6 +164,7 @@ public abstract class Tank : NetworkBehaviour
         canUseSuper = false;
         bulletSpawn = turret.GetChild(0).GetChild(0);
         muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
+        bullet = TankGraphics.ChangeBulletColour(controllingPlayer.color, controllingPlayer.TankType, "Multiplayer");
         bulletEmpty = GameObject.Find("Bullets").transform;
         explosionEmpty = GameObject.Find("Explosions").transform;
         muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;

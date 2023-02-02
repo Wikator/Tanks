@@ -6,9 +6,9 @@ public sealed class DestroyerTank : Tank
 {
     private GameObject specialBullet;
 
-    public override void OnStartClient()
+    public override void OnStartServer()
     {
-        base.OnStartClient();
+        base.OnStartServer();
         specialBullet = Addressables.LoadAssetAsync<GameObject>(controllingPlayer.color + "DestroyerSpecialBullet").WaitForCompletion();
     }
 

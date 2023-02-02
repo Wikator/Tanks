@@ -11,7 +11,6 @@ namespace Graphics
         public GameObject turretBody;
         public GameObject mainBody;
         public string color;
-        public string tankType;
     }
 
     public struct TankSet
@@ -20,7 +19,6 @@ namespace Graphics
         public Material turretMaterial;
         public GameObject explosion;
         public GameObject muzzleFlash;
-        public GameObject bullet;
     }
 
     public struct Materials
@@ -64,18 +62,26 @@ namespace Graphics
                 case "Multiplayer":
                     tankSet.explosion = Addressables.LoadAssetAsync<GameObject>(tankGet.color + "Explosion").WaitForCompletion();
                     tankSet.muzzleFlash = Addressables.LoadAssetAsync<GameObject>(tankGet.color + "MuzzleFlash").WaitForCompletion();
-                    tankSet.bullet = Addressables.LoadAssetAsync<GameObject>(tankGet.color + tankGet.tankType + "Bullet").WaitForCompletion();
                     break;
                 case "Singleplayer":
                     tankSet.explosion = Addressables.LoadAssetAsync<GameObject>(tankGet.color + "ExplosionSP").WaitForCompletion();
                     tankSet.muzzleFlash = Addressables.LoadAssetAsync<GameObject>(tankGet.color + "MuzzleFlashSP").WaitForCompletion();
-                    tankSet.bullet = Addressables.LoadAssetAsync<GameObject>(tankGet.color + tankGet.tankType + "BulletSP").WaitForCompletion();
                     break;
             }
 
             return tankSet;
         }
-        
+
+        public static GameObject ChangeBulletColour(string color, string tankType, string gameType)
+        {
+            return gameType switch
+            {
+                "Multiplayer" => Addressables.LoadAssetAsync<GameObject>(color + tankType + "Bullet").WaitForCompletion(),
+                "Singleplayer" => Addressables.LoadAssetAsync<GameObject>(color + tankType + "BulletSP").WaitForCompletion(),
+                _ => throw new System.NotImplementedException(),
+            };
+        }
+
 
         public static void SpawnAnimation(Materials materials)
         {
