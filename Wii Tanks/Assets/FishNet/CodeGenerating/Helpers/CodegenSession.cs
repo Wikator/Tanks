@@ -62,13 +62,18 @@ namespace FishNet.CodeGenerating
 
             _bases = new List<CodegenBase>()
                 {
-                    new PhysicsHelper()
-                    ,new TimeManagerHelper(), new AttributeHelper(), new GeneralHelper(), new GenericReaderHelper()
-                    , new GenericWriterHelper(), new ObjectHelper(), new NetworkBehaviourHelper(), new ReaderGenerator()
-                    , new ReaderHelper(), new CreatedSyncVarGenerator(), new TransportHelper(), new WriterGenerator()
-                    , new WriterHelper(), new NetworkConnectionHelper(), new PredictedObjectHelper(), new GeneratorHelper()
-                    , new CustomSerializerProcessor(), new NetworkBehaviourProcessor(), new QolAttributeProcessor()
-                    , new RpcProcessor(), new NetworkBehaviourSyncProcessor(), new PredictionProcessor()
+                    new ReaderImports(), new ReaderProcessor()
+                    ,new WriterImports(), new WriterProcessor()
+                    , new PhysicsHelper(), new TimeManagerHelper(), new AttributeHelper(), new GeneralHelper()
+                    , new ObjectHelper(), new NetworkBehaviourHelper()
+                    , new CreatedSyncVarGenerator(), new TransportHelper()
+                    , new NetworkConnectionHelper(), new PredictedObjectHelper(), new GeneratorHelper()
+                    , new CustomSerializerProcessor()
+                    , new NetworkBehaviourProcessor()
+                    , new QolAttributeProcessor()
+                    , new RpcProcessor()
+                    , new NetworkBehaviourSyncProcessor()
+                    , new PredictionProcessor()
                 };
 
             //Add all to dictionary first, then import.
