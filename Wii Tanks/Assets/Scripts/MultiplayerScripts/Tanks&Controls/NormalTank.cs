@@ -42,10 +42,4 @@ public sealed class NormalTank : Tank
         }
         routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
     }
-
-    public override void ChangeColours(string color)
-    {
-        base.ChangeColours(color);
-        bullet = Addressables.LoadAssetAsync<GameObject>(color + "MediumTankBullet").WaitForCompletion();
-    }
 }

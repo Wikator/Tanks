@@ -37,7 +37,7 @@ public sealed class EndlessSpawnManager_SP : SpawnManager_SP
 
 		if (Random.Range(0, 250) < 1)
 		{
-            ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(enemyTanks[Random.Range(0, 3)], FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform);
+            ObjectPoolManager.ObjectPoolManager_SP.GetPooledInstantiated(enemyTanks[Random.Range(0, 3)], FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform);
 		}
 	}
 
@@ -94,7 +94,7 @@ public sealed class EndlessSpawnManager_SP : SpawnManager_SP
 
 		yield return new WaitForEndOfFrame();
 
-        ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(enemyTanks[Random.Range(0, 1)], FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform);
+        ObjectPoolManager.ObjectPoolManager_SP.GetPooledInstantiated(enemyTanks[Random.Range(0, 1)], FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform);
 
 	}
 }

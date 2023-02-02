@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Rendering.HighDefinition;
 using ObjectPoolManager;
+using Graphics;
 
 public abstract class Tank_SP : MonoBehaviour
 {
@@ -23,13 +22,6 @@ public abstract class Tank_SP : MonoBehaviour
     //[SerializeField]
     public Stats stats;
 
-    [SerializeField]
-    private bool animateShader;
-
-
-    [SerializeField]
-    private float maxLightIntensity;
-
     [HideInInspector]
     protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
 
@@ -49,20 +41,16 @@ public abstract class Tank_SP : MonoBehaviour
 
 
     private CharacterController controller;
-    private Transform explosionEmpty, turret;
+    private Transform explosionEmpty;
+    private Transform turret;
     private GameObject explosion;
     protected GameObject muzzleFlash;
     private Camera cam;
     private Material tankMaterial, turretMaterial;
 
-
     protected Coroutine routine;
 
     private LayerMask raycastLayer;
-
-
-
-
 
 
 	private void Start()
@@ -71,7 +59,24 @@ public abstract class Tank_SP : MonoBehaviour
         controller = GetComponent<CharacterController>();
         turret = transform.GetChild(0).GetChild(0);
         raycastLayer = (1 << 9);
-        ChangeColours("Green");
+
+        TankGet tankGet = new()
+        {
+            tankBody = transform.GetChild(0).gameObject,
+            turretBody = turret.GetChild(0).gameObject,
+            mainBody = gameObject,
+            color = "Green",
+            tankType = Player.Instance.TankType
+        };
+
+        TankSet tankSet = TankGraphics.ChangeTankColours(tankGet, "Singleplayer");
+
+        tankMaterial = tankSet.tankMaterial;
+        turretMaterial = tankSet.turretMaterial;
+        explosion = tankSet.explosion;
+        muzzleFlash = tankSet.muzzleFlash;
+        bullet = tankSet.bullet;
+
         canUseSuper = false;
         bulletSpawn = turret.GetChild(0).GetChild(0);
         muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
@@ -88,7 +93,7 @@ public abstract class Tank_SP : MonoBehaviour
     public void GameOver()
     {
         ammoCount = 0;
-        ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(explosion, transform.position, transform.rotation, explosionEmpty);
+        ObjectPoolManager_SP.GetPooledInstantiated(explosion, transform.position, transform.rotation, explosionEmpty);
         SpawnManager_SP.Instance.OnKilled(gameObject);
 		Destroy(gameObject);
 	}
@@ -117,7 +122,14 @@ public abstract class Tank_SP : MonoBehaviour
         if (!tankMaterial || !turretMaterial)
             return;
 
-        SpawnAnimation();
+        Materials materials = new()
+        {
+            tankMaterial = tankMaterial,
+            turretMaterial = turretMaterial,
+            mainBody = gameObject
+        };
+
+        TankGraphics.SpawnAnimation(materials);
     }
 
     protected virtual void Fire()
@@ -125,12 +137,12 @@ public abstract class Tank_SP : MonoBehaviour
         if (ammoCount <= 0)
             return;
 
-        GameObject bulletInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         bulletInstance.GetComponent<Bullet_SP>().ChargeTimeToAdd = stats.onKillSuperCharge;
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
         bulletInstance.GetComponent<Bullet_SP>().owningCollider = gameObject.GetComponent<BoxCollider>();
 
-        ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
+        ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
 
 		if (routine != null)
         {
@@ -190,65 +202,6 @@ public abstract class Tank_SP : MonoBehaviour
         {
             turret.LookAt(data.TurretLookDirection, Vector3.up);
             turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
-        }
-    }
-
-
-    public virtual void ChangeColours(string color)
-    {
-        if (animateShader)
-        {
-            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-            tankMaterial = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
-            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-            turretMaterial = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
-            gameObject.GetComponent<HDAdditionalLightData>().color = tankMaterial.GetColor("_Color01");
-            gameObject.GetComponent<HDAdditionalLightData>().intensity = 0f;
-            tankMaterial.SetFloat("_CurrentAppearence", 0.34f);
-            turretMaterial.SetFloat("_CurrentAppearence", 0.3f);
-            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
-            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
-        }
-        else
-        {
-            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
-            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(color).WaitForCompletion();
-        }
-        explosion = Addressables.LoadAssetAsync<GameObject>(color + "ExplosionSP").WaitForCompletion();
-        muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlashSP").WaitForCompletion();
-    }
-
-    private void SpawnAnimation()
-    {
-        if (turretMaterial.GetFloat("_CurrentAppearence") > -0.3f)
-        {
-            if (tankMaterial.GetFloat("_CurrentAppearence") > -0f)
-            {
-                tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - 0.01f);
-            }
-            else
-            {
-                if (tankMaterial.GetFloat("_CurrentAppearence") > -0.3f)
-                {
-                    turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - 0.01f);
-                    tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - 0.01f);
-                }
-                else
-                {
-                    turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - 0.01f);
-
-
-                    if (gameObject.GetComponent<HDAdditionalLightData>().intensity < maxLightIntensity)
-                    {
-                        gameObject.GetComponent<HDAdditionalLightData>().intensity += 0.00005f;
-                    }
-                }
-            }
-        }
-
-        if (gameObject.GetComponent<HDAdditionalLightData>().intensity < maxLightIntensity)
-        {
-            gameObject.GetComponent<HDAdditionalLightData>().intensity += 0.003f;
         }
     }
 }

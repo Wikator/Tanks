@@ -75,13 +75,13 @@ public class CampaignSpawnManager_SP : SpawnManager_SP
             switch (Random.Range(0, 3))
             {
                 case 0:
-                    enemyTeam.Add(ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyNormalTankPawnSP").WaitForCompletion(), FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform).GetComponent<EnemyAI>());
+                    enemyTeam.Add(ObjectPoolManager.ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyNormalTankPawnSP").WaitForCompletion(), FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform).GetComponent<EnemyAI>());
                     break;
                 case 1:
-                    enemyTeam.Add(ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyDestroyerPawnSP").WaitForCompletion(), FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform).GetComponent<EnemyAI>());
+                    enemyTeam.Add(ObjectPoolManager.ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyDestroyerPawnSP").WaitForCompletion(), FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform).GetComponent<EnemyAI>());
                     break;
                 case 2:
-                    enemyTeam.Add(ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyScoutPawnSP").WaitForCompletion(), FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform).GetComponent<EnemyAI>());
+                    enemyTeam.Add(ObjectPoolManager.ObjectPoolManager_SP.GetPooledInstantiated(Addressables.LoadAssetAsync<GameObject>("EnemyScoutPawnSP").WaitForCompletion(), FindEnemySpawn(), Quaternion.identity, GameObject.Find("Enemies").transform).GetComponent<EnemyAI>());
                     break;
             }
         }

@@ -6,6 +6,11 @@ public sealed class DestroyerTank_SP : Tank_SP
 {
     private GameObject specialBullet;
 
+    private void Awake()
+    {
+        specialBullet = Addressables.LoadAssetAsync<GameObject>(Player.Instance.color + "DestroyerSpecialBulletSP").WaitForCompletion();
+    }
+
     protected override void SpecialMove()
     {
         if (!canUseSuper)
@@ -21,18 +26,11 @@ public sealed class DestroyerTank_SP : Tank_SP
 
         ammoCount = 0;
 
-        GameObject bulletInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 
-        ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
+        ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
 
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
-    }
-
-    public override void ChangeColours(string color)
-    {
-        base.ChangeColours(color);
-        bullet = Addressables.LoadAssetAsync<GameObject>(color + "DestroyerBulletSP").WaitForCompletion();
-        specialBullet = Addressables.LoadAssetAsync<GameObject>(color + "DestroyerSpecialBulletSP").WaitForCompletion();
     }
 }

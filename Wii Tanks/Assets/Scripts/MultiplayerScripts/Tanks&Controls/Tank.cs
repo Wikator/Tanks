@@ -5,8 +5,7 @@ using FishNet.Transporting;
 using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.Rendering.HighDefinition;
+using Graphics;
 
 public abstract class Tank : NetworkBehaviour
 {
@@ -98,14 +97,6 @@ public abstract class Tank : NetworkBehaviour
 
 
 
-    private const float LIGHT_INTENSITY = 0.15f;
-    private const float LIGHT_APPEARING_SPEED = 0.0025f;
-    private const float LIGHT_DISAPPEARING_SPEED = 0.0035f;
-
-    private const float MATERIAL_MIN_VALUE = -0.3f;
-    private const float MATERIAL_MAX_VALUE = 0.4f;
-    private const float MATERIAL_APPEARING_SPEED = 0.01f;
-    private const float MATERIAL_DISAPPEARING_SPEED = 0.01f;
 
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
@@ -145,7 +136,23 @@ public abstract class Tank : NetworkBehaviour
         namePlate = transform.GetChild(1).GetComponent<TextMesh>();
         namePlate.text = controllingPlayer.PlayerUsername;
         raycastLayer = (1 << 9);
-        ChangeColours(controllingPlayer.color);
+
+        TankGet tankGet = new()
+        {
+            tankBody = transform.GetChild(0).gameObject,
+            turretBody = turret.GetChild(0).gameObject,
+            mainBody = gameObject,
+            color = controllingPlayer.color,
+            tankType = controllingPlayer.TankType
+        };
+
+        TankSet tankSet = TankGraphics.ChangeTankColours(tankGet, "Multiplayer");
+
+        tankMaterial = tankSet.tankMaterial;
+        turretMaterial = tankSet.turretMaterial;
+        explosion = tankSet.explosion;
+        muzzleFlash = tankSet.muzzleFlash;
+        bullet = tankSet.bullet;
 
         if (IsOwner)
         {
@@ -253,13 +260,23 @@ public abstract class Tank : NetworkBehaviour
 		if (!IsSpawned || !tankMaterial || !turretMaterial)
 			return;
 
+        Materials materials = new()
+        {
+            tankMaterial = tankMaterial,
+            turretMaterial = turretMaterial,
+            mainBody = gameObject
+        };
+
         if (isDespawning)
         {
-            DespawnAnimation();
+            if (TankGraphics.DespawnAnimation(materials))
+            {
+                DespawnForNewRound();
+            }
         }
         else
         {
-            SpawnAnimation();
+            TankGraphics.SpawnAnimation(materials);
         }
 	}
 
@@ -377,91 +394,6 @@ public abstract class Tank : NetworkBehaviour
 
         turret.rotation = data.TurretRotation;
     }
-
-
-
-
-    [Client]
-    public virtual void ChangeColours(string color)
-    {
-        transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-        tankMaterial = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
-        turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-        turretMaterial = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
-        gameObject.GetComponent<HDAdditionalLightData>().color = tankMaterial.GetColor("_Color01");
-        gameObject.GetComponent<HDAdditionalLightData>().intensity = 0f;
-        tankMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
-        turretMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
-		transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
-        turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
-        explosion = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
-        muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
-    }
-
-    [Client]
-    private void SpawnAnimation()
-    {
-        if (turretMaterial.GetFloat("_CurrentAppearence") > MATERIAL_MIN_VALUE)
-        {
-            if (tankMaterial.GetFloat("_CurrentAppearence") > 0f)
-            {
-                tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
-
-                if (gameObject.GetComponent<HDAdditionalLightData>().intensity < LIGHT_INTENSITY)
-                {
-                    gameObject.GetComponent<HDAdditionalLightData>().intensity += LIGHT_APPEARING_SPEED;
-                }
-            }
-            else
-            {
-                if (tankMaterial.GetFloat("_CurrentAppearence") > MATERIAL_MIN_VALUE)
-                {
-                    turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
-                    tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
-                }
-                else
-                {
-                    turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
-                }
-            }
-        }
-    }
-
-    [Client]
-    private void DespawnAnimation()
-    {
-        if (tankMaterial.GetFloat("_CurrentAppearence") < MATERIAL_MAX_VALUE)
-        {
-            if (turretMaterial.GetFloat("_CurrentAppearence") < 0f)
-            {
-                turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
-            }
-            else
-            {
-                if (turretMaterial.GetFloat("_CurrentAppearence") < MATERIAL_MAX_VALUE)
-                {
-                    turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
-                    tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
-                }
-                else
-                {
-                    tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
-
-
-                    if (gameObject.GetComponent<HDAdditionalLightData>().intensity > 0)
-                    {
-                        gameObject.GetComponent<HDAdditionalLightData>().intensity -= LIGHT_DISAPPEARING_SPEED;
-
-                    }
-                }
-            }
-        }
-        else
-        {
-            DespawnForNewRound();
-        }
-    }
-
 	
 
     private void SubscribeToTimeManager(bool subscribe)

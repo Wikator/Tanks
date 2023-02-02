@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using ObjectPoolManager;
 
 public sealed class NormalTank_SP : Tank_SP
@@ -27,20 +26,13 @@ public sealed class NormalTank_SP : Tank_SP
     {
         for (int i = 0; i < 20; i++)
         {
-
-            GameObject bulletInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+            GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
             Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 
-            ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
+            ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
 
             yield return new WaitForSeconds(0.2f);
         }
         routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
-    }
-
-    public override void ChangeColours(string color)
-    {
-        base.ChangeColours(color);
-        bullet = Addressables.LoadAssetAsync<GameObject>(color + "MediumTankBulletSP").WaitForCompletion();
     }
 }

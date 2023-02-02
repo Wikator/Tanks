@@ -19,7 +19,7 @@ namespace PrefabLightMapBaker
                 Debug.LogWarning("[PrefabBaker] GI work flowMode lightmapping settings set on demand");
             }
 
-            LightmapEditorSettings.maxAtlasSize = Window.TextureSize;
+            Lightmapping.lightingSettings.lightmapMaxSize = Window.TextureSize;
 
             if (Window.QuickBake)
             {
@@ -182,7 +182,7 @@ namespace PrefabLightMapBaker
         {
             int i = lightmap_index;
 
-            SceneLightmap slm = new SceneLightmap { lightMapIndex = lightmap_index };
+            SceneLightmap slm = new() { lightMapIndex = lightmap_index };
 
             // Create folder if it doesn't exist
 
@@ -194,7 +194,7 @@ namespace PrefabLightMapBaker
 
             string copyFrom, saveTo,
                 filename = folder_scene + "Lightmap-" + i,
-                newFile = Window.preview_folder + dsc + name + dsc + name;
+                newFile = Window.Preview_folder + dsc + name + dsc + name;
 
             // Save color texture
 

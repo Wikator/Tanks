@@ -6,6 +6,12 @@ public sealed class DestroyerTank : Tank
 {
     private GameObject specialBullet;
 
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        specialBullet = Addressables.LoadAssetAsync<GameObject>(controllingPlayer.color + "DestroyerSpecialBullet").WaitForCompletion();
+    }
+
     [ServerRpc]
     protected override void SpecialMove()
     {
@@ -33,12 +39,5 @@ public sealed class DestroyerTank : Tank
         Spawn(flashInstance);
 
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
-    }
-
-    public override void ChangeColours(string color)
-    {
-        base.ChangeColours(color);
-        bullet = Addressables.LoadAssetAsync<GameObject>(color + "DestroyerBullet").WaitForCompletion();
-        specialBullet = Addressables.LoadAssetAsync<GameObject>(color + "DestroyerSpecialBullet").WaitForCompletion();
     }
 }

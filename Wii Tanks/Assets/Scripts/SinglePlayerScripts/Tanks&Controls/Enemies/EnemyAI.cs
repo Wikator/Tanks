@@ -1,8 +1,7 @@
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.AI;
-using UnityEngine.Rendering.HighDefinition;
 using ObjectPoolManager;
+using Graphics;
 
 public abstract class EnemyAI : MonoBehaviour
 {
@@ -32,20 +31,18 @@ public abstract class EnemyAI : MonoBehaviour
 	private float roundSightRange, forwardSightRange;
 	private bool playerInSightRange;
 
-	private Material tankMaterial, turretMaterial;
+	protected Material tankMaterial, turretMaterial;
 
 
-	private GameObject explosion;
-	protected GameObject normalBullet;
+	protected GameObject explosion;
 	protected GameObject muzzleFlash;
+	protected GameObject bullet;
 
 	protected string color;
 
 
 	private void Awake()
 	{
-		alreadyAttacked = true;
-		Invoke(nameof(ResetAttack), timeBetweenAttacks);
 		agent = GetComponent<NavMeshAgent>();
 		//target = Player.Instance.gameObject.transform;
 		agent.updateRotation = false;
@@ -58,6 +55,8 @@ public abstract class EnemyAI : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+		alreadyAttacked = true;
+		Invoke(nameof(ResetAttack), timeBetweenAttacks);
 		target = Player.Instance.ControlledPawn.transform;
 
 		switch (Random.Range(0, 5))
@@ -78,8 +77,6 @@ public abstract class EnemyAI : MonoBehaviour
 				color = "Purple";
 				break;
 		}
-        
-		ChangeColours(color);
 	}
 
     private void FixedUpdate()
@@ -88,7 +85,14 @@ public abstract class EnemyAI : MonoBehaviour
 		if (!tankMaterial || !turretMaterial)
 			return;
 
-		SpawnAnimation();
+		Materials materials = new()
+		{
+			tankMaterial = tankMaterial,
+			turretMaterial = turretMaterial,
+			mainBody = gameObject
+		};
+
+		TankGraphics.SpawnAnimation(materials);
 	}
 
 	private void Update()
@@ -193,61 +197,7 @@ public abstract class EnemyAI : MonoBehaviour
 	public void GameOver()
 	{
         SpawnManager_SP.Instance.OnKilled(gameObject);
-        ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(explosion, transform.position, transform.rotation, explosionEmpty);
+        ObjectPoolManager_SP.GetPooledInstantiated(explosion, transform.position, transform.rotation, explosionEmpty);
 		gameObject.SetActive(false);
-	}
-
-
-
-
-	public virtual void ChangeColours(string color)
-	{
-		transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-		tankMaterial = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
-		turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-		turretMaterial = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().material;
-		gameObject.GetComponent<HDAdditionalLightData>().color = tankMaterial.GetColor("_Color01");
-		gameObject.GetComponent<HDAdditionalLightData>().intensity = 0f;
-		tankMaterial.SetFloat("_CurrentAppearence", 0.34f);
-		turretMaterial.SetFloat("_CurrentAppearence", 0.3f);
-		transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
-		turret.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = true;
-		
-		explosion = Addressables.LoadAssetAsync<GameObject>(color + "ExplosionSP").WaitForCompletion();
-		muzzleFlash = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlashSP").WaitForCompletion();
-	}
-
-	private void SpawnAnimation()
-	{
-		if (turretMaterial.GetFloat("_CurrentAppearence") > -0.3f)
-		{
-			if (tankMaterial.GetFloat("_CurrentAppearence") > -0f)
-			{
-				tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - 0.01f);
-			}
-			else
-			{
-				if (tankMaterial.GetFloat("_CurrentAppearence") > -0.3f)
-				{
-					turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - 0.01f);
-					tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - 0.01f);
-				}
-				else
-				{
-					turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - 0.01f);
-
-
-					if (gameObject.GetComponent<HDAdditionalLightData>().intensity < 0.15f)
-					{
-						gameObject.GetComponent<HDAdditionalLightData>().intensity += 0.00005f;
-					}
-				}
-			}
-		}
-
-		if (gameObject.GetComponent<HDAdditionalLightData>().intensity < 0.15f)
-		{
-			gameObject.GetComponent<HDAdditionalLightData>().intensity += 0.003f;
-		}
 	}
 }

@@ -56,13 +56,13 @@ namespace PrefabLightMapBaker
 
         public static void SetProfileQuickBake()
         {
-            LightmapEditorSettings.bounces = 1;
-            LightmapEditorSettings.directSampleCount = 2;
-            LightmapEditorSettings.indirectSampleCount = 8;
-            LightmapEditorSettings.bakeResolution = 20f;
-            LightmapEditorSettings.enableAmbientOcclusion = false;
-            LightmapEditorSettings.textureCompression = true;
-            LightmapEditorSettings.realtimeResolution = 2;
+            Lightmapping.lightingSettings.maxBounces = 1;
+            Lightmapping.lightingSettings.directSampleCount = 2;
+            Lightmapping.lightingSettings.indirectSampleCount = 8;
+            Lightmapping.lightingSettings.lightmapResolution = 20f;
+            Lightmapping.lightingSettings.ao = false;
+            Lightmapping.lightingSettings.compressLightmaps = true;
+            Lightmapping.lightingSettings.indirectResolution = 2;
             LightmapEditorSettings.lightmapper = LightmapEditorSettings.Lightmapper.ProgressiveGPU;
         }
     }

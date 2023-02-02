@@ -1,25 +1,42 @@
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using ObjectPoolManager;
+using Graphics;
 
 public class EnemyScoutTank : EnemyAI
 {
-	protected override void OnEnable()
-	{
-		base.OnEnable();
-		normalBullet = Addressables.LoadAssetAsync<GameObject>(color + "ScoutBulletSP").WaitForCompletion();
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+
+		TankGet tankGet = new()
+		{
+			tankBody = transform.GetChild(0).gameObject,
+			turretBody = turret.GetChild(0).gameObject,
+			mainBody = gameObject,
+			color = color,
+			tankType = "Scout"
+		};
+
+		TankSet tankSet = TankGraphics.ChangeTankColours(tankGet, "Singleplayer");
+
+		tankMaterial = tankSet.tankMaterial;
+		turretMaterial = tankSet.turretMaterial;
+		explosion = tankSet.explosion;
+		muzzleFlash = tankSet.muzzleFlash;
+		bullet = tankSet.bullet;
 	}
+
 
     protected override void Fire()
 	{
 		for (int i = -3; i <= 3; i += 3)
 		{
-            GameObject bulletInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(normalBullet, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * i), bulletEmpty);
+            GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * i), bulletEmpty);
 
 			Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 			bulletInstance.GetComponent<Bullet_SP>().owningCollider = gameObject.GetComponent<BoxCollider>();
 
-            GameObject flashInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * i), muzzleFlashEmpty);
+            GameObject flashInstance = ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * i), muzzleFlashEmpty);
 		}
 	}
 

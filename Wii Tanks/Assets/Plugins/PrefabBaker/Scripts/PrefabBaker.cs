@@ -6,13 +6,13 @@ namespace PrefabLightMapBaker
     [ExecuteInEditMode]
     public class PrefabBaker : MonoBehaviour
     {
-        [SerializeField] public LightInfo[] lights;
-        [SerializeField] public Renderer[] renderers;
-        [SerializeField] public int[] renderersLightmapIndex;
-        [SerializeField] public Vector4[] renderersLightmapOffsetScale;
-        [SerializeField] public Texture2D[] texturesColor;
-        [SerializeField] public Texture2D[] texturesDir;
-        [SerializeField] public Texture2D[] texturesShadow;
+        public LightInfo[] lights;
+        public Renderer[] renderers;
+        public int[] renderersLightmapIndex;
+        public Vector4[] renderersLightmapOffsetScale;
+        public Texture2D[] texturesColor;
+        public Texture2D[] texturesDir;
+        public Texture2D[] texturesShadow;
 
         public Texture2D[ ][ ] AllTextures() => new Texture2D[ ][ ] { 
             texturesColor, texturesDir, texturesShadow 

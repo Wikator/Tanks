@@ -43,7 +43,7 @@ namespace PrefabLightMapBaker
 
         void RefreshVars()
         {
-            textureIndex = lightmapMaxSizeValues.ToList().IndexOf(LightmapEditorSettings.maxAtlasSize);
+            textureIndex = lightmapMaxSizeValues.ToList().IndexOf(Lightmapping.lightingSettings.lightmapMaxSize);
         }
 
         #endregion
@@ -93,35 +93,34 @@ namespace PrefabLightMapBaker
 
         private void OnGUI()
         {
-            using (var scope = new GUILayout.ScrollViewScope(scroll))
+            using var scope = new GUILayout.ScrollViewScope(scroll);
+            scroll = scope.scrollPosition;
+
+            GUILayout.Space(10);
+            HeaderGUI();
+            GUILayout.Space(10);
+            if (!FolderGUI()) return;
+            GUILayout.Space(5);
+            TextureGUI();
+            GUILayout.Space(5);
+            if (!PrefabBakerGUI()) return;
+            GUILayout.Space(5);
+            EditorUtils.BoxGUI(() =>
             {
-                scroll = scope.scrollPosition;
 
-                GUILayout.Space(10);
-                HeaderGUI();
-                GUILayout.Space(10);
-                if (!FolderGUI()) return;
-                GUILayout.Space(5);
-                TextureGUI();
-                GUILayout.Space(5);
-                if (!PrefabBakerGUI()) return;
-                GUILayout.Space(5);
-                EditorUtils.BoxGUI(() => {
-
-                    BakeSettingsGUI();
-
-                    GUILayout.Space(5);
-
-                    var h = GUILayout.Height(30);
-
-                    if (GUILayout.Button("Bake", h))
-
-                        Baker.Start();
-                });
+                BakeSettingsGUI();
 
                 GUILayout.Space(5);
-                SceneLightmapsGUI();
-            }
+
+                var h = GUILayout.Height(30);
+
+                if (GUILayout.Button("Bake", h))
+
+                    Baker.Start();
+            });
+
+            GUILayout.Space(5);
+            SceneLightmapsGUI();
         }
 
         private void HeaderGUI()
@@ -181,7 +180,7 @@ namespace PrefabLightMapBaker
             {
                 var lm = LightmapSettings.lightmaps[i];
 
-                List<Texture2D> texs = new List<Texture2D>();
+                List<Texture2D> texs = new();
 
                 using (new GUILayout.HorizontalScope())
                 {
@@ -196,7 +195,7 @@ namespace PrefabLightMapBaker
                 {
                     var path = Path.GetFileNameWithoutExtension(AssetDatabase.GetAssetPath(x));
 
-                    return $"{path}  .  {x.width}x{x.height}  mip={x.desiredMipmapLevel}  frmt={x.format.ToString()}";
+                    return $"{path}  .  {x.width}x{x.height}  mip={x.desiredMipmapLevel}  frmt={x.format}";
                 });
 
                 EditorGUILayout.HelpBox(string.Join("\n", info), MessageType.None);
@@ -211,8 +210,7 @@ namespace PrefabLightMapBaker
         #region Bake Settings
 
         public static bool AutoClean = true;
-
-        GUIContent autoCleanLabel = new GUIContent("Auto clean scene lightmaps (?)",
+        readonly GUIContent autoCleanLabel = new("Auto clean scene lightmaps (?)",
             "Clear scene generated lighting data assets & clear disk catche"
         );
 
@@ -283,10 +281,7 @@ namespace PrefabLightMapBaker
             foreach (var go in scene.GetRootGameObjects())
             {
                 if (!go.activeSelf) continue;
-
-                var baker = go.GetComponent<PrefabBaker>();
-
-                if (baker == null) continue;
+                if (!go.TryGetComponent<PrefabBaker>(out _)) continue;
 
                 prefab_baker_count++;
 
@@ -323,7 +318,7 @@ namespace PrefabLightMapBaker
                 if (index != textureIndex)
                 {
                     textureIndex = index;
-                    LightmapEditorSettings.maxAtlasSize = TextureSize;
+                    Lightmapping.lightingSettings.lightmapMaxSize = TextureSize;
                 }
             }
         }
@@ -335,27 +330,27 @@ namespace PrefabLightMapBaker
 
         public static string folder = "Assets/Resources/Lightmaps";
 
-        public static string preview_folder { get; private set; } = "";
+        public static string Preview_folder { get; private set; } = "";
         bool folder_is_valid = true;
 
         bool FolderValidate()
         {
-            var last_folder_char = folder[folder.Length - 1];
+            var last_folder_char = folder[^1];
 
             if (last_folder_char == '/' || last_folder_char == '\\')
             {
-                folder = folder.Substring(0, folder.Length - 1);
+                folder = folder[..^1];
             }
 
-            preview_folder = folder;
+            Preview_folder = folder;
 
-            if (preview_folder.Contains(Application.dataPath))
+            if (Preview_folder.Contains(Application.dataPath))
             {
                 // remove full path and display only relative path 
-                preview_folder = preview_folder.Substring(Application.dataPath.Length - "Assets".Length);
+                Preview_folder = Preview_folder[(Application.dataPath.Length - "Assets".Length)..];
             }
 
-            folder_is_valid = AssetDatabase.IsValidFolder(preview_folder);
+            folder_is_valid = AssetDatabase.IsValidFolder(Preview_folder);
 
             return folder_is_valid;
         }
@@ -383,7 +378,7 @@ namespace PrefabLightMapBaker
                 }
             }
 
-            EditorGUILayout.HelpBox(preview_folder, MessageType.None);
+            EditorGUILayout.HelpBox(Preview_folder, MessageType.None);
 
             GUILayout.Space(10);
 

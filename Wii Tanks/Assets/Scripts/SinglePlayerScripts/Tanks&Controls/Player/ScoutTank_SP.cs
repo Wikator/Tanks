@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using ObjectPoolManager;
 
 public class ScoutTank_SP : Tank_SP
@@ -22,11 +21,11 @@ public class ScoutTank_SP : Tank_SP
 
         for (int angle = -spreadAngle; angle < spreadAngle * 2; angle += spreadAngle)
         {
-            GameObject bulletInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), bulletEmpty);
+            GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), bulletEmpty);
             bulletInstance.GetComponent<Bullet_SP>().ChargeTimeToAdd = stats.onKillSuperCharge;
 			Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 
-            ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), muzzleFlashEmpty);
+            ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), muzzleFlashEmpty);
 		}
 
 
@@ -78,11 +77,5 @@ public class ScoutTank_SP : Tank_SP
 
             ammoCount = stats.maxAmmo;
         }
-    }
-
-    public override void ChangeColours(string color)
-    {
-        base.ChangeColours(color);
-        bullet = Addressables.LoadAssetAsync<GameObject>(color + "ScoutBullet").WaitForCompletion();
     }
 }

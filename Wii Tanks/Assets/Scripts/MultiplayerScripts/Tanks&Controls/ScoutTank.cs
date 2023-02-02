@@ -1,7 +1,6 @@
 using FishNet.Object;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public class ScoutTank : Tank
 {
@@ -88,11 +87,5 @@ public class ScoutTank : Tank
 
             ammoCount = stats.maxAmmo;
         }
-    }
-     
-    public override void ChangeColours(string color)
-    {
-        base.ChangeColours(color);
-        bullet = Addressables.LoadAssetAsync<GameObject>(color + "ScoutBullet").WaitForCompletion();
     }
 }

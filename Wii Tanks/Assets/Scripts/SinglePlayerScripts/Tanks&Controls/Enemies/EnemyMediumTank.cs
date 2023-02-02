@@ -1,22 +1,37 @@
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using ObjectPoolManager;
+using Graphics;
 
 public class EnemyMediumTank : EnemyAI
 {
-    protected override void OnEnable()
-    {
-		base.OnEnable();
-		normalBullet = Addressables.LoadAssetAsync<GameObject>(color + "MediumTankBulletSP").WaitForCompletion();
-	}
-
-    protected override void Fire()
+	protected override void OnEnable()
 	{
-        GameObject bulletInstance = ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(normalBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+		base.OnEnable();
+
+		TankGet tankGet = new()
+		{
+			tankBody = transform.GetChild(0).gameObject,
+			turretBody = turret.GetChild(0).gameObject,
+			mainBody = gameObject,
+			color = color,
+			tankType = "MediumTank"
+		};
+
+		TankSet tankSet = TankGraphics.ChangeTankColours(tankGet, "Singleplayer");
+
+		tankMaterial = tankSet.tankMaterial;
+		turretMaterial = tankSet.turretMaterial;
+		explosion = tankSet.explosion;
+		muzzleFlash = tankSet.muzzleFlash;
+		bullet = tankSet.bullet;
+	}
+	protected override void Fire()
+	{
+        GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
 		Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
 		bulletInstance.GetComponent<Bullet_SP>().owningCollider = gameObject.GetComponent<BoxCollider>();
 
-        ObjectPoolManager.ObjectPoolManager.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
+        ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
 	}
 
 	protected override void ChasePlayer()

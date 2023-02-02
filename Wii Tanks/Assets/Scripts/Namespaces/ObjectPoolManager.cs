@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace ObjectPoolManager
 {
-    public static class ObjectPoolManager
+    public static class ObjectPoolManager_SP
     {
         private readonly static Dictionary<GameObject, HashSet<GameObject>> pooledObjects = new();
 
