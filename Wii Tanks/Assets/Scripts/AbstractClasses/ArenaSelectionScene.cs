@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public abstract class ArenaSelectionScene : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] allArenasArray = new GameObject[7];
+    protected GameObject[] allArenasArray = new GameObject[7];
 
     [SerializeField]
     [ColorUsage(hdr: true, showAlpha: true)]
@@ -15,7 +14,7 @@ public abstract class ArenaSelectionScene : MonoBehaviour
     [ColorUsage(hdr: true, showAlpha: true)]
     private Color oldColor;
 
-    private readonly Dictionary<GameObject, Vector3> allArenasDictionary = new();
+    protected readonly Dictionary<GameObject, Vector3> allArenasDictionary = new();
 
     private bool rotating;
 

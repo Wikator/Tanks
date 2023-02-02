@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MainView_SP : View_SP
 {
@@ -31,7 +32,7 @@ public class MainView_SP : View_SP
 
     private void OnDisable()
     {
-        PlayerPrefs.SetFloat("DeathmatchHighScore", Mathf.Max(TimeSurvived, PlayerPrefs.GetFloat("DeathmatchHighScore")));
+        PlayerPrefs.SetFloat(SceneManager.GetActiveScene().name + "HighScore", Mathf.Max(TimeSurvived, PlayerPrefs.GetFloat(SceneManager.GetActiveScene().name + "HighScore")));
     }
 
 

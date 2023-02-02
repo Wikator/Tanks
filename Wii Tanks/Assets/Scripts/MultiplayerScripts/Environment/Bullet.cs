@@ -83,7 +83,7 @@ public abstract class Bullet : NetworkBehaviour
             TurnOffLight();
     }
 
-    //Thanks to this method, bullet's trail will linger for a bit after the bullet despawns
+    // Thanks to this method, bullet's trail will linger for a bit after the bullet despawns
 
     [Client]
     private void TurnOffLight()

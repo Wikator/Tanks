@@ -3,8 +3,18 @@ using UnityEngine;
 
 namespace ObjectPoolManager
 {
+    // This game features a lot of instantiated prefabs, like effects and bullets
+    // Rather to delete prefabs after they are no longer needed, and then instantiating brand new ones, thanks to this scripts, they are simply turned off and then back on
+    // This doesn't change the game by any way. It's only for optimization reasons
+
     public static class ObjectPoolManager_SP
     {
+        // All prefabs are stored in a dictionary
+        // Dictionary's keys are different prefabs, and elements are lists of objects that have been instantiated
+        // Every time a bullet or an effect need to be created, this method first checks in the dictionary if there are any inactive ones
+        // If one is found, it is simply turned on as active, and it's position and rotation will be set
+        // If not, a brand new prefab needs to be instantiated
+
         private readonly static Dictionary<GameObject, HashSet<GameObject>> pooledObjects = new();
 
         public static GameObject GetPooledInstantiated(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
@@ -35,6 +45,9 @@ namespace ObjectPoolManager
             pooledObjects[prefab].Add(newObject);
             return newObject;
         }
+
+        // Since this class is static, the dictionary is the same for all the scenes, even if its objects do not exist in a current scene
+        // Because of that, the dictionary needs to be cleared each time a new scene is loaded
 
         public static void ResetObjectPool()
         {

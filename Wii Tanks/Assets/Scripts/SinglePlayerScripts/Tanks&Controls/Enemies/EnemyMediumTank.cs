@@ -1,6 +1,7 @@
 using UnityEngine;
 using ObjectPoolManager;
 using Graphics;
+using UnityEngine.Rendering.HighDefinition;
 
 public class EnemyMediumTank : EnemyAI
 {
@@ -10,9 +11,9 @@ public class EnemyMediumTank : EnemyAI
 
 		TankGet tankGet = new()
 		{
-			tankBody = transform.GetChild(0).gameObject,
-			turretBody = turret.GetChild(0).gameObject,
-			mainBody = gameObject,
+			tankBody = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+			turretBody = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+			light = gameObject.GetComponent<HDAdditionalLightData>(),
 			color = color
 		};
 

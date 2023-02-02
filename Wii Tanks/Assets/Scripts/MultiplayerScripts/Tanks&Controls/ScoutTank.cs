@@ -14,6 +14,8 @@ public class ScoutTank : Tank
     private int spreadAngle;
 
 
+    // Scout's fire is very different than the other type's, so this method needs to be overriden
+
     [ServerRpc]
     protected override void Fire()
     {

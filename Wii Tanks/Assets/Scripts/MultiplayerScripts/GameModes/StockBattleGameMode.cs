@@ -55,10 +55,9 @@ public sealed class StockBattleGameMode : GameMode
         lifeRemaining["Blue"] = playerLife;
     }
 
+    // Tank will respawn only if it has lives remaining
+    // If there is only one tank that still has lives, the game ends
 
-
-    //Each tank will loose a point and respawn after some time
-    //Only DeathmachGameMode currently uses this method
     [Server]
     public override void OnKilled(PlayerNetworking playerNetworking)
     {

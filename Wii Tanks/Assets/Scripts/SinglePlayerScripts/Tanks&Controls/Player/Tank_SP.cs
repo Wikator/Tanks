@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using ObjectPoolManager;
 using Graphics;
+using UnityEngine.Rendering.HighDefinition;
 
 public abstract class Tank_SP : MonoBehaviour
 {
@@ -62,9 +63,9 @@ public abstract class Tank_SP : MonoBehaviour
 
         TankGet tankGet = new()
         {
-            tankBody = transform.GetChild(0).gameObject,
-            turretBody = turret.GetChild(0).gameObject,
-            mainBody = gameObject,
+            tankBody = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+            turretBody = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+            light = gameObject.GetComponent<HDAdditionalLightData>(),
             color = "Green"
         };
 
@@ -125,7 +126,7 @@ public abstract class Tank_SP : MonoBehaviour
         {
             tankMaterial = tankMaterial,
             turretMaterial = turretMaterial,
-            mainBody = gameObject
+            light = gameObject.GetComponent<HDAdditionalLightData>()
         };
 
         TankGraphics.SpawnAnimation(materials);

@@ -6,26 +6,30 @@ using System.Collections;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using Graphics;
+using UnityEngine.Rendering.HighDefinition;
 
 public abstract class Tank : NetworkBehaviour
 {
+    #region Structs
+
+    // Structs used by Client Side Prediction
+
     private struct MoveData : IReplicateData
     {
         public float MoveAxis;
         public float RotateAxis;
         public Vector3 TurretLookDirection;
 
+        private uint _tick;
 
-        public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection) : this()
+        public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection)
         {
             MoveAxis = moveAxis;
             RotateAxis = rotateAxis;
             TurretLookDirection = turretLookDirection;
+            _tick = 0;
         }
 
-
-
-        private uint _tick;
         public void Dispose() { }
         public uint GetTick() => _tick;
         public void SetTick(uint value) => _tick = value;  
@@ -37,36 +41,32 @@ public abstract class Tank : NetworkBehaviour
         public Quaternion TankRotation;
         public Quaternion TurretRotation;
 
-        
-        public ReconcileData(Vector3 tankPosition, Quaternion tankRotation, Quaternion turretRotation) : this()
+        private uint _tick;
+
+        public ReconcileData(Vector3 tankPosition, Quaternion tankRotation, Quaternion turretRotation)
         {
             Position = tankPosition;
             TankRotation = tankRotation;
             TurretRotation = turretRotation;
+            _tick = 0;
         }
         
-
-
-        private uint _tick;
         public void Dispose() { }
         public uint GetTick() => _tick;
         public void SetTick(uint value) => _tick = value;
     }
 
+    #endregion
+
     [SerializeField]
     protected Stats stats;
 
-    [SerializeField]
-    private float maxLightIntensity;
 
     [HideInInspector]
     protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
 
     [HideInInspector]
-    protected GameObject bullet;
-
-    //[SyncVar(ReadPermissions = ReadPermission.OwnerOnly)]
-    //protected bool canUseSuper;
+    protected GameObject bullet, muzzleFlash;
 
     [SyncVar, HideInInspector]
     protected bool canUseSuper;
@@ -77,26 +77,22 @@ public abstract class Tank : NetworkBehaviour
     [SyncVar, HideInInspector]
     public PlayerNetworking controllingPlayer;
 
-    private bool isSubscribed = false;
-
-    [SyncVar]
+    [SyncVar, HideInInspector]
     public bool isDespawning = false;
+
+    private bool isSubscribed = false;
 
     private CharacterController controller;
     private Transform explosionEmpty, turret;
     private GameObject explosion;
-    protected GameObject muzzleFlash;
     private Camera cam;
     private Material tankMaterial, turretMaterial;
-
     private TextMesh namePlate;
+    private HDAdditionalLightData tankLight;
 
     protected Coroutine routine;
 
     private LayerMask raycastLayer;
-
-
-
 
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
@@ -109,6 +105,12 @@ public abstract class Tank : NetworkBehaviour
 
         MainView.Instance.UpdateAmmo(newAmmo);
     }
+
+
+    // This script uses A LOT of variables, and some only need to be set on client, and some need to be set on server
+    // OnStartNetwork is called on both client and server
+    // Before setting up tank's graphics, it first needs to create a struct to pass on as an argument. See more in Graphics namespace
+    // The script needs to subscribe to TimeManager on both client and server for CSP to work
 
 
 	public override void OnStartNetwork()
@@ -136,12 +138,13 @@ public abstract class Tank : NetworkBehaviour
         namePlate = transform.GetChild(1).GetComponent<TextMesh>();
         namePlate.text = controllingPlayer.PlayerUsername;
         raycastLayer = (1 << 9);
+        tankLight = gameObject.GetComponent<HDAdditionalLightData>();
 
         TankGet tankGet = new()
         {
-            tankBody = transform.GetChild(0).gameObject,
-            turretBody = turret.GetChild(0).gameObject,
-            mainBody = gameObject,
+            tankBody = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+            turretBody = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+            light = tankLight,
             color = controllingPlayer.color,
         };
 
@@ -207,6 +210,10 @@ public abstract class Tank : NetworkBehaviour
     }
 
 
+    // Movement input isn't collected in Update
+    // Update collects input only for firing and Super
+    // Name tag above the tank changes colour if its Super is ready
+
     [Client]
     private void Update()
     {
@@ -251,19 +258,21 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
+    // Spawning and despawning animations play in FixedUpgrade
+    // TankGraphics.DespawnAnimation returns a bool that informs if the tank has fully despawned
 
-	[Client]
-	private void FixedUpdate()
-	{
-		    
-		if (!IsSpawned || !tankMaterial || !turretMaterial)
+    [Client]
+    private void FixedUpdate()
+    {
+
+        if (!IsSpawned || !tankMaterial || !turretMaterial || !tankLight)
 			return;
 
         Materials materials = new()
         {
             tankMaterial = tankMaterial,
             turretMaterial = turretMaterial,
-            mainBody = gameObject
+            light = tankLight
         };
 
         if (isDespawning)
@@ -278,6 +287,8 @@ public abstract class Tank : NetworkBehaviour
             TankGraphics.SpawnAnimation(materials);
         }
 	}
+
+    // Because Fire is a ServerRPC, there is a delay when shootings as a client
 
     [ServerRpc]
     protected virtual void Fire()
@@ -305,8 +316,15 @@ public abstract class Tank : NetworkBehaviour
         Spawn(flashInstance);
     }
 
+
+    // Supers are largely different based on the tank's type, so the method is overriden in the subclasses
+
     protected abstract void SpecialMove();
 
+    // There are two stats that are used in reloading
+    // timeToReload is the time that needs to pass after the last shot for the tank to start reloading
+    // timeToAddTime is the time between each reload after the first one
+    // Because of that, player needs to wait quite a bit for the tank to start reloading, but after it reloads the first bullet, the rest will reload much faster
 
     [Server]
     protected IEnumerator AddAmmo(float time)
@@ -324,6 +342,9 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
+    // This method is responsible for movement
+    // Because the game is server authorotive, and movement needs to be responsive, Client Side Prediction has been implemented
+    // TBH I don't fully understand how it works, but basically the movement is predicted in Replicate method, and the Reconcile smooths out any inconsistencies
 
     private void TimeManager_OnTick()
     {
@@ -354,6 +375,8 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
+    // Gathered input is returned in MoveData struct, so the tank can move on server, and predict the movement on owning client
+
     private MoveData GatherInputs()
     {
 
@@ -365,6 +388,8 @@ public abstract class Tank : NetworkBehaviour
         return new MoveData(moveAxis, rotateAxis, hit.point);
     }
 
+    // Replicate method is called on both owning client and server
+    // Movement on owning client is predicted, so small inconsistencies will be smoothed out in Reconcile
 
     [Replicate]
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]

@@ -36,7 +36,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
 
 
-    //Each player will add themself to the players list in the GameManager class
+    //Each player adds themselves to the players list in the GameManager class, adn removes themselves when disconnecting
 
     private void Start()
     {
@@ -151,7 +151,6 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
     public void DisconnectFromGame()
     {
-
         if (!IsOwner)
             return;
 		
@@ -183,8 +182,8 @@ public sealed class PlayerNetworking : NetworkBehaviour
         playerInstance.transform.GetChild(0).GetChild(0).transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
-
     //Method for when a tank needs to be killed in order to start a new round
+
     [Server]
     public void StartDespawningTank()
     {
@@ -199,9 +198,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
         ControlledPawn = null;
     }
 	
-	
     //Methods that are called when in the lobby, when choosing colors, teams etc.
-
 
     [ServerRpc]
     public void SetTeam(string color)

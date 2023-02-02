@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using ObjectPoolManager;
 using Graphics;
+using UnityEngine.Rendering.HighDefinition;
 
 public abstract class EnemyAI : MonoBehaviour
 {
@@ -89,7 +90,7 @@ public abstract class EnemyAI : MonoBehaviour
 		{
 			tankMaterial = tankMaterial,
 			turretMaterial = turretMaterial,
-			mainBody = gameObject
+			light = gameObject.GetComponent<HDAdditionalLightData>()
 		};
 
 		TankGraphics.SpawnAnimation(materials);

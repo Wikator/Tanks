@@ -3,13 +3,20 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.Rendering.HighDefinition;
 
 
+// This namespace contains static classes, that set up graphics fo various objects
+// It exists to eliminate some of the code repetition
+
 namespace Graphics
 {
+    #region Structs
+
+    // Those structs are used to either send data to the methods in TankGraphics class, or to send data back to the Tank, Tank_SP, or EnemyAI class
+
     public struct TankGet
     {
-        public GameObject tankBody;
-        public GameObject turretBody;
-        public GameObject mainBody;
+        public MeshRenderer tankBody;
+        public MeshRenderer turretBody;
+        public HDAdditionalLightData light;
         public string color;
     }
 
@@ -25,9 +32,14 @@ namespace Graphics
     {
         public Material tankMaterial;
         public Material turretMaterial;
-        public GameObject mainBody;
+        public HDAdditionalLightData light;
     }
 
+    #endregion
+
+    // There are 3 different abstract classes for tanks (Tank, Tank_SP, EnemyAI)
+    // Since all tanks use the same graphics, this class stores methods for all 3 of them, rather to use the same code in 3 different classes
+    // Although those are 3 completely different classes, they use similar variables. Because of that, structs above are used to both send dath both from and to methods in this class
 
     public static class TankGraphics
     {
@@ -41,21 +53,23 @@ namespace Graphics
         private const float MATERIAL_DISAPPEARING_SPEED = 0.01f;
 
 
+        // This method receives parts of the tank that will be affected (body, turret, light), as well as target coluor
+        // It returns appropriately coloured effects, and applied materials
 
         public static TankSet ChangeTankColours(TankGet tankGet, string gameType)
         {
             TankSet tankSet = new();
 
-            tankGet.tankBody.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + tankGet.color).WaitForCompletion();
-            tankSet.tankMaterial = tankGet.tankBody.GetComponent<MeshRenderer>().material;
-            tankGet.turretBody.GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>("Animated" + tankGet.color).WaitForCompletion();
-            tankSet.turretMaterial = tankGet.turretBody.GetComponent<MeshRenderer>().material;
+            tankGet.tankBody.material = Addressables.LoadAssetAsync<Material>("Animated" + tankGet.color).WaitForCompletion();
+            tankSet.tankMaterial = tankGet.tankBody.material;
+            tankGet.turretBody.material = Addressables.LoadAssetAsync<Material>("Animated" + tankGet.color).WaitForCompletion();
+            tankSet.turretMaterial = tankGet.turretBody.material;
             tankSet.tankMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
             tankSet.turretMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
-            tankGet.tankBody.GetComponent<MeshRenderer>().enabled = true;
-            tankGet.turretBody.GetComponent<MeshRenderer>().enabled = true;
-            tankGet.mainBody.GetComponent<HDAdditionalLightData>().color = tankSet.tankMaterial.GetColor("_Color01");
-            tankGet.mainBody.GetComponent<HDAdditionalLightData>().intensity = 0f;
+            tankGet.tankBody.enabled = true;
+            tankGet.turretBody.enabled = true;
+            tankGet.light.color = tankSet.tankMaterial.GetColor("_Color01");
+            tankGet.light.intensity = 0f;
 
             switch (gameType)
             {
@@ -72,6 +86,8 @@ namespace Graphics
             return tankSet;
         }
 
+        // Bullets need to change colour in different method, because in Muliplayer it needs to change on server only, while the rest need to change on client only
+
         public static GameObject ChangeBulletColour(string color, string tankType, string gameType)
         {
             return gameType switch
@@ -82,6 +98,10 @@ namespace Graphics
             };
         }
 
+        // Tanks instantiate with values that their material is completely dissolved, and light is at 0
+        // This method slowly changes those values, to slowly make the tank appear
+        // Tank's body and turret use different instances of the same material, so the values need to change seperately
+        // It is important that body appears first, and the turret second
 
         public static void SpawnAnimation(Materials materials)
         {
@@ -91,9 +111,9 @@ namespace Graphics
                 {
                     materials.tankMaterial.SetFloat("_CurrentAppearence", materials.tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
 
-                    if (materials.mainBody.GetComponent<HDAdditionalLightData>().intensity < LIGHT_INTENSITY)
+                    if (materials.light.intensity < LIGHT_INTENSITY)
                     {
-                        materials.mainBody.GetComponent<HDAdditionalLightData>().intensity += LIGHT_APPEARING_SPEED;
+                        materials.light.intensity += LIGHT_APPEARING_SPEED;
                     }
                 }
                 else
@@ -110,6 +130,8 @@ namespace Graphics
                 }
             }
         }
+
+        // Opposite of SpawnAnimation method
 
         public static bool DespawnAnimation(Materials materials)
         {
@@ -131,9 +153,9 @@ namespace Graphics
                         materials.tankMaterial.SetFloat("_CurrentAppearence", materials.tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
 
 
-                        if (materials.mainBody.GetComponent<HDAdditionalLightData>().intensity > 0)
+                        if (materials.light.intensity > 0)
                         {
-                            materials.mainBody.GetComponent<HDAdditionalLightData>().intensity -= LIGHT_DISAPPEARING_SPEED;
+                            materials.light.intensity -= LIGHT_DISAPPEARING_SPEED;
                         }
                     }
                 }
