@@ -28,6 +28,7 @@
   </assembly>
   <assembly fullname="FishNet.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="FishNet.Component.Observing.SceneCondition" preserve="all" />
+    <type fullname="FishNet.Component.Ownership.PredictedSpawn" preserve="all" />
     <type fullname="FishNet.Component.Prediction.PredictedObject" preserve="all" />
     <type fullname="FishNet.Component.Transforming.NetworkTransform" preserve="all" />
     <type fullname="FishNet.Object.NetworkObject" preserve="all" />

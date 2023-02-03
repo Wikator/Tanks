@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -5833880829761614842}
   - component: {fileID: -8405391744002029082}
   - component: {fileID: 62525033072000976}
+  - component: {fileID: 8919660566003870861}
   m_Layer: 7
   m_Name: CyanBullet
   m_TagString: Bullet
@@ -69,6 +70,7 @@ MonoBehaviour:
   moveSpeed: 13
   player: {fileID: 0}
   isUnstoppable: 0
+  isDespawning: 0
   ricochetCount: 1
 --- !u!54 &-5833880829761614842
 Rigidbody:
@@ -100,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
+  <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: -4227543758443852699}
   - {fileID: 62525033072000976}
@@ -107,9 +110,11 @@ MonoBehaviour:
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
+  _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
   <PrefabId>k__BackingField: 20
+  <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 9270479165255924472
@@ -156,6 +161,23 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &8919660566003870861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2456512010136705151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b597e1828355a4d994a69cbb11ef85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: -8405391744002029082}
+  _networkObjectCache: {fileID: 0}
+  _allowSpawning: 1
+  _allowDespawning: 0
 --- !u!1 &5564469443083372086
 GameObject:
   m_ObjectHideFlags: 0
