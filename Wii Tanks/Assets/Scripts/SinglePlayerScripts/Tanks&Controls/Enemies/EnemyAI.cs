@@ -98,7 +98,6 @@ public abstract class EnemyAI : MonoBehaviour
 
 	private void Update()
 	{
-		
 		if (!playerInSightRange && (Physics.CheckSphere(transform.position, roundSightRange, whatIsPlayer) || Physics.Raycast(turret.GetChild(0).GetChild(0).position + turret.GetChild(0).GetChild(0).transform.transform.forward * 1.5f, turret.GetChild(0).GetChild(0).transform.forward, forwardSightRange, whatIsPlayer)))
 		{
 			walkPointSet = false;
