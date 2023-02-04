@@ -20,8 +20,6 @@ namespace Graphics
 
         private readonly HDAdditionalLightData lightData;
 
-        private readonly string color;
-
 
         private const float LIGHT_INTENSITY = 0.15f;
         private const float LIGHT_APPEARING_SPEED = 0.0025f;
@@ -35,7 +33,6 @@ namespace Graphics
 
         public TankGraphics(string color, HDAdditionalLightData lightData, MeshRenderer tankBody, MeshRenderer tankTurret)
         {
-            this.color = color;
             this.lightData = lightData;
 
             tankBody.material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
@@ -58,7 +55,7 @@ namespace Graphics
         /// <param name="tankType">Type of a tank</param>
         /// <returns>Prefabs that were effected</returns>
 
-        public Dictionary<string, GameObject> ChangePrefabsColours(string gameType, string tankType)
+        public static Dictionary<string, GameObject> ChangePrefabsColours(string color, string gameType, string tankType)
         {
             Dictionary<string, GameObject> prefabs = new();
 

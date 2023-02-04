@@ -67,7 +67,7 @@ public abstract class Tank_SP : MonoBehaviour
             turret.GetChild(0).gameObject.GetComponent<MeshRenderer>()
             );
 
-        Dictionary<string, GameObject> prefabs = graphics.ChangePrefabsColours("Singleplayer", "MediumTank");
+        Dictionary<string, GameObject> prefabs = TankGraphics.ChangePrefabsColours("Green", "Singleplayer", "MediumTank");
 
         explosion = prefabs["Explosion"];
         muzzleFlash = prefabs["MuzzleFlash"];

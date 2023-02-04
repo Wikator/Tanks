@@ -145,9 +145,6 @@ public abstract class Tank : NetworkBehaviour
             turret.GetChild(0).gameObject.GetComponent<MeshRenderer>()
             );
 
-
-        SetPrefabsServer(graphics.ChangePrefabsColours("Multiplayer", controllingPlayer.TankType));
-
         if (IsOwner)
         {
             MainView.Instance.maxCharge = stats.requiredSuperCharge;
@@ -165,6 +162,12 @@ public abstract class Tank : NetworkBehaviour
         muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
         ammoCount = 0;
 
+        Dictionary<string, GameObject> prefabs = TankGraphics.ChangePrefabsColours(controllingPlayer.color, "Multiplayer", controllingPlayer.TankType);
+
+        explosion = prefabs["Explosion"];
+        muzzleFlash = prefabs["MuzzleFlash"];
+        bullet = prefabs["Bullet"];
+
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }
 
@@ -178,14 +181,6 @@ public abstract class Tank : NetworkBehaviour
         }
     }
 
-
-    [ServerRpc]
-    private void SetPrefabsServer(Dictionary<string, GameObject> prefabs)
-    {
-        explosion = prefabs["Explosion"];
-        muzzleFlash = prefabs["MuzzleFlash"];
-        bullet = prefabs["Bullet"];
-    }
 
     [ServerRpc]
     public void DespawnForNewRound()

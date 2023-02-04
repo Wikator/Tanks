@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ObjectPoolManager;
 using UnityEngine.Rendering.HighDefinition;
+using Graphics;
 
 public class EnemyScoutTank : EnemyAI
 {
@@ -16,7 +17,7 @@ public class EnemyScoutTank : EnemyAI
 			turret.GetChild(0).gameObject.GetComponent<MeshRenderer>()
 			);
 
-		Dictionary<string, GameObject> prefabs = graphics.ChangePrefabsColours("Singleplayer", "Scout");
+		Dictionary<string, GameObject> prefabs = TankGraphics.ChangePrefabsColours(color, "Singleplayer", "Scout");
 
 		explosion = prefabs["Explosion"];
 		muzzleFlash = prefabs["MuzzleFlash"];
