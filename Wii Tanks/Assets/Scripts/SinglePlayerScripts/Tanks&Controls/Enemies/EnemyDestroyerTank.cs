@@ -10,7 +10,7 @@ public class EnemyDestroyerTank : EnemyAI
 	{
 		base.OnEnable();
 
-		graphics = new (
+		graphics = new TankGraphics(
 			color,
 			gameObject.GetComponent<HDAdditionalLightData>(),
 			transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
@@ -57,6 +57,9 @@ public class EnemyDestroyerTank : EnemyAI
 			agent.SetDestination(walkPoint);
 		}
 
-		transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+		if (agent.velocity.normalized != Vector3.zero)
+		{
+			transform.rotation = Quaternion.LookRotation(agent.velocity.normalized);
+		}
 	}
 }

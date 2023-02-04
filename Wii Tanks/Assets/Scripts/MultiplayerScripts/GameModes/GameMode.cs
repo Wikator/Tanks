@@ -1,13 +1,13 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class GameMode : NetworkBehaviour
 {
     public static GameMode Instance { get; private set; }
 
-    [SyncObject]
-    public readonly SyncDictionary<string, Transform[]> spawns = new();
+    public readonly Dictionary<string, Transform[]> spawns = new();
 
 
     [SyncObject]
@@ -26,12 +26,13 @@ public abstract class GameMode : NetworkBehaviour
 
     private void OnScoreChange(SyncDictionaryOperation op, string key, int value, bool asServer)
     {
-        if (!MainView.Instance)
+        if (!MainView.Instance || !EndScreen.Instance)
             return;
 
         if (op == SyncDictionaryOperation.Set)
         {
             MainView.Instance.UpdateScore(key, value);
+            EndScreen.Instance.UpdateScores();
         }
     }
 

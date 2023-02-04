@@ -78,7 +78,6 @@ namespace Graphics
             return prefabs;
         }
 
-
         /// <summary>
         /// Plays animation for spawning. Main body appears before turret
         /// </summary>

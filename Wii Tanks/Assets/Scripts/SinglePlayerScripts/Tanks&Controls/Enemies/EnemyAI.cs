@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using ObjectPoolManager;
 using Graphics;
-using UnityEngine.Rendering.HighDefinition;
 
 public abstract class EnemyAI : MonoBehaviour
 {

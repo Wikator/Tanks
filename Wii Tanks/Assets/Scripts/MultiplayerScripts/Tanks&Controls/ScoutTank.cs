@@ -19,7 +19,7 @@ public class ScoutTank : Tank
     [ServerRpc]
     protected override void Fire()
     {
-        if (ammoCount <= 0)
+        if (ammoCount <= 0 || !IsSpawned)
             return;
 
         for (int angle = -spreadAngle; angle < spreadAngle*2; angle += spreadAngle)
@@ -53,7 +53,7 @@ public class ScoutTank : Tank
     [ServerRpc]
     protected override void SpecialMove()
     {
-        if (!canUseSuper)
+        if (!canUseSuper || !IsSpawned)
             return;
 
         if (routine != null)

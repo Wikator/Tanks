@@ -4,17 +4,24 @@ using TMPro;
 
 public sealed class EndScreen : View
 {
+    public static EndScreen Instance { get; private set; }
+
+
     [SerializeField]
     private TextMeshProUGUI leaderboardText;
 
-    private void OnEnable()
+
+    public override void Init()
     {
-        SetText();
+        base.Init();
+        Instance = this;
     }
 
-    public void SetText()
+    public void UpdateScores()
     {
         string[] colors = GameMode.Instance.scores.Keys.ToArray();
+
+        leaderboardText.text = "";
 
         foreach (string color in colors)
         {

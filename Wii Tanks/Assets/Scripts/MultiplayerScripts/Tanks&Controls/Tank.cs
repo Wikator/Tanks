@@ -281,7 +281,7 @@ public abstract class Tank : NetworkBehaviour
     [ServerRpc]
     protected virtual void Fire()
     {
-        if (ammoCount <= 0 || !bullet || !muzzleFlash)
+        if (ammoCount <= 0 || !IsSpawned)
             return;
 
         if (routine != null)
@@ -318,15 +318,19 @@ public abstract class Tank : NetworkBehaviour
     protected IEnumerator AddAmmo(float time)
     {
         yield return new WaitForSeconds(time);
-        ammoCount++;
 
-        if (ammoCount < stats.maxAmmo)
+        if (IsSpawned)
         {
-            routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
-        }
-        else
-        {
-            routine = null;
+            ammoCount++;
+
+            if (ammoCount < stats.maxAmmo)
+            {
+                routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
+            }
+            else
+            {
+                routine = null;
+            }
         }
     }
 

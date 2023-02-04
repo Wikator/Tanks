@@ -58,7 +58,7 @@ public abstract class Bullet : NetworkBehaviour
             currentPosition = transform.position;
         }
 
-        if (isDespawning && IsClient)
+        if (isDespawning && IsClient && bulletLight)
             BulletGraphics.DecreaseBulletLightIntensity(bulletLight);
     }
 

@@ -8,7 +8,7 @@ public sealed class NormalTank : Tank
     [ServerRpc]
     protected override void SpecialMove()
     {
-        if (!canUseSuper)
+        if (!canUseSuper || !IsSpawned)
             return;
 
         if (routine != null)
@@ -40,6 +40,10 @@ public sealed class NormalTank : Tank
 
             yield return new WaitForSeconds(0.2f);
         }
-        routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
+
+        if (IsSpawned)
+        {
+            routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
+        }
     }
 }

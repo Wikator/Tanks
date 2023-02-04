@@ -61,7 +61,7 @@ public abstract class LobbyView : View
 
         if (IsHost)
         {
-            startGameButton.interactable = GameManager.Instance.CanStart;
+            startGameButton.interactable = GameManager.Instance.NumberOfReadyPlayers() == GameManager.Instance.players.Count;
         }
 
         playersReadyCountText.text = $"Players ready: {GameManager.Instance.NumberOfReadyPlayers()}/{GameManager.Instance.players.Count}";

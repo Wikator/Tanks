@@ -1,17 +1,11 @@
-using FishNet;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using FishNet.Managing.Logging;
-using System.Linq;
-using UnityEngine;
 
 public sealed class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [SyncVar]
     public string gameMode;
-
 
     [SyncObject]
     public readonly SyncHashSet<PlayerNetworking> players = new();
@@ -21,24 +15,10 @@ public sealed class GameManager : NetworkBehaviour
     public bool GameInProgress { get; private set; }
 
 
-    [field : SyncVar]
-    public bool CanStart { get; private set; }
-
-
-    [SerializeField]
-    private bool animateBackground;
-
-
 	private void Awake()
     {
         Instance = this;
         GameInProgress = false;
-
-
-		if (!animateBackground)
-		{
-			Destroy(GameObject.Find("Plane"));
-		}
 	}
 
     public override void OnStartServer()
@@ -53,13 +33,6 @@ public sealed class GameManager : NetworkBehaviour
     private void OnDestroy()
     {
         Instance = null;
-    }
-
-
-    [Server(Logging = LoggingType.Off)]
-    public void Update()
-    {
-        CanStart = players.All(player => player.IsReady);
     }
 
 

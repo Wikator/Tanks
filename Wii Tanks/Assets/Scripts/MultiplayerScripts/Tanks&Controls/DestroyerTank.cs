@@ -15,7 +15,7 @@ public sealed class DestroyerTank : Tank
     [ServerRpc]
     protected override void SpecialMove()
     {
-        if (!canUseSuper)
+        if (!canUseSuper || !IsSpawned)
             return;
 
         if (routine != null)
