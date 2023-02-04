@@ -5,7 +5,7 @@ using UnityEngine;
 
 public sealed class NormalBulletScript : Bullet
 {
-    [SerializeField]
+    [SerializeField, Tooltip("How many times this bullet can ricochet before despawning")]
     private int ricochetCount;
 
     private int ricochetsLeft;

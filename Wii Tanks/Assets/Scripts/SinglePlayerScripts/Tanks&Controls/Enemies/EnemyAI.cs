@@ -32,12 +32,11 @@ public abstract class EnemyAI : MonoBehaviour
 	private float roundSightRange, forwardSightRange;
 	private bool playerInSightRange;
 
-	protected Material tankMaterial, turretMaterial;
-
-
 	protected GameObject explosion;
 	protected GameObject muzzleFlash;
 	protected GameObject bullet;
+
+	protected TankGraphics graphics;
 
 	protected string color;
 
@@ -82,18 +81,7 @@ public abstract class EnemyAI : MonoBehaviour
 
     private void FixedUpdate()
 	{
-
-		if (!tankMaterial || !turretMaterial)
-			return;
-
-		Materials materials = new()
-		{
-			tankMaterial = tankMaterial,
-			turretMaterial = turretMaterial,
-			light = gameObject.GetComponent<HDAdditionalLightData>()
-		};
-
-		TankGraphics.SpawnAnimation(materials);
+		graphics.SpawnAnimation();
 	}
 
 	private void Update()

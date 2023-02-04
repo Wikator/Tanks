@@ -1521,7 +1521,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4546438592733883809}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 583.994, y: -0.000030517578, z: -522.19714}
+  m_LocalPosition: {x: -535.80176, y: 0.000030517578, z: -650.63586}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3594,22 +3594,22 @@ MonoBehaviour:
   renderersLightmapIndex: 0000000001000000020000000300000004000000
   renderersLightmapOffsetScale:
   - {x: 1.0339149, y: 1.0339149, z: -0.0206783, w: -0.0206783}
-  - {x: 0.6977344, y: 0.6977344, z: -0.01395469, w: 0.3928734}
   - {x: 0.6977344, y: 0.6977344, z: -0.01395469, w: -0.01395469}
+  - {x: 0.6977344, y: 0.6977344, z: -0.01395469, w: 0.3928734}
   - {x: 0.414375, y: 0.414375, z: 0.5522594, w: -0.008287501}
   - {x: 0.414375, y: 0.414375, z: 0.5522594, w: -0.008287501}
   texturesColor:
-  - {fileID: 2800000, guid: f0e2e22bc27f7f8498a82c6950022ace, type: 2}
-  - {fileID: 2800000, guid: 1f9cce4fc9143914ba6d69e9d77b5145, type: 2}
+  - {fileID: 2800000, guid: 86b27a6d4dfab114bb23eac7075fa5fa, type: 2}
   - {fileID: 2800000, guid: 9c0c74727292b6841aa2af67f1c234e4, type: 2}
-  - {fileID: 2800000, guid: 05efdba699b00954b9b70f9b71ca1fa8, type: 2}
+  - {fileID: 2800000, guid: 1f9cce4fc9143914ba6d69e9d77b5145, type: 2}
   - {fileID: 2800000, guid: fe7774efa7daf1e4b978b0364b8896dc, type: 2}
+  - {fileID: 2800000, guid: 05efdba699b00954b9b70f9b71ca1fa8, type: 2}
   texturesDir:
-  - {fileID: 2800000, guid: ea65487e641bafd4982388b0b9dfa4d9, type: 2}
-  - {fileID: 2800000, guid: f273b4ac495e0354b82b658c0131960b, type: 2}
+  - {fileID: 2800000, guid: 511eba97b3d39514599fc86620c4b8e4, type: 2}
   - {fileID: 2800000, guid: 196311f906effc34fa4bd4b15c6b2277, type: 2}
-  - {fileID: 2800000, guid: 3f8743afb32c5f64f9173967ff1eb716, type: 2}
+  - {fileID: 2800000, guid: f273b4ac495e0354b82b658c0131960b, type: 2}
   - {fileID: 2800000, guid: 93f8a6ec5f6839a4f83b1b4d75a461da, type: 2}
+  - {fileID: 2800000, guid: 3f8743afb32c5f64f9173967ff1eb716, type: 2}
   texturesShadow: []
 --- !u!114 &7124827636013758555
 MonoBehaviour:

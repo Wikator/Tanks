@@ -3,6 +3,7 @@ using FishNet.Object.Prediction;
 using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using Graphics;
@@ -65,12 +66,9 @@ public abstract class Tank : NetworkBehaviour
     [HideInInspector]
     protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
 
-    [HideInInspector]
-    protected GameObject bullet, muzzleFlash;
-
     [SyncVar, HideInInspector]
     protected bool canUseSuper;
-	
+
     [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly), HideInInspector]
     protected int ammoCount;
 
@@ -84,11 +82,12 @@ public abstract class Tank : NetworkBehaviour
 
     private CharacterController controller;
     private Transform explosionEmpty, turret;
-    private GameObject explosion;
     private Camera cam;
-    private Material tankMaterial, turretMaterial;
     private TextMesh namePlate;
-    private HDAdditionalLightData tankLight;
+    protected GameObject bullet, muzzleFlash;
+    private GameObject explosion;
+
+    private TankGraphics graphics;
 
     protected Coroutine routine;
 
@@ -137,23 +136,17 @@ public abstract class Tank : NetworkBehaviour
         controller.enabled = IsServer || IsOwner;
         namePlate = transform.GetChild(1).GetComponent<TextMesh>();
         namePlate.text = controllingPlayer.PlayerUsername;
-        raycastLayer = (1 << 9);
-        tankLight = gameObject.GetComponent<HDAdditionalLightData>();
+        raycastLayer = 1 << 9;
 
-        TankGet tankGet = new()
-        {
-            tankBody = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
-            turretBody = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
-            light = tankLight,
-            color = controllingPlayer.color,
-        };
+        graphics = new TankGraphics(
+            controllingPlayer.color,
+            gameObject.GetComponent<HDAdditionalLightData>(),
+            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>()
+            );
 
-        TankSet tankSet = TankGraphics.ChangeTankColours(tankGet, "Multiplayer");
 
-        tankMaterial = tankSet.tankMaterial;
-        turretMaterial = tankSet.turretMaterial;
-        explosion = tankSet.explosion;
-        muzzleFlash = tankSet.muzzleFlash;
+        SetPrefabsServer();
 
         if (IsOwner)
         {
@@ -165,11 +158,11 @@ public abstract class Tank : NetworkBehaviour
     {
         base.OnStartServer();
         canUseSuper = false;
+        explosionEmpty = GameObject.Find("Explosions").transform;
         bulletSpawn = turret.GetChild(0).GetChild(0);
         muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
-        bullet = TankGraphics.ChangeBulletColour(controllingPlayer.color, controllingPlayer.TankType, "Multiplayer");
+        graphics = null;
         bulletEmpty = GameObject.Find("Bullets").transform;
-        explosionEmpty = GameObject.Find("Explosions").transform;
         muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
         ammoCount = 0;
 
@@ -187,6 +180,25 @@ public abstract class Tank : NetworkBehaviour
     }
 
 
+    [ServerRpc]
+    private void SetPrefabsServer()
+    {
+        Dictionary<string, GameObject> prefabs = graphics.ChangePrefabsColours("Multiplayer", controllingPlayer.TankType);
+
+        explosion = prefabs["Explosion"];
+        muzzleFlash = prefabs["MuzzleFlash"];
+        bullet = prefabs["Bullet"];
+    }
+
+    [ServerRpc]
+    public void DespawnForNewRound()
+    {
+        isDespawning = false;
+        ammoCount = 0;
+        Despawn();
+    }
+
+
     [Server]
     public void GameOver()
     {
@@ -197,15 +209,6 @@ public abstract class Tank : NetworkBehaviour
         Spawn(explosionInstance);
         controllingPlayer.ControlledPawn = null;
         GameMode.Instance.OnKilled(controllingPlayer);
-        Despawn();
-    }
-
-
-    [ServerRpc]
-    public void DespawnForNewRound()
-    {
-        isDespawning = false;
-        ammoCount = 0;
         Despawn();
     }
 
@@ -265,26 +268,19 @@ public abstract class Tank : NetworkBehaviour
     private void FixedUpdate()
     {
 
-        if (!IsSpawned || !tankMaterial || !turretMaterial || !tankLight)
+        if (!IsSpawned || graphics == null)
 			return;
-
-        Materials materials = new()
-        {
-            tankMaterial = tankMaterial,
-            turretMaterial = turretMaterial,
-            light = tankLight
-        };
 
         if (isDespawning)
         {
-            if (TankGraphics.DespawnAnimation(materials))
+            if (graphics.DespawnAnimation())
             {
                 DespawnForNewRound();
             }
         }
         else
         {
-            TankGraphics.SpawnAnimation(materials);
+            graphics.SpawnAnimation();
         }
 	}
 

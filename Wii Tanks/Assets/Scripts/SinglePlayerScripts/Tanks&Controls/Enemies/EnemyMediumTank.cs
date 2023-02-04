@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 using ObjectPoolManager;
-using Graphics;
 using UnityEngine.Rendering.HighDefinition;
 
 public class EnemyMediumTank : EnemyAI
@@ -9,21 +9,18 @@ public class EnemyMediumTank : EnemyAI
 	{
 		base.OnEnable();
 
-		TankGet tankGet = new()
-		{
-			tankBody = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
-			turretBody = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
-			light = gameObject.GetComponent<HDAdditionalLightData>(),
-			color = color
-		};
+		graphics = new(
+			color,
+			gameObject.GetComponent<HDAdditionalLightData>(),
+			transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+			turret.GetChild(0).gameObject.GetComponent<MeshRenderer>()
+			);
 
-		TankSet tankSet = TankGraphics.ChangeTankColours(tankGet, "Singleplayer");
+		Dictionary<string, GameObject> prefabs = graphics.ChangePrefabsColours("Singleplayer", "MediumTank");
 
-		tankMaterial = tankSet.tankMaterial;
-		turretMaterial = tankSet.turretMaterial;
-		explosion = tankSet.explosion;
-		muzzleFlash = tankSet.muzzleFlash;
-		bullet = TankGraphics.ChangeBulletColour(color, "MediumTank", "Singleplayer");
+		explosion = prefabs["Explosion"];
+		muzzleFlash = prefabs["MuzzleFlash"];
+		bullet = prefabs["Bullet"];
 	}
 	protected override void Fire()
 	{

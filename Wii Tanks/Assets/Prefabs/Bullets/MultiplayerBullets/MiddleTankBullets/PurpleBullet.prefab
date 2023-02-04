@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -5833880829761614842}
   - component: {fileID: -8405391744002029082}
   - component: {fileID: 62525033072000976}
-  - component: {fileID: 3396983703382614208}
+  - component: {fileID: 7965067156509179812}
   m_Layer: 7
   m_Name: PurpleBullet
   m_TagString: Bullet
@@ -67,6 +67,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -8405391744002029082}
   _networkObjectCache: {fileID: -8405391744002029082}
+  _allowSpawning: 0
+  _allowDespawning: 0
   moveSpeed: 13
   player: {fileID: 0}
   isUnstoppable: 0
@@ -102,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
-  <PredictedSpawn>k__BackingField: {fileID: 0}
+  <PredictedSpawn>k__BackingField: {fileID: -4227543758443852699}
   _networkBehaviours:
   - {fileID: -4227543758443852699}
   - {fileID: 62525033072000976}
@@ -113,7 +115,7 @@ MonoBehaviour:
   _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 5
+  <PrefabId>k__BackingField: 7
   <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
@@ -161,7 +163,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
---- !u!114 &3396983703382614208
+--- !u!114 &7965067156509179812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -1,48 +1,28 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Rendering.HighDefinition;
 
 
-// This namespace contains static classes, that set up graphics fo various objects
+// This namespace contains classes, that set up graphics fo various objects
 // It exists to eliminate some of the code repetition
 
 namespace Graphics
 {
-    #region Structs
-
-    // Those structs are used to either send data to the methods in TankGraphics class, or to send data back to the Tank, Tank_SP, or EnemyAI class
-
-    public struct TankGet
-    {
-        public MeshRenderer tankBody;
-        public MeshRenderer turretBody;
-        public HDAdditionalLightData light;
-        public string color;
-    }
-
-    public struct TankSet
-    {
-        public Material tankMaterial;
-        public Material turretMaterial;
-        public GameObject explosion;
-        public GameObject muzzleFlash;
-    }
-
-    public struct Materials
-    {
-        public Material tankMaterial;
-        public Material turretMaterial;
-        public HDAdditionalLightData light;
-    }
-
-    #endregion
-
     // There are 3 different abstract classes for tanks (Tank, Tank_SP, EnemyAI)
     // Since all tanks use the same graphics, this class stores methods for all 3 of them, rather to use the same code in 3 different classes
-    // Although those are 3 completely different classes, they use similar variables. Because of that, structs above are used to both send dath both from and to methods in this class
+    // Although those are 3 completely different classes, they use similar variables.
 
-    public static class TankGraphics
+    public sealed class TankGraphics
     {
+        private readonly Material tankMaterial;
+        private readonly Material turretMaterial;
+
+        private readonly HDAdditionalLightData lightData;
+
+        private readonly string color;
+
+
         private const float LIGHT_INTENSITY = 0.15f;
         private const float LIGHT_APPEARING_SPEED = 0.0025f;
         private const float LIGHT_DISAPPEARING_SPEED = 0.0035f;
@@ -53,119 +33,137 @@ namespace Graphics
         private const float MATERIAL_DISAPPEARING_SPEED = 0.01f;
 
 
-        // This method receives parts of the tank that will be affected (body, turret, light), as well as target coluor
-        // It returns appropriately coloured effects, and applied materials
-
-        public static TankSet ChangeTankColours(TankGet tankGet, string gameType)
+        public TankGraphics(string color, HDAdditionalLightData lightData, MeshRenderer tankBody, MeshRenderer tankTurret)
         {
-            TankSet tankSet = new();
+            this.color = color;
+            this.lightData = lightData;
 
-            tankGet.tankBody.material = Addressables.LoadAssetAsync<Material>("Animated" + tankGet.color).WaitForCompletion();
-            tankSet.tankMaterial = tankGet.tankBody.material;
-            tankGet.turretBody.material = Addressables.LoadAssetAsync<Material>("Animated" + tankGet.color).WaitForCompletion();
-            tankSet.turretMaterial = tankGet.turretBody.material;
-            tankSet.tankMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
-            tankSet.turretMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
-            tankGet.tankBody.enabled = true;
-            tankGet.turretBody.enabled = true;
-            tankGet.light.color = tankSet.tankMaterial.GetColor("_Color01");
-            tankGet.light.intensity = 0f;
+            tankBody.material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
+            tankMaterial = tankBody.material;
+            tankTurret.material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
+            turretMaterial = tankTurret.material;
+            tankMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
+            turretMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
+            tankBody.enabled = true;
+            tankTurret.enabled = true;
+            lightData.color = tankMaterial.GetColor("_Color01");
+            lightData.intensity = 0f;
+        }
+
+
+        /// <summary>
+        /// Changes colors of prefabs used by this tank
+        /// </summary>
+        /// <param name="gameType">Specifies if game is played in singleplayer or multiplayer</param>
+        /// <param name="tankType">Type of a tank</param>
+        /// <returns>Prefabs that were effected</returns>
+
+        public Dictionary<string, GameObject> ChangePrefabsColours(string gameType, string tankType)
+        {
+            Dictionary<string, GameObject> prefabs = new();
 
             switch (gameType)
             {
                 case "Multiplayer":
-                    tankSet.explosion = Addressables.LoadAssetAsync<GameObject>(tankGet.color + "Explosion").WaitForCompletion();
-                    tankSet.muzzleFlash = Addressables.LoadAssetAsync<GameObject>(tankGet.color + "MuzzleFlash").WaitForCompletion();
+                    prefabs["Explosion"] = Addressables.LoadAssetAsync<GameObject>(color + "Explosion").WaitForCompletion();
+                    prefabs["MuzzleFlash"] = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlash").WaitForCompletion();
+                    prefabs["Bullet"] = Addressables.LoadAssetAsync<GameObject>(color + tankType + "Bullet").WaitForCompletion();
                     break;
                 case "Singleplayer":
-                    tankSet.explosion = Addressables.LoadAssetAsync<GameObject>(tankGet.color + "ExplosionSP").WaitForCompletion();
-                    tankSet.muzzleFlash = Addressables.LoadAssetAsync<GameObject>(tankGet.color + "MuzzleFlashSP").WaitForCompletion();
+                    prefabs["Explosion"] = Addressables.LoadAssetAsync<GameObject>(color + "ExplosionSP").WaitForCompletion();
+                    prefabs["MuzzleFlash"] = Addressables.LoadAssetAsync<GameObject>(color + "MuzzleFlashSP").WaitForCompletion();
+                    prefabs["Bullet"] = Addressables.LoadAssetAsync<GameObject>(color + tankType + "BulletSP").WaitForCompletion();
                     break;
+                default:
+                    throw new System.NotImplementedException();
             }
 
-            return tankSet;
+            return prefabs;
         }
 
-        // Bullets need to change colour in different method, because in Muliplayer it needs to change on server only, while the rest need to change on client only
 
-        public static GameObject ChangeBulletColour(string color, string tankType, string gameType)
+        /// <summary>
+        /// Plays animation for spawning. Main body appears before turret
+        /// </summary>
+
+        public void SpawnAnimation()
         {
-            return gameType switch
+            if (turretMaterial.GetFloat("_CurrentAppearence") > MATERIAL_MIN_VALUE)
             {
-                "Multiplayer" => Addressables.LoadAssetAsync<GameObject>(color + tankType + "Bullet").WaitForCompletion(),
-                "Singleplayer" => Addressables.LoadAssetAsync<GameObject>(color + tankType + "BulletSP").WaitForCompletion(),
-                _ => throw new System.NotImplementedException(),
-            };
-        }
-
-        // Tanks instantiate with values that their material is completely dissolved, and light is at 0
-        // This method slowly changes those values, to slowly make the tank appear
-        // Tank's body and turret use different instances of the same material, so the values need to change seperately
-        // It is important that body appears first, and the turret second
-
-        public static void SpawnAnimation(Materials materials)
-        {
-            if (materials.turretMaterial.GetFloat("_CurrentAppearence") > MATERIAL_MIN_VALUE)
-            {
-                if (materials.tankMaterial.GetFloat("_CurrentAppearence") > 0f)
+                if (tankMaterial.GetFloat("_CurrentAppearence") > 0f)
                 {
-                    materials.tankMaterial.SetFloat("_CurrentAppearence", materials.tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
+                    tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
 
-                    if (materials.light.intensity < LIGHT_INTENSITY)
+                    if (lightData.intensity < LIGHT_INTENSITY)
                     {
-                        materials.light.intensity += LIGHT_APPEARING_SPEED;
+                        lightData.intensity += LIGHT_APPEARING_SPEED;
                     }
+
+                    return;
                 }
-                else
+
+                if (tankMaterial.GetFloat("_CurrentAppearence") > MATERIAL_MIN_VALUE)
                 {
-                    if (materials.tankMaterial.GetFloat("_CurrentAppearence") > MATERIAL_MIN_VALUE)
-                    {
-                        materials.turretMaterial.SetFloat("_CurrentAppearence", materials.turretMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
-                        materials.tankMaterial.SetFloat("_CurrentAppearence", materials.tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
-                    }
-                    else
-                    {
-                        materials.turretMaterial.SetFloat("_CurrentAppearence", materials.turretMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
-                    }
+                    turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
+                    tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
+                    return;
                 }
+                
+                turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
             }
         }
 
-        // Opposite of SpawnAnimation method
+        /// <summary>
+        /// Plays animation for despawning. Turret despawns before main body
+        /// </summary>
+        /// <returns>A bool that informs whether the animation has finished or not</returns>
 
-        public static bool DespawnAnimation(Materials materials)
+        public bool DespawnAnimation()
         {
-            if (materials.tankMaterial.GetFloat("_CurrentAppearence") < MATERIAL_MAX_VALUE)
+            if (tankMaterial.GetFloat("_CurrentAppearence") < MATERIAL_MAX_VALUE)
             {
-                if (materials.turretMaterial.GetFloat("_CurrentAppearence") < 0f)
+                if (turretMaterial.GetFloat("_CurrentAppearence") < 0f)
                 {
-                    materials.turretMaterial.SetFloat("_CurrentAppearence", materials.turretMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
+                    turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
+                    return false;
                 }
-                else
+
+                if (turretMaterial.GetFloat("_CurrentAppearence") < MATERIAL_MAX_VALUE)
                 {
-                    if (materials.turretMaterial.GetFloat("_CurrentAppearence") < MATERIAL_MAX_VALUE)
-                    {
-                        materials.turretMaterial.SetFloat("_CurrentAppearence", materials.turretMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
-                        materials.tankMaterial.SetFloat("_CurrentAppearence", materials.tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
-                    }
-                    else
-                    {
-                        materials.tankMaterial.SetFloat("_CurrentAppearence", materials.tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
+                    turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
+                    tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
+                    return false;
+                }
 
+                tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
 
-                        if (materials.light.intensity > 0)
-                        {
-                            materials.light.intensity -= LIGHT_DISAPPEARING_SPEED;
-                        }
-                    }
+                if (lightData.intensity > 0)
+                {
+                    lightData.intensity -= LIGHT_DISAPPEARING_SPEED;
                 }
 
                 return false;
             }
-            else
-            {
-                return true;
-            }
+            
+            return true;
+        }
+    }
+
+
+    public static class BulletGraphics
+    {
+        private const float LIGHT_INTENSITY = 0.5f;
+        private const float LIGHT_DISAPPEARING_SPEED = 0.015f;
+
+
+        public static void SetBulletLightIntensity(HDAdditionalLightData light)
+        {
+            light.intensity = LIGHT_INTENSITY;
+        }
+
+        public static void DecreaseBulletLightIntensity(HDAdditionalLightData light)
+        {
+            light.intensity -= LIGHT_DISAPPEARING_SPEED;
         }
     }
 }

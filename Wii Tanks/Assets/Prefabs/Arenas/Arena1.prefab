@@ -1183,7 +1183,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5686634895875090004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 54.598587, y: 0, z: -405.71478}
+  m_LocalPosition: {x: -153.48854, y: 0, z: -782.78125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3258,18 +3258,18 @@ MonoBehaviour:
   renderersLightmapIndex: 000000000100000001000000010000000100000002000000
   renderersLightmapOffsetScale:
   - {x: 1.0339149, y: 1.0339149, z: -0.0206783, w: -0.0206783}
-  - {x: 0.23884426, y: 0.23884426, z: 0.4521358, w: 0.7605114}
   - {x: 0.23884426, y: 0.23884426, z: 0.6805921, w: 0.7605114}
-  - {x: 0.23884426, y: 0.23884426, z: 0.22367947, w: 0.7605114}
   - {x: 0.23884426, y: 0.23884426, z: -0.0047768857, w: 0.7605114}
+  - {x: 0.23884426, y: 0.23884426, z: 0.22367947, w: 0.7605114}
+  - {x: 0.23884426, y: 0.23884426, z: 0.4521358, w: 0.7605114}
   - {x: 1.0357935, y: 1.0357935, z: -0.020715872, w: -0.020715872}
   texturesColor:
-  - {fileID: 2800000, guid: f8ab6e26b1f778d4a86c88d384997538, type: 2}
-  - {fileID: 2800000, guid: c3733c1d4e0e2e34482eb0247d5da33a, type: 2}
+  - {fileID: 2800000, guid: 7281265c2c175b846b6850a70f521b9d, type: 2}
+  - {fileID: 2800000, guid: 29d467970e2cc5144a1a72d938a3dadf, type: 2}
   - {fileID: 2800000, guid: 645ef1b24311f6245b2371cf2924028c, type: 2}
   texturesDir:
-  - {fileID: 2800000, guid: a33eb9d11c0f8f24da99a13cdcb795d1, type: 2}
-  - {fileID: 2800000, guid: cea48cf4b03c0a34ab941b6709ec9a2c, type: 2}
+  - {fileID: 2800000, guid: f7ab737042dd3bd498c9c03b9ca5fa0d, type: 2}
+  - {fileID: 2800000, guid: 73d8c9e3fc79bbd46a87743097194aae, type: 2}
   - {fileID: 2800000, guid: b3ac905ab3fcc4241b265f77d051c297, type: 2}
   texturesShadow: []
 --- !u!114 &4599115074227950251

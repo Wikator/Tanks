@@ -1902,7 +1902,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3681093606910145238}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -148.84404, y: -0.000030517578, z: -107.60811}
+  m_LocalPosition: {x: 419.8022, y: 0.000030517578, z: -675.9037}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3974,25 +3974,25 @@ MonoBehaviour:
   - {fileID: 3681093605455543453}
   - {fileID: 3681093606321381833}
   - {fileID: 3681093607025020902}
-  renderersLightmapIndex: 000000000100000002000000030000000100000004000000
+  renderersLightmapIndex: 000000000100000002000000030000000200000004000000
   renderersLightmapOffsetScale:
   - {x: 1.0339149, y: 1.0339149, z: -0.0206783, w: -0.0206783}
+  - {x: 0.5809375, y: 0.5809375, z: -0.011618751, w: -0.011618751}
   - {x: 0.5809375, y: 0.5809375, z: -0.011618751, w: 0.37701264}
   - {x: 0.5809375, y: 0.5809375, z: -0.011618751, w: 0.46264687}
-  - {x: 0.5809375, y: 0.5809375, z: -0.011618751, w: -0.011618751}
   - {x: 0.5809375, y: 0.5809375, z: -0.011618751, w: -0.011618751}
   - {x: 1.0401397, y: 1.0401397, z: -0.020802796, w: -0.020802796}
   texturesColor:
   - {fileID: 2800000, guid: e805c8ffc89e2d9488ee38c35c0e7053, type: 2}
+  - {fileID: 2800000, guid: 05efdba699b00954b9b70f9b71ca1fa8, type: 2}
   - {fileID: 2800000, guid: fe7774efa7daf1e4b978b0364b8896dc, type: 2}
   - {fileID: 2800000, guid: 9c0c74727292b6841aa2af67f1c234e4, type: 2}
-  - {fileID: 2800000, guid: 05efdba699b00954b9b70f9b71ca1fa8, type: 2}
   - {fileID: 2800000, guid: 4b36ae91701a1e7429e76cbc138e52fd, type: 2}
   texturesDir:
   - {fileID: 2800000, guid: e7c9c49ce357aba48ad8f7e80150e36a, type: 2}
+  - {fileID: 2800000, guid: 3f8743afb32c5f64f9173967ff1eb716, type: 2}
   - {fileID: 2800000, guid: 93f8a6ec5f6839a4f83b1b4d75a461da, type: 2}
   - {fileID: 2800000, guid: 196311f906effc34fa4bd4b15c6b2277, type: 2}
-  - {fileID: 2800000, guid: 3f8743afb32c5f64f9173967ff1eb716, type: 2}
   - {fileID: 2800000, guid: 702543ef8c2b02645a745de119bd8751, type: 2}
   texturesShadow: []
 --- !u!114 &4267328353825585285

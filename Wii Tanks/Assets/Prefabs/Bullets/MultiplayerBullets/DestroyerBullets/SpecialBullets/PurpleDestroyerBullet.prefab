@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: -5833880829761614842}
   - component: {fileID: -8405391744002029082}
   - component: {fileID: 62525033072000976}
+  - component: {fileID: 6062552263583987794}
   m_Layer: 7
   m_Name: PurpleDestroyerBullet
   m_TagString: Bullet
@@ -286,6 +287,7 @@ MonoBehaviour:
   moveSpeed: 45
   player: {fileID: 0}
   isUnstoppable: 1
+  isDespawning: 0
   ricochetCount: 8
 --- !u!54 &-5833880829761614842
 Rigidbody:
@@ -317,6 +319,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
+  <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: -4227543758443852699}
   - {fileID: 62525033072000976}
@@ -324,9 +327,11 @@ MonoBehaviour:
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
+  _initializeOrder: 0
   _defaultDespawnType: 0
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 37
+  <PrefabId>k__BackingField: 43
+  <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 16403882634094345301
@@ -373,6 +378,23 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
+--- !u!114 &6062552263583987794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2456512010136705151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b597e1828355a4d994a69cbb11ef85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: -8405391744002029082}
+  _networkObjectCache: {fileID: 0}
+  _allowSpawning: 1
+  _allowDespawning: 0
 --- !u!1 &9112384289087838213
 GameObject:
   m_ObjectHideFlags: 0

@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: -5833880829761614842}
   - component: {fileID: -8405391744002029082}
   - component: {fileID: 62525033072000976}
-  - component: {fileID: 2756282841173880038}
+  - component: {fileID: 2931803882122577759}
   m_Layer: 7
   m_Name: BlueBullet
   m_TagString: Bullet
@@ -216,6 +216,8 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: -8405391744002029082}
   _networkObjectCache: {fileID: -8405391744002029082}
+  _allowSpawning: 0
+  _allowDespawning: 0
   moveSpeed: 13
   player: {fileID: 0}
   isUnstoppable: 0
@@ -251,7 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
-  <PredictedSpawn>k__BackingField: {fileID: 0}
+  <PredictedSpawn>k__BackingField: {fileID: -4227543758443852699}
   _networkBehaviours:
   - {fileID: -4227543758443852699}
   - {fileID: 62525033072000976}
@@ -310,7 +312,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     Z: 0
---- !u!114 &2756282841173880038
+--- !u!114 &2931803882122577759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

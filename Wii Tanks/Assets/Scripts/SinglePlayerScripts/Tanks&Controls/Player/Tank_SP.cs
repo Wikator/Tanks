@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using ObjectPoolManager;
 using Graphics;
@@ -35,11 +36,8 @@ public abstract class Tank_SP : MonoBehaviour
 
     protected int ammoCount;
 
-
     private float moveAxis;
     private float rotateAxis;
-
-
 
     private CharacterController controller;
     private Transform explosionEmpty;
@@ -47,7 +45,8 @@ public abstract class Tank_SP : MonoBehaviour
     private GameObject explosion;
     protected GameObject muzzleFlash;
     private Camera cam;
-    private Material tankMaterial, turretMaterial;
+
+    private TankGraphics graphics;
 
     protected Coroutine routine;
 
@@ -59,23 +58,20 @@ public abstract class Tank_SP : MonoBehaviour
         cam = Camera.main;
         controller = GetComponent<CharacterController>();
         turret = transform.GetChild(0).GetChild(0);
-        raycastLayer = (1 << 9);
+        raycastLayer = 1 << 9;
 
-        TankGet tankGet = new()
-        {
-            tankBody = transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
-            turretBody = turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
-            light = gameObject.GetComponent<HDAdditionalLightData>(),
-            color = "Green"
-        };
+        graphics = new(
+            "Green",
+            gameObject.GetComponent<HDAdditionalLightData>(),
+            transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>()
+            );
 
-        TankSet tankSet = TankGraphics.ChangeTankColours(tankGet, "Singleplayer");
+        Dictionary<string, GameObject> prefabs = graphics.ChangePrefabsColours("Singleplayer", "MediumTank");
 
-        tankMaterial = tankSet.tankMaterial;
-        turretMaterial = tankSet.turretMaterial;
-        explosion = tankSet.explosion;
-        muzzleFlash = tankSet.muzzleFlash;
-        bullet = TankGraphics.ChangeBulletColour("Green", Player.Instance.TankType, "Singleplayer");
+        explosion = prefabs["Explosion"];
+        muzzleFlash = prefabs["MuzzleFlash"];
+        bullet = prefabs["Bullet"];
 
         canUseSuper = false;
         bulletSpawn = turret.GetChild(0).GetChild(0);
@@ -118,18 +114,7 @@ public abstract class Tank_SP : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        if (!tankMaterial || !turretMaterial)
-            return;
-
-        Materials materials = new()
-        {
-            tankMaterial = tankMaterial,
-            turretMaterial = turretMaterial,
-            light = gameObject.GetComponent<HDAdditionalLightData>()
-        };
-
-        TankGraphics.SpawnAnimation(materials);
+        graphics.SpawnAnimation();
     }
 
     protected virtual void Fire()

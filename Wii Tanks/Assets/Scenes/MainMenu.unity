@@ -1903,8 +1903,8 @@ MonoBehaviour:
   Transport: {fileID: 1323912232}
   _latencySimulator:
     _enabled: 0
-    _simulateHost: 0
-    _latency: 45
+    _simulateHost: 1
+    _latency: 100
     _outOfOrder: 0.14499999582767487
     _packetLoss: 0.22599999606609344
 --- !u!114 &1323912224
@@ -2078,7 +2078,7 @@ MonoBehaviour:
   _maximumServerReplicates: 15
   _maximumConsumeCount: 4
   _redundancyCount: 3
-  _allowPredictedSpawning: 1
+  _allowPredictedSpawning: 0
   _reservedObjectIds: 63
 --- !u!1 &1364360080
 GameObject:

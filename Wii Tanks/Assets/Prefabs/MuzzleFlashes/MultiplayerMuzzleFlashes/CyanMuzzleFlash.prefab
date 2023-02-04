@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6540275222597250297}
   - component: {fileID: 3092781018172726821}
   - component: {fileID: -2486695098518188872}
+  - component: {fileID: 1603235953166203667}
   m_Layer: 0
   m_Name: CyanMuzzleFlash
   m_TagString: Untagged
@@ -4912,16 +4913,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
+  <PredictedSpawn>k__BackingField: {fileID: 0}
   _networkBehaviours:
   - {fileID: 3092781018172726821}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
+  _initializeOrder: 0
   _defaultDespawnType: 1
   NetworkObserver: {fileID: 0}
-  <PrefabId>k__BackingField: 25
+  <PrefabId>k__BackingField: 52
+  <SpawnableCollectionId>k__BackingField: 0
   _scenePathHash: 0
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 18366200026414750625
   _sceneNetworkObjects: []
+--- !u!114 &1603235953166203667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3308670783762246637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b597e1828355a4d994a69cbb11ef85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 255
+  _addedNetworkObject: {fileID: -2486695098518188872}
+  _networkObjectCache: {fileID: 0}
+  _allowSpawning: 1
+  _allowDespawning: 0
