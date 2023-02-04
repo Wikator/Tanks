@@ -146,7 +146,7 @@ public abstract class Tank : NetworkBehaviour
             );
 
 
-        SetPrefabsServer();
+        SetPrefabsServer(graphics.ChangePrefabsColours("Multiplayer", controllingPlayer.TankType));
 
         if (IsOwner)
         {
@@ -161,7 +161,6 @@ public abstract class Tank : NetworkBehaviour
         explosionEmpty = GameObject.Find("Explosions").transform;
         bulletSpawn = turret.GetChild(0).GetChild(0);
         muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
-        graphics = null;
         bulletEmpty = GameObject.Find("Bullets").transform;
         muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
         ammoCount = 0;
@@ -181,10 +180,8 @@ public abstract class Tank : NetworkBehaviour
 
 
     [ServerRpc]
-    private void SetPrefabsServer()
+    private void SetPrefabsServer(Dictionary<string, GameObject> prefabs)
     {
-        Dictionary<string, GameObject> prefabs = graphics.ChangePrefabsColours("Multiplayer", controllingPlayer.TankType);
-
         explosion = prefabs["Explosion"];
         muzzleFlash = prefabs["MuzzleFlash"];
         bullet = prefabs["Bullet"];
