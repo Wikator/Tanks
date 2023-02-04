@@ -289,7 +289,7 @@ public abstract class Tank : NetworkBehaviour
     [ServerRpc]
     protected virtual void Fire()
     {
-        if (ammoCount <= 0)
+        if (ammoCount <= 0 || !bullet || !muzzleFlash)
             return;
 
         if (routine != null)
