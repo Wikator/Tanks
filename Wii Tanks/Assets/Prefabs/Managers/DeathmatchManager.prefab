@@ -48,7 +48,7 @@ MonoBehaviour:
   _componentIndexCache: 0
   _addedNetworkObject: {fileID: 8879372807245646093}
   _networkObjectCache: {fileID: 8879372807245646093}
-  matchLength: 10
+  matchLength: 240
   respawnTime: 2
 --- !u!114 &8879372807245646093
 MonoBehaviour:

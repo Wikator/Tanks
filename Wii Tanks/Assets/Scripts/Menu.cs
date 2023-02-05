@@ -2,10 +2,14 @@ using FishNet;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 using System.Collections;
 
 public sealed class Menu : MonoBehaviour
 {
+    [SerializeField]
+    private TextMeshProUGUI title;
+
     [SerializeField]
     private GameObject mainMenu;
 
@@ -97,17 +101,15 @@ public sealed class Menu : MonoBehaviour
         oldColor = backgroundColors[0];
         lerpValue = 1f;
 
-        StartCoroutine(AnimateColors());
+        title.outlineWidth = 0.045f;
 
         //Settings.currentArena = "MainMenu";
     }
 
-
-    private IEnumerator AnimateColors()
+    private void FixedUpdate()
     {
-        yield return new WaitForFixedUpdate();
-
         backgroundRenderer.material.color = Color.Lerp(oldColor, targetColor, lerpValue);
+        title.faceColor = Color.Lerp(oldColor, targetColor, lerpValue);
         lerpValue += 1 / 200f;
 
         if (lerpValue >= 1f)
@@ -121,7 +123,7 @@ public sealed class Menu : MonoBehaviour
             }
         }
 
-        StartCoroutine(AnimateColors());
+        backgroundRenderer.material.SetFloat("_Rotation", backgroundRenderer.material.GetFloat("_Rotation") + 0.01f);
     }
 }
 

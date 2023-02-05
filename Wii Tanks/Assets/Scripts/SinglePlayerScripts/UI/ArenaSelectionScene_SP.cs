@@ -33,6 +33,9 @@ public sealed class ArenaSelectionScene_SP : ArenaSelectionScene
 
     protected override void OnSpacePressed(string arenaName)
     {
+        if (rotating)
+            return;
+
         SceneManager.LoadScene(arenaName);
     }
 }

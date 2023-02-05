@@ -1,11 +1,11 @@
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 public sealed class GameManager : NetworkBehaviour
 {
     public static GameManager Instance { get; private set; }
-
-    public string gameMode;
 
     [SyncObject]
     public readonly SyncHashSet<PlayerNetworking> players = new();
@@ -13,6 +13,22 @@ public sealed class GameManager : NetworkBehaviour
 
     [field: SyncVar]
     public bool GameInProgress { get; private set; }
+
+    private string gameMode;
+
+    public string GameMode
+    {
+        get
+        {
+            return gameMode;
+        }
+        set
+        {
+            gameMode = value;
+
+            Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>(gameMode + "Manager").WaitForCompletion(), transform.position, Quaternion.identity));
+        }
+    }
 
 
 	private void Awake()
@@ -24,9 +40,8 @@ public sealed class GameManager : NetworkBehaviour
     public override void OnStartServer()
     {
         base.OnStartServer();
-        gameMode = "None";
 
-		UIManager.Instance.SetUpAllUI(false, gameMode);
+		UIManager.Instance.SetUpAllUI(false, "None");
 	}
 
 
@@ -59,8 +74,8 @@ public sealed class GameManager : NetworkBehaviour
     public void EndGame()
     {
         GameInProgress = false;
-        gameMode = "GameFinished";
-        UIManager.Instance.SetUpAllUI(GameInProgress, gameMode);
+        GameMode = "GameFinished";
+        UIManager.Instance.SetUpAllUI(GameInProgress, GameMode);
     }
 
 
@@ -69,7 +84,7 @@ public sealed class GameManager : NetworkBehaviour
     {
         GameInProgress = true;
 
-        UIManager.Instance.SetUpAllUI(GameInProgress, gameMode);
+        UIManager.Instance.SetUpAllUI(GameInProgress, GameMode);
 
         foreach (PlayerNetworking player in players)
         {

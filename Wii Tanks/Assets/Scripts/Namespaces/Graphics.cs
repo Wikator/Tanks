@@ -7,7 +7,7 @@ using UnityEngine.Rendering.HighDefinition;
 // This namespace contains classes, that set up graphics fo various objects
 // It exists to eliminate some of the code repetition
 
-namespace Graphics
+namespace ObjectGraphics
 {
     // There are 3 different abstract classes for tanks (Tank, Tank_SP, EnemyAI)
     // Since all tanks use the same graphics, this class stores methods for all 3 of them, rather to use the same code in 3 different classes

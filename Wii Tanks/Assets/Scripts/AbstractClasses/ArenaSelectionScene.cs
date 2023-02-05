@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public abstract class ArenaSelectionScene : MonoBehaviour
 {
@@ -14,9 +16,18 @@ public abstract class ArenaSelectionScene : MonoBehaviour
     [ColorUsage(hdr: true, showAlpha: true)]
     private Color oldColor;
 
+    [SerializeField]
+    private Button goLeftButton;
+
+    [SerializeField]
+    private Button goRightButton;
+
+    [SerializeField]
+    private Button playButton;
+
     protected readonly Dictionary<GameObject, Vector3> allArenasDictionary = new();
 
-    private bool rotating;
+    protected bool rotating;
 
     private readonly Vector3[] arenaPositions = new Vector3[9];
 
@@ -54,105 +65,103 @@ public abstract class ArenaSelectionScene : MonoBehaviour
         }
 
         //Settings.currentArena = "ArenaSelection";
+
+        goLeftButton.onClick.AddListener(() => GoLeft());
+        goRightButton.onClick.AddListener(() => GoRight());
+        playButton.onClick.AddListener(() => OnSpacePressed(ChosenArena()));
     }
 
 
 
-    private void Update()
+    private void GoLeft()
     {
         if (rotating)
             return;
 
+        rotating = true;
 
-        if (Input.GetKeyDown(KeyCode.A))
+        lerpValue = 0f;
+
+        oldColor = backgroundRenderer.material.color;
+
+        for (int i = 0; i < allArenasArray.Length + 1; i++)
         {
-            rotating = true;
-
-            lerpValue = 0f;
-
-            oldColor = backgroundRenderer.material.color;
-
-            for (int i = 0; i < allArenasArray.Length + 1; i++)
-            {
-                foreach (GameObject arena in allArenasArray)
-                {
-                    if (arena.transform.position == arenaPositions[i])
-                    {
-                        allArenasDictionary[arena] = arenaPositions[i + 1];
-                        break;
-                    }
-                }
-            }
-
             foreach (GameObject arena in allArenasArray)
             {
-                if (arena.transform.position == arenaPositions[7])
+                if (arena.transform.position == arenaPositions[i])
                 {
-
-                    arena.transform.position = arenaPositions[0];
-                    allArenasDictionary[arena] = arenaPositions[1];
-                    break;
-                }
-            }
-
-            foreach (GameObject arena in allArenasArray)
-            {
-                if (arena.transform.position == arenaPositions[8])
-                {
-
-                    arena.transform.position = arenaPositions[1];
-                    allArenasDictionary[arena] = arenaPositions[2];
+                    allArenasDictionary[arena] = arenaPositions[i + 1];
                     break;
                 }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.D))
+        foreach (GameObject arena in allArenasArray)
         {
-            rotating = true;
-
-            lerpValue = 0f;
-
-            oldColor = backgroundRenderer.material.color;
-
-            for (int i = allArenasArray.Length + 1; i > 0; i--)
+            if (arena.transform.position == arenaPositions[7])
             {
-                foreach (GameObject arena in allArenasArray)
-                {
-                    if (arena.transform.position == arenaPositions[i])
-                    {
-                        allArenasDictionary[arena] = arenaPositions[i - 1];
-                        break;
-                    }
-                }
-            }
 
+                arena.transform.position = arenaPositions[0];
+                allArenasDictionary[arena] = arenaPositions[1];
+                break;
+            }
+        }
+
+        foreach (GameObject arena in allArenasArray)
+        {
+            if (arena.transform.position == arenaPositions[8])
+            {
+
+                arena.transform.position = arenaPositions[1];
+                allArenasDictionary[arena] = arenaPositions[2];
+                break;
+            }
+        }
+    }
+
+    private void GoRight()
+    {
+        if (rotating)
+            return;
+
+        rotating = true;
+
+        lerpValue = 0f;
+
+        oldColor = backgroundRenderer.material.color;
+
+        for (int i = allArenasArray.Length + 1; i > 0; i--)
+        {
             foreach (GameObject arena in allArenasArray)
             {
-                if (arena.transform.position == arenaPositions[1])
+                if (arena.transform.position == arenaPositions[i])
                 {
-
-                    arena.transform.position = arenaPositions[8];
-                    allArenasDictionary[arena] = arenaPositions[7];
-                    break;
-                }
-            }
-
-            foreach (GameObject arena in allArenasArray)
-            {
-                if (arena.transform.position == arenaPositions[0])
-                {
-
-                    arena.transform.position = arenaPositions[7];
-                    allArenasDictionary[arena] = arenaPositions[6];
+                    allArenasDictionary[arena] = arenaPositions[i - 1];
                     break;
                 }
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        foreach (GameObject arena in allArenasArray)
         {
-            OnSpacePressed(ChosenArena());
+            if (arena.transform.position == arenaPositions[1])
+            {
+
+                arena.transform.position = arenaPositions[8];
+                allArenasDictionary[arena] = arenaPositions[7];
+                break;
+            }
+        }
+
+        foreach (GameObject arena in allArenasArray)
+        {
+            if (arena.transform.position == arenaPositions[0])
+            {
+
+                arena.transform.position = arenaPositions[7];
+                allArenasDictionary[arena] = arenaPositions[6];
+                break;
+            }
         }
     }
 

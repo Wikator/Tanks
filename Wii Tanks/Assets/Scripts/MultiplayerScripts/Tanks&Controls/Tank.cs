@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
-using Graphics;
+using ObjectGraphics;
 using UnityEngine.Rendering.HighDefinition;
 
 public abstract class Tank : NetworkBehaviour
@@ -120,7 +120,7 @@ public abstract class Tank : NetworkBehaviour
         turret = transform.GetChild(0).GetChild(0);
         isDespawning = false;
 
-        if (GameManager.Instance.gameMode == "Mayhem")
+        if (GameManager.Instance.GameMode == "Mayhem")
         {
             stats.requiredSuperCharge = 10;
             controllingPlayer.superCharge = stats.requiredSuperCharge;

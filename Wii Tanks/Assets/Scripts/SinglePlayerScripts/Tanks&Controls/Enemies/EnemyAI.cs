@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 using ObjectPoolManager;
-using Graphics;
+using ObjectGraphics;
 
 public abstract class EnemyAI : MonoBehaviour
 {

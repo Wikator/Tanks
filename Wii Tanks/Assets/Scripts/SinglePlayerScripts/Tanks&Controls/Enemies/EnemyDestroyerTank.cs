@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ObjectPoolManager;
 using UnityEngine.Rendering.HighDefinition;
-using Graphics;
+using ObjectGraphics;
 
 public class EnemyDestroyerTank : EnemyAI
 {

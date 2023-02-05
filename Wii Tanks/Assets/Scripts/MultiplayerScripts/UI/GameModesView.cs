@@ -1,6 +1,5 @@
 using FishNet.Object;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public sealed class GameModesView : View
@@ -46,8 +45,7 @@ public sealed class GameModesView : View
     [ServerRpc(RequireOwnership = false)]
     private void ChangeGameMode(string gameMode)
     {
-        GameManager.Instance.gameMode = gameMode;
-        Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>(gameMode + "Manager").WaitForCompletion(), transform.position, Quaternion.identity));
+        GameManager.Instance.GameMode = gameMode;
         UIManager.Instance.SetUpAllUI(false, gameMode);
     }
 }

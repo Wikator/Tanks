@@ -8,6 +8,9 @@ public sealed class ArenaSelectionScene_MP : ArenaSelectionScene
     
     protected override void OnSpacePressed(string arenaName)
     {
+        if (rotating)
+            return;
+
         FindObjectOfType<DefaultScene>().SetOnlineScene(arenaName);
 
         if (testLocally)

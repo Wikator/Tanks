@@ -97,7 +97,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
             
         GameManager.Instance.players.Remove(this);
 
-        if (GameManager.Instance.gameMode == "Deathmatch")
+        if (GameManager.Instance.GameMode == "Deathmatch")
             return;
 
         

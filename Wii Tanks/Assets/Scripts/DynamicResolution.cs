@@ -321,7 +321,7 @@ public class DynamicResolution : MonoBehaviour
 
         GUILayout.Label(
             string.Format(
-                "Enabled: {0}\nResolution: {1} x {2}\nScaleFactor: {3:F3}\nGPU: {4:F3} CPU: {5:F3}\n FPS: {6}",
+                "Enabled: {0}\nResolution: {1} x {2}\nScaleFactor: {3:F3}\nGPU: {4:F3} CPU: {5:F3}\nFPS: {6}",
                 SystemEnabled,
                 rezWidth,
                 rezHeight,

@@ -5,7 +5,7 @@ using FishNet.Object.Synchronizing;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.HighDefinition;
-using Graphics;
+using ObjectGraphics;
 
 public abstract class Bullet : NetworkBehaviour
 {
