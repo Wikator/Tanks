@@ -101,7 +101,7 @@ public sealed class Menu : MonoBehaviour
         oldColor = backgroundColors[0];
         lerpValue = 1f;
 
-        title.outlineWidth = 0.045f;
+        //title.outlineWidth = 0.045f;
 
         //Settings.currentArena = "MainMenu";
     }
@@ -110,6 +110,7 @@ public sealed class Menu : MonoBehaviour
     {
         backgroundRenderer.material.color = Color.Lerp(oldColor, targetColor, lerpValue);
         title.faceColor = Color.Lerp(oldColor, targetColor, lerpValue);
+        title.outlineColor = Color.Lerp(oldColor, targetColor, lerpValue);
         lerpValue += 1 / 200f;
 
         if (lerpValue >= 1f)
