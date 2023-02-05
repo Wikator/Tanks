@@ -26,7 +26,10 @@ public sealed class GameManager : NetworkBehaviour
         {
             gameMode = value;
 
-            Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>(gameMode + "Manager").WaitForCompletion(), transform.position, Quaternion.identity));
+            if (gameMode != "GameFinished" && gameMode != "None")
+            {
+                Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>(gameMode + "Manager").WaitForCompletion(), transform.position, Quaternion.identity));
+            }
         }
     }
 
