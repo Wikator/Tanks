@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using ObjectPoolManager;
 using UnityEngine.Rendering.HighDefinition;
-using ObjectGraphics;
+using Graphics;
 
 public class EnemyMediumTank : EnemyAI
 {
@@ -14,7 +14,9 @@ public class EnemyMediumTank : EnemyAI
 			color,
 			gameObject.GetComponent<HDAdditionalLightData>(),
 			transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
-			turret.GetChild(0).gameObject.GetComponent<MeshRenderer>()
+			turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+			transform.GetChild(0).GetChild(1).gameObject.GetComponent<MeshRenderer>(),
+			transform.GetChild(0).GetChild(2).gameObject.GetComponent<MeshRenderer>()
 			);
 
 		Dictionary<string, GameObject> prefabs = TankGraphics.ChangePrefabsColours(color, "Singleplayer", "MediumTank");

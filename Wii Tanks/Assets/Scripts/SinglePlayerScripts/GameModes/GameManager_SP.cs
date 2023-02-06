@@ -17,7 +17,7 @@ public sealed class GameManager_SP : MonoBehaviour
         GameInProgress = true;
         UIManager_SP.Instance.Init();
         UIManager_SP.Instance.Show<MainView_SP>();
-        ObjectPoolManager.ObjectPoolManager_SP.ResetObjectPool();
+        ObjectPoolManager_SP.ResetObjectPool();
     }
 
 

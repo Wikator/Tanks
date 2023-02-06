@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ObjectPoolManager;
-using ObjectGraphics;
+using Graphics;
 using UnityEngine.Rendering.HighDefinition;
 
 public abstract class Tank_SP : MonoBehaviour
@@ -64,7 +64,9 @@ public abstract class Tank_SP : MonoBehaviour
             "Green",
             gameObject.GetComponent<HDAdditionalLightData>(),
             transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
-            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>()
+            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+            transform.GetChild(0).GetChild(1).gameObject.GetComponent<MeshRenderer>(),
+            transform.GetChild(0).GetChild(2).gameObject.GetComponent<MeshRenderer>()
             );
 
         Dictionary<string, GameObject> prefabs = TankGraphics.ChangePrefabsColours("Green", "Singleplayer", "MediumTank");

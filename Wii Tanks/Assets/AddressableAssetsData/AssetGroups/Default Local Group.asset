@@ -41,10 +41,6 @@ MonoBehaviour:
     m_Address: Yellow
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 7aefcf9a8ce8d1749a12b9fac05638d4
-    m_Address: MediumTankPawn
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: fd6c0662f3d60b34ebcbd285d687b4f0
     m_Address: YellowMediumTankBullet
     m_ReadOnly: 0
@@ -405,10 +401,6 @@ MonoBehaviour:
     m_Address: YellowExplosionSP
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 7cc6965f2e79c8e4c9b35ac8425c5907
-    m_Address: MediumTankPawnSP
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 5ea161edfeef5714cbe4276f2567275d
     m_Address: ScoutPawnSP
     m_ReadOnly: 0
@@ -419,10 +411,6 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 5dbc04e345c53ec409550fa7c6b23728
     m_Address: Assets/Prefabs/Player.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: a7b6a9f128a09474384352af2c6bd8a5
-    m_Address: EnemyNormalTankPawnSP
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 34300c8f2691de740848ae7129b9f5f8
@@ -495,6 +483,22 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 9d2935f37c38dab4190b32a0c59dfdbe
     m_Address: Profile
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ff5f0b33d5392584abbf02569f1501a6
+    m_Address: EnemyNormalTankPawnSP
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: dd290042581f2aa4dac64165f6f65dd7
+    m_Address: AnimatedTrack
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 97a5d24eed8f5c44c9d9505378a45ea2
+    m_Address: MediumTankPawn
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: d330c4710c2e3bd4bb20fc784f492978
+    m_Address: MediumTankPawnSP
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

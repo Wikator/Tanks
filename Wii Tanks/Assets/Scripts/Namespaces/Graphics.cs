@@ -7,7 +7,7 @@ using UnityEngine.Rendering.HighDefinition;
 // This namespace contains classes, that set up graphics fo various objects
 // It exists to eliminate some of the code repetition
 
-namespace ObjectGraphics
+namespace Graphics
 {
     // There are 3 different abstract classes for tanks (Tank, Tank_SP, EnemyAI)
     // Since all tanks use the same graphics, this class stores methods for all 3 of them, rather to use the same code in 3 different classes
@@ -17,6 +17,8 @@ namespace ObjectGraphics
     {
         private readonly Material tankMaterial;
         private readonly Material turretMaterial;
+        private readonly Material leftTrackMaterial;
+        private readonly Material rightTrackMaterial;
 
         private readonly HDAdditionalLightData lightData;
 
@@ -31,7 +33,7 @@ namespace ObjectGraphics
         private const float MATERIAL_DISAPPEARING_SPEED = 0.01f;
 
 
-        public TankGraphics(string color, HDAdditionalLightData lightData, MeshRenderer tankBody, MeshRenderer tankTurret)
+        public TankGraphics(string color, HDAdditionalLightData lightData, MeshRenderer tankBody, MeshRenderer tankTurret, MeshRenderer leftTrack, MeshRenderer rightTrack)
         {
             this.lightData = lightData;
 
@@ -39,8 +41,14 @@ namespace ObjectGraphics
             tankMaterial = tankBody.material;
             tankTurret.material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
             turretMaterial = tankTurret.material;
+            leftTrack.material = Addressables.LoadAssetAsync<Material>("AnimatedTrack").WaitForCompletion();
+            leftTrackMaterial = leftTrack.material;
+            rightTrack.material = Addressables.LoadAssetAsync<Material>("AnimatedTrack").WaitForCompletion();
+            rightTrackMaterial = rightTrack.material;
             tankMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
             turretMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
+            leftTrackMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
+            rightTrackMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
             tankBody.enabled = true;
             tankTurret.enabled = true;
             lightData.color = tankMaterial.GetColor("_Color01");
@@ -89,6 +97,8 @@ namespace ObjectGraphics
                 if (tankMaterial.GetFloat("_CurrentAppearence") > 0f)
                 {
                     tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
+                    leftTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
+                    rightTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
 
                     if (lightData.intensity < LIGHT_INTENSITY)
                     {
@@ -102,6 +112,8 @@ namespace ObjectGraphics
                 {
                     turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
                     tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
+                    leftTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
+                    rightTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
                     return;
                 }
                 
@@ -128,10 +140,14 @@ namespace ObjectGraphics
                 {
                     turretMaterial.SetFloat("_CurrentAppearence", turretMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
                     tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
+                    leftTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
+                    rightTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
                     return false;
                 }
 
                 tankMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
+                leftTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
+                rightTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
 
                 if (lightData.intensity > 0)
                 {

@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
-using ObjectGraphics;
+using Graphics;
 using UnityEngine.Rendering.HighDefinition;
 
 public abstract class Tank : NetworkBehaviour
@@ -142,7 +142,9 @@ public abstract class Tank : NetworkBehaviour
             controllingPlayer.color,
             gameObject.GetComponent<HDAdditionalLightData>(),
             transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
-            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>()
+            turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
+            transform.GetChild(0).GetChild(1).gameObject.GetComponent<MeshRenderer>(),
+            transform.GetChild(0).GetChild(2).gameObject.GetComponent<MeshRenderer>()
             );
 
         if (IsOwner)
