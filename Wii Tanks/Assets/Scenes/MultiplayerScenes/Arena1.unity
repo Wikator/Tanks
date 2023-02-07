@@ -2975,6 +2975,7 @@ MonoBehaviour:
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 301616680}
+  - {fileID: 913320639}
 --- !u!1 &325790651
 GameObject:
   m_ObjectHideFlags: 0
@@ -5832,7 +5833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 2
-  _addedNetworkObject: {fileID: 0}
+  _addedNetworkObject: {fileID: 913320639}
   _networkObjectCache: {fileID: 913320639}
   toggleReadyButtonText: {fileID: 120142337}
   playersReadyCountText: {fileID: 965138732}
@@ -11567,8 +11568,8 @@ MonoBehaviour:
   <SceneId>k__BackingField: 11550406518982926375
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
-  - {fileID: 913320639}
   - {fileID: 301616680}
+  - {fileID: 913320639}
 --- !u!1 &920511574
 GameObject:
   m_ObjectHideFlags: 0
@@ -14579,7 +14580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 4
-  _addedNetworkObject: {fileID: 0}
+  _addedNetworkObject: {fileID: 913320639}
   _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 1464272077}
   ammoCountText: {fileID: 382771555}
@@ -15077,7 +15078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
+  _addedNetworkObject: {fileID: 913320639}
   _networkObjectCache: {fileID: 913320639}
   deathmatchButton: {fileID: 483510513}
   eliminationButton: {fileID: 1170147610}
@@ -16421,7 +16422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 7
-  _addedNetworkObject: {fileID: 0}
+  _addedNetworkObject: {fileID: 913320639}
   _networkObjectCache: {fileID: 913320639}
   leaderboardText: {fileID: 801372591}
 --- !u!224 &1383586662
@@ -17741,7 +17742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 3
-  _addedNetworkObject: {fileID: 0}
+  _addedNetworkObject: {fileID: 913320639}
   _networkObjectCache: {fileID: 913320639}
   toggleReadyButtonText: {fileID: 1938771476}
   playersReadyCountText: {fileID: 524404224}
@@ -20610,7 +20611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 6
-  _addedNetworkObject: {fileID: 0}
+  _addedNetworkObject: {fileID: 913320639}
   _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 1065198233}
   ammoCountText: {fileID: 730070407}
@@ -24788,7 +24789,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 5
-  _addedNetworkObject: {fileID: 0}
+  _addedNetworkObject: {fileID: 913320639}
   _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 296932585}
   ammoCountText: {fileID: 1538819894}
@@ -26248,7 +26249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 0}
+  _addedNetworkObject: {fileID: 913320639}
   _networkObjectCache: {fileID: 913320639}
   toggleReadyButtonText: {fileID: 6796214036939120853}
   playersReadyCountText: {fileID: 6796214038010747661}

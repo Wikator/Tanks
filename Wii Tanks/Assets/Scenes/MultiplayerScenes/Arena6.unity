@@ -2862,9 +2862,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21938d10b70b2394987cd90cc2ce80e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 1
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   toggleReadyButtonText: {fileID: 534268241}
   playersReadyCountText: {fileID: 213814039}
   chosenTankTypeText: {fileID: 1445536137}
@@ -7503,9 +7503,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f29379b9f97cdc541a11a7fbf229f181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 2
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   toggleReadyButtonText: {fileID: 1026125253}
   playersReadyCountText: {fileID: 353617131}
   chosenTankTypeText: {fileID: 281361994}
@@ -12084,17 +12084,17 @@ MonoBehaviour:
   <IsNested>k__BackingField: 0
   <ComponentIndex>k__BackingField: 0
   <PredictedSpawn>k__BackingField: {fileID: 0}
-  _networkBehaviours: []
+  _networkBehaviours:
+  - {fileID: 1432814335}
+  - {fileID: 222077993}
+  - {fileID: 682111670}
+  - {fileID: 1840798394}
+  - {fileID: 1136182831}
+  - {fileID: 1179597563}
+  - {fileID: 1729259238}
+  - {fileID: 1730465851}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
-  <ChildNetworkObjects>k__BackingField:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  <ChildNetworkObjects>k__BackingField: []
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -12107,7 +12107,6 @@ MonoBehaviour:
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 913320639}
-  - {fileID: 0}
   - {fileID: 1507670575}
 --- !u!1 &915766858
 GameObject:
@@ -14200,9 +14199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2756c2416f7f68d48b2605064a9d237a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 4
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 117044342}
   ammoCountText: {fileID: 1205342810}
   superBar: {fileID: 1819622963}
@@ -15389,9 +15388,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c4f34ccfc919943abd3dca22819b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 5
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 1098438484}
   ammoCountText: {fileID: 364200544}
   superBar: {fileID: 1034033650}
@@ -18083,8 +18082,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   deathmatchButton: {fileID: 565666556}
   eliminationButton: {fileID: 1709590659}
   takedownButton: {fileID: 81778821}
@@ -19289,7 +19288,6 @@ MonoBehaviour:
   <AssetPathHash>k__BackingField: 0
   _sceneNetworkObjects:
   - {fileID: 913320639}
-  - {fileID: 0}
   - {fileID: 1507670575}
 --- !u!114 &1507670576
 MonoBehaviour:
@@ -21195,9 +21193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1778d1240805cd46b01d649a106396b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 6
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   scoreText: {fileID: 1990285899}
   ammoCountText: {fileID: 771481802}
   superBar: {fileID: 1051058416}
@@ -21253,9 +21251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd3cfe5a6de67d42922482b42792d60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 7
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   leaderboardText: {fileID: 86849258}
 --- !u!1 &1743247680
 GameObject:
@@ -22659,9 +22657,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080cce53b16a21a4a98efe20c1d9ebf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 0}
-  _networkObjectCache: {fileID: 0}
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 913320639}
+  _networkObjectCache: {fileID: 913320639}
   toggleReadyButtonText: {fileID: 725329069}
   playersReadyCountText: {fileID: 1158799545}
   chosenTankTypeText: {fileID: 454645070}
