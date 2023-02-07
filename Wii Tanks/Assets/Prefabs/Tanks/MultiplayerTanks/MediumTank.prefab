@@ -8240,6 +8240,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6837781512098269331}
+  - component: {fileID: 4958098519971351266}
   m_Layer: 0
   m_Name: TurretTransform
   m_TagString: Untagged
@@ -8263,6 +8264,48 @@ Transform:
   m_Father: {fileID: 4948638408088944437}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4958098519971351266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2779944597320762950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2836e36774ca1c4bbbee976e17b649c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentIndexCache: 3
+  _addedNetworkObject: {fileID: 5138984814356364305}
+  _networkObjectCache: {fileID: 5138984814356364305}
+  _synchronizeParent: 0
+  _packing:
+    Position: 1
+    Rotation: 1
+    Scale: 0
+  _interpolation: 2
+  _extrapolation: 2
+  _enableTeleport: 0
+  _teleportThreshold: 1
+  _clientAuthoritative: 1
+  _sendToOwner: 1
+  _interval: 1
+  _synchronizePosition: 1
+  _positionSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeRotation: 1
+  _rotationSnapping:
+    X: 0
+    Y: 0
+    Z: 0
+  _synchronizeScale: 1
+  _scaleSnapping:
+    X: 0
+    Y: 0
+    Z: 0
 --- !u!1 &4301318248749126167
 GameObject:
   m_ObjectHideFlags: 0
@@ -8444,8 +8487,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.82739055, y: 0.6719319, z: 0.86}
-  m_Center: {x: -0.018115938, y: 0.07760009, z: 0}
+  m_Size: {x: 0.8273906, y: 0.6962932, z: 1.5446478}
+  m_Center: {x: -0.018115887, y: 0.08978069, z: -0.20876534}
 --- !u!143 &7847185191959979763
 CharacterController:
   m_ObjectHideFlags: 0
@@ -8503,6 +8546,7 @@ MonoBehaviour:
   - {fileID: 2091774677818531208}
   - {fileID: 3150317202762157996}
   - {fileID: 7232132491145565088}
+  - {fileID: 4958098519971351266}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField:
   - {fileID: 1843255366319347190}
@@ -8573,7 +8617,7 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 47.746483
+  m_Intensity: 0
   m_Range: 2.5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -8635,7 +8679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a68c43fe1f2a47cfa234b5eeaa98012, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Intensity: 600
+  m_Intensity: 0
   m_EnableSpotReflector: 1
   m_LuxAtDistance: 1
   m_InnerSpotPercent: 0

@@ -77,10 +77,6 @@ MonoBehaviour:
     m_Address: EliminationManager
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 706961a9e4ed2f742a1b6db33edcc0ab
-    m_Address: 1
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: a4aebd32dc7f0fd40af32edeb5e9e071
     m_Address: BlueDestroyerSpecialBullet
     m_ReadOnly: 0
