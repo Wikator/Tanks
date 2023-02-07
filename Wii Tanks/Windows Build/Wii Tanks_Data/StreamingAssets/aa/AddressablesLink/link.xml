@@ -52,6 +52,7 @@
     <type fullname="UnityEngine.ProBuilder.AutoUnwrapSettings" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.ProBuilder.Face" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.ProBuilder.Shapes.Cube" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.ProBuilder.Shapes.Cylinder" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.ProBuilder.SharedVertex" preserve="nothing" serialized="true" />
     <type fullname="UnityEngine.ProBuilder.UnwrapParameters" preserve="nothing" serialized="true" />
   </assembly>
