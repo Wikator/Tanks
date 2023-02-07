@@ -8760,7 +8760,7 @@ MonoBehaviour:
   _componentIndexCache: 2
   _addedNetworkObject: {fileID: 0}
   _networkObjectCache: {fileID: 5138984814356364305}
-  _graphicalObject: {fileID: 0}
+  _graphicalObject: {fileID: 4948638408088944437}
   _enableTeleport: 0
   _teleportThreshold: 1
   _ownerInterpolation: 1
