@@ -18929,7 +18929,6 @@ MonoBehaviour:
   goLeftButton: {fileID: 770205120}
   goRightButton: {fileID: 95945650}
   playButton: {fileID: 439912902}
-  playButtonText: {fileID: 2108986759}
   rotateSpeed: 2.5
   testLocally: 0
 --- !u!4 &831866722

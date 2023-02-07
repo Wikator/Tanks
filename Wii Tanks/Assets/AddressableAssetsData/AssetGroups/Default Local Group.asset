@@ -409,10 +409,6 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/Player.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 34300c8f2691de740848ae7129b9f5f8
-    m_Address: EnemyDestroyerPawnSP
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 3822bd848e9f2cf4398d7778d7c9e23a
     m_Address: EnemyScoutPawnSP
     m_ReadOnly: 0
@@ -499,6 +495,10 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: c8c40e77c07a6d841ac960932892b580
     m_Address: DestroyerPawn
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 3fa098eb92553c84392e75aa570be981
+    m_Address: EnemyDestroyerPawnSP
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
