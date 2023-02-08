@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Rendering.HighDefinition;
 
 
 // This namespace contains classes, that set up graphics fo various objects
@@ -20,7 +19,7 @@ namespace Graphics
         private readonly Material leftTrackMaterial;
         private readonly Material rightTrackMaterial;
 
-        private readonly HDAdditionalLightData lightData;
+        private readonly Light light;
 
 
         private const float LIGHT_INTENSITY = 0.15f;
@@ -33,9 +32,9 @@ namespace Graphics
         private const float MATERIAL_DISAPPEARING_SPEED = 0.01f;
 
 
-        public TankGraphics(string color, HDAdditionalLightData lightData, MeshRenderer tankBody, MeshRenderer tankTurret, MeshRenderer leftTrack, MeshRenderer rightTrack)
+        public TankGraphics(string color, Light lightData, MeshRenderer tankBody, MeshRenderer tankTurret, MeshRenderer leftTrack, MeshRenderer rightTrack)
         {
-            this.lightData = lightData;
+            this.light = lightData;
 
             tankBody.material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
             tankMaterial = tankBody.material;
@@ -100,9 +99,9 @@ namespace Graphics
                     leftTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
                     rightTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") - MATERIAL_APPEARING_SPEED);
 
-                    if (lightData.intensity < LIGHT_INTENSITY)
+                    if (light.intensity < LIGHT_INTENSITY)
                     {
-                        lightData.intensity += LIGHT_APPEARING_SPEED;
+                        light.intensity += LIGHT_APPEARING_SPEED;
                     }
 
                     return;
@@ -149,9 +148,9 @@ namespace Graphics
                 leftTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
                 rightTrackMaterial.SetFloat("_CurrentAppearence", tankMaterial.GetFloat("_CurrentAppearence") + MATERIAL_DISAPPEARING_SPEED);
 
-                if (lightData.intensity > 0)
+                if (light.intensity > 0)
                 {
-                    lightData.intensity -= LIGHT_DISAPPEARING_SPEED;
+                    light.intensity -= LIGHT_DISAPPEARING_SPEED;
                 }
 
                 return false;
@@ -168,12 +167,12 @@ namespace Graphics
         private const float LIGHT_DISAPPEARING_SPEED = 0.015f;
 
 
-        public static void SetBulletLightIntensity(HDAdditionalLightData light)
+        public static void SetBulletLightIntensity(Light light)
         {
             light.intensity = LIGHT_INTENSITY;
         }
 
-        public static void DecreaseBulletLightIntensity(HDAdditionalLightData light)
+        public static void DecreaseBulletLightIntensity(Light light)
         {
             light.intensity -= LIGHT_DISAPPEARING_SPEED;
         }

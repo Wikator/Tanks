@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 
 public static class Settings
@@ -36,7 +36,7 @@ public static class Settings
 
         set
         {
-            if (!depthOfField)
+            /*if (!depthOfField)
             {
                 VolumeProfile volumeProfile = Addressables.LoadAssetAsync<VolumeProfile>("Profile").WaitForCompletion();
                 for (int i = 0; i < volumeProfile.components.Count; i++)
@@ -46,7 +46,7 @@ public static class Settings
                         depthOfField = (DepthOfField)volumeProfile.components[i];
                     }
                 }
-            }
+            }*/
 
             chosenBackground = value;
 
@@ -54,7 +54,7 @@ public static class Settings
             GameObject.Find("Background").GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(chosenBackground).WaitForCompletion();
             GameObject.Find("Background").GetComponent<MeshRenderer>().material.color = color;
 
-            switch (chosenBackground)
+            /*switch (chosenBackground)
             {
                 case "Background1":
                     depthOfField.active = true;
@@ -62,7 +62,7 @@ public static class Settings
                 case "Background2":
                     depthOfField.active = false;
                     break;
-            }
+            }*/
 
             PlayerPrefs.SetString("Background", ChosenBackground);
         }

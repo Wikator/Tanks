@@ -473,10 +473,6 @@ MonoBehaviour:
     m_Address: Background2
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 9d2935f37c38dab4190b32a0c59dfdbe
-    m_Address: Profile
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: ff5f0b33d5392584abbf02569f1501a6
     m_Address: EnemyNormalTankPawnSP
     m_ReadOnly: 0

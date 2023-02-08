@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using ObjectPoolManager;
 using Graphics;
-using UnityEngine.Rendering.HighDefinition;
 
 public abstract class Tank_SP : MonoBehaviour
 {
@@ -62,7 +61,7 @@ public abstract class Tank_SP : MonoBehaviour
 
         graphics = new(
             "Green",
-            gameObject.GetComponent<HDAdditionalLightData>(),
+            gameObject.GetComponent<Light>(),
             transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
             turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
             transform.GetChild(0).GetChild(1).gameObject.GetComponent<MeshRenderer>(),

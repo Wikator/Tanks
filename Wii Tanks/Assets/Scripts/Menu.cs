@@ -96,7 +96,7 @@ public sealed class Menu : MonoBehaviour
         background1Button.onClick.AddListener(() => Settings.ChosenBackground = "Background1");
         background2Button.onClick.AddListener(() => Settings.ChosenBackground = "Background2");
 
-        backgroundRenderer = GameObject.Find("Background").GetComponent<Renderer>();
+        backgroundRenderer = GameObject.Find("Background").GetComponent<MeshRenderer>();
         targetColor = backgroundColors[0];
         oldColor = backgroundColors[0];
         lerpValue = 1f;

@@ -4,7 +4,6 @@ using FishNet.Object;
 using FishNet.Object.Synchronizing;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering.HighDefinition;
 using Graphics;
 
 public abstract class Bullet : NetworkBehaviour
@@ -26,7 +25,7 @@ public abstract class Bullet : NetworkBehaviour
 
     public int ChargeTimeToAdd { protected get; set; }
 
-    private HDAdditionalLightData bulletLight;
+    private Light bulletLight;
     
     public override void OnStartServer()
     {
@@ -43,7 +42,7 @@ public abstract class Bullet : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        bulletLight = transform.GetChild(1).GetComponent<HDAdditionalLightData>();
+        bulletLight = transform.GetChild(1).GetComponent<Light>();
         BulletGraphics.SetBulletLightIntensity(bulletLight);
     }
 

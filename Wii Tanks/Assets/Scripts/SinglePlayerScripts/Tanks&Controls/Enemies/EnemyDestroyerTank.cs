@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using ObjectPoolManager;
-using UnityEngine.Rendering.HighDefinition;
 using Graphics;
 
 public class EnemyDestroyerTank : EnemyAI
@@ -12,7 +11,7 @@ public class EnemyDestroyerTank : EnemyAI
 
 		graphics = new TankGraphics(
 			color,
-			gameObject.GetComponent<HDAdditionalLightData>(),
+			gameObject.GetComponent<Light>(),
 			transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
 			turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
 			transform.GetChild(0).GetChild(1).gameObject.GetComponent<MeshRenderer>(),

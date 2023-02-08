@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using Graphics;
-using UnityEngine.Rendering.HighDefinition;
 
 public abstract class Tank : NetworkBehaviour
 {
@@ -140,7 +139,7 @@ public abstract class Tank : NetworkBehaviour
 
         graphics = new TankGraphics(
             controllingPlayer.color,
-            gameObject.GetComponent<HDAdditionalLightData>(),
+            gameObject.GetComponent<Light>(),
             transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
             turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
             transform.GetChild(0).GetChild(1).gameObject.GetComponent<MeshRenderer>(),
