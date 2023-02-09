@@ -12,25 +12,25 @@ EditorBuildSettings:
     path: Assets/Scenes/MultiplayerScenes/MapSelection.unity
     guid: 1094fb8b4cb2b8148b8f244fce643309
   - enabled: 1
-    path: Assets/Scenes/MultiplayerScenes/Arena1.unity
+    path: Assets/Scenes/MultiplayerScenes/Arena1_MP.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/MultiplayerScenes/Arena2.unity
+    path: Assets/Scenes/MultiplayerScenes/Arena2_MP.unity
     guid: e1672d26454c3d547b778e8cfb90180e
   - enabled: 1
-    path: Assets/Scenes/MultiplayerScenes/Arena3.unity
+    path: Assets/Scenes/MultiplayerScenes/Arena3_MP.unity
     guid: bad82edf4b1fcf14ea7ede5be21d9604
   - enabled: 1
-    path: Assets/Scenes/MultiplayerScenes/Arena4.unity
+    path: Assets/Scenes/MultiplayerScenes/Arena4_MP.unity
     guid: d2eeda52626f82447bafa95fec71f579
   - enabled: 1
-    path: Assets/Scenes/MultiplayerScenes/Arena5.unity
+    path: Assets/Scenes/MultiplayerScenes/Arena5_MP.unity
     guid: 686e64d2c3f3b06499e88bb6a6d7b44a
   - enabled: 1
-    path: Assets/Scenes/MultiplayerScenes/Arena6.unity
+    path: Assets/Scenes/MultiplayerScenes/Arena6_MP.unity
     guid: aaec1d8871b21814e93882c6cb716b75
   - enabled: 1
-    path: Assets/Scenes/MultiplayerScenes/Arena7.unity
+    path: Assets/Scenes/MultiplayerScenes/Arena7_MP.unity
     guid: e2f21af08f69c564eb81938215a709d4
   - enabled: 1
     path: Assets/Scenes/SingleplayerScenes/Arena1_SP.unity
@@ -59,5 +59,26 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SingleplayerScenes/CampaignArena.unity
     guid: 1896a7960fd84004e81bc9c5cb0b1edb
+  - enabled: 1
+    path: Assets/Scenes/Shared/Arena1.unity
+    guid: 60e50b250205ced43bf9c6955e56ffb9
+  - enabled: 1
+    path: Assets/Scenes/Shared/Arena2.unity
+    guid: 7bb7525c96ed94749822a229915c5cf7
+  - enabled: 1
+    path: Assets/Scenes/Shared/Arena3.unity
+    guid: 28688c351199f6442b2c5f8b48af57a1
+  - enabled: 1
+    path: Assets/Scenes/Shared/Arena4.unity
+    guid: d5ed5584db33f6944a82186f6e5ea23a
+  - enabled: 1
+    path: Assets/Scenes/Shared/Arena5.unity
+    guid: d1f81f46f9dc17243b99340d474e5f46
+  - enabled: 1
+    path: Assets/Scenes/Shared/Arena6.unity
+    guid: 52b2e8c8a20717c4dbce1835d8a13792
+  - enabled: 1
+    path: Assets/Scenes/Shared/Arena7.unity
+    guid: 8b9386fba496c6741a2677994609e85b
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3655e42939b9a824cace268400c70908, type: 2}

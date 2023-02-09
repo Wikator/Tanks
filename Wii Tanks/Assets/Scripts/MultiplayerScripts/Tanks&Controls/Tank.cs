@@ -63,7 +63,7 @@ public abstract class Tank : NetworkBehaviour
 
 
     [HideInInspector]
-    protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
+    protected Transform bulletSpawn, muzzleFlashSpawn;
 
     [SyncVar, HideInInspector]
     protected bool canUseSuper;
@@ -80,7 +80,7 @@ public abstract class Tank : NetworkBehaviour
     private bool isSubscribed = false;
 
     private CharacterController controller;
-    private Transform explosionEmpty, turret;
+    private Transform turret;
     private Camera cam;
     private TextMesh namePlate;
     protected GameObject bullet, muzzleFlash;
@@ -156,11 +156,8 @@ public abstract class Tank : NetworkBehaviour
     {
         base.OnStartServer();
         canUseSuper = false;
-        explosionEmpty = GameObject.Find("Explosions").transform;
         bulletSpawn = turret.GetChild(0).GetChild(0);
         muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
-        bulletEmpty = GameObject.Find("Bullets").transform;
-        muzzleFlashEmpty = GameObject.Find("MuzzleFlashes").transform;
         ammoCount = 0;
 
         Dictionary<string, GameObject> prefabs = TankGraphics.ChangePrefabsColours(controllingPlayer.color, "Multiplayer", controllingPlayer.TankType);
@@ -197,7 +194,7 @@ public abstract class Tank : NetworkBehaviour
     {
         ammoCount = 0;
         NetworkObject explosionInstance = NetworkManager.GetPooledInstantiated(explosion, true);
-        explosionInstance.transform.SetParent(explosionEmpty);
+        explosionInstance.transform.SetParent(SceneManagerScript.ExplosionEmpty);
         explosionInstance.transform.SetPositionAndRotation(transform.position, transform.rotation);
         Spawn(explosionInstance);
         controllingPlayer.ControlledPawn = null;
@@ -293,14 +290,14 @@ public abstract class Tank : NetworkBehaviour
         ammoCount--;
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
 
-        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, SceneManagerScript.BulletEmpty);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
         bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
         Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
         Spawn(bulletInstance);
 
         NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
-        flashInstance.transform.SetParent(muzzleFlashEmpty);
+        flashInstance.transform.SetParent(SceneManagerScript.MuzzleFlashEmpty);
         flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
         Spawn(flashInstance);
     }

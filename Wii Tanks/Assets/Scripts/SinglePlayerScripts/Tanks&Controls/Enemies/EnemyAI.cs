@@ -153,7 +153,7 @@ public abstract class EnemyAI : MonoBehaviour
 		if (!alreadyAttacked)
 		{
 			Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out RaycastHit hit, forwardSightRange);
-
+			Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward);
 			if (!hit.collider.CompareTag("Tank"))
 				return;
 			/*

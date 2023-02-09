@@ -4,7 +4,7 @@ public abstract class SpawnManager_SP : MonoBehaviour
 {
     public static SpawnManager_SP Instance { get; private set; }
 
-    private void Awake()
+    protected void Awake()
     {
         Instance = this;
     }

@@ -24,7 +24,7 @@ public class ScoutTank : Tank
 
         for (int angle = -spreadAngle; angle < spreadAngle*2; angle += spreadAngle)
         {
-            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, SceneManagerScript.BulletEmpty);
             bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
             bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
             bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
@@ -33,7 +33,7 @@ public class ScoutTank : Tank
 
 
             NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
-            flashInstance.transform.SetParent(muzzleFlashEmpty);
+            flashInstance.transform.SetParent(SceneManagerScript.MuzzleFlashEmpty);
             flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
             flashInstance.transform.Rotate(new Vector3(0f, angle, 0f));
             Spawn(flashInstance);

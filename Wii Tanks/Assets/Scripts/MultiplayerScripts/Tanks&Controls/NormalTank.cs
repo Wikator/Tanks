@@ -28,13 +28,13 @@ public sealed class NormalTank : Tank
     {
         for (int i = 0; i < 20; i++)
         {
-            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, SceneManagerScript.BulletEmpty);
             bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
             Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
             Spawn(bulletInstance);
 
             NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
-            flashInstance.transform.SetParent(muzzleFlashEmpty);
+            flashInstance.transform.SetParent(SceneManagerScript.MuzzleFlashEmpty);
             flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
             Spawn(flashInstance);
 

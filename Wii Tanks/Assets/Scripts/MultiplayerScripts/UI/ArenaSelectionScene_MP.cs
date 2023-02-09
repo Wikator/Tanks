@@ -11,7 +11,7 @@ public sealed class ArenaSelectionScene_MP : ArenaSelectionScene
         if (rotating)
             return;
 
-        FindObjectOfType<DefaultScene>().SetOnlineScene(arenaName);
+        FindObjectOfType<DefaultScene>().SetOnlineScene(arenaName + "_MP");
 
         if (testLocally)
         {

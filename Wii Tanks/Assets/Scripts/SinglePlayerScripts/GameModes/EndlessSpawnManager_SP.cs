@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 using ObjectPoolManager;
 
 public sealed class EndlessSpawnManager_SP : SpawnManager_SP
@@ -10,9 +11,9 @@ public sealed class EndlessSpawnManager_SP : SpawnManager_SP
 
 	private int numberOfSpawns;
 
-	private GameObject[] enemyTanks = new GameObject[3];
+	private readonly GameObject[] enemyTanks = new GameObject[3];
 
-	void Start()
+    void Start()
 	{
 		numberOfSpawns = 0;
 

@@ -208,7 +208,7 @@ Material:
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 0
     - _CullModeForward: 0
-    - _CurrentAppearence: -0.74
+    - _CurrentAppearence: 0.4
     - _Cutoff: 0.5
     - _DecalColorMask0: 15
     - _DecalColorMask1: 15
