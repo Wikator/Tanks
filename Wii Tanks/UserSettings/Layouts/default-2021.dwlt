@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 56
+  controlID: 34
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 43
+  controlID: 19
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 44
+  controlID: 20
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -282,7 +282,7 @@ MonoBehaviour:
   - {fileID: 23}
   - {fileID: 24}
   m_Selected: 0
-  m_LastSelected: 1
+  m_LastSelected: 2
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -3204,7 +3204,7 @@ MonoBehaviour:
       index: 13
       layout: 4
   m_WindowGUID: cc27987af1a868c49b0894db9c0f5429
-  m_Gizmos: 0
+  m_Gizmos: 1
   m_OverrideSceneCullingMask: 6917529027641081856
   m_SceneIsLit: 1
   m_SceneLighting: 1
@@ -3213,9 +3213,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -1.7605656, y: -4.3329144, z: -5.3448343}
+    m_Target: {x: 24.00104, y: 3.0466228, z: -1.0933275}
     speed: 2
-    m_Value: {x: -1.7605656, y: -4.3329144, z: -5.3448343}
+    m_Value: {x: 24.00104, y: 3.0466228, z: -1.0933275}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -3262,13 +3262,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.48822707, y: 0.00065750146, z: -0.00042401973, w: 0.872832}
+    m_Target: {x: 0.32136056, y: 0.1934722, z: -0.06729515, w: 0.9246462}
     speed: 2
-    m_Value: {x: 0.48817778, y: 0.0006574351, z: -0.00042397692, w: 0.8727439}
+    m_Value: {x: 0.3213279, y: 0.19345254, z: -0.06728831, w: 0.9245522}
   m_Size:
-    m_Target: 21.9583
+    m_Target: 3.6909606
     speed: 2
-    m_Value: 21.9583
+    m_Value: 3.6909606
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -3326,7 +3326,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 48e8ffff0ae9ffff78ecffff7eecffff84ecffff8aecffff90ecffff96ecffff9cecffffaeecffffcaecffffd4ecffffdeecffffe8ecfffff2ecfffffcecffff06edffff1aedffff28edffff36edffff44edffff52edffff60edffff6eedffff92edffff9cedffffaeedfffffcf2ffff30fbffff
+      m_ExpandedIDs: b484ffff7885ffffe688ffffec88fffff288fffff888fffffe88ffff0489ffff0a89ffff1c89ffff3089ffff3a89ffff4489ffff4e89ffff5889ffff6289ffff6c89ffff8089ffff8e89ffff9c89ffffaa89ffffb889ffffc689ffffd489fffff889ffff028affff148affffd699ffffd0aaffffdcaaffffeaaafffff0aafffff8aaffff88c8ffff84dcffff46ddffffb4e0ffffbae0ffffc0e0ffffc6e0ffffcce0ffffd2e0ffffd8e0ffffeae0fffffee0ffff08e1ffff12e1ffff1ce1ffff26e1ffff30e1ffff3ae1ffff4ee1ffff5ce1ffff6ae1ffff78e1ffff86e1ffff94e1ffffa2e1ffffc6e1ffffd0e1ffffe2e1ffffc0e3ffffbae5ffff18edffff30fbffffc80b0100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -3381,7 +3381,7 @@ MonoBehaviour:
   m_SerializedViewNames: []
   m_SerializedViewValues: []
   m_PlayModeViewName: GameView
-  m_ShowGizmos: 0
+  m_ShowGizmos: 1
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
   m_TargetSize: {x: 1321, y: 743}
@@ -3391,7 +3391,7 @@ MonoBehaviour:
   m_EnterPlayModeBehavior: 0
   m_UseMipMap: 0
   m_VSyncEnabled: 0
-  m_Gizmos: 0
+  m_Gizmos: 1
   m_Stats: 0
   m_SelectedSizes: 01000000000000000000000000000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
@@ -6160,22 +6160,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Prefabs/Tanks/SingleplayerTank/Enemies
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 75
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Prefabs/Tanks/SingleplayerTank/Enemies
   m_LastFoldersGridSize: 75
   m_LastProjectPath: C:\Projects\WiiTanks\Wii Tanks
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 23}
-    m_SelectedIDs: 367e0000
-    m_LastClickedID: 32310
-    m_ExpandedIDs: 00000000a6020000a8020000327e0000347e0000367e0000387e00003a7e00003c7e000000ca9a3b
+    scrollPos: {x: 0, y: 199}
+    m_SelectedIDs: 10800000
+    m_LastClickedID: 32784
+    m_ExpandedIDs: 00000000a6020000a8020000327e0000347e0000367e0000387e00003a7e00003c7e000032800000c4ff000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -6322,7 +6322,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_LastInspectedObjectInstanceID: -1
-  m_LastVerticalScrollValue: 0
+  m_LastVerticalScrollValue: 417
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
@@ -6376,10 +6376,10 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 2241
-    y: 81
-    width: 310
-    height: 1262
+    x: 2121
+    y: 73
+    width: 438
+    height: 1278
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default

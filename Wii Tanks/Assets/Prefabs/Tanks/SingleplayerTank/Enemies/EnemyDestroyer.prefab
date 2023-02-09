@@ -20861,6 +20861,9 @@ MonoBehaviour:
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 4096
+  raycastLayer:
+    serializedVersion: 2
+    m_Bits: 512
   walkPointRange: 25
   timeBetweenAttacks: 2.5
   roundSightRange: 10

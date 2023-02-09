@@ -13,7 +13,7 @@ public abstract class EnemyAI : MonoBehaviour
 	protected Transform muzzleFlashEmpty;
 	private Transform explosionEmpty;
 
-	public LayerMask whatIsGround, whatIsWall, whatIsPlayer;
+	public LayerMask whatIsGround, whatIsWall, whatIsPlayer, raycastLayer;
 
 	protected Vector3 walkPoint;
 	protected bool walkPointSet;
@@ -152,10 +152,15 @@ public abstract class EnemyAI : MonoBehaviour
 
 		if (!alreadyAttacked)
 		{
-			Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out RaycastHit hit, forwardSightRange);
+			Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out RaycastHit hit, forwardSightRange, ~raycastLayer);
 			Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward);
 			if (!hit.collider.CompareTag("Tank"))
+			{
+				Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 20, Color.red);
+				Debug.Log(hit.collider.gameObject.name);
 				return;
+			}
+			Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 20, Color.green);
 			/*
 			Vector3 direction = (target.transform.position - transform.position).normalized;
 			float distance = Vector3.Distance(target.transform.position, transform.position);
