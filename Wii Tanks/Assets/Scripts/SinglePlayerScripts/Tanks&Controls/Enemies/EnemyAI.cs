@@ -156,8 +156,6 @@ public abstract class EnemyAI : MonoBehaviour
 			Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward);
 			if (!hit.collider.CompareTag("Tank"))
 			{
-				Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 20, Color.red);
-				Debug.Log(hit.collider.gameObject.name);
 				return;
 			}
 			Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 20, Color.green);
