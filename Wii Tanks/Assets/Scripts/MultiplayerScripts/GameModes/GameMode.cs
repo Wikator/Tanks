@@ -7,7 +7,7 @@ public abstract class GameMode : NetworkBehaviour
 {
     public static GameMode Instance { get; private set; }
 
-    public readonly Dictionary<string, Transform[]> spawns = new();
+    public readonly Dictionary<string, Spawn[]> spawns = new();
 
 
     [SyncObject]

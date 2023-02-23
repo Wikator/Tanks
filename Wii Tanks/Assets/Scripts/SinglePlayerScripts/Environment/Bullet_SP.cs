@@ -1,9 +1,12 @@
 using System.Collections;
 using UnityEngine;
+using Graphics;
 
 public abstract class Bullet_SP : MonoBehaviour
 {
     public float moveSpeed;
+
+    private bool isDespawning;
 
     protected Rigidbody rigidBody;
 
@@ -33,19 +36,25 @@ public abstract class Bullet_SP : MonoBehaviour
     {
         rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
         GetComponent<SphereCollider>().enabled = true;
-        transform.GetChild(0).GetComponent<TrailRenderer>().Clear();
+        gameObject.GetComponent<TrailRenderer>().Clear();
+        BulletGraphics.SetBulletLightIntensity(gameObject.GetComponent<Light>());
+        isDespawning = false;
     }
 
     private void FixedUpdate()
     {
         currentVelocity = rigidBody.velocity;
         currentPosition = transform.position;
+
+        if (isDespawning)
+            BulletGraphics.DecreaseBulletLightIntensity(gameObject.GetComponent<Light>());
     }
 
     //Thanks to this method, bullet's trail will linger for a bit after the bullet despawns
 
     public IEnumerator DespawnItself()
     {
+        isDespawning = true;
         rigidBody.velocity = Vector3.zero;
         GetComponent<SphereCollider>().enabled = false;
         yield return new WaitForSeconds(0.6f);

@@ -56,7 +56,7 @@ public abstract class EnemyAI : MonoBehaviour
     {
 		alreadyAttacked = true;
 		Invoke(nameof(ResetAttack), timeBetweenAttacks);
-		target = Player.Instance.ControlledPawn.transform;
+		//target = Player.Instance.ControlledPawn.transform;
 
 		switch (Random.Range(0, 5))
 		{
@@ -85,13 +85,16 @@ public abstract class EnemyAI : MonoBehaviour
 
 	private void Update()
 	{
-		if (!playerInSightRange && (Physics.CheckSphere(transform.position, roundSightRange, whatIsPlayer) || Physics.Raycast(turret.GetChild(0).GetChild(0).position + turret.GetChild(0).GetChild(0).transform.transform.forward * 1.5f, turret.GetChild(0).GetChild(0).transform.forward, forwardSightRange, whatIsPlayer)))
+		if (!playerInSightRange && (Physics.Raycast(bulletSpawn.position + bulletSpawn.forward * 1.5f, bulletSpawn.forward, forwardSightRange, whatIsPlayer)))
 		{
 			walkPointSet = false;
 			agent.ResetPath();
 		}
 		
-		playerInSightRange = Physics.CheckSphere(transform.position, roundSightRange, whatIsPlayer) || Physics.Raycast(turret.GetChild(0).GetChild(0).position + turret.GetChild(0).GetChild(0).transform.transform.forward * 1.5f, turret.GetChild(0).GetChild(0).transform.forward, forwardSightRange, whatIsPlayer);
+		playerInSightRange = Physics.Raycast(bulletSpawn.position + bulletSpawn.forward * 1.5f, bulletSpawn.forward, forwardSightRange, whatIsPlayer);
+
+		if (Physics.Raycast(bulletSpawn.position + bulletSpawn.forward * 1.5f, bulletSpawn.forward, out RaycastHit hit, forwardSightRange, whatIsPlayer))
+			target = hit.collider.transform;
 
 		if (playerInSightRange)
 		{
@@ -154,7 +157,7 @@ public abstract class EnemyAI : MonoBehaviour
 		{
 			Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out RaycastHit hit, forwardSightRange, ~raycastLayer);
 			Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward);
-			if (!hit.collider.CompareTag("Tank"))
+			if (!hit.collider.CompareTag("Tank") && !hit.collider.CompareTag("Enemy"))
 			{
 				return;
 			}

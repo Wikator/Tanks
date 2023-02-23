@@ -7,6 +7,8 @@ using System.Collections;
 
 public sealed class Menu : MonoBehaviour
 {
+    #region Serialized
+
     [SerializeField]
     private TextMeshProUGUI title;
 
@@ -35,10 +37,10 @@ public sealed class Menu : MonoBehaviour
     private Button settingsButton;
 
     [SerializeField]
-    private Button background1Button;
+    private Button Camera1Button;
 
     [SerializeField]
-    private Button background2Button;
+    private Button Camera2Button;
 
     [SerializeField]
     private Button goBackButton;
@@ -47,15 +49,16 @@ public sealed class Menu : MonoBehaviour
     [ColorUsage(hdr: true, showAlpha: true)]
     private Color[] backgroundColors = new Color[7];
 
-    [SerializeField]
+    #endregion
+
     [ColorUsage(hdr: true, showAlpha: true)]
     private Color oldColor;
 
-    [SerializeField]
     [ColorUsage(hdr: true, showAlpha: true)]
     private Color targetColor;
 
     private Renderer backgroundRenderer;
+
     private float lerpValue;
 
 
@@ -65,6 +68,8 @@ public sealed class Menu : MonoBehaviour
 
     private void Start()
     {
+        PlayerPrefs.SetString("Background", "Background2");
+
         if (PlayerPrefs.GetString("Background") != "")
         {
             Settings.ChosenBackground = PlayerPrefs.GetString("Background");
@@ -72,6 +77,15 @@ public sealed class Menu : MonoBehaviour
         else
         {
             Settings.ChosenBackground = "Background2";
+        }
+
+        if (PlayerPrefs.GetString("Camera") != "")
+        {
+            Settings.Camera = PlayerPrefs.GetString("Camera");
+        }
+        else
+        {
+            Settings.Camera = "Camera1";
         }
 
         
@@ -93,9 +107,9 @@ public sealed class Menu : MonoBehaviour
         goBackButton.onClick.AddListener(() => settingsMenu.SetActive(false));
         goBackButton.onClick.AddListener(() => mainMenu.SetActive(true));
 
-        background1Button.onClick.AddListener(() => Settings.ChosenBackground = "Background1");
-        background2Button.onClick.AddListener(() => Settings.ChosenBackground = "Background2");
-
+        Camera1Button.onClick.AddListener(() => Settings.Camera = "Camera1");
+        Camera2Button.onClick.AddListener(() => Settings.Camera = "Camera2");
+        
         backgroundRenderer = GameObject.Find("Background").GetComponent<MeshRenderer>();
         targetColor = backgroundColors[0];
         oldColor = backgroundColors[0];

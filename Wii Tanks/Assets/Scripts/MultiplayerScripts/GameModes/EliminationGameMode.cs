@@ -1,9 +1,9 @@
-using FishNet.Object.Synchronizing;
-using System;
-using System.Linq;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
 
 public class EliminationGameMode : GameMode
 {
@@ -19,7 +19,6 @@ public class EliminationGameMode : GameMode
     public bool waitingForNewRound = true;
 
     private Transform bulletEmpty;
-    private int greenSpawnCount, redSpawnCount;
 
     [SyncVar, SerializeField]
     private int pointsToWin;
@@ -34,24 +33,8 @@ public class EliminationGameMode : GameMode
 
         bulletEmpty = GameObject.Find("Bullets").transform;
 
-        Transform greenSpawnsParent = GameObject.Find("GreenSpawns").transform;
-        Transform redSpawnsParent = GameObject.Find("RedSpawns").transform;
-
-        greenSpawnCount = greenSpawnsParent.childCount;
-        redSpawnCount = redSpawnsParent.childCount;
-
-        spawns["Green"] = new Transform[greenSpawnCount];
-        spawns["Red"] = new Transform[redSpawnCount];
-
-        for (int i = 0; i < greenSpawnCount; i++)
-        {
-            spawns["Green"][i] = greenSpawnsParent.GetChild(i).transform;
-        }
-
-        for (int i = 0; i < redSpawnCount; i++)
-        {
-            spawns["Red"][i] = redSpawnsParent.GetChild(i).transform;
-        }
+        spawns["Green"] = GameObject.Find("GreenSpawns").GetComponentsInChildren<Spawn>();
+        spawns["Red"] = GameObject.Find("RedSpawns").GetComponentsInChildren<Spawn>();
 
         scores["Green"] = 0;
         scores["Red"] = 0;
@@ -102,38 +85,25 @@ public class EliminationGameMode : GameMode
     }
 
 
-    //This recursive method tried to find an avaible spawn
-    //If none are avaible, StackOverflowException is cought, so the tank needs to spawn in random spawn regardless if it's avaible or not
-
     [Server]
     public override Vector3 FindSpawnPosition(string color)
     {
-        int randomNumber = color switch
-        {
-            "Green" => UnityEngine.Random.Range(0, greenSpawnCount),
-            "Red" => UnityEngine.Random.Range(0, redSpawnCount),
-            _ => 0
-        };
+        Spawn spawn;
 
-        Transform spawn = spawns[color][randomNumber];
+        IEnumerable<Spawn> avaibleSpawns = spawns[color].Where(s => !s.isOccupied);
 
-        if (spawn.GetComponent<Spawn>().isOccupied)
+        int avaibleSpawnsCount = avaibleSpawns.Count();
+
+        if (avaibleSpawnsCount == 0)
         {
-            try
-            {
-                return FindSpawnPosition(color);
-            }
-            catch (StackOverflowException)
-            {
-                spawn.GetComponent<Spawn>().isOccupied = true;
-                return spawn.position;
-            }
+            spawn = spawns[color][Random.Range(0, spawns[color].Length)];
+            spawn.isOccupied = true;
+            return spawn.transform.position;
         }
-        else
-        {
-            spawn.GetComponent<Spawn>().isOccupied = true;
-            return spawn.position;
-        }
+
+        spawn = avaibleSpawns.ElementAt(Random.Range(0, avaibleSpawnsCount));
+        spawn.isOccupied = true;
+        return spawn.transform.position;
     }
 
 

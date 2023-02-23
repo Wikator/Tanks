@@ -1,5 +1,5 @@
-using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using FishNet.Object;
 using System.Collections.Generic;
@@ -12,8 +12,6 @@ public sealed class TakedownGameMode : EliminationGameMode
     [SerializeField]
     private float respawnTimeMultiplier;
 
-    private int respawnSpawnCount;
-
     private readonly Dictionary<string, float> respawnTime = new();
 
     //Before start of the game, this script finds and saves all possible spawn points
@@ -23,16 +21,7 @@ public sealed class TakedownGameMode : EliminationGameMode
     {
         base.OnStartServer();
 
-        Transform respawnSpawnsParent = GameObject.Find("DeathmatchSpawns").transform;
-
-        respawnSpawnCount = respawnSpawnsParent.childCount;
-
-        spawns["Respawn"] = new Transform[respawnSpawnCount];
-
-        for (int i = 0; i < respawnSpawnCount; i++)
-        {
-            spawns["Respawn"][i] = respawnSpawnsParent.GetChild(i).transform;
-        }
+        spawns["Respawn"] = GameObject.Find("DeathmatchSpawns").GetComponentsInChildren<Spawn>();
 
         respawnTime["Green"] = originalRespawnTime;
         respawnTime["Red"] = originalRespawnTime;
@@ -67,30 +56,25 @@ public sealed class TakedownGameMode : EliminationGameMode
         {
             return base.FindSpawnPosition(color);
         }
-        else
+
+        color = "Respawn";
+
+        Spawn spawn;
+
+        IEnumerable<Spawn> avaibleSpawns = spawns[color].Where(spawn => !spawn.isOccupied);
+
+        int avaibleSpawnsCount = avaibleSpawns.Count();
+
+        if (avaibleSpawnsCount == 0)
         {
-            color = "Respawn";
+            spawn = spawns[color][Random.Range(0, spawns[color].Length)];
+            spawn.isOccupied = true;
+            return spawn.transform.position;
+        }    
 
-            Transform spawn = spawns[color][UnityEngine.Random.Range(0, respawnSpawnCount)];
-
-            if (spawn.GetComponent<Spawn>().isOccupied)
-            {
-                try
-                {
-                    return FindSpawnPosition(color);
-                }
-                catch (StackOverflowException)
-                {
-                    spawn.GetComponent<Spawn>().isOccupied = true;
-                    return spawn.position;
-                }
-            }
-            else
-            {
-                spawn.GetComponent<Spawn>().isOccupied = true;
-                return spawn.position;
-            }
-        }
+        spawn = avaibleSpawns.ElementAt(Random.Range(0, avaibleSpawnsCount));
+        spawn.isOccupied = true;
+        return spawn.transform.position;
     }
 
     // All respawn times need to be reset before the start of a new round

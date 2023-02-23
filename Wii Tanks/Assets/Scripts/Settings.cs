@@ -11,8 +11,9 @@ public static class Settings
     
     private static bool showPlayerNames;
 
+    private static string camera;
 
-    [HideInInspector]
+
     public static bool ShowPlayerNames
     {
         get
@@ -25,8 +26,21 @@ public static class Settings
         }
     }
 
+    public static string Camera
+    {
+        get
+        {
+            return camera;
+        }
+        set
+        {
+            camera = value;
+            PlayerPrefs.SetString("Camera", Camera);
+        }
+    }
 
-    [HideInInspector]
+
+
     public static string ChosenBackground
     {
         get

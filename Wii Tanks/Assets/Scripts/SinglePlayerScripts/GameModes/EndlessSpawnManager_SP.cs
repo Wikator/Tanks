@@ -1,29 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 using ObjectPoolManager;
 
 public sealed class EndlessSpawnManager_SP : SpawnManager_SP
 {
-	private readonly List<Spawn> spawns = new();
-
-	private int numberOfSpawns;
+	private Spawn[] spawns;
 
 	private readonly GameObject[] enemyTanks = new GameObject[3];
 
     void Start()
 	{
-		numberOfSpawns = 0;
+        spawns = GameObject.Find("DeathmatchSpawns").GetComponentsInChildren<Spawn>();
 
-		foreach (Transform spawn in GameObject.Find("DeathmatchSpawns").transform)
-		{
-			spawns.Add(spawn.GetComponent<Spawn>());
-			numberOfSpawns++;
-		}
-
-		enemyTanks[0] = Addressables.LoadAssetAsync<GameObject>("EnemyNormalTankPawnSP").WaitForCompletion();
+        enemyTanks[0] = Addressables.LoadAssetAsync<GameObject>("EnemyNormalTankPawnSP").WaitForCompletion();
 		enemyTanks[1] = Addressables.LoadAssetAsync<GameObject>("EnemyDestroyerPawnSP").WaitForCompletion();
 		enemyTanks[2] = Addressables.LoadAssetAsync<GameObject>("EnemyScoutPawnSP").WaitForCompletion();
 
@@ -44,26 +36,42 @@ public sealed class EndlessSpawnManager_SP : SpawnManager_SP
 
 	public override Vector3 FindEnemySpawn()
 	{
-		Spawn chosenSpawn = spawns[Random.Range(0, numberOfSpawns)];
+		Spawn spawn;
 
-		if (chosenSpawn.isOccupied)
+		IEnumerable<Spawn> avaibleSpawns = spawns.Where(s => !s.isOccupied);
+
+        int avaibleSpawnsCount = avaibleSpawns.Count();
+
+        if (avaibleSpawnsCount == 0)
 		{
-			return FindEnemySpawn();
+            spawn = spawns[Random.Range(0, spawns.Length)];
+            spawn.isOccupied = true;
+			return spawn.transform.position;
 		}
 
-		return chosenSpawn.transform.position;
+		spawn = avaibleSpawns.ElementAt(Random.Range(0, avaibleSpawnsCount));
+		spawn.isOccupied = true;
+		return spawn.transform.position;
 	}
 
 	public override Vector3 FindPlayerSpawn()
 	{
-		Spawn chosenSpawn = spawns[Random.Range(0, numberOfSpawns)];
+		Spawn spawn;
 
-		if (chosenSpawn.isOccupied)
+		IEnumerable<Spawn> avaibleSpawns = spawns.Where(s => !s.isOccupied);
+
+		int avaibleSpawnsCount = avaibleSpawns.Count();
+
+		if (avaibleSpawnsCount == 0)
 		{
-			return FindPlayerSpawn();
+			spawn = spawns[Random.Range(0, spawns.Length)];
+			spawn.isOccupied = true;
+			return spawn.transform.position;
 		}
 
-		return chosenSpawn.transform.position;
+		spawn = avaibleSpawns.ElementAt(Random.Range(0, avaibleSpawnsCount));
+		spawn.isOccupied = true;
+		return spawn.transform.position;
 	}
 
     public override void OnKilled(GameObject killedTank)

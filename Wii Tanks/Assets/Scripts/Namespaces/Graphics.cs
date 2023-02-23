@@ -34,16 +34,12 @@ namespace Graphics
 
         public TankGraphics(string color, Light lightData, MeshRenderer tankBody, MeshRenderer tankTurret, MeshRenderer leftTrack, MeshRenderer rightTrack)
         {
-            this.light = lightData;
+            light = lightData;
 
-            tankBody.material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-            tankMaterial = tankBody.material;
-            tankTurret.material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
-            turretMaterial = tankTurret.material;
-            leftTrack.material = Addressables.LoadAssetAsync<Material>("AnimatedTrack").WaitForCompletion();
-            leftTrackMaterial = leftTrack.material;
-            rightTrack.material = Addressables.LoadAssetAsync<Material>("AnimatedTrack").WaitForCompletion();
-            rightTrackMaterial = rightTrack.material;
+            tankMaterial = ApplyMaterial(tankBody, color);
+            turretMaterial = ApplyMaterial(tankTurret, color);
+            leftTrackMaterial = ApplyMaterial(leftTrack, "Track");
+            rightTrackMaterial = ApplyMaterial(rightTrack, "Track");
             tankMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
             turretMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
             leftTrackMaterial.SetFloat("_CurrentAppearence", MATERIAL_MAX_VALUE);
@@ -52,6 +48,13 @@ namespace Graphics
             tankTurret.enabled = true;
             lightData.color = tankMaterial.GetColor("_Color01");
             lightData.intensity = 0f;
+        }
+
+
+        private Material ApplyMaterial(MeshRenderer tankPart, string color)
+        {
+            tankPart.material = Addressables.LoadAssetAsync<Material>("Animated" + color).WaitForCompletion();
+            return tankPart.material;
         }
 
 

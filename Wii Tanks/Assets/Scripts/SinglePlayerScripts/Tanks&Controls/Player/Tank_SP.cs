@@ -54,6 +54,9 @@ public abstract class Tank_SP : MonoBehaviour
 
 	private void Start()
 	{
+        //GameObject.Find("Main Camera").transform.Rotate(-40.345f, 0f, 0f);
+        GameObject.Find("Main Camera").AddComponent<CameraFollow>();
+        CameraFollow.Player = transform;
         cam = Camera.main;
         controller = GetComponent<CharacterController>();
         turret = transform.GetChild(0).GetChild(0);

@@ -2618,7 +2618,7 @@ GameObject:
   - component: {fileID: 2480185368786125287}
   - component: {fileID: 3908083165850886685}
   - component: {fileID: 7350554336106398065}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EnemyMediumTank
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -2718,7 +2718,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2750,7 +2750,7 @@ NavMeshAgent:
   m_AngularSpeed: 120
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0

@@ -46,6 +46,9 @@ public class EnemyMediumTank : EnemyAI
 			randomZ = Mathf.Max(randomZ, Mathf.Sign(randomZ) * 0.75f);
 			randomX = Mathf.Max(randomX, Mathf.Sign(randomX) * 0.75f);
 
+			if (!target)
+				return;
+
 			walkPoint = new Vector3(target.transform.position.x + randomX, transform.position.y, target.transform.position.z + randomZ);
 			walkPointSet = true;
 			if (!Physics.Raycast(walkPoint + new Vector3(0, 15, 0), -transform.up, 25f, whatIsWall))
