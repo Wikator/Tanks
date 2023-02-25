@@ -134,7 +134,7 @@ public sealed class Menu : MonoBehaviour
 
             while (targetColor == oldColor)
             {
-                targetColor = backgroundColors[Random.Range(0, backgroundColors.Length - 1)];
+                targetColor = backgroundColors[Random.Range(0, backgroundColors.Length)];
             }
         }
 

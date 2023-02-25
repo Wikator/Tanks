@@ -34,6 +34,7 @@ public abstract class Bullet_SP : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        rigidBody.velocity = Vector3.zero;
         rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
         GetComponent<SphereCollider>().enabled = true;
         gameObject.GetComponent<TrailRenderer>().Clear();
