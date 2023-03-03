@@ -8,6 +8,13 @@ TagManager:
   - Bullet
   - Tank
   - Enemy
+  - RedEnemy
+  - GreenEnemy
+  - CyanEnemy
+  - PurpleEnemy
+  - BlueEnemy
+  - YellowEnemy
+  - GreenPlayer
   layers:
   - Default
   - TransparentFX

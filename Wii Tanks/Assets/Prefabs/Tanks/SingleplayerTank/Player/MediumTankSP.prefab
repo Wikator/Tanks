@@ -7506,7 +7506,7 @@ GameObject:
   - component: {fileID: 7590012501089197665}
   m_Layer: 12
   m_Name: MediumTankSP
-  m_TagString: Tank
+  m_TagString: GreenPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

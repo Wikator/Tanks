@@ -19,7 +19,7 @@ public class CameraFollow : MonoBehaviour
 
 
     private const float DAMPING = 12.0f;
-    private const float HEIGHT = 30.0f;
+    private const float HEIGHT = 25.0f;
     private const float OFFSET = 0.0f;
     private const float VIEW_DISTANCE = 4.0f;
 

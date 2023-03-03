@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using ObjectPoolManager;
 
 public sealed class DestroyItself_SP : MonoBehaviour
 {
@@ -19,6 +20,6 @@ public sealed class DestroyItself_SP : MonoBehaviour
     public IEnumerator DespawnItselfDeleyed()
     {
         yield return new WaitForSeconds(timeToDestroy);
-        gameObject.SetActive(false);
+		gameObject.SetActive(false);
 	}
 }

@@ -25,8 +25,8 @@ public sealed class ScoutBullet_SP : Bullet_SP
                 else
                 {
                     Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
-                    rigidBody.velocity = currentVelocity;
-                    transform.position = currentPosition;
+                 //   rigidBody.velocity = currentVelocity;
+                 //   transform.position = currentPosition;
                 }
             }
             else
@@ -40,8 +40,8 @@ public sealed class ScoutBullet_SP : Bullet_SP
                 else
                 {
                     Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
-                    rigidBody.velocity = currentVelocity;
-                    transform.position = currentPosition;
+                  //  rigidBody.velocity = currentVelocity;
+                  //  transform.position = currentPosition;
                 }
             }
         }
@@ -63,8 +63,8 @@ public sealed class ScoutBullet_SP : Bullet_SP
             else
             {
                 Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
-                rigidBody.velocity = currentVelocity;
-                transform.position = currentPosition;
+              //  rigidBody.velocity = currentVelocity;
+              //  transform.position = currentPosition;
             }
         }
 

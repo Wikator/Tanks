@@ -12,8 +12,8 @@ public sealed class NormalBullet_SP : Bullet_SP
 
 	protected override void OnEnable()
 	{
-		base.OnEnable();
 		ricochetsLeft = ricochetCount;
+		base.OnEnable();
 	}
 
 
@@ -22,6 +22,9 @@ public sealed class NormalBullet_SP : Bullet_SP
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (isDespawning)
+            return;
+
 		
         if (collision.gameObject.CompareTag("Arena"))
         {
@@ -33,8 +36,9 @@ public sealed class NormalBullet_SP : Bullet_SP
             }
             else
             {
-                rigidBody.velocity = currentVelocity;
-                transform.position = currentPosition;
+                rigidBody.velocity = Vector3.zero;
+                //  transform.position = currentPosition;
+                //rigidBody.AddForce(Vector3.Reflect(-collision.relativeVelocity, collision.contacts[0].normal).normalized * moveSpeed, ForceMode.Impulse);
                 rigidBody.velocity = Vector3.Reflect(-collision.relativeVelocity, collision.contacts[0].normal).normalized * moveSpeed;
 
 				if (owningCollider)
@@ -59,8 +63,8 @@ public sealed class NormalBullet_SP : Bullet_SP
             else
             {
                 Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), collision.collider);
-                rigidBody.velocity = currentVelocity;
-                transform.position = currentPosition;
+               // rigidBody.velocity = currentVelocity;
+               // transform.position = currentPosition;
             }
         }
 
@@ -73,16 +77,17 @@ public sealed class NormalBullet_SP : Bullet_SP
             else
             {
                 Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), collision.collider);
-                rigidBody.velocity = currentVelocity;
-                transform.position = currentPosition;
+                //rigidBody.velocity = currentVelocity;
+                //transform.position = currentPosition;
             }
         }
 
-	    if (collision.gameObject.CompareTag("Enemy"))
+	    if (collision.gameObject.tag.Contains("Enemy"))
 		{
             Player.Instance.superCharge += ChargeTimeToAdd;
             collision.gameObject.GetComponent<EnemyAI>().GameOver();
-            gameObject.SetActive(false);
-        }
+			gameObject.SetActive(false);
+			//StartCoroutine(DespawnItself());
+		}
     }
 }

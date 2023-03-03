@@ -2489,7 +2489,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2147
+  m_VersionIndex: 2150
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -2780,10 +2780,10 @@ MonoBehaviour:
   raycastLayer:
     serializedVersion: 2
     m_Bits: 512
-  walkPointRange: 25
+  walkPointRange: 250
   timeBetweenAttacks: 1.4
   roundSightRange: 8
-  forwardSightRange: 40
+  forwardSightRange: 400
 --- !u!114 &7350554336106398065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6867,7 +6867,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 7130
+  m_VersionIndex: 7133
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -7640,7 +7640,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1682
+  m_VersionIndex: 1685
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -8444,7 +8444,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1685
+  m_VersionIndex: 1688
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []

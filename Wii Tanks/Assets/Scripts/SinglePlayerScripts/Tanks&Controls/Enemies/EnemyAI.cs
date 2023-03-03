@@ -57,25 +57,65 @@ public abstract class EnemyAI : MonoBehaviour
 		alreadyAttacked = true;
 		Invoke(nameof(ResetAttack), timeBetweenAttacks);
 		//target = Player.Instance.ControlledPawn.transform;
-
-		switch (Random.Range(0, 5))
+		
+		if (GameObject.Find("Scene"))
 		{
-			case 0:
-				color = "Red";
-				break;
-			case 1:
-				color = "Blue";
-				break;
-			case 2:
-				color = "Cyan";
-				break;
-			case 3:
-				color = "Yellow";
-				break;
-			case 4:
-				color = "Purple";
-				break;
+			switch (GameObject.Find("Scene").GetComponent<BigTeamBattleSpawnManager_SP>().color)
+			{
+				case 0:
+					color = "Green";
+					gameObject.tag = "GreenEnemy";
+					break;
+				case 1:
+					color = "Blue";
+					gameObject.tag = "BlueEnemy";
+					break;
+				case 2:
+					color = "Cyan";
+					gameObject.tag = "CyanEnemy";
+					break;
+				case 3:
+					color = "Yellow";
+					gameObject.tag = "YellowEnemy";
+					break;
+				case 4:
+					color = "Purple";
+					gameObject.tag = "PurpleEnemy";
+					break;
+				case 5:
+					color = "Red";
+					gameObject.tag = "RedEnemy";
+					break;
+			}
 		}
+		else
+		{
+			switch (Random.Range(0, 5))
+			{
+				case 0:
+					color = "Red";
+					gameObject.tag = "RedEnemy";
+					break;
+				case 1:
+					color = "Blue";
+					gameObject.tag = "BlueEnemy";
+					break;
+				case 2:
+					color = "Cyan";
+					gameObject.tag = "CyanEnemy";
+					break;
+				case 3:
+					color = "Yellow";
+					gameObject.tag = "YellowEnemy";
+					break;
+				case 4:
+					color = "Purple";
+					gameObject.tag = "PurpleEnemy";
+					break;
+			}
+		}
+
+		
 	}
 
     private void FixedUpdate()
@@ -85,16 +125,26 @@ public abstract class EnemyAI : MonoBehaviour
 
 	private void Update()
 	{
-		if (!playerInSightRange && (Physics.Raycast(bulletSpawn.position + bulletSpawn.forward * 1.5f, bulletSpawn.forward, forwardSightRange, whatIsPlayer)))
+		if (!playerInSightRange && Physics.Raycast(bulletSpawn.position + bulletSpawn.forward * 1.5f, bulletSpawn.forward, out RaycastHit hit, forwardSightRange, whatIsPlayer))
 		{
-			walkPointSet = false;
-			agent.ResetPath();
+			if (!hit.collider.CompareTag(gameObject.tag))
+			{
+				playerInSightRange = true;
+				target = hit.collider.transform;
+			}
 		}
 		
 		playerInSightRange = Physics.Raycast(bulletSpawn.position + bulletSpawn.forward * 1.5f, bulletSpawn.forward, forwardSightRange, whatIsPlayer);
 
-		if (Physics.Raycast(bulletSpawn.position + bulletSpawn.forward * 1.5f, bulletSpawn.forward, out RaycastHit hit, forwardSightRange, whatIsPlayer))
-			target = hit.collider.transform;
+		if (Physics.Raycast(bulletSpawn.position + bulletSpawn.forward * 1.5f, bulletSpawn.forward, out RaycastHit hit1, forwardSightRange, whatIsPlayer))
+			if (!hit1.collider.CompareTag(gameObject.tag))
+			{
+				target = hit1.collider.transform;
+			}
+			else
+			{
+				playerInSightRange = false;
+			}
 
 		if (playerInSightRange)
 		{
@@ -157,21 +207,21 @@ public abstract class EnemyAI : MonoBehaviour
 		{
 			Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out RaycastHit hit, forwardSightRange, ~raycastLayer);
 			Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward);
-			if (!hit.collider.CompareTag("Tank") && !hit.collider.CompareTag("Enemy"))
+			if ((!hit.collider.CompareTag("Tank") && !hit.collider.tag.Contains("Enemy") && !hit.collider.CompareTag("Bullet")) || hit.collider.CompareTag(gameObject.tag))
 			{
 				return;
 			}
 			Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward * 20, Color.green);
-			/*
+			
 			Vector3 direction = (target.transform.position - transform.position).normalized;
 			float distance = Vector3.Distance(target.transform.position, transform.position);
 			float distance2 = Vector3.Distance(target.transform.position, transform.position);
-			float timeToReachPlayer = distance2 / normalBullet.GetComponent<Bullet_SP>().moveSpeed;
+			float timeToReachPlayer = distance2 / bullet.GetComponent<Bullet_SP>().moveSpeed;
 			Vector3 leadOffset = target.GetComponent<CharacterController>().velocity * timeToReachPlayer;
 			Vector3 predictedPosition = target.transform.position + leadOffset;
 			
 			turret.LookAt(predictedPosition);
-			*/
+			
 			Fire();
 			
 			alreadyAttacked = true;

@@ -6,7 +6,7 @@ public abstract class Bullet_SP : MonoBehaviour
 {
     public float moveSpeed;
 
-    private bool isDespawning;
+    protected bool isDespawning;
 
     protected Rigidbody rigidBody;
 
@@ -30,26 +30,31 @@ public abstract class Bullet_SP : MonoBehaviour
     private void OnDisable()
     {
         rigidBody.velocity = Vector3.zero;
-    }
+        
+		if (owningCollider)
+			Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), owningCollider, false);
+	}
 
     protected virtual void OnEnable()
     {
-        rigidBody.velocity = Vector3.zero;
-        rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
-        GetComponent<SphereCollider>().enabled = true;
-        gameObject.GetComponent<TrailRenderer>().Clear();
+		rigidBody.velocity = Vector3.zero;
+		gameObject.GetComponent<TrailRenderer>().Clear();
+		rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
+		GetComponent<SphereCollider>().enabled = true;
         BulletGraphics.SetBulletLightIntensity(gameObject.GetComponent<Light>());
         isDespawning = false;
     }
 
     private void FixedUpdate()
     {
-        currentVelocity = rigidBody.velocity;
-        currentPosition = transform.position;
-
         if (isDespawning)
             BulletGraphics.DecreaseBulletLightIntensity(gameObject.GetComponent<Light>());
-    }
+        else
+        {
+			currentVelocity = rigidBody.velocity;
+			currentPosition = transform.position;
+		}
+	}
 
     //Thanks to this method, bullet's trail will linger for a bit after the bullet despawns
 

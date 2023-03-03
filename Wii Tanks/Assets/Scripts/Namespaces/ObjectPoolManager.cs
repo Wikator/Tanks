@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ObjectPoolManager
@@ -21,14 +22,13 @@ namespace ObjectPoolManager
         {
             if (pooledObjects.ContainsKey(prefab))
             {
-                foreach (GameObject gameObject in pooledObjects[prefab])
-                {
-                    if (!gameObject.activeInHierarchy)
-                    {
-                        gameObject.transform.SetPositionAndRotation(position, rotation);
-                        gameObject.SetActive(true);
-                        return gameObject;
-                    }
+                GameObject gameObject = pooledObjects[prefab].FirstOrDefault(x => !x.activeInHierarchy);
+
+				if (gameObject)
+				{
+					gameObject.transform.SetPositionAndRotation(position, rotation);
+					gameObject.SetActive(true);
+					return gameObject;
                 }
 
                 return CreateNewObject(prefab, position, rotation, parent);

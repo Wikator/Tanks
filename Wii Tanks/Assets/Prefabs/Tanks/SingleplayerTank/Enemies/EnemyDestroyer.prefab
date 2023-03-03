@@ -20736,8 +20736,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.0523682, y: 0.742985, z: 2.0750732}
-  m_Center: {x: 0.010986328, y: 0.113126636, z: -0.05609131}
+  m_Size: {x: 1.0523682, y: 1.0853922, z: 2.0750732}
+  m_Center: {x: 0.010986328, y: 0.28433025, z: -0.05609131}
 --- !u!143 &2549001918800035457
 CharacterController:
   m_ObjectHideFlags: 0
@@ -20864,10 +20864,10 @@ MonoBehaviour:
   raycastLayer:
     serializedVersion: 2
     m_Bits: 512
-  walkPointRange: 25
+  walkPointRange: 250
   timeBetweenAttacks: 2.5
   roundSightRange: 10
-  forwardSightRange: 55
+  forwardSightRange: 550
 --- !u!114 &661008213307069144
 MonoBehaviour:
   m_ObjectHideFlags: 0
