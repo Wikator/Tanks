@@ -16,7 +16,7 @@ namespace ObjectPoolManager
         // If one is found, it is simply turned on as active, and it's position and rotation will be set
         // If not, a brand new prefab needs to be instantiated
 
-        private readonly static Dictionary<GameObject, HashSet<GameObject>> pooledObjects = new();
+        private readonly static Dictionary<GameObject, ObjectPoolHashSet> pooledObjects = new();
 
         public static GameObject GetPooledInstantiated(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
         {
@@ -24,26 +24,16 @@ namespace ObjectPoolManager
             {
                 GameObject gameObject = pooledObjects[prefab].FirstOrDefault(x => !x.activeInHierarchy);
 
-				if (gameObject)
-				{
-					gameObject.transform.SetPositionAndRotation(position, rotation);
-					gameObject.SetActive(true);
-					return gameObject;
+                if (gameObject)
+                {
+                    return pooledObjects[prefab].SetActive(gameObject, position, rotation);
                 }
 
-                return CreateNewObject(prefab, position, rotation, parent);
+                return pooledObjects[prefab].CreateNewObject(prefab, position, rotation, parent);
             }
 
-            pooledObjects[prefab] = new HashSet<GameObject>();
-            return CreateNewObject(prefab, position, rotation, parent);
-        }
-
-
-        private static GameObject CreateNewObject(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
-        {
-            GameObject newObject = Object.Instantiate(prefab, position, rotation, parent);
-            pooledObjects[prefab].Add(newObject);
-            return newObject;
+            pooledObjects[prefab] = new ObjectPoolHashSet();
+            return pooledObjects[prefab].CreateNewObject(prefab, position, rotation, parent);
         }
 
         // Since this class is static, the dictionary is the same for all the scenes, even if its objects do not exist in a current scene
@@ -52,6 +42,24 @@ namespace ObjectPoolManager
         public static void ResetObjectPool()
         {
             pooledObjects.Clear();
+        }
+
+
+        private class ObjectPoolHashSet : HashSet<GameObject>
+        {
+            public GameObject SetActive(GameObject gameObject, Vector3 position, Quaternion rotation, Transform parent = null)
+            {
+                gameObject.transform.SetPositionAndRotation(position, rotation);
+                gameObject.SetActive(true);
+                return gameObject;
+            }
+
+            public GameObject CreateNewObject(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
+            {
+                GameObject newObject = Object.Instantiate(prefab, position, rotation, parent);
+                Add(newObject);
+                return newObject;
+            }
         }
     }
 }

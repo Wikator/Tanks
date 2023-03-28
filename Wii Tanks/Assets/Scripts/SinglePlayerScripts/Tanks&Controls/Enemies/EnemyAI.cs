@@ -207,7 +207,7 @@ public abstract class EnemyAI : MonoBehaviour
 		{
 			Physics.Raycast(bulletSpawn.position, bulletSpawn.forward, out RaycastHit hit, forwardSightRange, ~raycastLayer);
 			Debug.DrawRay(bulletSpawn.position, bulletSpawn.forward);
-			if ((!hit.collider.CompareTag("Tank") && !hit.collider.tag.Contains("Enemy") && !hit.collider.CompareTag("Bullet")) || hit.collider.CompareTag(gameObject.tag))
+			if ((!hit.collider.tag.Contains("Player") && !hit.collider.tag.Contains("Enemy") && !hit.collider.CompareTag("Bullet")) || hit.collider.CompareTag(gameObject.tag))
 			{
 				return;
 			}
