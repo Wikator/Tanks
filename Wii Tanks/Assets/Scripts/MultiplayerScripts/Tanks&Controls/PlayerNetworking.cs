@@ -75,7 +75,7 @@ public sealed class PlayerNetworking : NetworkBehaviour
 
         Instance = this;
 
-        Settings.ShowPlayerNames = true;
+        Settings.ShowPlayerNames = false;
 
         color = "None";
         TankType = "None";

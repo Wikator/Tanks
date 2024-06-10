@@ -11,7 +11,7 @@ public static class Settings
     private static string camera;
 
 
-    public static bool ShowPlayerNames { get; set; }
+    public static bool ShowPlayerNames { get; set; } = false;
 
     public static string Camera
     {

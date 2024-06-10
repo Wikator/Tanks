@@ -19,7 +19,7 @@ namespace Graphics
         private const float LIGHT_APPEARING_SPEED = 0.0025f;
         private const float LIGHT_DISAPPEARING_SPEED = 0.0035f;
 
-        private const float MATERIAL_MIN_VALUE = -0.40f;
+        private const float MATERIAL_MIN_VALUE = -0.50f;
         private const float MATERIAL_MAX_VALUE = 0.4f;
         private const float MATERIAL_APPEARING_SPEED = 0.01f;
         private const float MATERIAL_DISAPPEARING_SPEED = 0.01f;
