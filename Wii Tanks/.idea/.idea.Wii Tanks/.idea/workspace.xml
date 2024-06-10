@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="86dda6e1-6fe3-4bba-9f91-299488200189" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Linux Build.x86_64" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Assembly-CSharp.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/FishNet.CodeAnalysis.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/FishNet.Example.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/FishNet.Runtime.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Heathen.Core.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Heathen.Steamworks.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Mono.Security.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/PrefabBaker.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.ComponentModel.Composition.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Configuration.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Core.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Data.DataSetExtensions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Data.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Drawing.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.EnterpriseServices.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.IO.Compression.FileSystem.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.IO.Compression.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Net.Http.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Numerics.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Runtime.Serialization.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Runtime.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Security.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.ServiceModel.Internals.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Transactions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Xml.Linq.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.Xml.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/System.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.AI.Navigation.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.Addressables.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.Burst.Unsafe.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.Burst.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.Mathematics.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.ProBuilder.Csg.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.ProBuilder.KdTree.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.ProBuilder.Poly2Tri.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.ProBuilder.Stl.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.ProBuilder.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.RenderPipeline.Universal.ShaderLibrary.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.RenderPipelines.Core.Runtime.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.RenderPipelines.Core.ShaderLibrary.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.RenderPipelines.Universal.Config.Runtime.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.RenderPipelines.Universal.Runtime.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.RenderPipelines.Universal.Shaders.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.ResourceManager.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.ScriptableBuildPipeline.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.TextMeshPro.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.Timeline.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.VisualEffectGraph.Runtime.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.VisualScripting.Antlr3.Runtime.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.VisualScripting.Core.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.VisualScripting.Flow.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/Unity.VisualScripting.State.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.AIModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.AccessibilityModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.AndroidJNIModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.AnimationModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.AssetBundleModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.AudioModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.ClothModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.ClusterInputModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.ClusterRendererModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.ContentLoadModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.CoreModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.CrashReportingModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.DSPGraphModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.DirectorModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.GIModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.GameCenterModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.GridModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.HotReloadModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.IMGUIModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.ImageConversionModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.InputLegacyModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.InputModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.JSONSerializeModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.LocalizationModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.ParticleSystemModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.PerformanceReportingModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.Physics2DModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.PhysicsModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.ProfilerModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.PropertiesModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.RuntimeInitializeOnLoadManagerInitializerModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.ScreenCaptureModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.SharedInternalsModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.SpriteMaskModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.SpriteShapeModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.StreamingModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.SubstanceModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.SubsystemsModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.TLSModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.TerrainModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.TerrainPhysicsModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.TextCoreFontEngineModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.TextCoreTextEngineModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.TextRenderingModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.TilemapModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UI.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UIElementsModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UIModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UmbraModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UnityAnalyticsCommonModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UnityAnalyticsModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UnityConnectModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UnityCurlModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UnityTestProtocolModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UnityWebRequestAudioModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UnityWebRequestModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UnityWebRequestTextureModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.UnityWebRequestWWWModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.VFXModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.VRModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.VehiclesModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.VideoModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.VirtualTexturingModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.WindModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.XRModule.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/UnityEngine.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/com.rlabrecque.steamworks.net.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/mscorlib.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Managed/netstandard.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/2.0/Browsers/Compat.browser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/2.0/DefaultWsdlHelpGenerator.aspx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/2.0/machine.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/2.0/settings.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/2.0/web.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/4.0/Browsers/Compat.browser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/4.0/DefaultWsdlHelpGenerator.aspx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/4.0/machine.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/4.0/settings.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/4.0/web.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/4.5/Browsers/Compat.browser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/4.5/DefaultWsdlHelpGenerator.aspx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/4.5/machine.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/4.5/settings.map" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/4.5/web.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/browscap.ini" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/etc/mono/mconfig/config.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/x86_64/libMonoPosixHelper.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/x86_64/libmono-native.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/MonoBleedingEdge/x86_64/libmonobdwgc-2.0.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Plugins/Steamworks.NET.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Plugins/libsteam_api.so" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Plugins/no_plugins_were_generated.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Resources/UnityPlayer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Resources/unity default resources" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/Resources/unity_builtin_extra" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/RuntimeInitializeOnLoads.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/ScriptingAssemblies.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/StreamingAssets/aa/AddressablesLink/link.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/StreamingAssets/aa/StandaloneLinux64/5c97aa3077d9992b932c1e2a866cdfe0_unitybuiltinshaders_e8f94904be1d9542b14dc76ca8c72c3f.bundle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/StreamingAssets/aa/StandaloneLinux64/defaultlocalgroup_assets_all_b74baff63a0836560b9b85126b2758b1.bundle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/StreamingAssets/aa/catalog.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/StreamingAssets/aa/settings.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/app.info" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/boot.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/globalgamemanagers" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/globalgamemanagers.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/globalgamemanagers.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level0" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level1" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level10" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level11" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level12" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level13" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level14" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level15" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level16" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level17" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level18" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level18.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level19" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level19.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level20" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level20.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level21" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level21.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level22" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level22.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level23" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level23.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level24" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level24.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level25" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level5" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level6" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level7" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level8" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/level9" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/resources.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/resources.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets0.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets0.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets1.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets1.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets10.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets11.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets12.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets13.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets14.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets15.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets16.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets16.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets17.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets18.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets18.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets19.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets19.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets2.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets2.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets20.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets20.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets21.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets21.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets22.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets22.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets23.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets23.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets24.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets24.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets25.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets25.assets.resS" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets3.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets4.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets5.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets6.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets7.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets8.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_Data/sharedassets9.assets" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Linux Build_s.debug" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UserSettings/Layouts/default-2022.dwlt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/Linux/addressables_content_state.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/Linux/addressables_content_state.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AddressableAssetsData/link.xml.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/AddressableAssetsData/link.xml.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultPrefabObjects.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Effects/Shader Graphs/FresnelMaterial.shadergraph" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Effects/Shader Graphs/FresnelMaterial.shadergraph" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Effects/Visual Effect Graphs/Explosion.vfx" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Effects/Visual Effect Graphs/Explosion.vfx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Extension/ILProcessorExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Extension/ILProcessorExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Extension/MethodDefinitionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Extension/MethodDefinitionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Extension/TypeDefinitionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Extension/TypeDefinitionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Extension/TypeReferenceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Extension/TypeReferenceExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/AttributeHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/AttributeHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/CodegenSession.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/CodegenSession.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/CreatedSyncVarGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/CreatedSyncVarGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/CustomAttributeExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/CustomAttributeExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/Diagnostics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/Diagnostics.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/FieldReferenceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/FieldReferenceExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/GetConstructor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/GetConstructor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/ILProcessorExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/ILProcessorExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/InstructionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/InstructionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/MethodDefinitionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/MethodDefinitionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/MethodReferenceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/MethodReferenceExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/ModuleDefinitionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/ModuleDefinitionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/ParameterDefinitionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/ParameterDefinitionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/TypeDefinitionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/TypeDefinitionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/TypeReferenceExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Extension/TypeReferenceExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/GeneralHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/GeneralHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/GenericReaderHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/GenericReaderHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/GenericWriterHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/GenericWriterHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/NetworkBehaviourHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/NetworkBehaviourHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/NetworkConnectionHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/NetworkConnectionHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/ObjectHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/ObjectHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/PhysicsHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/PhysicsHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/PredictedObjectHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/PredictedObjectHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/ReaderGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/ReaderGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/ReaderHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/ReaderHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/ReaderImports.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/ReaderImports.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/TimeManagerHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/TimeManagerHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/TransportHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/TransportHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/Comparers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/Comparers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/CreatedSyncType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/CreatedSyncType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/GeneratorHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/GeneratorHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/QOLAttributeType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/QOLAttributeType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/SerializatierType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/SerializatierType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/SyncIndexData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/SyncIndexData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/SyncType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/Typed/SyncType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/WriterGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/WriterGenerator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/WriterHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/WriterHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/WriterImports.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Helpers/WriterImports.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/ILCore/FishNetILPP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/ILCore/FishNetILPP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/ILCore/ILCoreHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/ILCore/ILCoreHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/ILCore/PostProcessorAssemblyResolver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/ILCore/PostProcessorAssemblyResolver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/ILCore/PostProcessorReflectionImporter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/ILCore/PostProcessorReflectionImporter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/CodegenBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/CodegenBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/CustomSerializerProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/CustomSerializerProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/NetworkBehaviourProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/NetworkBehaviourProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/NetworkBehaviourSyncProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/NetworkBehaviourSyncProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Prediction/PredictionProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Prediction/PredictionProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/QOLAttributeProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/QOLAttributeProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/ReaderProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/ReaderProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Rpc/AttributeData.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Rpc/AttributeData.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Rpc/Attributes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Rpc/Attributes.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Rpc/CreatedRpc.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Rpc/CreatedRpc.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Rpc/RpcProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Rpc/RpcProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Typed/ProcessedSync.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/Typed/ProcessedSync.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/WriterProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Processing/WriterProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Unity.FishNet.CodeGen.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/Unity.FishNet.CodeGen.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono.Cecil/LinkedResource.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono.Cecil/LinkedResource.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono.Cecil/PropertyReference.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono.Cecil/PropertyReference.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono.Cecil/WindowsRuntimeProjections.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono.Cecil/WindowsRuntimeProjections.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono/Disposable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono/Disposable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono/Empty.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono/Empty.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono/MergeSort.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/Mono/MergeSort.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/MonoFN.Cecil.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/MonoFN.Cecil.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/ProjectInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/ProjectInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/DocCommentId.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/DocCommentId.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/Functional.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/Functional.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/ILParser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/ILParser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/MethodBodyRocks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/MethodBodyRocks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/MethodDefinitionRocks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/MethodDefinitionRocks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/ModuleDefinitionRocks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/ModuleDefinitionRocks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/ParameterReferenceRocks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/ParameterReferenceRocks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/SecurityDeclarationRocks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/SecurityDeclarationRocks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/TypeDefinitionRocks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/TypeDefinitionRocks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/TypeReferenceRocks.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/CodeGenerating/cecil-0.11.4/rocks/Mono.Cecil.Rocks/TypeReferenceRocks.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Example/FishNet.Example.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Example/FishNet.Example.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Authenticating/Authenticator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Authenticating/Authenticator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Config.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/FishNet.Runtime.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/FishNet.Runtime.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Serializing/Helping/Comparers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Serializing/Helping/Comparers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Serializing/Helping/Quaternion64.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Serializing/Helping/Quaternion64.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Serializing/Helping/QuaternionConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Serializing/Helping/QuaternionConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Channels.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Channels.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/ConnectionStates.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/ConnectionStates.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/EventStructures.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/EventStructures.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/IPAddressType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/IPAddressType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/NetworkReaderLoop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/NetworkReaderLoop.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/NetworkWriterLoop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/NetworkWriterLoop.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/PacketId.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/PacketId.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Multipass/Multipass.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Multipass/Multipass.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/Core/ClientSocket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/Core/ClientSocket.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/Core/CommonSocket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/Core/CommonSocket.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/Core/ServerSocket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/Core/ServerSocket.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/Core/Supporting.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/Core/Supporting.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/BaseChannel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/BaseChannel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/ConnectionRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/ConnectionRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/INetEventListener.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/INetEventListener.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/InternalPackets.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/InternalPackets.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Layers/Crc32cLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Layers/Crc32cLayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Layers/PacketLayerBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Layers/PacketLayerBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Layers/XorEncryptLayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Layers/XorEncryptLayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NatPunchModule.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NatPunchModule.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NativeSocket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NativeSocket.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetConstants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetConstants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetDebug.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetDebug.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetManager.PacketPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetManager.PacketPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetManager.Socket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetManager.Socket.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetPacket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetPacket.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetPeer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetPeer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetStatistics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetStatistics.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetUtils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/NetUtils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/PooledPacket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/PooledPacket.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/ReliableChannel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/ReliableChannel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/SequencedChannel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/SequencedChannel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/CRC32C.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/CRC32C.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/FastBitConverter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/FastBitConverter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/INetSerializable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/INetSerializable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NetDataReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NetDataReader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NetDataWriter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NetDataWriter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NetPacketProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NetPacketProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NetSerializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NetSerializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NtpPacket.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NtpPacket.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NtpRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/LiteNetLib/Utils/NtpRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/Tugboat.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/FishNet/Runtime/Transporting/Transports/Tugboat/Tugboat.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedBlue.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedBlue.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedCyan.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedCyan.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedGreen.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedGreen.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedPurple.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedPurple.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedRed.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedRed.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedTrackMaterial.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedTrackMaterial.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedYellow.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/AnimatedYellow.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/Placeholder.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Animated Tank Material/Placeholder.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Arena Backgrounds/Background1.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Arena Backgrounds/Background1.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Arena Backgrounds/Background2.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Arena Backgrounds/Background2.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Blue.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Blue.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Cyan.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Cyan.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Arena Colors/DarkYellow.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Arena Colors/DarkYellow.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Fuchsia.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Fuchsia.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Green.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Green.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Ground.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Ground.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Orange.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Arena Colors/Orange.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Arena Colors/PurpleArena.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Arena Colors/PurpleArena.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Black.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Black.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Tank Material/Blue.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Tank Material/Blue.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Tank Material/Cyan.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Tank Material/Cyan.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Tank Material/Green.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Tank Material/Green.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Tank Material/Purple.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Tank Material/Purple.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Tank Material/Red.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Tank Material/Red.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Materials/Tank Material/Yellow.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Materials/Tank Material/Yellow.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/PrefabBaker/PrefabBaker.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/PrefabBaker/PrefabBaker.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Plugins/PrefabBaker/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Plugins/PrefabBaker/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/NetworkedPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/NetworkedPlayer.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tanks/MultiplayerTanks/Destroyer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tanks/MultiplayerTanks/Destroyer.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tanks/MultiplayerTanks/MediumTank.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tanks/MultiplayerTanks/MediumTank.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Tanks/MultiplayerTanks/Scout.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Tanks/MultiplayerTanks/Scout.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Trails/BlueTrail.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Trails/BlueTrail.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Trails/CyanTrail.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Trails/CyanTrail.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Trails/GreenTrail.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Trails/GreenTrail.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Trails/PinkTrail.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Trails/PinkTrail.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Trails/RedTrail.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Trails/RedTrail.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Trails/YellowTrail.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Trails/YellowTrail.mat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/MainMenu.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AbstractClasses/ArenaSelectionScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AbstractClasses/ArenaSelectionScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/BackgroundScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/BackgroundScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CameraFollow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CameraFollow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DynamicResolution.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DynamicResolution.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Environment/Bullet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Environment/Bullet.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Environment/DestroyItself.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Environment/DestroyItself.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Environment/NormalBulletScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Environment/NormalBulletScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Environment/ScoutBulletScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Environment/ScoutBulletScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Environment/Spawn.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Environment/Spawn.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameModes/DeathmatchGameMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameModes/DeathmatchGameMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameModes/EliminationGameMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameModes/EliminationGameMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameModes/GameMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameModes/GameMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameModes/StockBattleGameMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameModes/StockBattleGameMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameModes/TakedownGameMode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/GameModes/TakedownGameMode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Steamworks.NET/SteamLobby.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Steamworks.NET/SteamLobby.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Steamworks.NET/SteamManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Steamworks.NET/SteamManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/CameraControls.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/CameraControls.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/DestroyerTank.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/DestroyerTank.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/NormalTank.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/NormalTank.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/PlayerNetworking.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/PlayerNetworking.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/ScoutTank.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/ScoutTank.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/Tank.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/Tanks&amp;Controls/Tank.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/ArenaSelectionScene_MP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/ArenaSelectionScene_MP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/EndScreen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/EndScreen.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/GameModesView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/GameModesView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/Lobbys/DeathmatchLobbyView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/Lobbys/DeathmatchLobbyView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/Lobbys/EliminationLobbyView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/Lobbys/EliminationLobbyView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/Lobbys/LobbyPlayerTag.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/Lobbys/LobbyPlayerTag.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/Lobbys/LobbyView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/Lobbys/LobbyView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/Lobbys/MayhemLobbyView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/Lobbys/MayhemLobbyView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/MainViews/DeathmatchMainView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/MainViews/DeathmatchMainView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/MainViews/EliminationMainView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/MainViews/EliminationMainView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/MainViews/MainView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/MainViews/MainView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/MainViews/StockBattleMainView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/MainViews/StockBattleMainView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/UIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/UIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/View.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/MultiplayerScripts/UI/View.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Namespaces/Graphics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Namespaces/Graphics.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Namespaces/ObjectPoolManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Namespaces/ObjectPoolManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SceneManagerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SceneManagerScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/Stats.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ScriptableObjects/Stats.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Settings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Settings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Environment/Bullet_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Environment/Bullet_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Environment/DestroyItself_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Environment/DestroyItself_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Environment/NormalBullet_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Environment/NormalBullet_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Environment/SceneInfo_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Environment/SceneInfo_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Environment/ScoutBullet_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Environment/ScoutBullet_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/BigTeamBattleSpawnManager_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/BigTeamBattleSpawnManager_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/CampaignModeManager_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/CampaignModeManager_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/CampaignSpawnManager_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/CampaignSpawnManager_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/EndlessSpawnManager_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/EndlessSpawnManager_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/GameManager_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/GameManager_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/SpawnManager_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/GameModes/SpawnManager_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Enemies/EnemyAI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Enemies/EnemyAI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Enemies/EnemyDestroyerTank.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Enemies/EnemyDestroyerTank.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Enemies/EnemyMediumTank.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Enemies/EnemyMediumTank.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Enemies/EnemyScoutTank.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Enemies/EnemyScoutTank.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Player/DestroyerTank_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Player/DestroyerTank_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Player/NormalTank_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Player/NormalTank_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Player/Player.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Player/Player.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Player/ScoutTank_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Player/ScoutTank_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Player/Tank_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/Tanks&amp;Controls/Player/Tank_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/ArenaSelectionScene_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/ArenaSelectionScene_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/CampaignMainView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/CampaignMainView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/GameModesView_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/GameModesView_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/GameOverView_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/GameOverView_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/MainView_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/MainView_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/UIManager_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/UIManager_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/View_SP.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/SinglePlayerScripts/UI/View_SP.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Resources/Fonts &amp; Materials/LiberationSans SDF - Fallback.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TextMesh Pro/Sprites/EmojiOne.json" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TextMesh Pro/Sprites/EmojiOne.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Urp/New Universal Render Pipeline Asset.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Urp/New Universal Render Pipeline Asset.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Urp/New Universal Render Pipeline Asset_Renderer.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Urp/New Universal Render Pipeline Asset_Renderer.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Urp/UniversalRenderPipelineGlobalSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Urp/UniversalRenderPipelineGlobalSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/GraphicsSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.probuilder/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Packages/com.unity.testtools.codecoverage/Settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/Physics2DSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectVersion.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/QualitySettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ShaderGraphSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/URPProjectSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/VFXManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/VFXManager.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/boot.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/UserSettings/EditorUserSettings.asset" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@14.0.11/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2heWjyvO91K8I4A4i9zSQ4e8OmV" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Attach to Unity Editor.Attach to Unity Editor.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;/home/wikator/.config/JetBrains/Rider2023.3/resharper-host/DecompilerCache&quot;,
+      &quot;/home/wikator/.config/JetBrains/Rider2023.3/resharper-host/SourcesCache&quot;,
+      &quot;/home/wikator/.local/share/Symbols/src&quot;
+    ]
+  }
+}</component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+    <configuration name="Standalone Player" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="$PROJECT_DIR$/Linux Build.x86_64" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="/opt/Editor/Unity" />
+      <option name="PROGRAM_PARAMETERS" value="-projectPath &quot;$PROJECT_DIR$&quot; -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unit Tests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="/opt/Editor/Unity" />
+      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath &quot;$PROJECT_DIR$&quot; -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" />
+      <option name="projectPathOnTarget" />
+      <option name="selectedOptions">
+        <list />
+      </option>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="86dda6e1-6fe3-4bba-9f91-299488200189" name="Changes" comment="" />
+      <created>1717955171478</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1717955171478</updated>
+      <workItem from="1717955184747" duration="3336000" />
+      <workItem from="1717961881029" duration="590000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

@@ -1,14 +1,12 @@
-using FishNet.Object;
 using System.Collections;
+using FishNet.Object;
 using UnityEngine;
 
 public sealed class DestroyItself : NetworkBehaviour
 {
-    [SerializeField]
-    private float timeToDestroy;
+    [SerializeField] private float timeToDestroy;
 
-    [SerializeField]
-    private bool destroyOnSpawn;
+    [SerializeField] private bool destroyOnSpawn;
 
 
     public override void OnStartServer()
@@ -26,5 +24,8 @@ public sealed class DestroyItself : NetworkBehaviour
     }
 
 
-    public void DespawnItself() => Despawn();
+    public void DespawnItself()
+    {
+        Despawn();
+    }
 }

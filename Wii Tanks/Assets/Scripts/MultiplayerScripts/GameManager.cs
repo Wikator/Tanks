@@ -5,52 +5,48 @@ using UnityEngine.AddressableAssets;
 
 public sealed class GameManager : NetworkBehaviour
 {
-    public static GameManager Instance { get; private set; }
-
-    [SyncObject]
-    public readonly SyncHashSet<PlayerNetworking> players = new();
-
-
-    [field: SyncVar]
-    public bool GameInProgress { get; private set; }
+    [SyncObject] public readonly SyncHashSet<PlayerNetworking> players = new();
 
     private string gameMode;
+    public static GameManager Instance { get; private set; }
+
+
+    [field: SyncVar] public bool GameInProgress { get; private set; }
 
     public string GameMode
     {
-        get
-        {
-            return gameMode;
-        }
+        get => gameMode;
         set
         {
             gameMode = value;
 
             if (gameMode != "GameFinished" && gameMode != "None")
-            {
-                Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>(gameMode + "Manager").WaitForCompletion(), transform.position, Quaternion.identity));
-            }
+                Spawn(Instantiate(Addressables.LoadAssetAsync<GameObject>(gameMode + "Manager").WaitForCompletion(),
+                    transform.position, Quaternion.identity));
         }
     }
 
 
-	private void Awake()
+    private void Awake()
     {
         Instance = this;
         GameInProgress = false;
-	}
-
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-
-		UIManager.Instance.SetUpAllUI(false, "None");
-	}
+        
+        QualitySettings.vSyncCount = 0;
+        Application.targetFrameRate = 60;
+    }
 
 
     private void OnDestroy()
     {
         Instance = null;
+    }
+
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+
+        UIManager.Instance.SetUpAllUI(false, "None");
     }
 
 
@@ -60,15 +56,11 @@ public sealed class GameManager : NetworkBehaviour
         if (players.Count == 0)
             return 0;
 
-        int playersReady = 0;
+        var playersReady = 0;
 
         foreach (PlayerNetworking player in players)
-        {
             if (player.IsReady)
-            {
                 playersReady++;
-            }
-        }
 
         return playersReady;
     }
@@ -89,24 +81,16 @@ public sealed class GameManager : NetworkBehaviour
 
         UIManager.Instance.SetUpAllUI(GameInProgress, GameMode);
 
-        foreach (PlayerNetworking player in players)
-        {
-            player.SpawnTank();
-        }
+        foreach (PlayerNetworking player in players) player.SpawnTank();
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
-        {
             eliminationGameMode.waitingForNewRound = false;
-        }
     }
 
 
     [Server]
     public void KillAllPlayers()
     {
-        foreach (PlayerNetworking player in players)
-        {
-            player.StartDespawningTank();
-        }
+        foreach (PlayerNetworking player in players) player.StartDespawningTank();
     }
 }

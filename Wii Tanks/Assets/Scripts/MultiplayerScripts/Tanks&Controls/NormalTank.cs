@@ -1,7 +1,6 @@
-using FishNet.Object;
 using System.Collections;
+using FishNet.Object;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 public sealed class NormalTank : Tank
 {
@@ -26,14 +25,16 @@ public sealed class NormalTank : Tank
     [Server]
     private IEnumerator Barrage()
     {
-        for (int i = 0; i < 20; i++)
+        for (var i = 0; i < 20; i++)
         {
-            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, SceneManagerScript.BulletEmpty);
+            var bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation,
+                SceneManagerScript.BulletEmpty);
             bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(),
+                gameObject.GetComponent<BoxCollider>(), true);
             Spawn(bulletInstance);
 
-            NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
+            var flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
             flashInstance.transform.SetParent(SceneManagerScript.MuzzleFlashEmpty);
             flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
             Spawn(flashInstance);
@@ -41,9 +42,6 @@ public sealed class NormalTank : Tank
             yield return new WaitForSeconds(0.2f);
         }
 
-        if (IsSpawned)
-        {
-            routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
-        }
+        if (IsSpawned) routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
     }
 }

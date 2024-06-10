@@ -1,23 +1,24 @@
-﻿using MonoFN.Cecil;
+﻿using System;
+using MonoFN.Cecil;
 using MonoFN.Cecil.Cil;
 
 namespace FishNet.CodeGenerating.Helping.Extension
 {
-
     internal static class MethodDefinitionExtensions
     {
         /// <summary>
-        /// Clears the method content and returns ret.
+        ///     Clears the method content and returns ret.
         /// </summary>
-        internal static void ClearMethodWithRet(this MethodDefinition md, CodegenSession session, ModuleDefinition importReturnModule = null)
+        internal static void ClearMethodWithRet(this MethodDefinition md, CodegenSession session,
+            ModuleDefinition importReturnModule = null)
         {
             md.Body.Instructions.Clear();
-            ILProcessor processor = md.Body.GetILProcessor();
+            var processor = md.Body.GetILProcessor();
             processor.Add(session.GetClass<GeneralHelper>().CreateRetDefault(md, importReturnModule));
         }
 
         /// <summary>
-        /// Returns the ParameterDefinition index from end of parameters.
+        ///     Returns the ParameterDefinition index from end of parameters.
         /// </summary>
         /// <param name="md"></param>
         /// <param name="index"></param>
@@ -25,7 +26,7 @@ namespace FishNet.CodeGenerating.Helping.Extension
         internal static ParameterDefinition GetEndParameter(this MethodDefinition md, int index)
         {
             //Not enough parameters.
-            if (md.Parameters.Count < (index + 1))
+            if (md.Parameters.Count < index + 1)
                 return null;
 
             return md.Parameters[md.Parameters.Count - (index + 1)];
@@ -33,23 +34,23 @@ namespace FishNet.CodeGenerating.Helping.Extension
 
 
         /// <summary>
-        /// Creates a variable type within the body and returns it's VariableDef.
+        ///     Creates a variable type within the body and returns it's VariableDef.
         /// </summary>
-        internal static VariableDefinition CreateVariable(this MethodDefinition methodDef, TypeReference variableTypeRef)
+        internal static VariableDefinition CreateVariable(this MethodDefinition methodDef,
+            TypeReference variableTypeRef)
         {
-            VariableDefinition variableDef = new VariableDefinition(variableTypeRef);
+            var variableDef = new VariableDefinition(variableTypeRef);
             methodDef.Body.Variables.Add(variableDef);
             return variableDef;
         }
 
         /// <summary>
-        /// Creates a variable type within the body and returns it's VariableDef.
+        ///     Creates a variable type within the body and returns it's VariableDef.
         /// </summary>
-        internal static VariableDefinition CreateVariable(this MethodDefinition methodDef, CodegenSession session, System.Type variableType)
+        internal static VariableDefinition CreateVariable(this MethodDefinition methodDef, CodegenSession session,
+            Type variableType)
         {
             return CreateVariable(methodDef, session.GetClass<GeneralHelper>().GetTypeReference(variableType));
         }
     }
-
-
 }

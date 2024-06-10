@@ -4,15 +4,15 @@ using UnityEngine.SceneManagement;
 
 namespace FishNet.Serializing.Helping
 {
-
     public class GeneratedComparer<T>
     {
         /// <summary>
-        /// Compare if T is default.
+        ///     Compare if T is default.
         /// </summary>
         public static Func<T, bool> IsDefault { internal get; set; }
+
         /// <summary>
-        /// Compare if T is the same as T2.
+        ///     Compare if T is the same as T2.
         /// </summary>
         public static Func<T, T, bool> Compare { internal get; set; }
     }
@@ -21,7 +21,7 @@ namespace FishNet.Serializing.Helping
     public class Comparers
     {
         /// <summary>
-        /// Returns if A equals B using EqualityCompare.
+        ///     Returns if A equals B using EqualityCompare.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="a"></param>
@@ -39,7 +39,7 @@ namespace FishNet.Serializing.Helping
 
         public static bool IsEqualityCompareDefault<T>(T a)
         {
-            return EqualityComparer<T>.Default.Equals(a, default(T));
+            return EqualityComparer<T>.Default.Equals(a, default);
         }
     }
 
@@ -52,9 +52,9 @@ namespace FishNet.Serializing.Helping
                 return false;
 
             if (a.handle != 0 || b.handle != 0)
-                return (a.handle == b.handle);
+                return a.handle == b.handle;
 
-            return (a.name == b.name);
+            return a.name == b.name;
         }
 
         public int GetHashCode(Scene obj)
@@ -62,5 +62,4 @@ namespace FishNet.Serializing.Helping
             return obj.GetHashCode();
         }
     }
-
 }

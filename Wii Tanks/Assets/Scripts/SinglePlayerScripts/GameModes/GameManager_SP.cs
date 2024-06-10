@@ -1,5 +1,5 @@
-using UnityEngine;
 using ObjectPoolManager;
+using UnityEngine;
 
 public sealed class GameManager_SP : MonoBehaviour
 {
@@ -30,12 +30,10 @@ public sealed class GameManager_SP : MonoBehaviour
     public void StartGame()
     {
         GameInProgress = true;
-
     }
 
 
     public void KillAllPlayers()
     {
-
     }
 }

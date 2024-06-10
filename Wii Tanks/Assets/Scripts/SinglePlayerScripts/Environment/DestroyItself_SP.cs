@@ -1,14 +1,11 @@
 using System.Collections;
 using UnityEngine;
-using ObjectPoolManager;
 
 public sealed class DestroyItself_SP : MonoBehaviour
 {
-    [SerializeField]
-    private float timeToDestroy;
+    [SerializeField] private float timeToDestroy;
 
-    [SerializeField]
-    private bool destroyOnSpawn;
+    [SerializeField] private bool destroyOnSpawn;
 
 
     private void OnEnable()
@@ -20,6 +17,6 @@ public sealed class DestroyItself_SP : MonoBehaviour
     public IEnumerator DespawnItselfDeleyed()
     {
         yield return new WaitForSeconds(timeToDestroy);
-		gameObject.SetActive(false);
-	}
+        gameObject.SetActive(false);
+    }
 }

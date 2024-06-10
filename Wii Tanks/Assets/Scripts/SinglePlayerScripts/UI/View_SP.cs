@@ -9,4 +9,3 @@ public abstract class View_SP : MonoBehaviour
         Initialized = true;
     }
 }
-

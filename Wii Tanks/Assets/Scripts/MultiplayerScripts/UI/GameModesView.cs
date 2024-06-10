@@ -4,20 +4,15 @@ using UnityEngine.UI;
 
 public sealed class GameModesView : View
 {
-    [SerializeField]
-    private Button deathmatchButton;
+    [SerializeField] private Button deathmatchButton;
 
-    [SerializeField]
-    private Button eliminationButton;
+    [SerializeField] private Button eliminationButton;
 
-    [SerializeField]
-    private Button takedownButton;
+    [SerializeField] private Button takedownButton;
 
-    [SerializeField]
-    private Button stockBattleButton;
+    [SerializeField] private Button stockBattleButton;
 
-    [SerializeField]
-    private Button MayhemButton;
+    [SerializeField] private Button MayhemButton;
 
 
     //Game mode selection screen
@@ -30,7 +25,7 @@ public sealed class GameModesView : View
 
         base.Init();
 
-		deathmatchButton.onClick.AddListener(() => ChangeGameMode("Deathmatch"));
+        deathmatchButton.onClick.AddListener(() => ChangeGameMode("Deathmatch"));
 
         eliminationButton.onClick.AddListener(() => ChangeGameMode("Elimination"));
 

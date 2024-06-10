@@ -3,8 +3,7 @@ using UnityEngine;
 
 public sealed class DeathmatchMainView : MainView
 {
-    [SerializeField]
-    private TextMeshProUGUI timeRemainingText;
+    [SerializeField] private TextMeshProUGUI timeRemainingText;
 
     private DeathmatchGameMode deathmatchGameMode;
 

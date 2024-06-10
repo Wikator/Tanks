@@ -16,18 +16,16 @@ namespace ObjectPoolManager
         // If one is found, it is simply turned on as active, and it's position and rotation will be set
         // If not, a brand new prefab needs to be instantiated
 
-        private readonly static Dictionary<GameObject, ObjectPoolHashSet> pooledObjects = new();
+        private static readonly Dictionary<GameObject, ObjectPoolHashSet> pooledObjects = new();
 
-        public static GameObject GetPooledInstantiated(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
+        public static GameObject GetPooledInstantiated(GameObject prefab, Vector3 position, Quaternion rotation,
+            Transform parent = null)
         {
             if (pooledObjects.ContainsKey(prefab))
             {
-                GameObject gameObject = pooledObjects[prefab].FirstOrDefault(x => !x.activeInHierarchy);
+                var gameObject = pooledObjects[prefab].FirstOrDefault(x => !x.activeInHierarchy);
 
-                if (gameObject)
-                {
-                    return pooledObjects[prefab].SetActive(gameObject, position, rotation);
-                }
+                if (gameObject) return pooledObjects[prefab].SetActive(gameObject, position, rotation);
 
                 return pooledObjects[prefab].CreateNewObject(prefab, position, rotation, parent);
             }
@@ -47,20 +45,21 @@ namespace ObjectPoolManager
 
         private class ObjectPoolHashSet : HashSet<GameObject>
         {
-            public GameObject SetActive(GameObject gameObject, Vector3 position, Quaternion rotation, Transform parent = null)
+            public GameObject SetActive(GameObject gameObject, Vector3 position, Quaternion rotation,
+                Transform parent = null)
             {
                 gameObject.transform.SetPositionAndRotation(position, rotation);
                 gameObject.SetActive(true);
                 return gameObject;
             }
 
-            public GameObject CreateNewObject(GameObject prefab, Vector3 position, Quaternion rotation, Transform parent = null)
+            public GameObject CreateNewObject(GameObject prefab, Vector3 position, Quaternion rotation,
+                Transform parent = null)
             {
-                GameObject newObject = Object.Instantiate(prefab, position, rotation, parent);
+                var newObject = Object.Instantiate(prefab, position, rotation, parent);
                 Add(newObject);
                 return newObject;
             }
         }
     }
 }
-

@@ -1,70 +1,66 @@
 using System.Collections;
-using UnityEngine;
 using Graphics;
+using UnityEngine;
 
-public abstract class Bullet_SP : MonoBehaviour
+namespace SinglePlayerScripts.Environment
 {
-    public float moveSpeed;
-
-    protected bool isDespawning;
-
-    protected Rigidbody rigidBody;
-
-    protected Vector3 currentVelocity, currentPosition;
-
-    [SerializeField, Tooltip("Unstoppable bullets are not destroyed when colliding with tanks or other bullets")]
-    protected bool isUnstoppable;
-
-    public int ChargeTimeToAdd { protected get; set; }
-
-
-    public Collider owningCollider;
-
-
-
-    private void Awake()
+    public abstract class Bullet_SP : MonoBehaviour
     {
-        rigidBody = GetComponent<Rigidbody>();
-    }
+        public float moveSpeed;
 
-    private void OnDisable()
-    {
-        rigidBody.velocity = Vector3.zero;
-        
-		if (owningCollider)
-			Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), owningCollider, false);
-	}
+        [SerializeField] [Tooltip("Unstoppable bullets are not destroyed when colliding with tanks or other bullets")]
+        protected bool isUnstoppable;
 
-    protected virtual void OnEnable()
-    {
-		rigidBody.velocity = Vector3.zero;
-		gameObject.GetComponent<TrailRenderer>().Clear();
-		rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
-		GetComponent<SphereCollider>().enabled = true;
-        BulletGraphics.SetBulletLightIntensity(gameObject.GetComponent<Light>());
-        isDespawning = false;
-    }
 
-    private void FixedUpdate()
-    {
-        if (isDespawning)
-            BulletGraphics.DecreaseBulletLightIntensity(gameObject.GetComponent<Light>());
-        else
+        public Collider owningCollider;
+
+        protected bool isDespawning;
+
+        protected Rigidbody rigidBody;
+
+        public int ChargeTimeToAdd { protected get; set; }
+
+
+        private void Awake()
         {
-			currentVelocity = rigidBody.velocity;
-			currentPosition = transform.position;
-		}
-	}
+            rigidBody = GetComponent<Rigidbody>();
+        }
 
-    //Thanks to this method, bullet's trail will linger for a bit after the bullet despawns
+        private void FixedUpdate()
+        {
+            if (isDespawning)
+            {
+                BulletGraphics.DecreaseBulletLightIntensity(gameObject.GetComponent<Light>());
+            }
+        }
 
-    public IEnumerator DespawnItself()
-    {
-        isDespawning = true;
-        rigidBody.velocity = Vector3.zero;
-        GetComponent<SphereCollider>().enabled = false;
-        yield return new WaitForSeconds(0.6f);
-        gameObject.SetActive(false);
+        protected virtual void OnEnable()
+        {
+            rigidBody.velocity = Vector3.zero;
+            gameObject.GetComponent<TrailRenderer>().Clear();
+            rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
+            GetComponent<SphereCollider>().enabled = true;
+            BulletGraphics.SetBulletLightIntensity(gameObject.GetComponent<Light>());
+            isDespawning = false;
+        }
+
+        private void OnDisable()
+        {
+            rigidBody.velocity = Vector3.zero;
+
+            if (owningCollider)
+                Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), owningCollider, false);
+        }
+
+        //Thanks to this method, bullet's trail will linger for a bit after the bullet despawns
+
+        public IEnumerator DespawnItself()
+        {
+            isDespawning = true;
+            rigidBody.velocity = Vector3.zero;
+            GetComponent<SphereCollider>().enabled = false;
+            yield return new WaitForSeconds(0.6f);
+            gameObject.SetActive(false);
+        }
     }
 }
-

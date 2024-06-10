@@ -1,17 +1,15 @@
 using System.Collections;
-using UnityEngine;
 using ObjectPoolManager;
+using SinglePlayerScripts.Environment;
+using UnityEngine;
 
 public class ScoutTank_SP : Tank_SP
 {
-    [SerializeField]
-    private Stats fastModeStats;
+    [SerializeField] private Stats fastModeStats;
 
-    [SerializeField]
-    private float fastModeDuration;
+    [SerializeField] private float fastModeDuration;
 
-    [SerializeField]
-    private int spreadAngle;
+    [SerializeField] private int spreadAngle;
 
 
     protected override void Fire()
@@ -19,14 +17,17 @@ public class ScoutTank_SP : Tank_SP
         if (ammoCount <= 0)
             return;
 
-        for (int angle = -spreadAngle; angle < spreadAngle * 2; angle += spreadAngle)
+        for (var angle = -spreadAngle; angle < spreadAngle * 2; angle += spreadAngle)
         {
-            GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), bulletEmpty);
+            var bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position,
+                bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), bulletEmpty);
             bulletInstance.GetComponent<Bullet_SP>().ChargeTimeToAdd = stats.onKillSuperCharge;
-			Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(),
+                gameObject.GetComponent<BoxCollider>(), true);
 
-            ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), muzzleFlashEmpty);
-		}
+            ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position,
+                bulletSpawn.rotation * Quaternion.Euler(Vector3.up * angle), muzzleFlashEmpty);
+        }
 
 
         if (routine != null)
@@ -57,7 +58,7 @@ public class ScoutTank_SP : Tank_SP
 
     private IEnumerator FastMode()
     {
-        Stats savedStats = stats;
+        var savedStats = stats;
 
         stats = fastModeStats;
 

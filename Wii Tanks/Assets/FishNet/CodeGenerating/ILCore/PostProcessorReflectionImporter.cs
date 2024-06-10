@@ -1,6 +1,6 @@
-﻿using MonoFN.Cecil;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
+using MonoFN.Cecil;
 
 namespace FishNet.CodeGenerating.ILCore
 {
@@ -11,12 +11,15 @@ namespace FishNet.CodeGenerating.ILCore
 
         public PostProcessorReflectionImporter(ModuleDefinition module) : base(module)
         {
-            m_CorrectCorlib = module.AssemblyReferences.FirstOrDefault(a => a.Name == "mscorlib" || a.Name == "netstandard" || a.Name == k_SystemPrivateCoreLib);
+            m_CorrectCorlib = module.AssemblyReferences.FirstOrDefault(a =>
+                a.Name == "mscorlib" || a.Name == "netstandard" || a.Name == k_SystemPrivateCoreLib);
         }
 
         public override AssemblyNameReference ImportReference(AssemblyName reference)
         {
-            return m_CorrectCorlib != null && reference.Name == k_SystemPrivateCoreLib ? m_CorrectCorlib : base.ImportReference(reference);
+            return m_CorrectCorlib != null && reference.Name == k_SystemPrivateCoreLib
+                ? m_CorrectCorlib
+                : base.ImportReference(reference);
         }
     }
 }

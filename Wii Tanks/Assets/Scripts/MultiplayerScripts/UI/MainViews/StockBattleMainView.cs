@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class StockBattleMainView : MainView
 {
-    [SerializeField]
-    private TextMeshProUGUI lifeRemainingText;
+    [SerializeField] private TextMeshProUGUI lifeRemainingText;
 
     private StockBattleGameMode stockBattleGameMode;
 
 
-    void Start()
+    private void Start()
     {
         stockBattleGameMode = FindObjectOfType<StockBattleGameMode>();
     }
@@ -18,8 +17,8 @@ public class StockBattleMainView : MainView
     private void Update()
     {
         if (IsClient)
-        {
-            lifeRemainingText.text = "Life: " + Convert.ToString(stockBattleGameMode.lifeRemaining[PlayerNetworking.Instance.color]);
-        }
+            lifeRemainingText.text = "Life: " +
+                                     Convert.ToString(
+                                         stockBattleGameMode.lifeRemaining[PlayerNetworking.Instance.color]);
     }
 }

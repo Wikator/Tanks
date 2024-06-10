@@ -1,3 +1,4 @@
+using SinglePlayerScripts.Environment;
 using UnityEngine;
 
 public sealed class ScoutBullet_SP : Bullet_SP
@@ -19,30 +20,22 @@ public sealed class ScoutBullet_SP : Bullet_SP
                 other.GetComponent<Tank_SP>().GameOver();
 
                 if (!isUnstoppable)
-                {
-					gameObject.SetActive(false);
-				}
+                    gameObject.SetActive(false);
                 else
-                {
                     Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
-                 //   rigidBody.velocity = currentVelocity;
-                 //   transform.position = currentPosition;
-                }
+                //   rigidBody.velocity = currentVelocity;
+                //   transform.position = currentPosition;
             }
             else
             {
                 other.GetComponent<Tank_SP>().GameOver();
 
                 if (!isUnstoppable)
-                {
-					gameObject.SetActive(false);
-				}
+                    gameObject.SetActive(false);
                 else
-                {
                     Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
-                  //  rigidBody.velocity = currentVelocity;
-                  //  transform.position = currentPosition;
-                }
+                //  rigidBody.velocity = currentVelocity;
+                //  transform.position = currentPosition;
             }
         }
 
@@ -50,28 +43,21 @@ public sealed class ScoutBullet_SP : Bullet_SP
         {
             if (other.gameObject.name == gameObject.name)
             {
-				Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
+                Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
                 return;
-			}
+            }
 
-		    StartCoroutine(other.GetComponent<Bullet_SP>().DespawnItself());
+            StartCoroutine(other.GetComponent<Bullet_SP>().DespawnItself());
 
             if (!isUnstoppable)
-            {
                 StartCoroutine(DespawnItself());
-            }
             else
-            {
                 Physics.IgnoreCollision(gameObject.GetComponent<SphereCollider>(), other);
-              //  rigidBody.velocity = currentVelocity;
-              //  transform.position = currentPosition;
-            }
+            //  rigidBody.velocity = currentVelocity;
+            //  transform.position = currentPosition;
         }
 
-        if (other.CompareTag("Arena"))
-        {
-            StartCoroutine(DespawnItself());
-        }
+        if (other.CompareTag("Arena")) StartCoroutine(DespawnItself());
 
         if (other.gameObject.CompareTag("Enemy"))
         {

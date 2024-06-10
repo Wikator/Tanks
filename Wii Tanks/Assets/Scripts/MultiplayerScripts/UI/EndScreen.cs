@@ -1,14 +1,12 @@
 using System.Linq;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public sealed class EndScreen : View
 {
+    [SerializeField] private TextMeshProUGUI leaderboardText;
+
     public static EndScreen Instance { get; private set; }
-
-
-    [SerializeField]
-    private TextMeshProUGUI leaderboardText;
 
 
     public override void Init()
@@ -19,27 +17,22 @@ public sealed class EndScreen : View
 
     public void UpdateScores()
     {
-        string[] colors = GameMode.Instance.scores.Keys.ToArray();
+        var colors = GameMode.Instance.scores.Keys.ToArray();
 
         leaderboardText.text = "";
 
-        foreach (string color in colors)
-        {
-            leaderboardText.text += color + ": " + GameMode.Instance.scores[color] + "\n";
-        }
+        foreach (var color in colors) leaderboardText.text += color + ": " + GameMode.Instance.scores[color] + "\n";
 
         if (FindObjectOfType<StockBattleGameMode>())
         {
             PlayerNetworking winner = null;
 
             foreach (PlayerNetworking player in GameManager.Instance.players)
-            {
                 if (!StockBattleGameMode.defeatedPlayers.Contains(player))
                 {
                     winner = player;
                     break;
                 }
-            }
 
             leaderboardText.text += "\n";
 

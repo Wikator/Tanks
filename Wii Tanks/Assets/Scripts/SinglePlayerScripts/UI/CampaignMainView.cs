@@ -1,12 +1,11 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class CampaignMainView : MainView_SP
 {
-    public static CampaignMainView Instance1 { get; private set; }
+    [SerializeField] private TextMeshProUGUI levelText;
 
-    [SerializeField]
-    private TextMeshProUGUI levelText;
+    public static CampaignMainView Instance1 { get; private set; }
 
     protected override void Awake()
     {

@@ -10,34 +10,27 @@
 
 using MonoFN.Collections.Generic;
 
-namespace MonoFN.Cecil {
+namespace MonoFN.Cecil
+{
+    public abstract class PropertyReference : MemberReference
+    {
+        internal PropertyReference(string name, TypeReference propertyType)
+            : base(name)
+        {
+            Mixin.CheckType(propertyType, Mixin.Argument.propertyType);
 
-	public abstract class PropertyReference : MemberReference {
+            PropertyType = propertyType;
+        }
 
-		TypeReference property_type;
+        public TypeReference PropertyType { get; set; }
 
-		public TypeReference PropertyType {
-			get { return property_type; }
-			set { property_type = value; }
-		}
+        public abstract Collection<ParameterDefinition> Parameters { get; }
 
-		public abstract Collection<ParameterDefinition> Parameters {
-			get;
-		}
+        protected override IMemberDefinition ResolveDefinition()
+        {
+            return Resolve();
+        }
 
-		internal PropertyReference (string name, TypeReference propertyType)
-			: base (name)
-		{
-			Mixin.CheckType (propertyType, Mixin.Argument.propertyType);
-
-			property_type = propertyType;
-		}
-
-		protected override IMemberDefinition ResolveDefinition ()
-		{
-			return this.Resolve ();
-		}
-
-		public new abstract PropertyDefinition Resolve ();
-	}
+        public new abstract PropertyDefinition Resolve();
+    }
 }

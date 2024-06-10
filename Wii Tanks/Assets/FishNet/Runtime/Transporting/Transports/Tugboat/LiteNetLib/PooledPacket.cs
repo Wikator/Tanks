@@ -6,17 +6,17 @@
         internal readonly byte _channelNumber;
 
         /// <summary>
-        /// Maximum data size that you can put into such packet
+        ///     Maximum data size that you can put into such packet
         /// </summary>
         public readonly int MaxUserDataSize;
 
         /// <summary>
-        /// Offset for user data when writing to Data array
+        ///     Offset for user data when writing to Data array
         /// </summary>
         public readonly int UserDataOffset;
 
         /// <summary>
-        /// Raw packet data. Do not modify header! Use UserDataOffset as start point for your data
+        ///     Raw packet data. Do not modify header! Use UserDataOffset as start point for your data
         /// </summary>
         public byte[] Data => _packet.RawData;
 

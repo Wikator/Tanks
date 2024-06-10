@@ -8,35 +8,27 @@
 // Licensed under the MIT/X11 license.
 //
 
-namespace MonoFN.Cecil {
+namespace MonoFN.Cecil
+{
+    public sealed class LinkedResource : Resource
+    {
+        internal byte[] hash;
 
-	public sealed class LinkedResource : Resource {
+        public LinkedResource(string name, ManifestResourceAttributes flags)
+            : base(name, flags)
+        {
+        }
 
-		internal byte [] hash;
-		string file;
+        public LinkedResource(string name, ManifestResourceAttributes flags, string file)
+            : base(name, flags)
+        {
+            this.File = file;
+        }
 
-		public byte [] Hash {
-			get { return hash; }
-		}
+        public byte[] Hash => hash;
 
-		public string File {
-			get { return file; }
-			set { file = value; }
-		}
+        public string File { get; set; }
 
-		public override ResourceType ResourceType {
-			get { return ResourceType.Linked; }
-		}
-
-		public LinkedResource (string name, ManifestResourceAttributes flags)
-			: base (name, flags)
-		{
-		}
-
-		public LinkedResource (string name, ManifestResourceAttributes flags, string file)
-			: base (name, flags)
-		{
-			this.file = file;
-		}
-	}
+        public override ResourceType ResourceType => ResourceType.Linked;
+    }
 }

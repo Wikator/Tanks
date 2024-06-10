@@ -1,50 +1,28 @@
-using FishNet.Component.Ownership;
-using FishNet.Connection;
+using System.Collections;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using System.Collections;
-using UnityEngine;
 using Graphics;
+using UnityEngine;
 
 public abstract class Bullet : NetworkBehaviour
 {
-    [SerializeField, Tooltip("How fast this bullet will travel")]
+    [SerializeField] [Tooltip("How fast this bullet will travel")]
     protected float moveSpeed;
 
-    [SerializeField, Tooltip("Unstoppable bullets are not destroyed when colliding with tanks or other bullets")]
+    [SerializeField] [Tooltip("Unstoppable bullets are not destroyed when colliding with tanks or other bullets")]
     protected bool isUnstoppable;
 
     public PlayerNetworking player;
 
-    protected Rigidbody rigidBody;
+    private Light bulletLight;
 
     protected Vector3 currentVelocity, currentPosition;
 
-    [SyncVar, HideInInspector]
-    private bool isDespawning = false;
+    [SyncVar] private bool isDespawning;
+
+    protected Rigidbody rigidBody;
 
     public int ChargeTimeToAdd { protected get; set; }
-
-    private Light bulletLight;
-    
-    public override void OnStartServer()
-    {
-        base.OnStartServer();
-        rigidBody = GetComponent<Rigidbody>();
-
-        rigidBody = GetComponent<Rigidbody>();
-        rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
-
-        isDespawning = false;
-    }
-    
-
-    public override void OnStartClient()
-    {
-        base.OnStartClient();
-        bulletLight = transform.GetChild(1).GetComponent<Light>();
-        BulletGraphics.SetBulletLightIntensity(bulletLight);
-    }
 
 
     //Bullet's stats are saved in the FixedUpdate, so that the bullet will not slow down after hitting the wall
@@ -61,6 +39,25 @@ public abstract class Bullet : NetworkBehaviour
             BulletGraphics.DecreaseBulletLightIntensity(bulletLight);
     }
 
+    public override void OnStartServer()
+    {
+        base.OnStartServer();
+        rigidBody = GetComponent<Rigidbody>();
+
+        rigidBody = GetComponent<Rigidbody>();
+        rigidBody.AddForce(transform.forward * moveSpeed, ForceMode.Impulse);
+
+        isDespawning = false;
+    }
+
+
+    public override void OnStartClient()
+    {
+        base.OnStartClient();
+        bulletLight = transform.GetChild(1).GetComponent<Light>();
+        BulletGraphics.SetBulletLightIntensity(bulletLight);
+    }
+
 
     [Server]
     public IEnumerator DespawnItself()
@@ -72,4 +69,3 @@ public abstract class Bullet : NetworkBehaviour
         Despawn();
     }
 }
-

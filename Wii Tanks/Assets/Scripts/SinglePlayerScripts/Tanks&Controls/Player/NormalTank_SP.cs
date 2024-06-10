@@ -1,6 +1,6 @@
 using System.Collections;
-using UnityEngine;
 using ObjectPoolManager;
+using UnityEngine;
 
 public sealed class NormalTank_SP : Tank_SP
 {
@@ -24,15 +24,20 @@ public sealed class NormalTank_SP : Tank_SP
 
     private IEnumerator Barrage()
     {
-        for (int i = 0; i < 20; i++)
+        for (var i = 0; i < 20; i++)
         {
-            GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+            var bulletInstance =
+                ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation,
+                    bulletEmpty);
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(),
+                gameObject.GetComponent<BoxCollider>(), true);
 
-            ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
+            ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation,
+                muzzleFlashEmpty);
 
             yield return new WaitForSeconds(0.2f);
         }
+
         routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
     }
 }

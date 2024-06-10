@@ -9,4 +9,3 @@ public abstract class View : NetworkBehaviour
         Initialized = true;
     }
 }
-

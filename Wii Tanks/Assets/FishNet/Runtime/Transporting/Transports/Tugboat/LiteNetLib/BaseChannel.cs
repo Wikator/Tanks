@@ -5,17 +5,17 @@ namespace LiteNetLib
 {
     internal abstract class BaseChannel
     {
-        protected readonly NetPeer Peer;
         protected readonly ConcurrentQueue<NetPacket> OutgoingQueue;
+        protected readonly NetPeer Peer;
         private int _isAddedToPeerChannelSendQueue;
-
-        public int PacketsInQueue => OutgoingQueue.Count;
 
         protected BaseChannel(NetPeer peer)
         {
             Peer = peer;
             OutgoingQueue = new ConcurrentQueue<NetPacket>();
         }
+
+        public int PacketsInQueue => OutgoingQueue.Count;
 
         public void AddToQueue(NetPacket packet)
         {
@@ -26,14 +26,12 @@ namespace LiteNetLib
         protected void AddToPeerChannelSendQueue()
         {
             if (Interlocked.CompareExchange(ref _isAddedToPeerChannelSendQueue, 1, 0) == 0)
-            {
                 Peer.AddToReliableChannelSendQueue(this);
-            }
         }
 
         public bool SendAndCheckQueue()
         {
-            bool hasPacketsToSend = SendNextPackets();
+            var hasPacketsToSend = SendNextPackets();
             if (!hasPacketsToSend)
                 Interlocked.Exchange(ref _isAddedToPeerChannelSendQueue, 0);
 

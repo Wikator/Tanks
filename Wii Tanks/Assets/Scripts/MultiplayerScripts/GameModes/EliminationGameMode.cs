@@ -1,27 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
+using UnityEngine;
 
 public class EliminationGameMode : GameMode
 {
+    [HideInInspector] public bool waitingForNewRound = true;
+
+    [SyncVar] [SerializeField] private int pointsToWin;
     //Each player will be added to the HashSet appropriote to their chosen team
 
-    [SyncObject]
-    public readonly SyncList<PlayerNetworking> greenTeam = new();
+    [SyncObject] public readonly SyncList<PlayerNetworking> greenTeam = new();
 
-    [SyncObject]
-    public readonly SyncList<PlayerNetworking> redTeam = new();
-
-    [HideInInspector]
-    public bool waitingForNewRound = true;
+    [SyncObject] public readonly SyncList<PlayerNetworking> redTeam = new();
 
     private Transform bulletEmpty;
-
-    [SyncVar, SerializeField]
-    private int pointsToWin;
 
 
     //Before start of the game, this script finds and saves all possible spawn points
@@ -45,7 +39,6 @@ public class EliminationGameMode : GameMode
     [Server]
     public override void OnKilled(PlayerNetworking playerNetworking)
     {
-
         if (waitingForNewRound || !GameManager.Instance.GameInProgress)
             return;
 
@@ -57,14 +50,11 @@ public class EliminationGameMode : GameMode
                     PointScored("Red", 1);
 
                     if (scores["Red"] == pointsToWin)
-                    {
                         GameManager.Instance.EndGame();
-                    }
                     else
-                    {
                         StartCoroutine(NewRound());
-                    }
                 }
+
                 break;
             case "Red":
                 if (redTeam.All(player => !player.ControlledPawn) && redTeam.Count != 0)
@@ -72,14 +62,11 @@ public class EliminationGameMode : GameMode
                     PointScored("Green", 1);
 
                     if (scores["Green"] == pointsToWin)
-                    {
                         GameManager.Instance.EndGame();
-                    }
                     else
-                    {
                         StartCoroutine(NewRound());
-                    }
                 }
+
                 break;
         }
     }
@@ -90,9 +77,9 @@ public class EliminationGameMode : GameMode
     {
         Spawn spawn;
 
-        IEnumerable<Spawn> avaibleSpawns = spawns[color].Where(s => !s.isOccupied);
+        var avaibleSpawns = spawns[color].Where(s => !s.isOccupied);
 
-        int avaibleSpawnsCount = avaibleSpawns.Count();
+        var avaibleSpawnsCount = avaibleSpawns.Count();
 
         if (avaibleSpawnsCount == 0)
         {
@@ -110,17 +97,11 @@ public class EliminationGameMode : GameMode
     [Server]
     protected virtual void StartNewRound(GameManager gameManager)
     {
-        foreach (PlayerNetworking player in gameManager.players)
-        {
-            player.SpawnTank();
-        }
+        foreach (PlayerNetworking player in gameManager.players) player.SpawnTank();
 
         if (FindObjectOfType<GameMode>().TryGetComponent(out EliminationGameMode eliminationGameMode))
-        {
             eliminationGameMode.waitingForNewRound = false;
-        }
     }
-
 
 
     //Each player and bullet needs to be destroyed before the new round
@@ -135,10 +116,8 @@ public class EliminationGameMode : GameMode
         GameManager.Instance.KillAllPlayers();
 
         foreach (Transform child in bulletEmpty)
-        {
             if (child.GetComponent<Bullet>().IsSpawned)
                 child.GetComponent<Bullet>().Despawn();
-        }
 
         yield return new WaitForSeconds(3.0f);
 

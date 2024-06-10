@@ -1,59 +1,43 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using ObjectPoolManager;
 using Graphics;
+using ObjectPoolManager;
+using SinglePlayerScripts.Environment;
+using UnityEngine;
 
 public abstract class Tank_SP : MonoBehaviour
 {
-    private struct MoveData
-    {
-        public float MoveAxis;
-        public float RotateAxis;
-        public Vector3 TurretLookDirection;
-
-        public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection)
-        {
-            MoveAxis = moveAxis;
-            RotateAxis = rotateAxis;
-            TurretLookDirection = turretLookDirection;
-        }
-    }
-
     //[SerializeField]
     public Stats stats;
 
-    [HideInInspector]
-    protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
 
-    [HideInInspector]
-    protected GameObject bullet;
-
-
-    [HideInInspector]
-    public bool canUseSuper;
+    [HideInInspector] public bool canUseSuper;
 
     protected int ammoCount;
 
-    private float moveAxis;
-    private float rotateAxis;
+    [HideInInspector] protected GameObject bullet;
+
+    [HideInInspector] protected Transform bulletSpawn, bulletEmpty, muzzleFlashSpawn, muzzleFlashEmpty;
+
+    private Camera cam;
 
     private CharacterController controller;
-    private Transform explosionEmpty;
-    private Transform turret;
     private GameObject explosion;
-    protected GameObject muzzleFlash;
-    private Camera cam;
+    private Transform explosionEmpty;
 
     private TankGraphics graphics;
 
-    protected Coroutine routine;
+    private float moveAxis;
+    protected GameObject muzzleFlash;
 
     private LayerMask raycastLayer;
+    private float rotateAxis;
+
+    protected Coroutine routine;
+    private Transform turret;
 
 
-	private void Start()
-	{
+    private void Start()
+    {
         //GameObject.Find("Main Camera").transform.Rotate(-40.345f, 0f, 0f);
         GameObject.Find("Main Camera").AddComponent<CameraFollow>();
         CameraFollow.Player = transform;
@@ -62,16 +46,16 @@ public abstract class Tank_SP : MonoBehaviour
         turret = transform.GetChild(0).GetChild(0);
         raycastLayer = 1 << 9;
 
-        graphics = new(
+        graphics = new TankGraphics(
             "Green",
             gameObject.GetComponent<Light>(),
             transform.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
             turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
             transform.GetChild(0).GetChild(1).gameObject.GetComponent<MeshRenderer>(),
             transform.GetChild(0).GetChild(2).gameObject.GetComponent<MeshRenderer>()
-            );
+        );
 
-        Dictionary<string, GameObject> prefabs = TankGraphics.ChangePrefabsColours("Green", "Singleplayer", "MediumTank");
+        var prefabs = TankGraphics.ChangePrefabsColours("Green", "Singleplayer", "MediumTank");
 
         explosion = prefabs["Explosion"];
         muzzleFlash = prefabs["MuzzleFlash"];
@@ -89,15 +73,6 @@ public abstract class Tank_SP : MonoBehaviour
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }
 
-
-    public void GameOver()
-    {
-        ammoCount = 0;
-        ObjectPoolManager_SP.GetPooledInstantiated(explosion, transform.position, transform.rotation, explosionEmpty);
-        SpawnManager_SP.Instance.OnKilled(gameObject);
-		Destroy(gameObject);
-	}
-
     private void Update()
     {
         //if (!GameManager_SP.Instance.GameInProgress)
@@ -105,15 +80,9 @@ public abstract class Tank_SP : MonoBehaviour
 
         Move(GatherInputs());
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            Fire();
-        }
+        if (Input.GetMouseButtonDown(0)) Fire();
 
-        if (Input.GetMouseButtonDown(1))
-        {
-            SpecialMove();
-        }
+        if (Input.GetMouseButtonDown(1)) SpecialMove();
     }
 
     private void FixedUpdate()
@@ -121,19 +90,31 @@ public abstract class Tank_SP : MonoBehaviour
         graphics.SpawnAnimation();
     }
 
+
+    public void GameOver()
+    {
+        ammoCount = 0;
+        ObjectPoolManager_SP.GetPooledInstantiated(explosion, transform.position, transform.rotation, explosionEmpty);
+        SpawnManager_SP.Instance.OnKilled(gameObject);
+        Destroy(gameObject);
+    }
+
     protected virtual void Fire()
     {
         if (ammoCount <= 0)
             return;
 
-        GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
+        var bulletInstance =
+            ObjectPoolManager_SP.GetPooledInstantiated(bullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
         bulletInstance.GetComponent<Bullet_SP>().ChargeTimeToAdd = stats.onKillSuperCharge;
-        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(),
+            true);
         bulletInstance.GetComponent<Bullet_SP>().owningCollider = gameObject.GetComponent<BoxCollider>();
 
-        ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
+        ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation,
+            muzzleFlashEmpty);
 
-		if (routine != null)
+        if (routine != null)
         {
             StopCoroutine(routine);
             routine = null;
@@ -154,13 +135,9 @@ public abstract class Tank_SP : MonoBehaviour
         ammoCount++;
 
         if (ammoCount != stats.maxAmmo)
-        {
             routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
-        }
         else
-        {
             routine = null;
-        }
 
         MainView_SP.Instance.UpdateAmmo(ammoCount);
     }
@@ -171,7 +148,7 @@ public abstract class Tank_SP : MonoBehaviour
         moveAxis = Input.GetAxis("Vertical");
         rotateAxis = Input.GetAxis("Horizontal");
 
-        Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
+        Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out var hit, Mathf.Infinity, raycastLayer);
 
         return new MoveData(moveAxis, rotateAxis, hit.point);
     }
@@ -191,6 +168,20 @@ public abstract class Tank_SP : MonoBehaviour
         {
             turret.LookAt(data.TurretLookDirection, Vector3.up);
             turret.localEulerAngles = new Vector3(0, turret.localEulerAngles.y, 0);
+        }
+    }
+
+    private struct MoveData
+    {
+        public readonly float MoveAxis;
+        public readonly float RotateAxis;
+        public readonly Vector3 TurretLookDirection;
+
+        public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection)
+        {
+            MoveAxis = moveAxis;
+            RotateAxis = rotateAxis;
+            TurretLookDirection = turretLookDirection;
         }
     }
 }

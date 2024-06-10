@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net;
 using LiteNetLib.Utils;
 
 namespace LiteNetLib
@@ -31,11 +30,20 @@ namespace LiteNetLib
         private static readonly int PropertiesCount = Enum.GetValues(typeof(PacketProperty)).Length;
         private static readonly int[] HeaderSizes;
 
+        //Pool node
+        public NetPacket Next;
+
+        //Data
+        public byte[] RawData;
+        public int Size;
+
+        //Delivery
+        public object UserData;
+
         static NetPacket()
         {
             HeaderSizes = NetUtils.AllocatePinnedUninitializedArray<int>(PropertiesCount);
-            for (int i = 0; i < HeaderSizes.Length; i++)
-            {
+            for (var i = 0; i < HeaderSizes.Length; i++)
                 switch ((PacketProperty)i)
                 {
                     case PacketProperty.Channeled:
@@ -61,7 +69,20 @@ namespace LiteNetLib
                         HeaderSizes[i] = NetConstants.HeaderSize;
                         break;
                 }
-            }
+        }
+
+        public NetPacket(int size)
+        {
+            RawData = new byte[size];
+            Size = size;
+        }
+
+        public NetPacket(PacketProperty property, int size)
+        {
+            size += GetHeaderSize(property);
+            RawData = new byte[size];
+            Property = property;
+            Size = size;
         }
 
         //Header
@@ -74,7 +95,7 @@ namespace LiteNetLib
         public byte ConnectionNumber
         {
             get => (byte)((RawData[0] & 0x60) >> 5);
-            set => RawData[0] = (byte) ((RawData[0] & 0x9F) | (value << 5));
+            set => RawData[0] = (byte)((RawData[0] & 0x9F) | (value << 5));
         }
 
         public ushort Sequence
@@ -84,11 +105,6 @@ namespace LiteNetLib
         }
 
         public bool IsFragmented => (RawData[0] & 0x80) != 0;
-
-        public void MarkFragmented()
-        {
-            RawData[0] |= 0x80; //set first bit
-        }
 
         public byte ChannelId
         {
@@ -114,28 +130,9 @@ namespace LiteNetLib
             set => FastBitConverter.GetBytes(RawData, 8, value);
         }
 
-        //Data
-        public byte[] RawData;
-        public int Size;
-
-        //Delivery
-        public object UserData;
-
-        //Pool node
-        public NetPacket Next;
-
-        public NetPacket(int size)
+        public void MarkFragmented()
         {
-            RawData = new byte[size];
-            Size = size;
-        }
-
-        public NetPacket(PacketProperty property, int size)
-        {
-            size += GetHeaderSize(property);
-            RawData = new byte[size];
-            Property = property;
-            Size = size;
+            RawData[0] |= 0x80; //set first bit
         }
 
         public static int GetHeaderSize(PacketProperty property)
@@ -150,11 +147,11 @@ namespace LiteNetLib
 
         public bool Verify()
         {
-            byte property = (byte)(RawData[0] & 0x1F);
+            var property = (byte)(RawData[0] & 0x1F);
             if (property >= PropertiesCount)
                 return false;
-            int headerSize = HeaderSizes[property];
-            bool fragmented = (RawData[0] & 0x80) != 0;
+            var headerSize = HeaderSizes[property];
+            var fragmented = (RawData[0] & 0x80) != 0;
             return Size >= headerSize && (!fragmented || Size >= headerSize + NetConstants.FragmentHeaderSize);
         }
     }

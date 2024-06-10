@@ -2,19 +2,19 @@
 
 namespace FishNet.CodeGenerating.Helping
 {
-
-
-
     internal class CreatedSyncVar
     {
-        public readonly TypeDefinition VariableTd;
-        public readonly MethodReference GetValueMr;
-        public readonly MethodReference SetValueMr;
-        public readonly MethodReference SetSyncIndexMr;
         public readonly MethodReference ConstructorMr;
+        public readonly MethodReference GetValueMr;
+        public readonly MethodReference SetSyncIndexMr;
+        public readonly MethodReference SetValueMr;
         public readonly GenericInstanceType SyncVarGit;
+        public readonly TypeDefinition VariableTd;
         public MethodReference HookMr;
-        public CreatedSyncVar(GenericInstanceType syncVarGit, TypeDefinition variableTd, MethodReference getValueMr, MethodReference setValueMr, MethodReference setSyncIndexMr,MethodReference hookMr,  MethodReference constructorMr)
+
+        public CreatedSyncVar(GenericInstanceType syncVarGit, TypeDefinition variableTd, MethodReference getValueMr,
+            MethodReference setValueMr, MethodReference setSyncIndexMr, MethodReference hookMr,
+            MethodReference constructorMr)
         {
             SyncVarGit = syncVarGit;
             VariableTd = variableTd;
@@ -29,13 +29,16 @@ namespace FishNet.CodeGenerating.Helping
 
     internal class CreatedSyncType
     {
-        public TypeDefinition StubClassTypeDefinition;
-        public MethodReference GetValueMethodReference;
-        public MethodReference SetValueMethodReference;
-        public MethodReference GetPreviousClientValueMethodReference;
-        public MethodReference ReadMethodReference;
         public MethodReference ConstructorMethodReference;
-        public CreatedSyncType(TypeDefinition stubClassTypeDef, MethodReference getMethodRef, MethodReference setMethodRef, MethodReference getPreviousMethodRef, MethodReference readMethodRef, MethodReference constructorMethodRef)
+        public MethodReference GetPreviousClientValueMethodReference;
+        public MethodReference GetValueMethodReference;
+        public MethodReference ReadMethodReference;
+        public MethodReference SetValueMethodReference;
+        public TypeDefinition StubClassTypeDefinition;
+
+        public CreatedSyncType(TypeDefinition stubClassTypeDef, MethodReference getMethodRef,
+            MethodReference setMethodRef, MethodReference getPreviousMethodRef, MethodReference readMethodRef,
+            MethodReference constructorMethodRef)
         {
             StubClassTypeDefinition = stubClassTypeDef;
             GetValueMethodReference = getMethodRef;
@@ -45,5 +48,4 @@ namespace FishNet.CodeGenerating.Helping
             ConstructorMethodReference = constructorMethodRef;
         }
     }
-
 }

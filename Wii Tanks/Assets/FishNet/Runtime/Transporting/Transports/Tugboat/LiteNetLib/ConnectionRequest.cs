@@ -15,14 +15,22 @@ namespace LiteNetLib
     public class ConnectionRequest
     {
         private readonly NetManager _listener;
+
+        public readonly IPEndPoint RemoteEndPoint;
         private int _used;
+        internal NetConnectRequestPacket InternalPacket;
+
+        internal ConnectionRequest(IPEndPoint remoteEndPoint, NetConnectRequestPacket requestPacket,
+            NetManager listener)
+        {
+            InternalPacket = requestPacket;
+            RemoteEndPoint = remoteEndPoint;
+            _listener = listener;
+        }
 
         public NetDataReader Data => InternalPacket.Data;
 
         internal ConnectionRequestResult Result { get; private set; }
-        internal NetConnectRequestPacket InternalPacket;
-
-        public readonly IPEndPoint RemoteEndPoint;
 
         internal void UpdateRequest(NetConnectRequestPacket connectRequest)
         {
@@ -42,13 +50,6 @@ namespace LiteNetLib
             return Interlocked.CompareExchange(ref _used, 1, 0) == 0;
         }
 
-        internal ConnectionRequest(IPEndPoint remoteEndPoint, NetConnectRequestPacket requestPacket, NetManager listener)
-        {
-            InternalPacket = requestPacket;
-            RemoteEndPoint = remoteEndPoint;
-            _listener = listener;
-        }
-
         public NetPeer AcceptIfKey(string key)
         {
             if (!TryActivate())
@@ -62,6 +63,7 @@ namespace LiteNetLib
             {
                 NetDebug.WriteError("[AC] Invalid incoming data");
             }
+
             if (Result == ConnectionRequestResult.Accept)
                 return _listener.OnConnectionSolved(this, null, 0, 0);
 
@@ -71,7 +73,7 @@ namespace LiteNetLib
         }
 
         /// <summary>
-        /// Accept connection and get new NetPeer as result
+        ///     Accept connection and get new NetPeer as result
         /// </summary>
         /// <returns>Connected NetPeer</returns>
         public NetPeer Accept()

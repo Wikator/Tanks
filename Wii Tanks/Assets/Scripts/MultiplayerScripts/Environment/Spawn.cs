@@ -2,17 +2,13 @@ using UnityEngine;
 
 public class Spawn : MonoBehaviour
 {
-    public bool isOccupied = false;
+    public bool isOccupied;
 
-    private Collider other = null;
+    private Collider other;
 
-
-    //Each spawn checks whether anything is in its collider, so that nothing will be able to spawn inside different objects
-
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
-        isOccupied = true;
-        this.other = other;
+        if (isOccupied && other == null) isOccupied = false;
     }
 
     private void OnTriggerExit(Collider other)
@@ -24,11 +20,12 @@ public class Spawn : MonoBehaviour
         }
     }
 
-    private void Update()
+
+    //Each spawn checks whether anything is in its collider, so that nothing will be able to spawn inside different objects
+
+    private void OnTriggerStay(Collider other)
     {
-        if (isOccupied && other == null)
-        {
-            isOccupied = false;
-        }
+        isOccupied = true;
+        this.other = other;
     }
 }

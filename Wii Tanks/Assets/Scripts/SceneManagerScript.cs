@@ -3,8 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagerScript : MonoBehaviour
 {
-    [SerializeField]
-    private string sceneName;
+    [SerializeField] private string sceneName;
 
     public static Transform BulletEmpty { get; private set; }
     public static Transform MuzzleFlashEmpty { get; private set; }
@@ -14,12 +13,9 @@ public class SceneManagerScript : MonoBehaviour
     {
         get
         {
-            GameObject[] allBullets = new GameObject[BulletEmpty.childCount];
+            var allBullets = new GameObject[BulletEmpty.childCount];
 
-            for (int i = 0; i < allBullets.Length; i++)
-            {
-                allBullets[i] = BulletEmpty.GetChild(i).gameObject;
-            }
+            for (var i = 0; i < allBullets.Length; i++) allBullets[i] = BulletEmpty.GetChild(i).gameObject;
 
             return allBullets;
         }

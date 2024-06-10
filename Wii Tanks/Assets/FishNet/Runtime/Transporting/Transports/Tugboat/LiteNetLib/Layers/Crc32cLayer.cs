@@ -1,6 +1,6 @@
-﻿using LiteNetLib.Utils;
-using System;
+﻿using System;
 using System.Net;
+using LiteNetLib.Utils;
 
 namespace LiteNetLib.Layers
 {
@@ -8,10 +8,10 @@ namespace LiteNetLib.Layers
     {
         public Crc32cLayer() : base(CRC32C.ChecksumSize)
         {
-
         }
 
-        public override void ProcessInboundPacket(ref IPEndPoint endPoint, ref byte[] data, ref int offset, ref int length)
+        public override void ProcessInboundPacket(ref IPEndPoint endPoint, ref byte[] data, ref int offset,
+            ref int length)
         {
             if (length < NetConstants.HeaderSize + CRC32C.ChecksumSize)
             {
@@ -21,7 +21,7 @@ namespace LiteNetLib.Layers
                 return;
             }
 
-            int checksumPoint = length - CRC32C.ChecksumSize;
+            var checksumPoint = length - CRC32C.ChecksumSize;
             if (CRC32C.Compute(data, offset, checksumPoint) != BitConverter.ToUInt32(data, checksumPoint))
             {
                 NetDebug.Write("[NM] DataReceived checksum: bad!");
@@ -29,10 +29,12 @@ namespace LiteNetLib.Layers
                 length = 0;
                 return;
             }
+
             length -= CRC32C.ChecksumSize;
         }
 
-        public override void ProcessOutBoundPacket(ref IPEndPoint endPoint, ref byte[] data, ref int offset, ref int length)
+        public override void ProcessOutBoundPacket(ref IPEndPoint endPoint, ref byte[] data, ref int offset,
+            ref int length)
         {
             FastBitConverter.GetBytes(data, length, CRC32C.Compute(data, offset, length));
             length += CRC32C.ChecksumSize;

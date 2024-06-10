@@ -1,20 +1,28 @@
-using System.Linq;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using FishNet.Object.Synchronizing;
+using System.Linq;
 using FishNet.Object;
+using FishNet.Object.Synchronizing;
+using UnityEngine;
 
 public class DeathmatchGameMode : GameMode
 {
-    [SyncObject]
-    public readonly SyncTimer time = new();
+    [SerializeField] private int matchLength;
 
-    [SerializeField]
-    private int matchLength;
+    [SerializeField] private float respawnTime;
 
-    [SerializeField]
-    private float respawnTime;
+    [SyncObject] public readonly SyncTimer time = new();
+
+
+    private void Update()
+    {
+        if (GameManager.Instance.GameInProgress)
+        {
+            if (time.Remaining > 0)
+                time.Update(Time.deltaTime);
+            else
+                GameManager.Instance.EndGame();
+        }
+    }
 
 
     // Before start of the game, this script finds and saves all possible spawn points
@@ -23,7 +31,7 @@ public class DeathmatchGameMode : GameMode
     {
         base.OnStartServer();
 
-        time.StartTimer(matchLength, true);
+        time.StartTimer(matchLength);
 
         spawns["NoTeams"] = GameObject.Find("DeathmatchSpawns").GetComponentsInChildren<Spawn>();
 
@@ -33,22 +41,6 @@ public class DeathmatchGameMode : GameMode
         scores["Purple"] = 0;
         scores["Yellow"] = 0;
         scores["Blue"] = 0;
-    }
-
-
-    private void Update()
-    {
-        if (GameManager.Instance.GameInProgress)
-        {
-            if (time.Remaining > 0)
-            {
-                time.Update(Time.deltaTime);
-            }
-            else
-            {
-                GameManager.Instance.EndGame();
-            }
-        }
     }
 
     [Server]
@@ -68,9 +60,9 @@ public class DeathmatchGameMode : GameMode
 
         Spawn spawn;
 
-        IEnumerable<Spawn> avaibleSpawns = spawns[color].Where(s => !s.isOccupied);
+        var avaibleSpawns = spawns[color].Where(s => !s.isOccupied);
 
-        int avaibleSpawnsCount = avaibleSpawns.Count();
+        var avaibleSpawnsCount = avaibleSpawns.Count();
 
         if (avaibleSpawnsCount == 0)
         {

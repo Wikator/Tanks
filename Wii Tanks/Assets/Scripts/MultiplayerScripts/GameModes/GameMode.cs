@@ -1,17 +1,14 @@
+using System.Collections.Generic;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class GameMode : NetworkBehaviour
 {
-    public static GameMode Instance { get; private set; }
+    [SyncObject] public readonly SyncDictionary<string, int> scores = new();
 
     public readonly Dictionary<string, Spawn[]> spawns = new();
-
-
-    [SyncObject]
-    public readonly SyncDictionary<string, int> scores = new();
+    public static GameMode Instance { get; private set; }
 
     private void Awake()
     {
@@ -37,12 +34,14 @@ public abstract class GameMode : NetworkBehaviour
     }
 
 
-
     //Those methods need to be abstract, so that they can be called when referencing this class, rather than its subclasses
 
     public abstract void OnKilled(PlayerNetworking player);
 
     public abstract Vector3 FindSpawnPosition(string color);
 
-    public void PointScored(string team, int numberOfPoints) => scores[team] += numberOfPoints;
+    public void PointScored(string team, int numberOfPoints)
+    {
+        scores[team] += numberOfPoints;
+    }
 }

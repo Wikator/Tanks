@@ -1,57 +1,58 @@
-﻿using FishNet.CodeGenerating.Helping;
-using FishNet.CodeGenerating.ILCore;
+﻿#if !UNITY_2020_1_OR_NEWER
+using UnityEngine;
+#endif
+using System;
+using System.Collections.Generic;
+using FishNet.CodeGenerating.Helping;
 using FishNet.CodeGenerating.Processing;
 using FishNet.CodeGenerating.Processing.Rpc;
 using MonoFN.Cecil;
-using System.Collections.Generic;
-using System.Linq;
 using Unity.CompilationPipeline.Common.Diagnostics;
-#if !UNITY_2020_1_OR_NEWER
-using UnityEngine;
-#endif
 using SR = System.Reflection;
 
 
 namespace FishNet.CodeGenerating
 {
-
     internal class CodegenSession
     {
         /// <summary>
-        /// Current module for this session.
-        /// </summary>
-        internal ModuleDefinition Module;
-        /// <summary>
-        /// Outputs errors when codegen fails.
-        /// </summary>
-        internal List<DiagnosticMessage> Diagnostics;
-        /// <summary>
-        /// SyncVars that are being accessed from an assembly other than the currently being processed one.
-        /// </summary>
-        internal List<FieldDefinition> DifferentAssemblySyncVars = new List<FieldDefinition>();
-
-
-        /// <summary>
-        /// CodegenBase classes for processing a module.
+        ///     CodegenBase classes for processing a module.
         /// </summary>
         private List<CodegenBase> _bases;
-        /// <summary>
-        /// Quick lookup of base classes.
-        /// </summary>
-        private Dictionary<string, CodegenBase> _basesCache = new Dictionary<string, CodegenBase>();
 
         /// <summary>
-        /// Returns class of type if found within CodegenBase classes.
+        ///     Quick lookup of base classes.
+        /// </summary>
+        private readonly Dictionary<string, CodegenBase> _basesCache = new();
+
+        /// <summary>
+        ///     Outputs errors when codegen fails.
+        /// </summary>
+        internal List<DiagnosticMessage> Diagnostics;
+
+        /// <summary>
+        ///     SyncVars that are being accessed from an assembly other than the currently being processed one.
+        /// </summary>
+        internal List<FieldDefinition> DifferentAssemblySyncVars = new();
+
+        /// <summary>
+        ///     Current module for this session.
+        /// </summary>
+        internal ModuleDefinition Module;
+
+        /// <summary>
+        ///     Returns class of type if found within CodegenBase classes.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         internal T GetClass<T>() where T : CodegenBase
         {
-            string tName = typeof(T).Name;
+            var tName = typeof(T).Name;
             return (T)_basesCache[tName];
         }
+
         /// <summary>
-        /// Resets all helpers while importing any information needed by them.
+        ///     Resets all helpers while importing any information needed by them.
         /// </summary>
         /// <param name="module"></param>
         /// <returns></returns>
@@ -60,31 +61,25 @@ namespace FishNet.CodeGenerating
             Module = module;
             Diagnostics = new List<DiagnosticMessage>();
 
-            _bases = new List<CodegenBase>()
-                {
-                    new ReaderImports(), new ReaderProcessor()
-                    ,new WriterImports(), new WriterProcessor()
-                    , new PhysicsHelper(), new TimeManagerHelper(), new AttributeHelper(), new GeneralHelper()
-                    , new ObjectHelper(), new NetworkBehaviourHelper()
-                    , new CreatedSyncVarGenerator(), new TransportHelper()
-                    , new NetworkConnectionHelper(), new PredictedObjectHelper(), new GeneratorHelper()
-                    , new CustomSerializerProcessor()
-                    , new NetworkBehaviourProcessor()
-                    , new QolAttributeProcessor()
-                    , new RpcProcessor()
-                    , new NetworkBehaviourSyncProcessor()
-                    , new PredictionProcessor()
-                };
+            _bases = new List<CodegenBase>
+            {
+                new ReaderImports(), new ReaderProcessor(), new WriterImports(), new WriterProcessor(),
+                new PhysicsHelper(), new TimeManagerHelper(), new AttributeHelper(), new GeneralHelper(),
+                new ObjectHelper(), new NetworkBehaviourHelper(), new CreatedSyncVarGenerator(), new TransportHelper(),
+                new NetworkConnectionHelper(), new PredictedObjectHelper(), new GeneratorHelper(),
+                new CustomSerializerProcessor(), new NetworkBehaviourProcessor(), new QolAttributeProcessor(),
+                new RpcProcessor(), new NetworkBehaviourSyncProcessor(), new PredictionProcessor()
+            };
 
             //Add all to dictionary first, then import.
-            foreach (CodegenBase item in _bases)
+            foreach (var item in _bases)
             {
-                string tName = item.GetType().Name;
+                var tName = item.GetType().Name;
                 _basesCache.Add(tName, item);
             }
 
             //Initialize.
-            foreach (CodegenBase item in _bases)
+            foreach (var item in _bases)
             {
                 item.Initialize(this);
                 if (!item.ImportReferences())
@@ -95,11 +90,10 @@ namespace FishNet.CodeGenerating
         }
 
 
-
-
         #region Logging.
+
         /// <summary>
-        /// Logs a warning.
+        ///     Logs a warning.
         /// </summary>
         /// <param name="msg"></param>
         internal void LogWarning(string msg)
@@ -110,8 +104,9 @@ namespace FishNet.CodeGenerating
             Debug.LogWarning(msg);
 #endif
         }
+
         /// <summary>
-        /// Logs an error.
+        ///     Logs an error.
         /// </summary>
         /// <param name="msg"></param>
         internal void LogError(string msg)
@@ -122,6 +117,7 @@ namespace FishNet.CodeGenerating
             Debug.LogError(msg);
 #endif
         }
+
         #endregion
 
         #region ImportReference.
@@ -155,6 +151,7 @@ namespace FishNet.CodeGenerating
         {
             return Module.ImportReference(field, context);
         }
+
         public MethodReference ImportReference(MethodReference method)
         {
             return Module.ImportReference(method);
@@ -164,13 +161,14 @@ namespace FishNet.CodeGenerating
         {
             return Module.ImportReference(method, context);
         }
-        public TypeReference ImportReference(System.Type type)
+
+        public TypeReference ImportReference(Type type)
         {
             return ImportReference(type, null);
         }
 
 
-        public TypeReference ImportReference(System.Type type, IGenericParameterProvider context)
+        public TypeReference ImportReference(Type type, IGenericParameterProvider context)
         {
             return Module.ImportReference(type, context);
         }
@@ -187,8 +185,5 @@ namespace FishNet.CodeGenerating
         }
 
         #endregion
-
     }
-
-
 }

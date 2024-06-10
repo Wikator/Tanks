@@ -5,23 +5,10 @@ using FishNet.Object.Prediction;
 using FishNet.Object.Synchronizing;
 using MonoFN.Cecil;
 
-
 namespace FishNet.CodeGenerating.Helping
 {
     internal class AttributeHelper : CodegenBase
     {
-        #region Reflection references.
-        internal string ReplicateAttribute_FullName;
-        internal string ReconcileAttribute_FullName;
-        private string ServerAttribute_FullName;
-        private string ClientAttribute_FullName;
-        private string ServerRpcAttribute_FullName;
-        private string ObserversRpcAttribute_FullName;
-        private string TargetRpcAttribute_FullName;
-        private string SyncVarAttribute_FullName;
-        private string SyncObjectAttribute_FullName;
-        #endregion   
-
         public override bool ImportReferences()
         {
             ServerAttribute_FullName = typeof(ServerAttribute).FullName;
@@ -38,7 +25,7 @@ namespace FishNet.CodeGenerating.Helping
         }
 
         /// <summary>
-        /// Returns type of Rpc attributeFullName is for.
+        ///     Returns type of Rpc attributeFullName is for.
         /// </summary>
         /// <param name="attributeFullName"></param>
         /// <returns></returns>
@@ -46,17 +33,16 @@ namespace FishNet.CodeGenerating.Helping
         {
             if (ca.Is(ServerRpcAttribute_FullName))
                 return RpcType.Server;
-            else if (ca.Is(ObserversRpcAttribute_FullName))
+            if (ca.Is(ObserversRpcAttribute_FullName))
                 return RpcType.Observers;
-            else if (ca.Is(TargetRpcAttribute_FullName))
+            if (ca.Is(TargetRpcAttribute_FullName))
                 return RpcType.Target;
-            else
-                return RpcType.None;
+            return RpcType.None;
         }
 
 
         /// <summary>
-        /// Returns type of Rpc attributeFullName is for.
+        ///     Returns type of Rpc attributeFullName is for.
         /// </summary>
         /// <param name="attributeFullName"></param>
         /// <returns></returns>
@@ -64,31 +50,44 @@ namespace FishNet.CodeGenerating.Helping
         {
             if (attributeFullName == ServerAttribute_FullName)
                 return QolAttributeType.Server;
-            else if (attributeFullName == ClientAttribute_FullName)
+            if (attributeFullName == ClientAttribute_FullName)
                 return QolAttributeType.Client;
-            else
-                return QolAttributeType.None;
+            return QolAttributeType.None;
         }
 
 
         /// <summary>
-        /// Returns if attribute if a SyncVarAttribute.
+        ///     Returns if attribute if a SyncVarAttribute.
         /// </summary>
         /// <param name="attributeFullName"></param>
         /// <returns></returns>
         public bool IsSyncVarAttribute(string attributeFullName)
         {
-            return (attributeFullName == SyncVarAttribute_FullName);
+            return attributeFullName == SyncVarAttribute_FullName;
         }
+
         /// <summary>
-        /// Returns if attribute if a SyncObjectAttribute.
+        ///     Returns if attribute if a SyncObjectAttribute.
         /// </summary>
         /// <param name="attributeFullName"></param>
         /// <returns></returns>
         public bool IsSyncObjectAttribute(string attributeFullName)
         {
-            return (attributeFullName == SyncObjectAttribute_FullName);
+            return attributeFullName == SyncObjectAttribute_FullName;
         }
-    }
 
+        #region Reflection references.
+
+        internal string ReplicateAttribute_FullName;
+        internal string ReconcileAttribute_FullName;
+        private string ServerAttribute_FullName;
+        private string ClientAttribute_FullName;
+        private string ServerRpcAttribute_FullName;
+        private string ObserversRpcAttribute_FullName;
+        private string TargetRpcAttribute_FullName;
+        private string SyncVarAttribute_FullName;
+        private string SyncObjectAttribute_FullName;
+
+        #endregion
+    }
 }

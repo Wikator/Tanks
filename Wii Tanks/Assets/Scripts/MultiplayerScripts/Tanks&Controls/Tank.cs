@@ -1,96 +1,102 @@
+using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using FishNet.Object;
 using FishNet.Object.Prediction;
 using FishNet.Object.Synchronizing;
 using FishNet.Transporting;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using UnityEngine;
 using Graphics;
+using UnityEngine;
 
 public abstract class Tank : NetworkBehaviour
 {
-    #region Structs
+    [SerializeField] protected Stats stats;
 
-    // Structs used by Client Side Prediction
+    [SyncVar] [HideInInspector] public PlayerNetworking controllingPlayer;
 
-    private struct MoveData : IReplicateData
-    {
-        public float MoveAxis;
-        public float RotateAxis;
-        public Vector3 TurretLookDirection;
+    [SyncVar] [HideInInspector] public bool isDespawning;
 
-        private uint _tick;
-
-        public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection)
-        {
-            MoveAxis = moveAxis;
-            RotateAxis = rotateAxis;
-            TurretLookDirection = turretLookDirection;
-            _tick = 0;
-        }
-
-        public void Dispose() { }
-        public uint GetTick() => _tick;
-        public void SetTick(uint value) => _tick = value;  
-    }
-
-    private struct ReconcileData : IReconcileData
-    {
-        public Vector3 Position;
-        public Quaternion TankRotation;
-        public Quaternion TurretRotation;
-
-        private uint _tick;
-
-        public ReconcileData(Vector3 tankPosition, Quaternion tankRotation, Quaternion turretRotation)
-        {
-            Position = tankPosition;
-            TankRotation = tankRotation;
-            TurretRotation = turretRotation;
-            _tick = 0;
-        }
-        
-        public void Dispose() { }
-        public uint GetTick() => _tick;
-        public void SetTick(uint value) => _tick = value;
-    }
-
-    #endregion
-
-    [SerializeField]
-    protected Stats stats;
-
-
-    [HideInInspector]
-    protected Transform bulletSpawn, muzzleFlashSpawn;
-
-    [SyncVar, HideInInspector]
-    protected bool canUseSuper;
-
-    [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly), HideInInspector]
+    [SyncVar(OnChange = nameof(OnAmmoChange), ReadPermissions = ReadPermission.OwnerOnly)] [HideInInspector]
     protected int ammoCount;
 
-    [SyncVar, HideInInspector]
-    public PlayerNetworking controllingPlayer;
+    protected GameObject bullet, muzzleFlash;
 
-    [SyncVar, HideInInspector]
-    public bool isDespawning = false;
 
-    private bool isSubscribed = false;
+    [HideInInspector] protected Transform bulletSpawn, muzzleFlashSpawn;
+
+    private Camera cam;
+
+    [SyncVar] [HideInInspector] protected bool canUseSuper;
 
     private CharacterController controller;
-    private Transform turret;
-    private Camera cam;
-    private TextMesh namePlate;
-    protected GameObject bullet, muzzleFlash;
     private GameObject explosion;
 
     private TankGraphics graphics;
 
-    protected Coroutine routine;
+    private bool isSubscribed;
+    private TextMesh namePlate;
 
     private LayerMask raycastLayer;
+
+    protected Coroutine routine;
+    private Transform turret;
+
+
+    // Movement input isn't collected in Update
+    // Update collects input only for firing and Super
+    // Name tag above the tank changes colour if its Super is ready
+
+    [Client]
+    private void Update()
+    {
+        if (!IsSpawned)
+            return;
+
+
+        if (namePlate)
+        {
+            if (Settings.ShowPlayerNames)
+            {
+                namePlate.gameObject.SetActive(true);
+                namePlate.transform.LookAt(cam.transform);
+                namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
+
+                if (canUseSuper)
+                    namePlate.color = Color.green;
+                else
+                    namePlate.color = Color.white;
+            }
+            else
+            {
+                namePlate.gameObject.SetActive(false);
+            }
+        }
+
+        if (!IsOwner || !GameManager.Instance.GameInProgress || isDespawning)
+            return;
+
+        if (Input.GetMouseButtonDown(0)) Fire();
+
+        if (Input.GetMouseButtonDown(1)) SpecialMove();
+    }
+
+    // Spawning and despawning animations play in FixedUpgrade
+    // TankGraphics.DespawnAnimation returns a bool that informs if the tank has fully despawned
+
+    [Client]
+    private void FixedUpdate()
+    {
+        if (!IsSpawned || graphics == null)
+            return;
+
+        if (isDespawning)
+        {
+            if (graphics.DespawnAnimation()) DespawnForNewRound();
+        }
+        else
+        {
+            graphics.SpawnAnimation();
+        }
+    }
 
 
     [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "<Pending>")]
@@ -111,7 +117,7 @@ public abstract class Tank : NetworkBehaviour
     // The script needs to subscribe to TimeManager on both client and server for CSP to work
 
 
-	public override void OnStartNetwork()
+    public override void OnStartNetwork()
     {
         base.OnStartNetwork();
         cam = Camera.main;
@@ -144,7 +150,7 @@ public abstract class Tank : NetworkBehaviour
             turret.GetChild(0).gameObject.GetComponent<MeshRenderer>(),
             transform.GetChild(0).GetChild(1).gameObject.GetComponent<MeshRenderer>(),
             transform.GetChild(0).GetChild(2).gameObject.GetComponent<MeshRenderer>()
-            );
+        );
 
         if (IsOwner)
         {
@@ -163,7 +169,8 @@ public abstract class Tank : NetworkBehaviour
         muzzleFlashSpawn = turret.GetChild(0).GetChild(1);
         ammoCount = 0;
 
-        Dictionary<string, GameObject> prefabs = TankGraphics.ChangePrefabsColours(controllingPlayer.color, "Multiplayer", controllingPlayer.TankType);
+        var prefabs =
+            TankGraphics.ChangePrefabsColours(controllingPlayer.color, "Multiplayer", controllingPlayer.TankType);
 
         explosion = prefabs["Explosion"];
         muzzleFlash = prefabs["MuzzleFlash"];
@@ -176,10 +183,7 @@ public abstract class Tank : NetworkBehaviour
     {
         base.OnStopNetwork();
 
-        if (TimeManager)
-        {
-            SubscribeToTimeManager(false);
-        }
+        if (TimeManager) SubscribeToTimeManager(false);
     }
 
 
@@ -196,7 +200,7 @@ public abstract class Tank : NetworkBehaviour
     public void GameOver()
     {
         ammoCount = 0;
-        NetworkObject explosionInstance = NetworkManager.GetPooledInstantiated(explosion, true);
+        var explosionInstance = NetworkManager.GetPooledInstantiated(explosion, true);
         explosionInstance.transform.SetParent(SceneManagerScript.ExplosionEmpty);
         explosionInstance.transform.SetPositionAndRotation(transform.position, transform.rotation);
         Spawn(explosionInstance);
@@ -204,78 +208,6 @@ public abstract class Tank : NetworkBehaviour
         GameMode.Instance.OnKilled(controllingPlayer);
         Despawn();
     }
-
-
-    // Movement input isn't collected in Update
-    // Update collects input only for firing and Super
-    // Name tag above the tank changes colour if its Super is ready
-
-    [Client]
-    private void Update()
-    {
-        if (!IsSpawned)
-            return;
-
-
-        if (namePlate)
-        {
-            if (Settings.ShowPlayerNames)
-            {
-                namePlate.gameObject.SetActive(true);
-                namePlate.transform.LookAt(cam.transform);
-                namePlate.transform.Rotate(new Vector3(0f, 180f, 0f));
-
-                if (canUseSuper)
-                {
-                    namePlate.color = Color.green;
-                }
-                else
-                {
-                    namePlate.color = Color.white;
-                }
-            }
-            else
-            {
-                namePlate.gameObject.SetActive(false);
-            }
-        }
-
-        if (!IsOwner || !GameManager.Instance.GameInProgress || isDespawning)
-            return;
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Fire();
-        }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            SpecialMove();
-        }
-    }
-
-    // Spawning and despawning animations play in FixedUpgrade
-    // TankGraphics.DespawnAnimation returns a bool that informs if the tank has fully despawned
-
-    [Client]
-    private void FixedUpdate()
-    {
-
-        if (!IsSpawned || graphics == null)
-			return;
-
-        if (isDespawning)
-        {
-            if (graphics.DespawnAnimation())
-            {
-                DespawnForNewRound();
-            }
-        }
-        else
-        {
-            graphics.SpawnAnimation();
-        }
-	}
 
     // Because Fire is a ServerRPC, there is a delay when shootings as a client
 
@@ -285,21 +217,20 @@ public abstract class Tank : NetworkBehaviour
         if (ammoCount <= 0 || !IsSpawned)
             return;
 
-        if (routine != null)
-        {
-            StopCoroutine(routine);
-        }
+        if (routine != null) StopCoroutine(routine);
 
         ammoCount--;
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
 
-        GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, SceneManagerScript.BulletEmpty);
+        var bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation,
+            SceneManagerScript.BulletEmpty);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
         bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
-        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(),
+            true);
         Spawn(bulletInstance);
 
-        NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
+        var flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
         flashInstance.transform.SetParent(SceneManagerScript.MuzzleFlashEmpty);
         flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
         Spawn(flashInstance);
@@ -325,13 +256,9 @@ public abstract class Tank : NetworkBehaviour
             ammoCount++;
 
             if (ammoCount < stats.maxAmmo)
-            {
                 routine = StartCoroutine(AddAmmo(stats.timeToAddAmmo));
-            }
             else
-            {
                 routine = null;
-            }
         }
     }
 
@@ -372,11 +299,10 @@ public abstract class Tank : NetworkBehaviour
 
     private MoveData GatherInputs()
     {
+        var moveAxis = Input.GetAxis("Vertical");
+        var rotateAxis = Input.GetAxis("Horizontal");
 
-        float moveAxis = Input.GetAxis("Vertical");
-        float rotateAxis = Input.GetAxis("Horizontal");
-
-        Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, Mathf.Infinity, raycastLayer);
+        Physics.Raycast(cam.ScreenPointToRay(Input.mousePosition), out var hit, Mathf.Infinity, raycastLayer);
 
         return new MoveData(moveAxis, rotateAxis, hit.point);
     }
@@ -411,7 +337,7 @@ public abstract class Tank : NetworkBehaviour
 
         turret.rotation = data.TurretRotation;
     }
-	
+
 
     private void SubscribeToTimeManager(bool subscribe)
     {
@@ -421,12 +347,76 @@ public abstract class Tank : NetworkBehaviour
         isSubscribed = subscribe;
 
         if (subscribe)
-        {
             TimeManager.OnTick += TimeManager_OnTick;
-        }
         else
-        {
             TimeManager.OnTick -= TimeManager_OnTick;
+    }
+
+    #region Structs
+
+    // Structs used by Client Side Prediction
+
+    private struct MoveData : IReplicateData
+    {
+        public readonly float MoveAxis;
+        public readonly float RotateAxis;
+        public readonly Vector3 TurretLookDirection;
+
+        private uint _tick;
+
+        public MoveData(float moveAxis, float rotateAxis, Vector3 turretLookDirection)
+        {
+            MoveAxis = moveAxis;
+            RotateAxis = rotateAxis;
+            TurretLookDirection = turretLookDirection;
+            _tick = 0;
+        }
+
+        public void Dispose()
+        {
+        }
+
+        public uint GetTick()
+        {
+            return _tick;
+        }
+
+        public void SetTick(uint value)
+        {
+            _tick = value;
         }
     }
+
+    private struct ReconcileData : IReconcileData
+    {
+        public readonly Vector3 Position;
+        public readonly Quaternion TankRotation;
+        public readonly Quaternion TurretRotation;
+
+        private uint _tick;
+
+        public ReconcileData(Vector3 tankPosition, Quaternion tankRotation, Quaternion turretRotation)
+        {
+            Position = tankPosition;
+            TankRotation = tankRotation;
+            TurretRotation = turretRotation;
+            _tick = 0;
+        }
+
+        public void Dispose()
+        {
+        }
+
+        public uint GetTick()
+        {
+            return _tick;
+        }
+
+        public void SetTick(uint value)
+        {
+            _tick = value;
+        }
+    }
+
+    #endregion
 }

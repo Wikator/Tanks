@@ -1,7 +1,7 @@
-using UnityEngine;
-using UnityEngine.UI;
 using Steamworks;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class LobbyPlayerTag : MonoBehaviour
 {
@@ -9,12 +9,11 @@ public class LobbyPlayerTag : MonoBehaviour
 
     public RawImage playerIcon;
 
-    protected Callback<AvatarImageLoaded_t> ImageLoaded;
-
-    [HideInInspector]
-    public ulong steamID;
+    [HideInInspector] public ulong steamID;
 
     public string color;
+
+    protected Callback<AvatarImageLoaded_t> ImageLoaded;
 
 
     private void Start()
@@ -24,10 +23,7 @@ public class LobbyPlayerTag : MonoBehaviour
 
     private void OnImageLoaded(AvatarImageLoaded_t callback)
     {
-        if (callback.m_steamID.m_SteamID == steamID)
-        {
-            playerIcon.texture = GetSteamImageAsTexture(callback.m_iImage);
-        }
+        if (callback.m_steamID.m_SteamID == steamID) playerIcon.texture = GetSteamImageAsTexture(callback.m_iImage);
     }
 
 
@@ -35,21 +31,22 @@ public class LobbyPlayerTag : MonoBehaviour
     {
         Texture2D texture = null;
 
-        bool isValid = SteamUtils.GetImageSize(iImage, out uint width, out uint height);
+        var isValid = SteamUtils.GetImageSize(iImage, out var width, out var height);
 
         if (isValid)
         {
-            byte[] image = new byte[width * height * 4];
+            var image = new byte[width * height * 4];
 
-            isValid = SteamUtils.GetImageRGBA(iImage, image, (int)(width * height* 4));
+            isValid = SteamUtils.GetImageRGBA(iImage, image, (int)(width * height * 4));
 
             if (isValid)
             {
-                texture = new Texture2D ((int)width, (int)height, TextureFormat.RGBA32, false);
+                texture = new Texture2D((int)width, (int)height, TextureFormat.RGBA32, false);
                 texture.LoadRawTextureData(image);
                 texture.Apply();
             }
         }
+
         return texture;
     }
 
@@ -58,7 +55,7 @@ public class LobbyPlayerTag : MonoBehaviour
     {
         playerNameText.text = player.PlayerUsername;
 
-        int ImageID = SteamFriends.GetLargeFriendAvatar((CSteamID)player.PlayerSteamID);
+        var ImageID = SteamFriends.GetLargeFriendAvatar((CSteamID)player.PlayerSteamID);
 
         if (ImageID == -1)
             return;

@@ -1,23 +1,19 @@
-using UnityEngine;
 using System.Collections;
-using System.Linq;
-using FishNet.Object.Synchronizing;
-using FishNet.Object;
 using System.Collections.Generic;
+using System.Linq;
+using FishNet.Object;
+using FishNet.Object.Synchronizing;
+using UnityEngine;
 
 public sealed class StockBattleGameMode : GameMode
 {
-    [SyncObject]
-    public readonly SyncDictionary<string, int> lifeRemaining = new();
+    [HideInInspector] public static List<PlayerNetworking> defeatedPlayers = new();
 
-    [HideInInspector]
-    public static List<PlayerNetworking> defeatedPlayers = new();
+    [SerializeField] private float respawnTime;
 
-    [SerializeField]
-    private float respawnTime;
+    [SerializeField] private int playerLife;
 
-    [SerializeField]
-    private int playerLife;
+    [SyncObject] public readonly SyncDictionary<string, int> lifeRemaining = new();
 
 
     //Before start of the game, this script finds and saves all possible spawn points
@@ -55,10 +51,7 @@ public sealed class StockBattleGameMode : GameMode
         {
             defeatedPlayers.Add(playerNetworking);
 
-            if (defeatedPlayers.Count == GameManager.Instance.players.Count - 1)
-            {
-                GameManager.Instance.EndGame();
-            }
+            if (defeatedPlayers.Count == GameManager.Instance.players.Count - 1) GameManager.Instance.EndGame();
         }
         else
         {
@@ -76,9 +69,9 @@ public sealed class StockBattleGameMode : GameMode
 
         Spawn spawn;
 
-        IEnumerable<Spawn> avaibleSpawns = spawns[color].Where(s => !s.isOccupied);
+        var avaibleSpawns = spawns[color].Where(s => !s.isOccupied);
 
-        int avaibleSpawnsCount = avaibleSpawns.Count();
+        var avaibleSpawnsCount = avaibleSpawns.Count();
 
         if (avaibleSpawnsCount == 0)
         {

@@ -1,16 +1,14 @@
 using System.Collections;
-using System.Linq;
-using UnityEngine;
-using FishNet.Object;
 using System.Collections.Generic;
+using System.Linq;
+using FishNet.Object;
+using UnityEngine;
 
 public sealed class TakedownGameMode : EliminationGameMode
 {
-    [SerializeField]
-    private float originalRespawnTime;
+    [SerializeField] private float originalRespawnTime;
 
-    [SerializeField]
-    private float respawnTimeMultiplier;
+    [SerializeField] private float respawnTimeMultiplier;
 
     private readonly Dictionary<string, float> respawnTime = new();
 
@@ -33,7 +31,6 @@ public sealed class TakedownGameMode : EliminationGameMode
     [Server]
     public override void OnKilled(PlayerNetworking playerNetworking)
     {
-
         if (waitingForNewRound || !GameManager.Instance.GameInProgress)
             return;
 
@@ -52,25 +49,22 @@ public sealed class TakedownGameMode : EliminationGameMode
     [Server]
     public override Vector3 FindSpawnPosition(string color)
     {
-        if (waitingForNewRound)
-        {
-            return base.FindSpawnPosition(color);
-        }
+        if (waitingForNewRound) return base.FindSpawnPosition(color);
 
         color = "Respawn";
 
         Spawn spawn;
 
-        IEnumerable<Spawn> avaibleSpawns = spawns[color].Where(spawn => !spawn.isOccupied);
+        var avaibleSpawns = spawns[color].Where(spawn => !spawn.isOccupied);
 
-        int avaibleSpawnsCount = avaibleSpawns.Count();
+        var avaibleSpawnsCount = avaibleSpawns.Count();
 
         if (avaibleSpawnsCount == 0)
         {
             spawn = spawns[color][Random.Range(0, spawns[color].Length)];
             spawn.isOccupied = true;
             return spawn.transform.position;
-        }    
+        }
 
         spawn = avaibleSpawns.ElementAt(Random.Range(0, avaibleSpawnsCount));
         spawn.isOccupied = true;

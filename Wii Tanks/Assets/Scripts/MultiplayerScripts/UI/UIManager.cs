@@ -3,10 +3,9 @@ using UnityEngine;
 
 public sealed class UIManager : NetworkBehaviour
 {
-    public static UIManager Instance { get; private set; }
+    [SerializeField] private View[] views;
 
-    [SerializeField]
-    private View[] views;
+    public static UIManager Instance { get; private set; }
 
     private void Awake()
     {
@@ -23,7 +22,6 @@ public sealed class UIManager : NetworkBehaviour
         Init();
 
         if (gameInProgress)
-        {
             switch (gameMode)
             {
                 case "Mayhem":
@@ -38,9 +36,7 @@ public sealed class UIManager : NetworkBehaviour
                     Show<EliminationMainView>();
                     break;
             }
-        }
         else
-        {
             switch (gameMode)
             {
                 case "StockBattle":
@@ -61,24 +57,17 @@ public sealed class UIManager : NetworkBehaviour
                     Show<GameModesView>();
                     break;
             }
-        }
     }
 
     public void Init()
     {
-        foreach (View view in views)
-        {
-            view.Init();
-        }
+        foreach (var view in views) view.Init();
     }
 
     //Each UI is a subclass of the View class, which allows for easy cycling between different UIs
 
     public void Show<T>() where T : View
     {
-        foreach (View view in views)
-        {
-            view.gameObject.SetActive(view is T);
-        }
+        foreach (var view in views) view.gameObject.SetActive(view is T);
     }
 }

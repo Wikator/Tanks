@@ -1,11 +1,11 @@
+using AbstractClasses;
 using FishNet;
 using UnityEngine;
 
 public sealed class ArenaSelectionScene_MP : ArenaSelectionScene
 {
-    [SerializeField]
-    private bool testLocally;
-    
+    [SerializeField] private bool testLocally;
+
     protected override void OnSpacePressed(string arenaName)
     {
         if (rotating)

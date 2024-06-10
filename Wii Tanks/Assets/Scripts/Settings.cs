@@ -1,37 +1,21 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Rendering;
 
 public static class Settings
 {
     private static DepthOfField depthOfField;
 
     private static string chosenBackground;
-    
-    private static bool showPlayerNames;
 
     private static string camera;
 
 
-    public static bool ShowPlayerNames
-    {
-        get
-        {
-            return showPlayerNames;
-        }
-        set
-        {
-            showPlayerNames = value;
-        }
-    }
+    public static bool ShowPlayerNames { get; set; }
 
     public static string Camera
     {
-        get
-        {
-            return camera;
-        }
+        get => camera;
         set
         {
             camera = value;
@@ -40,13 +24,9 @@ public static class Settings
     }
 
 
-
     public static string ChosenBackground
     {
-        get
-        {
-            return chosenBackground;
-        }
+        get => chosenBackground;
 
         set
         {
@@ -64,8 +44,9 @@ public static class Settings
 
             chosenBackground = value;
 
-            Color color = GameObject.Find("Background").GetComponent<MeshRenderer>().material.color;
-            GameObject.Find("Background").GetComponent<MeshRenderer>().material = Addressables.LoadAssetAsync<Material>(chosenBackground).WaitForCompletion();
+            var color = GameObject.Find("Background").GetComponent<MeshRenderer>().material.color;
+            GameObject.Find("Background").GetComponent<MeshRenderer>().material =
+                Addressables.LoadAssetAsync<Material>(chosenBackground).WaitForCompletion();
             GameObject.Find("Background").GetComponent<MeshRenderer>().material.color = color;
 
             /*switch (chosenBackground)

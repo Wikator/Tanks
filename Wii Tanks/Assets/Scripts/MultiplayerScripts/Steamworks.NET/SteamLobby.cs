@@ -1,15 +1,13 @@
 using FishNet;
-using FishNet.Object;
 using Steamworks;
 using UnityEngine;
 
 public class SteamLobby : MonoBehaviour
 {
-    protected Callback<LobbyCreated_t> lobbyCreated;
-    protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
-    protected Callback<LobbyEnter_t> lobbyEnter;
-
     private const string HOST_ADDRESS_KEY = "HostAddress";
+    protected Callback<GameLobbyJoinRequested_t> gameLobbyJoinRequested;
+    protected Callback<LobbyCreated_t> lobbyCreated;
+    protected Callback<LobbyEnter_t> lobbyEnter;
 
     public static CSteamID LobbyID { get; private set; }
 
@@ -58,7 +56,7 @@ public class SteamLobby : MonoBehaviour
     private void OnLobbyEntered(LobbyEnter_t callback)
     {
         LobbyID = new CSteamID(callback.m_ulSteamIDLobby);
-        string hostAddress = SteamMatchmaking.GetLobbyData(LobbyID, HOST_ADDRESS_KEY);
+        var hostAddress = SteamMatchmaking.GetLobbyData(LobbyID, HOST_ADDRESS_KEY);
 
         InstanceFinder.ClientManager.StartConnection(hostAddress);
     }

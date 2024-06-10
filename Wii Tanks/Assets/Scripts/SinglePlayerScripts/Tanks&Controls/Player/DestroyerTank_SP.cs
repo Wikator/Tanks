@@ -1,6 +1,6 @@
+using ObjectPoolManager;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using ObjectPoolManager;
 
 public sealed class DestroyerTank_SP : Tank_SP
 {
@@ -8,7 +8,8 @@ public sealed class DestroyerTank_SP : Tank_SP
 
     private void Awake()
     {
-        specialBullet = Addressables.LoadAssetAsync<GameObject>(Player.Instance.color + "DestroyerSpecialBulletSP").WaitForCompletion();
+        specialBullet = Addressables.LoadAssetAsync<GameObject>(Player.Instance.color + "DestroyerSpecialBulletSP")
+            .WaitForCompletion();
     }
 
     protected override void SpecialMove()
@@ -26,10 +27,13 @@ public sealed class DestroyerTank_SP : Tank_SP
 
         ammoCount = 0;
 
-        GameObject bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(specialBullet, bulletSpawn.position, bulletSpawn.rotation, bulletEmpty);
-        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+        var bulletInstance = ObjectPoolManager_SP.GetPooledInstantiated(specialBullet, bulletSpawn.position,
+            bulletSpawn.rotation, bulletEmpty);
+        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(),
+            true);
 
-        ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation, muzzleFlashEmpty);
+        ObjectPoolManager_SP.GetPooledInstantiated(muzzleFlash, bulletSpawn.position, bulletSpawn.rotation,
+            muzzleFlashEmpty);
 
         routine = StartCoroutine(AddAmmo(stats.timeToReload));
     }

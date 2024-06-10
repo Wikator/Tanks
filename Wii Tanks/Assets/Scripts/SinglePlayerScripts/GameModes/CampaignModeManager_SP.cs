@@ -4,15 +4,15 @@ using UnityEngine.AddressableAssets;
 
 public class CampaignModeManager_SP : MonoBehaviour
 {
-    private static GameObject[] allArenasArray = new GameObject[7];
+    private const float ROTATE_SPEED = 2.5f;
+    private static readonly GameObject[] allArenasArray = new GameObject[7];
 
     public static List<Spawn> enemySpawns = new();
 
     public static Spawn playerSpawn;
 
-    private static List <GameObject> allCurrentArenas = new();
+    private static readonly List<GameObject> allCurrentArenas = new();
 
-    
 
     [ColorUsage(hdr: true, showAlpha: true)]
     private static Color oldColor;
@@ -23,14 +23,12 @@ public class CampaignModeManager_SP : MonoBehaviour
     private static readonly Dictionary<GameObject, Vector3> allArenasDictionary = new();
 
     private static bool rotating;
-    
+
     private static readonly Vector3[] arenaPositions = new Vector3[9];
 
     private static MeshRenderer backgroundRenderer;
 
     private static float lerpValue;
-
-    private const float ROTATE_SPEED = 2.5f;
 
     private static int level;
 
@@ -50,10 +48,8 @@ public class CampaignModeManager_SP : MonoBehaviour
 
         backgroundRenderer = GameObject.Find("Plane").GetComponent<MeshRenderer>();
 
-        for (int i = 0; i < 7; i++)
-        {
+        for (var i = 0; i < 7; i++)
             allArenasArray[i] = Addressables.LoadAssetAsync<GameObject>($"Arena{i + 1}").WaitForCompletion();
-        }
 
         level = 0;
     }
@@ -77,11 +73,11 @@ public class CampaignModeManager_SP : MonoBehaviour
 
     private static void MoveAllArenas()
     {
-        foreach (GameObject arena in allCurrentArenas)
-        {
+        foreach (var arena in allCurrentArenas)
             if (arena)
             {
-                arena.transform.position = Vector3.MoveTowards(arena.transform.position, allArenasDictionary[arena], ROTATE_SPEED);
+                arena.transform.position =
+                    Vector3.MoveTowards(arena.transform.position, allArenasDictionary[arena], ROTATE_SPEED);
 
                 if (arena.transform.position == allArenasDictionary[arena])
                 {
@@ -97,7 +93,6 @@ public class CampaignModeManager_SP : MonoBehaviour
                     }
                 }
             }
-        }
     }
 
 
@@ -107,10 +102,7 @@ public class CampaignModeManager_SP : MonoBehaviour
 
         playerSpawn = spawnParent.GetChild(0).GetComponent<Spawn>();
 
-        foreach (Transform spawn in spawnParent.GetChild(1))
-        {
-            enemySpawns.Add(spawn.GetComponent<Spawn>());
-        }
+        foreach (Transform spawn in spawnParent.GetChild(1)) enemySpawns.Add(spawn.GetComponent<Spawn>());
     }
 
 
@@ -118,12 +110,14 @@ public class CampaignModeManager_SP : MonoBehaviour
     {
         if (allCurrentArenas.Count == 0)
         {
-            allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 7)], arenaPositions[3], Quaternion.identity));
+            allCurrentArenas.Add(
+                Instantiate(allArenasArray[Random.Range(0, 7)], arenaPositions[3], Quaternion.identity));
 
-            GameObject secondArena = Instantiate(allArenasArray[Random.Range(0, 7)], arenaPositions[4], Quaternion.identity);
+            var secondArena = Instantiate(allArenasArray[Random.Range(0, 7)], arenaPositions[4], Quaternion.identity);
             allCurrentArenas.Add(secondArena);
 
-            allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 7)], arenaPositions[5], Quaternion.identity));
+            allCurrentArenas.Add(
+                Instantiate(allArenasArray[Random.Range(0, 7)], arenaPositions[5], Quaternion.identity));
 
             backgroundRenderer.material.color = secondArena.GetComponent<SceneInfo_SP>().backgroundColor;
         }
@@ -137,18 +131,14 @@ public class CampaignModeManager_SP : MonoBehaviour
         SpawnManager_SP.Instance.StartNewRound();
     }
 
-    
+
     public static void NextMap()
     {
         allCurrentArenas.Add(Instantiate(allArenasArray[Random.Range(0, 7)], arenaPositions[6], Quaternion.identity));
 
-        for (int i = 0; i < 4; i++)
-        {
+        for (var i = 0; i < 4; i++)
             if (allCurrentArenas[i])
-            {
                 allArenasDictionary[allCurrentArenas[i]] = arenaPositions[i + 2];
-            }
-        }
 
         rotating = true;
 

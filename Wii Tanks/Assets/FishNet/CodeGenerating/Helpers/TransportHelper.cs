@@ -5,12 +5,14 @@ namespace FishNet.CodeGenerating.Helping
 {
     internal class TransportHelper : CodegenBase
     {
-        #region Reflection references.        
+        #region Reflection references.
+
         internal TypeReference Channel_TypeRef;
+
         #endregion
 
         /// <summary>
-        /// Resets cached values.
+        ///     Resets cached values.
         /// </summary>
         private void ResetValues()
         {
@@ -19,7 +21,7 @@ namespace FishNet.CodeGenerating.Helping
 
 
         /// <summary>
-        /// Imports references needed by this helper.
+        ///     Imports references needed by this helper.
         /// </summary>
         /// <param name="moduleDef"></param>
         /// <returns></returns>
@@ -27,10 +29,9 @@ namespace FishNet.CodeGenerating.Helping
         {
             ResetValues();
 
-            Channel_TypeRef = base.ImportReference(typeof(Channel));
+            Channel_TypeRef = ImportReference(typeof(Channel));
 
             return true;
         }
-
     }
 }

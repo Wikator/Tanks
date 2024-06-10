@@ -1,65 +1,20 @@
 using FishNet;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
-using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public sealed class Menu : MonoBehaviour
 {
-    #region Serialized
+    private Renderer backgroundRenderer;
 
-    [SerializeField]
-    private TextMeshProUGUI title;
-
-    [SerializeField]
-    private GameObject mainMenu;
-
-    [SerializeField]
-    private GameObject settingsMenu;
-
-    [SerializeField]
-    private bool testLocally;
-
-    [SerializeField]
-    private Button hostButton;
-
-    [SerializeField]
-    private Button connectButton;
-
-    [SerializeField]
-    private Button endlessModeButton;
-
-    [SerializeField]
-    private Button campaignButton;
-
-    [SerializeField]
-    private Button settingsButton;
-
-    [SerializeField]
-    private Button Camera1Button;
-
-    [SerializeField]
-    private Button Camera2Button;
-
-    [SerializeField]
-    private Button goBackButton;
-
-    [SerializeField]
-    [ColorUsage(hdr: true, showAlpha: true)]
-    private Color[] backgroundColors = new Color[7];
-
-    #endregion
+    private float lerpValue;
 
     [ColorUsage(hdr: true, showAlpha: true)]
     private Color oldColor;
 
     [ColorUsage(hdr: true, showAlpha: true)]
     private Color targetColor;
-
-    private Renderer backgroundRenderer;
-
-    private float lerpValue;
 
 
     //Start-up screen
@@ -71,35 +26,26 @@ public sealed class Menu : MonoBehaviour
         PlayerPrefs.SetString("Background", "Background2");
 
         if (PlayerPrefs.GetString("Background") != "")
-        {
             Settings.ChosenBackground = PlayerPrefs.GetString("Background");
-        }
         else
-        {
             Settings.ChosenBackground = "Background2";
-        }
 
         if (PlayerPrefs.GetString("Camera") != "")
-        {
             Settings.Camera = PlayerPrefs.GetString("Camera");
-        }
         else
-        {
             Settings.Camera = "Camera1";
-        }
 
-        
 
         if (testLocally)
         {
-			connectButton.gameObject.SetActive(true);
-			
-			connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
+            connectButton.gameObject.SetActive(true);
+
+            connectButton.onClick.AddListener(() => InstanceFinder.ClientManager.StartConnection());
         }
 
         hostButton.onClick.AddListener(() => SceneManager.LoadScene("MapSelection"));
 
-		endlessModeButton.onClick.AddListener(() => SceneManager.LoadScene("MapSelection_SP"));
+        endlessModeButton.onClick.AddListener(() => SceneManager.LoadScene("MapSelection_SP"));
         campaignButton.onClick.AddListener(() => SceneManager.LoadScene("CampaignArena"));
 
         settingsButton.onClick.AddListener(() => settingsMenu.SetActive(true));
@@ -109,7 +55,7 @@ public sealed class Menu : MonoBehaviour
 
         Camera1Button.onClick.AddListener(() => Settings.Camera = "Camera1");
         Camera2Button.onClick.AddListener(() => Settings.Camera = "Camera2");
-        
+
         backgroundRenderer = GameObject.Find("Background").GetComponent<MeshRenderer>();
         targetColor = backgroundColors[0];
         oldColor = backgroundColors[0];
@@ -132,13 +78,40 @@ public sealed class Menu : MonoBehaviour
             lerpValue = 0f;
             oldColor = targetColor;
 
-            while (targetColor == oldColor)
-            {
-                targetColor = backgroundColors[Random.Range(0, backgroundColors.Length)];
-            }
+            while (targetColor == oldColor) targetColor = backgroundColors[Random.Range(0, backgroundColors.Length)];
         }
 
         backgroundRenderer.material.SetFloat("_Rotation", backgroundRenderer.material.GetFloat("_Rotation") + 0.01f);
     }
-}
 
+    #region Serialized
+
+    [SerializeField] private TextMeshProUGUI title;
+
+    [SerializeField] private GameObject mainMenu;
+
+    [SerializeField] private GameObject settingsMenu;
+
+    [SerializeField] private bool testLocally;
+
+    [SerializeField] private Button hostButton;
+
+    [SerializeField] private Button connectButton;
+
+    [SerializeField] private Button endlessModeButton;
+
+    [SerializeField] private Button campaignButton;
+
+    [SerializeField] private Button settingsButton;
+
+    [SerializeField] private Button Camera1Button;
+
+    [SerializeField] private Button Camera2Button;
+
+    [SerializeField] private Button goBackButton;
+
+    [SerializeField] [ColorUsage(hdr: true, showAlpha: true)]
+    private Color[] backgroundColors = new Color[7];
+
+    #endregion
+}

@@ -1,17 +1,14 @@
-using FishNet.Object;
 using System.Collections;
+using FishNet.Object;
 using UnityEngine;
 
 public class ScoutTank : Tank
 {
-    [SerializeField]
-    private Stats fastModeStats;
+    [SerializeField] private Stats fastModeStats;
 
-    [SerializeField]
-    private float fastModeDuration;
+    [SerializeField] private float fastModeDuration;
 
-    [SerializeField]
-    private int spreadAngle;
+    [SerializeField] private int spreadAngle;
 
 
     // Scout's fire is very different than the other type's, so this method needs to be overriden
@@ -22,17 +19,19 @@ public class ScoutTank : Tank
         if (ammoCount <= 0 || !IsSpawned)
             return;
 
-        for (int angle = -spreadAngle; angle < spreadAngle*2; angle += spreadAngle)
+        for (var angle = -spreadAngle; angle < spreadAngle * 2; angle += spreadAngle)
         {
-            GameObject bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation, SceneManagerScript.BulletEmpty);
+            var bulletInstance = Instantiate(bullet, bulletSpawn.position, bulletSpawn.rotation,
+                SceneManagerScript.BulletEmpty);
             bulletInstance.transform.Rotate(new Vector3(0f, angle, 0f));
             bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
             bulletInstance.GetComponent<Bullet>().ChargeTimeToAdd = stats.onKillSuperCharge;
-            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+            Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(),
+                gameObject.GetComponent<BoxCollider>(), true);
             Spawn(bulletInstance);
 
 
-            NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
+            var flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
             flashInstance.transform.SetParent(SceneManagerScript.MuzzleFlashEmpty);
             flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
             flashInstance.transform.Rotate(new Vector3(0f, angle, 0f));
@@ -69,7 +68,7 @@ public class ScoutTank : Tank
 
     private IEnumerator FastMode()
     {
-        Stats savedStats = stats;
+        var savedStats = stats;
 
         stats = fastModeStats;
 

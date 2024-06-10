@@ -20,10 +20,9 @@ public sealed class ScoutBulletScript : Bullet
                 {
                     player.superCharge += ChargeTimeToAdd;
 
-                    if (GameManager.Instance.GameMode == "Deathmatch" || GameManager.Instance.GameMode == "StockBattle" || GameManager.Instance.GameMode == "Mayhem")
-                    {
-                        GameMode.Instance.PointScored(player.color, 1);
-                    }
+                    if (GameManager.Instance.GameMode == "Deathmatch" ||
+                        GameManager.Instance.GameMode == "StockBattle" ||
+                        GameManager.Instance.GameMode == "Mayhem") GameMode.Instance.PointScored(player.color, 1);
 
                     other.GetComponent<Tank>().GameOver();
 
@@ -75,9 +74,6 @@ public sealed class ScoutBulletScript : Bullet
             }
         }
 
-        if(other.CompareTag("Arena"))
-        {
-            StartCoroutine(DespawnItself());
-        }
+        if (other.CompareTag("Arena")) StartCoroutine(DespawnItself());
     }
 }

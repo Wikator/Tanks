@@ -3,25 +3,12 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    private static Transform player;
-
-    public static Transform Player
-    {
-        get
-        {
-            return player;
-        }
-        set
-        {
-            player = value;
-        }
-    }
-
-
     private const float DAMPING = 12.0f;
     private const float HEIGHT = 25.0f;
     private const float OFFSET = 0.0f;
     private const float VIEW_DISTANCE = 4.0f;
+
+    public static Transform Player { get; set; }
 
     private void Start()
     {
@@ -42,17 +29,19 @@ public class CameraFollow : MonoBehaviour
 
     private void Update()
     {
-        if (!player || Settings.Camera != "Camera2")
+        if (!Player || Settings.Camera != "Camera2")
             return;
 
-        Vector3 mousePos = Input.mousePosition;
+        var mousePos = Input.mousePosition;
         mousePos.z = VIEW_DISTANCE;
-        Vector3 CursorPosition = Camera.main.ScreenToWorldPoint(mousePos);
+        var CursorPosition = Camera.main.ScreenToWorldPoint(mousePos);
 
-        Vector3 PlayerPosition = player.position;
+        var PlayerPosition = Player.position;
 
-        Vector3 center = new((PlayerPosition.x + CursorPosition.x) / 2, PlayerPosition.y, (PlayerPosition.z + CursorPosition.z) / 2);
+        Vector3 center = new((PlayerPosition.x + CursorPosition.x) / 2, PlayerPosition.y,
+            (PlayerPosition.z + CursorPosition.z) / 2);
 
-        transform.position = Vector3.Lerp(transform.position, center + new Vector3(0, HEIGHT, OFFSET), Time.deltaTime * DAMPING);
+        transform.position = Vector3.Lerp(transform.position, center + new Vector3(0, HEIGHT, OFFSET),
+            Time.deltaTime * DAMPING);
     }
 }

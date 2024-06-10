@@ -9,7 +9,8 @@ public sealed class DestroyerTank : Tank
     public override void OnStartServer()
     {
         base.OnStartServer();
-        specialBullet = Addressables.LoadAssetAsync<GameObject>(controllingPlayer.color + "DestroyerSpecialBullet").WaitForCompletion();
+        specialBullet = Addressables.LoadAssetAsync<GameObject>(controllingPlayer.color + "DestroyerSpecialBullet")
+            .WaitForCompletion();
     }
 
     [ServerRpc]
@@ -28,12 +29,14 @@ public sealed class DestroyerTank : Tank
 
         ammoCount = 0;
 
-        GameObject bulletInstance = Instantiate(specialBullet, bulletSpawn.position, bulletSpawn.rotation, SceneManagerScript.BulletEmpty);
+        var bulletInstance = Instantiate(specialBullet, bulletSpawn.position, bulletSpawn.rotation,
+            SceneManagerScript.BulletEmpty);
         bulletInstance.GetComponent<Bullet>().player = controllingPlayer;
-        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(), true);
+        Physics.IgnoreCollision(bulletInstance.GetComponent<SphereCollider>(), gameObject.GetComponent<BoxCollider>(),
+            true);
         Spawn(bulletInstance);
 
-        NetworkObject flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
+        var flashInstance = NetworkManager.GetPooledInstantiated(muzzleFlash, true);
         flashInstance.transform.SetParent(SceneManagerScript.MuzzleFlashEmpty);
         flashInstance.transform.SetPositionAndRotation(muzzleFlashSpawn.position, muzzleFlashSpawn.rotation);
         Spawn(flashInstance);
