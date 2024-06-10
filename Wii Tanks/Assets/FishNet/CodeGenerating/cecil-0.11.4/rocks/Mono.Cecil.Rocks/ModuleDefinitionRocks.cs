@@ -12,22 +12,21 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonoFN.Cecil.Rocks
-{
-#if UNITY_EDITOR
-    public
-#endif
-        static class ModuleDefinitionRocks
-    {
-        public static IEnumerable<TypeDefinition> GetAllTypes(this ModuleDefinition self)
-        {
-            if (self == null)
-                throw new ArgumentNullException("self");
+namespace MonoFN.Cecil.Rocks {
 
-            // it was fun to write, but we need a somewhat less convoluted implementation
-            return self.Types.SelectMany(
-                Functional.Y<TypeDefinition, IEnumerable<TypeDefinition>>(f =>
-                    type => type.NestedTypes.SelectMany(f).Prepend(type)));
-        }
-    }
+#if UNITY_EDITOR
+	public
+#endif
+	static class ModuleDefinitionRocks {
+
+		public static IEnumerable<TypeDefinition> GetAllTypes (this ModuleDefinition self)
+		{
+			if (self == null)
+				throw new ArgumentNullException ("self");
+
+			// it was fun to write, but we need a somewhat less convoluted implementation
+			return self.Types.SelectMany (
+				Functional.Y<TypeDefinition, IEnumerable<TypeDefinition>> (f => type => type.NestedTypes.SelectMany (f).Prepend (type)));
+		}
+	}
 }

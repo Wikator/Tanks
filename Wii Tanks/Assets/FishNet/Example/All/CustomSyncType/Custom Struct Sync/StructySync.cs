@@ -1,9 +1,9 @@
-﻿using FishNet.Managing.Logging;
+﻿using FishNet.Documenting;
 using FishNet.Object.Synchronizing;
 using FishNet.Object.Synchronizing.Internal;
 using FishNet.Serializing;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Runtime.CompilerServices;
 
 namespace FishNet.Example.CustomSyncObject
 {
@@ -70,39 +70,35 @@ namespace FishNet.Example.CustomSyncObject
         /// Called when the Structy changes.
         /// </summary>
         public event CustomChanged OnChange;
+        /// <summary>
+        /// Current value of Structy.
+        /// </summary>
+        public Structy Value = new Structy();
         #endregion
 
         #region Private.
         /// <summary>
-        /// Initial value when initialized.
+        /// Initial value when initialized. Used to reset this sync type.
         /// </summary>
         private Structy _initialValue;
-        /// <summary>
-        /// Value this SyncType is for, which is Structy.
-        /// </summary>
-        private Structy _value = new Structy();
-        /// <summary>
-        /// Copy of value on client portion when acting as a host.
-        /// This is not mandatory but this setup separates server values
-        /// from client, creating a more reliable test environment when running as host.
-        /// </summary>
-        private Structy _clientValue = new Structy();
         /// <summary>
         /// Changed data which will be sent next tick.
         /// </summary>
         private readonly List<ChangeData> _changed = new List<ChangeData>();
         /// <summary>
         /// True if values have changed since initialization.
-        /// The only reasonable way to reset this during a Reset call is by duplicating the original list and setting all values to it on reset.
         /// </summary>
         private bool _valuesChanged;
+        /// <summary>
+        /// Last value after dirty call.
+        /// </summary>
+        private Structy _lastDirtied = new Structy();
         #endregion
-
 
         protected override void Registered()
         {
             base.Registered();
-            _initialValue = _value;
+            _initialValue = Value;
         }
 
         /// <summary>
@@ -117,7 +113,7 @@ namespace FishNet.Example.CustomSyncObject
             if (!base.IsRegistered)
                 return;
 
-            if (base.NetworkManager != null && base.Settings.WritePermission == WritePermission.ServerOnly && !base.NetworkBehaviour.IsServer)
+            if (base.NetworkManager != null && !base.NetworkBehaviour.IsServer)
             {
                 NetworkManager.LogWarning($"Cannot complete operation as server when server is not active.");
                 return;
@@ -183,17 +179,16 @@ namespace FishNet.Example.CustomSyncObject
             //Write if changed is from the server, so always use the server _value.           
             writer.WriteByte((byte)CustomOperation.Full);
             //Write value.
-            writer.Write(_value);
+            writer.Write(Value);
         }
 
         /// <summary>
-        /// Sets current values.
+        /// Reads and sets the current values for server or client.
         /// </summary>
-        /// <param name="reader"></param>
-        public override void Read(PooledReader reader)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        [APIExclude]
+        public override void Read(PooledReader reader, bool asServer)
         {
-            //Read is always on client side.
-            bool asServer = false;
             /* When !asServer don't make changes if server is running.
             * This is because changes would have already been made on
             * the server side and doing so again would result in duplicates
@@ -204,122 +199,52 @@ namespace FishNet.Example.CustomSyncObject
             for (int i = 0; i < changes; i++)
             {
                 CustomOperation operation = (CustomOperation)reader.ReadByte();
-                Structy prev = GetValue(asServer);
-                Structy next = default(Structy);
+                Structy prev = Value;
+                Structy next = prev;
 
                 //Full.
                 if (operation == CustomOperation.Full)
-                {
                     next = reader.Read<Structy>();
-                }
                 //Name.
                 else if (operation == CustomOperation.Name)
-                {
-                    next = prev;
                     next.Name = reader.ReadString();
-                }
                 //Age
                 else if (operation == CustomOperation.Age)
-                {
-                    next = prev;
                     next.Age = reader.ReadUInt16();
-                }
 
                 OnChange?.Invoke(operation, prev, next, asServer);
+
+                if (!asClientAndHost)
+                    Value = next;
             }
 
+        }
+
+        /// <summary>
+        /// Checks Value for changes and sends them to clients.
+        /// </summary>
+        public void ValuesChanged()
+        {
+            Structy prev = _lastDirtied;
+            Structy current = Value;
+
+            if (prev.Name != current.Name)
+                AddOperation(CustomOperation.Name, prev, current);
+            if (prev.Age != current.Age)
+                AddOperation(CustomOperation.Age, prev, current);
+
+            _lastDirtied = Value;
         }
 
         /// <summary>
         /// Resets to initialized values.
         /// </summary>
-        public override void Reset()
+        public override void ResetState()
         {
-            base.Reset();
+            base.ResetState();
             _changed.Clear();
-            _value = _initialValue;
-            _clientValue = _initialValue;
+            Value = _initialValue;
             _valuesChanged = false;
-        }
-
-        /// <summary>
-        /// Sets name value.
-        /// </summary>
-        public void SetName(string name)
-        {
-            SetName(name, true, true);
-        }
-        private void SetName(string name, bool asServer, bool force)
-        {
-            Structy data = GetValue(asServer);
-            bool sameValue = (!force && (name == data.Name));
-            if (!sameValue)
-            {
-                Structy prev = data;
-
-                Structy next = data;
-                next.Name = name;
-                SetValue(asServer, next);
-
-                if (asServer)
-                {
-                    if (base.NetworkManager == null)
-                        _clientValue = next;
-                    AddOperation(CustomOperation.Name, prev, next);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Sets age value.
-        /// </summary>
-        public void SetAge(ushort age)
-        {
-            SetAge(age, true, true);
-        }
-        private void SetAge(ushort age, bool asServer, bool force)
-        {
-            Structy data = GetValue(asServer);
-            bool sameValue = (!force && (age == data.Age));
-            if (!sameValue)
-            {
-                Structy prev = data;
-
-                Structy next = data;
-                next.Age = age;
-                SetValue(asServer, next);
-
-                if (asServer)
-                {
-                    if (base.NetworkManager == null)
-                        _clientValue = next;
-                    AddOperation(CustomOperation.Age, prev, next);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Gets value depending if being called asServer or not.
-        /// </summary>
-        /// <param name="asServer"></param>
-        /// <returns></returns>
-        public Structy GetValue(bool asServer)
-        {
-            return (asServer) ? _value : _clientValue;
-        }
-
-
-        /// <summary>
-        /// Sets value depending if being called asServer or not.
-        /// </summary>
-        /// <param name="asServer"></param>
-        /// <returns></returns>
-        private void SetValue(bool asServer, Structy data)
-        {
-            if (asServer)
-                _value = data;
-            else
-                _clientValue = data;
         }
 
         /// <summary>

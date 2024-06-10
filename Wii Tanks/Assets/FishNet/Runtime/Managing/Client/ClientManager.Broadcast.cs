@@ -7,6 +7,7 @@ using FishNet.Serializing;
 using FishNet.Serializing.Helping;
 using FishNet.Transporting;
 using FishNet.Utility.Extension;
+using GameKit.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -164,13 +165,12 @@ namespace FishNet.Managing.Client
                 return;
             }
 
-            using (PooledWriter writer = WriterPool.GetWriter())
-            {
-                Broadcasts.WriteBroadcast<T>(writer, message, channel);
-                ArraySegment<byte> segment = writer.GetArraySegment();
+            PooledWriter writer = WriterPool.Retrieve();
+            Broadcasts.WriteBroadcast<T>(writer, message, channel);
+            ArraySegment<byte> segment = writer.GetArraySegment();
 
-                NetworkManager.TransportManager.SendToServer((byte)channel, segment);
-            }
+            NetworkManager.TransportManager.SendToServer((byte)channel, segment);
+            writer.Store();
         }
 
     }

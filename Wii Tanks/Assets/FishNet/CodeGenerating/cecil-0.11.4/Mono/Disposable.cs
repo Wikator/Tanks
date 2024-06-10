@@ -10,36 +10,36 @@
 
 using System;
 
-namespace MonoFN
-{
-    internal static class Disposable
-    {
-        public static Disposable<T> Owned<T>(T value) where T : class, IDisposable
-        {
-            return new Disposable<T>(value, true);
-        }
+namespace MonoFN {
 
-        public static Disposable<T> NotOwned<T>(T value) where T : class, IDisposable
-        {
-            return new Disposable<T>(value, false);
-        }
-    }
+	static class Disposable {
 
-    internal struct Disposable<T> : IDisposable where T : class, IDisposable
-    {
-        internal readonly T value;
-        private readonly bool owned;
+		public static Disposable<T> Owned<T> (T value) where T : class, IDisposable
+		{
+			return new Disposable<T> (value, owned: true);
+		}
 
-        public Disposable(T value, bool owned)
-        {
-            this.value = value;
-            this.owned = owned;
-        }
+		public static Disposable<T> NotOwned<T> (T value) where T : class, IDisposable
+		{
+			return new Disposable<T> (value, owned: false);
+		}
+	}
 
-        public void Dispose()
-        {
-            if (value != null && owned)
-                value.Dispose();
-        }
-    }
+	struct Disposable<T> : IDisposable where T : class, IDisposable {
+
+		internal readonly T value;
+		readonly bool owned;
+
+		public Disposable (T value, bool owned)
+		{
+			this.value = value;
+			this.owned = owned;
+		}
+
+		public void Dispose ()
+		{
+			if (value != null && owned)
+				value.Dispose ();
+		}
+	}
 }

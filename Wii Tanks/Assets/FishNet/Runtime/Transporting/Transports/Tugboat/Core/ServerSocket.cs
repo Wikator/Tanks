@@ -1,30 +1,96 @@
+using FishNet.Connection;
+using FishNet.Managing;
+using FishNet.Managing.Logging;
+using LiteNetLib;
+using LiteNetLib.Layers;
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using FishNet.Connection;
-using LiteNetLib;
-using LiteNetLib.Layers;
+using UnityEngine;
 
 namespace FishNet.Transporting.Tugboat.Server
 {
     public class ServerSocket : CommonSocket
     {
-        #region Public.
 
+        #region Public.
         /// <summary>
-        ///     Gets the current ConnectionState of a remote client on the server.
+        /// Gets the current ConnectionState of a remote client on the server.
         /// </summary>
         /// <param name="connectionId">ConnectionId to get ConnectionState for.</param>
         internal RemoteConnectionState GetConnectionState(int connectionId)
         {
-            var peer = GetNetPeer(connectionId, false);
+            NetPeer peer = GetNetPeer(connectionId, false);
             if (peer == null || peer.ConnectionState != ConnectionState.Connected)
                 return RemoteConnectionState.Stopped;
-            return RemoteConnectionState.Started;
+            else
+                return RemoteConnectionState.Started;
         }
+        #endregion
 
+        #region Private.
+        #region Configuration.
+        /// <summary>
+        /// Port used by server.
+        /// </summary>
+        private ushort _port;
+        /// <summary>
+        /// Maximum number of allowed clients.
+        /// </summary>
+        private int _maximumClients;
+        /// <summary>
+        /// MTU size per packet.
+        /// </summary>
+        private int _mtu;
+        #endregion
+        #region Queues.
+        /// <summary>
+        /// Changes to the sockets local connection state.
+        /// </summary>
+        private Queue<LocalConnectionState> _localConnectionStates = new Queue<LocalConnectionState>();
+        /// <summary>
+        /// Inbound messages which need to be handled.
+        /// </summary>
+        private Queue<Packet> _incoming = new Queue<Packet>();
+        /// <summary>
+        /// Outbound messages which need to be handled.
+        /// </summary>
+        private Queue<Packet> _outgoing = new Queue<Packet>();
+        /// <summary>
+        /// ConnectionEvents which need to be handled.
+        /// </summary>
+        private Queue<RemoteConnectionEvent> _remoteConnectionEvents = new Queue<RemoteConnectionEvent>();
+        #endregion
+        /// <summary>
+        /// Key required to connect.
+        /// </summary>
+        private string _key = string.Empty;
+        /// <summary>
+        /// How long in seconds until client times from server.
+        /// </summary>
+        private int _timeout;
+        /// <summary>
+        /// Server socket manager.
+        /// </summary>
+        private NetManager _server;
+        /// <summary>
+        /// IPv4 address to bind server to.
+        /// </summary>
+        private string _ipv4BindAddress;
+        /// <summary>
+        /// IPv6 address to bind server to.
+        /// </summary>
+        private string _ipv6BindAddress;
+        /// <summary>
+        /// PacketLayer to use with LiteNetLib.
+        /// </summary>
+        private PacketLayerBase _packetLayer;
+        /// <summary>
+        /// Locks the NetManager to stop it.
+        /// </summary>
+        private readonly object _stopLock = new object();
         #endregion
 
         ~ServerSocket()
@@ -33,18 +99,18 @@ namespace FishNet.Transporting.Tugboat.Server
         }
 
         /// <summary>
-        ///     Initializes this for use.
+        /// Initializes this for use.
         /// </summary>
         /// <param name="t"></param>
         internal void Initialize(Transport t, int unreliableMTU, PacketLayerBase packetLayer)
         {
-            Transport = t;
+            base.Transport = t;
             _mtu = unreliableMTU;
             _packetLayer = packetLayer;
         }
 
         /// <summary>
-        ///     Updates the Timeout value as seconds.
+        /// Updates the Timeout value as seconds.
         /// </summary>
         internal void UpdateTimeout(int timeout)
         {
@@ -54,30 +120,42 @@ namespace FishNet.Transporting.Tugboat.Server
 
 
         /// <summary>
-        ///     Threaded operation to process server actions.
+        /// Threaded operation to process server actions.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ThreadedSocket()
         {
-            var listener = new EventBasedNetListener();
+            EventBasedNetListener listener = new EventBasedNetListener();
             listener.ConnectionRequestEvent += Listener_ConnectionRequestEvent;
             listener.PeerConnectedEvent += Listener_PeerConnectedEvent;
             listener.NetworkReceiveEvent += Listener_NetworkReceiveEvent;
             listener.PeerDisconnectedEvent += Listener_PeerDisconnectedEvent;
 
             _server = new NetManager(listener, _packetLayer);
-            _server.MtuOverride = _mtu + NetConstants.FragmentedHeaderTotalSize;
+            _server.MtuOverride = (_mtu + NetConstants.FragmentedHeaderTotalSize);
 
             UpdateTimeout(_timeout);
 
             //Set bind addresses.
             IPAddress ipv4;
             IPAddress ipv6;
+
             //Set ipv4
             if (!string.IsNullOrEmpty(_ipv4BindAddress))
             {
                 if (!IPAddress.TryParse(_ipv4BindAddress, out ipv4))
                     ipv4 = null;
+
+                //If unable to parse try to get address another way.
+                if (ipv4 == null)
+                {
+                    IPHostEntry hostEntry = Dns.GetHostEntry(_ipv4BindAddress);
+                    if (hostEntry.AddressList.Length > 0)
+                    {
+                        ipv4 = hostEntry.AddressList[0];
+                        base.Transport.NetworkManager.Log($"IPv4 could not parse correctly but was resolved to {ipv4.ToString()}");
+                    }
+                }
             }
             else
             {
@@ -95,17 +173,18 @@ namespace FishNet.Transporting.Tugboat.Server
                 IPAddress.TryParse("0:0:0:0:0:0:0:0", out ipv6);
             }
 
-            var ipv4FailText = ipv4 == null ? $"IPv4 address {_ipv4BindAddress} failed to parse. " : string.Empty;
-            var ipv6FailText = ipv6 == null ? $"IPv6 address {_ipv6BindAddress} failed to parse. " : string.Empty;
+
+
+            string ipv4FailText = (ipv4 == null) ? $"IPv4 address {_ipv4BindAddress} failed to parse. " : string.Empty;
+            string ipv6FailText = (ipv6 == null) ? $"IPv6 address {_ipv6BindAddress} failed to parse. " : string.Empty;
             if (ipv4FailText != string.Empty || ipv6FailText != string.Empty)
             {
-                Transport.NetworkManager.Log(
-                    $"{ipv4FailText}{ipv6FailText}Clear the bind address field to use any bind address.");
+                base.Transport.NetworkManager.Log($"{ipv4FailText}{ipv6FailText}Clear the bind address field to use any bind address.");
                 StopConnection();
                 return;
             }
 
-            var startResult = _server.Start(ipv4, ipv6, _port);
+            bool startResult = _server.Start(ipv4, ipv6, _port);
             //If started succcessfully.
             if (startResult)
             {
@@ -114,21 +193,20 @@ namespace FishNet.Transporting.Tugboat.Server
             //Failed to start.
             else
             {
-                Transport.NetworkManager.LogError(
-                    "Server failed to start. This usually occurs when the specified port is unavailable, be it closed or already in use.");
+                base.Transport.NetworkManager.LogError($"Server failed to start. This usually occurs when the specified port is unavailable, be it closed or already in use.");
                 StopConnection();
             }
         }
 
         /// <summary>
-        ///     Stops the socket on a new thread.
+        /// Stops the socket on a new thread.
         /// </summary>
         private void StopSocketOnThread()
         {
             if (_server == null)
                 return;
 
-            var t = Task.Run(() =>
+            Task t = Task.Run(() =>
             {
                 lock (_stopLock)
                 {
@@ -143,18 +221,34 @@ namespace FishNet.Transporting.Tugboat.Server
         }
 
         /// <summary>
-        ///     Gets the address of a remote connection Id.
+        /// Gets the address of a remote connection Id.
         /// </summary>
         /// <param name="connectionId"></param>
         /// <returns>Returns string.empty if Id is not found.</returns>
         internal string GetConnectionAddress(int connectionId)
         {
-            var peer = GetNetPeer(connectionId, false);
+            if (GetConnectionState() != LocalConnectionState.Started)
+            {
+                string msg = "Server socket is not started.";
+                if (Transport == null)
+                    NetworkManager.StaticLogWarning(msg);
+                else
+                    Transport.NetworkManager.LogWarning(msg);
+                return string.Empty;
+            }
+
+            NetPeer peer = GetNetPeer(connectionId, false);
+            if (peer == null)
+            { 
+                Transport.NetworkManager.LogWarning($"Connection Id {connectionId} returned a null NetPeer.");
+                return string.Empty;
+            }
+
             return peer.EndPoint.Address.ToString();
         }
 
         /// <summary>
-        ///     Returns a NetPeer for connectionId.
+        /// Returns a NetPeer for connectionId.
         /// </summary>
         /// <param name="connectionId"></param>
         /// <returns></returns>
@@ -162,25 +256,27 @@ namespace FishNet.Transporting.Tugboat.Server
         {
             if (_server != null)
             {
-                var peer = _server.GetPeerById(connectionId);
+                NetPeer peer = _server.GetPeerById(connectionId);
                 if (connectedOnly && peer != null && peer.ConnectionState != ConnectionState.Connected)
                     peer = null;
 
                 return peer;
             }
-
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
-        ///     Starts the server.
+        /// Starts the server.
         /// </summary>
         internal bool StartConnection(ushort port, int maximumClients, string ipv4BindAddress, string ipv6BindAddress)
         {
             if (base.GetConnectionState() != LocalConnectionState.Stopped)
                 return false;
 
-            SetConnectionState(LocalConnectionState.Starting, true);
+            base.SetConnectionState(LocalConnectionState.Starting, true);
 
             //Assign properties.
             _port = port;
@@ -189,18 +285,17 @@ namespace FishNet.Transporting.Tugboat.Server
             _ipv6BindAddress = ipv6BindAddress;
             ResetQueues();
 
-            var t = Task.Run(() => ThreadedSocket());
+            Task t = Task.Run(() => ThreadedSocket());
 
             return true;
         }
 
         /// <summary>
-        ///     Stops the local socket.
+        /// Stops the local socket.
         /// </summary>
         internal bool StopConnection()
         {
-            if (_server == null || base.GetConnectionState() == LocalConnectionState.Stopped ||
-                base.GetConnectionState() == LocalConnectionState.Stopping)
+            if (_server == null || base.GetConnectionState() == LocalConnectionState.Stopped || base.GetConnectionState() == LocalConnectionState.Stopping)
                 return false;
 
             _localConnectionStates.Enqueue(LocalConnectionState.Stopping);
@@ -209,7 +304,7 @@ namespace FishNet.Transporting.Tugboat.Server
         }
 
         /// <summary>
-        ///     Stops a remote client disconnecting the client from the server.
+        /// Stops a remote client disconnecting the client from the server.
         /// </summary>
         /// <param name="connectionId">ConnectionId of the client to disconnect.</param>
         internal bool StopConnection(int connectionId)
@@ -218,7 +313,7 @@ namespace FishNet.Transporting.Tugboat.Server
             if (_server == null || base.GetConnectionState() != LocalConnectionState.Started)
                 return false;
 
-            var peer = GetNetPeer(connectionId, false);
+            NetPeer peer = GetNetPeer(connectionId, false);
             if (peer == null)
                 return false;
 
@@ -237,19 +332,19 @@ namespace FishNet.Transporting.Tugboat.Server
         }
 
         /// <summary>
-        ///     Resets queues.
+        /// Resets queues.
         /// </summary>
         private void ResetQueues()
         {
             _localConnectionStates.Clear();
-            ClearPacketQueue(ref _incoming);
-            ClearPacketQueue(ref _outgoing);
+            base.ClearPacketQueue(ref _incoming);
+            base.ClearPacketQueue(ref _outgoing);
             _remoteConnectionEvents.Clear();
         }
 
 
         /// <summary>
-        ///     Called when a peer disconnects or times out.
+        /// Called when a peer disconnects or times out.
         /// </summary>
         private void Listener_PeerDisconnectedEvent(NetPeer peer, DisconnectInfo disconnectInfo)
         {
@@ -257,7 +352,7 @@ namespace FishNet.Transporting.Tugboat.Server
         }
 
         /// <summary>
-        ///     Called when a peer completes connection.
+        /// Called when a peer completes connection.
         /// </summary>
         private void Listener_PeerConnectedEvent(NetPeer peer)
         {
@@ -265,11 +360,10 @@ namespace FishNet.Transporting.Tugboat.Server
         }
 
         /// <summary>
-        ///     Called when data is received from a peer.
+        /// Called when data is received from a peer.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private void Listener_NetworkReceiveEvent(NetPeer fromPeer, NetPacketReader reader, byte channel,
-            DeliveryMethod deliveryMethod)
+        private void Listener_NetworkReceiveEvent(NetPeer fromPeer, NetPacketReader reader, byte channel, DeliveryMethod deliveryMethod)
         {
             //If over the MTU.
             if (reader.AvailableBytes > _mtu)
@@ -285,7 +379,7 @@ namespace FishNet.Transporting.Tugboat.Server
 
 
         /// <summary>
-        ///     Called when a remote connection request is made.
+        /// Called when a remote connection request is made.
         /// </summary>
         private void Listener_ConnectionRequestEvent(ConnectionRequest request)
         {
@@ -303,7 +397,7 @@ namespace FishNet.Transporting.Tugboat.Server
         }
 
         /// <summary>
-        ///     Dequeues and processes outgoing.
+        /// Dequeues and processes outgoing.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void DequeueOutgoing()
@@ -311,26 +405,24 @@ namespace FishNet.Transporting.Tugboat.Server
             if (base.GetConnectionState() != LocalConnectionState.Started || _server == null)
             {
                 //Not started, clear outgoing.
-                ClearPacketQueue(ref _outgoing);
+                base.ClearPacketQueue(ref _outgoing);
             }
             else
             {
-                var count = _outgoing.Count;
-                for (var i = 0; i < count; i++)
+                int count = _outgoing.Count;
+                for (int i = 0; i < count; i++)
                 {
-                    var outgoing = _outgoing.Dequeue();
-                    var connectionId = outgoing.ConnectionId;
+                    Packet outgoing = _outgoing.Dequeue();
+                    int connectionId = outgoing.ConnectionId;
 
-                    var segment = outgoing.GetArraySegment();
-                    var dm = outgoing.Channel == (byte)Channel.Reliable
-                        ? DeliveryMethod.ReliableOrdered
-                        : DeliveryMethod.Unreliable;
+                    ArraySegment<byte> segment = outgoing.GetArraySegment();
+                    DeliveryMethod dm = (outgoing.Channel == (byte)Channel.Reliable) ?
+                         DeliveryMethod.ReliableOrdered : DeliveryMethod.Unreliable;
 
                     //If over the MTU.
                     if (outgoing.Channel == (byte)Channel.Unreliable && segment.Count > _mtu)
                     {
-                        Transport.NetworkManager.LogWarning(
-                            $"Server is sending of {segment.Count} length on the unreliable channel, while the MTU is only {_mtu}. The channel has been changed to reliable for this send.");
+                        base.Transport.NetworkManager.LogWarning($"Server is sending of {segment.Count} length on the unreliable channel, while the MTU is only {_mtu}. The channel has been changed to reliable for this send.");
                         dm = DeliveryMethod.ReliableOrdered;
                     }
 
@@ -342,7 +434,7 @@ namespace FishNet.Transporting.Tugboat.Server
                     //Send to one client.
                     else
                     {
-                        var peer = GetNetPeer(connectionId, true);
+                        NetPeer peer = GetNetPeer(connectionId, true);
                         //If peer is found.
                         if (peer != null)
                             peer.Send(segment.Array, segment.Offset, segment.Count, dm);
@@ -354,7 +446,7 @@ namespace FishNet.Transporting.Tugboat.Server
         }
 
         /// <summary>
-        ///     Allows for Outgoing queue to be iterated.
+        /// Allows for Outgoing queue to be iterated.
         /// </summary>
         internal void IterateOutgoing()
         {
@@ -362,7 +454,7 @@ namespace FishNet.Transporting.Tugboat.Server
         }
 
         /// <summary>
-        ///     Iterates the Incoming queue.
+        /// Iterates the Incoming queue.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void IterateIncoming()
@@ -373,10 +465,10 @@ namespace FishNet.Transporting.Tugboat.Server
              * to read for data at the start of the frame, as that's
              * where incoming is read. */
             while (_localConnectionStates.Count > 0)
-                SetConnectionState(_localConnectionStates.Dequeue(), true);
+                base.SetConnectionState(_localConnectionStates.Dequeue(), true);
 
             //Not yet started.
-            var localState = base.GetConnectionState();
+            LocalConnectionState localState = base.GetConnectionState();
             if (localState != LocalConnectionState.Started)
             {
                 ResetQueues();
@@ -391,35 +483,35 @@ namespace FishNet.Transporting.Tugboat.Server
             //Handle connection and disconnection events.
             while (_remoteConnectionEvents.Count > 0)
             {
-                var connectionEvent = _remoteConnectionEvents.Dequeue();
-                var state = connectionEvent.Connected ? RemoteConnectionState.Started : RemoteConnectionState.Stopped;
-                Transport.HandleRemoteConnectionState(new RemoteConnectionStateArgs(state, connectionEvent.ConnectionId,
-                    Transport.Index));
+                RemoteConnectionEvent connectionEvent = _remoteConnectionEvents.Dequeue();
+                RemoteConnectionState state = (connectionEvent.Connected) ? RemoteConnectionState.Started : RemoteConnectionState.Stopped;
+                base.Transport.HandleRemoteConnectionState(new RemoteConnectionStateArgs(state, connectionEvent.ConnectionId, base.Transport.Index));
             }
 
             //Handle packets.
             while (_incoming.Count > 0)
             {
-                var incoming = _incoming.Dequeue();
+                Packet incoming = _incoming.Dequeue();
                 //Make sure peer is still connected.
-                var peer = GetNetPeer(incoming.ConnectionId, true);
+                NetPeer peer = GetNetPeer(incoming.ConnectionId, true);
                 if (peer != null)
                 {
-                    var dataArgs = new ServerReceivedDataArgs(
+                    ServerReceivedDataArgs dataArgs = new ServerReceivedDataArgs(
                         incoming.GetArraySegment(),
                         (Channel)incoming.Channel,
                         incoming.ConnectionId,
-                        Transport.Index);
+                        base.Transport.Index);
 
-                    Transport.HandleServerReceivedDataArgs(dataArgs);
+                    base.Transport.HandleServerReceivedDataArgs(dataArgs);
                 }
 
                 incoming.Dispose();
             }
+
         }
 
         /// <summary>
-        ///     Sends a packet to a single, or all clients.
+        /// Sends a packet to a single, or all clients.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal void SendToClient(byte channelId, ArraySegment<byte> segment, int connectionId)
@@ -428,8 +520,7 @@ namespace FishNet.Transporting.Tugboat.Server
         }
 
         /// <summary>
-        ///     Returns the maximum number of clients allowed to connect to the server. If the transport does not support this
-        ///     method the value -1 is returned.
+        /// Returns the maximum number of clients allowed to connect to the server. If the transport does not support this method the value -1 is returned.
         /// </summary>
         /// <returns></returns>
         internal int GetMaximumClients()
@@ -438,94 +529,12 @@ namespace FishNet.Transporting.Tugboat.Server
         }
 
         /// <summary>
-        ///     Sets the MaximumClients value.
+        /// Sets the MaximumClients value.
         /// </summary>
         /// <param name="value"></param>
         internal void SetMaximumClients(int value)
         {
             _maximumClients = value;
         }
-
-        #region Private.
-
-        #region Configuration.
-
-        /// <summary>
-        ///     Port used by server.
-        /// </summary>
-        private ushort _port;
-
-        /// <summary>
-        ///     Maximum number of allowed clients.
-        /// </summary>
-        private int _maximumClients;
-
-        /// <summary>
-        ///     MTU size per packet.
-        /// </summary>
-        private int _mtu;
-
-        #endregion
-
-        #region Queues.
-
-        /// <summary>
-        ///     Changes to the sockets local connection state.
-        /// </summary>
-        private readonly Queue<LocalConnectionState> _localConnectionStates = new();
-
-        /// <summary>
-        ///     Inbound messages which need to be handled.
-        /// </summary>
-        private Queue<Packet> _incoming = new();
-
-        /// <summary>
-        ///     Outbound messages which need to be handled.
-        /// </summary>
-        private Queue<Packet> _outgoing = new();
-
-        /// <summary>
-        ///     ConnectionEvents which need to be handled.
-        /// </summary>
-        private readonly Queue<RemoteConnectionEvent> _remoteConnectionEvents = new();
-
-        #endregion
-
-        /// <summary>
-        ///     Key required to connect.
-        /// </summary>
-        private readonly string _key = string.Empty;
-
-        /// <summary>
-        ///     How long in seconds until client times from server.
-        /// </summary>
-        private int _timeout;
-
-        /// <summary>
-        ///     Server socket manager.
-        /// </summary>
-        private NetManager _server;
-
-        /// <summary>
-        ///     IPv4 address to bind server to.
-        /// </summary>
-        private string _ipv4BindAddress;
-
-        /// <summary>
-        ///     IPv6 address to bind server to.
-        /// </summary>
-        private string _ipv6BindAddress;
-
-        /// <summary>
-        ///     PacketLayer to use with LiteNetLib.
-        /// </summary>
-        private PacketLayerBase _packetLayer;
-
-        /// <summary>
-        ///     Locks the NetManager to stop it.
-        /// </summary>
-        private readonly object _stopLock = new();
-
-        #endregion
     }
 }

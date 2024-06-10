@@ -9,8 +9,8 @@ namespace LiteNetLib.Utils
         private const int KillTimer = 10000;
         public const int DefaultPort = 123;
         private readonly IPEndPoint _ntpEndPoint;
-        private int _killTime;
         private int _resendTime = ResendTimer;
+        private int _killTime = 0;
 
         public NtpRequest(IPEndPoint endPoint)
         {
@@ -23,11 +23,14 @@ namespace LiteNetLib.Utils
         {
             _resendTime += time;
             _killTime += time;
-            if (_resendTime < ResendTimer) return false;
+            if (_resendTime < ResendTimer)
+            {
+                return false;
+            }
             var packet = new NtpPacket();
             try
             {
-                var sendCount = socket.SendTo(packet.Bytes, 0, packet.Bytes.Length, SocketFlags.None, _ntpEndPoint);
+                int sendCount = socket.SendTo(packet.Bytes, 0, packet.Bytes.Length, SocketFlags.None, _ntpEndPoint);
                 return sendCount == packet.Bytes.Length;
             }
             catch

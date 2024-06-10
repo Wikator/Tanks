@@ -3,10 +3,12 @@ using MonoFN.Cecil;
 
 namespace FishNet.CodeGenerating.Helping.Extension
 {
+
     internal static class FieldReferenceExtensions
     {
+
         /// <summary>
-        ///     Gets a Resolve favoring cached results first.
+        /// Gets a Resolve favoring cached results first.
         /// </summary>
         internal static FieldDefinition CachedResolve(this FieldReference fieldRef, CodegenSession session)
         {
@@ -20,12 +22,17 @@ namespace FishNet.CodeGenerating.Helping.Extension
 
             if (declaringTr.HasGenericParameters)
             {
-                var git = declaringTr.MakeGenericInstanceType();
-                var result = new FieldReference(fd.Name, fd.FieldType, git);
+                GenericInstanceType git = declaringTr.MakeGenericInstanceType();
+                FieldReference result = new FieldReference(fd.Name, fd.FieldType, git);
                 return result;
             }
-
-            return session.ImportReference(fd);
+            else
+            {
+                return session.ImportReference(fd);
+            }
         }
+
+
     }
+
 }

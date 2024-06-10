@@ -85,6 +85,15 @@ namespace FishNet.Serializing
         #endregion
 
         /// <summary>
+        /// Outputs reader to string.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            return $"Position: {Position}, Length: {Length}, Buffer: {BitConverter.ToString(_buffer, 0, Length)}.";
+        }
+
+        /// <summary>
         /// Resets the writer as though it was unused. Does not reset buffers.
         /// </summary>
         public void Reset(NetworkManager manager = null)
@@ -723,20 +732,48 @@ namespace FishNet.Serializing
         }
 
         /// <summary>
+        /// Writes a tick without packing.
+        /// </summary>
+        /// <param name="value"></param>
+        [CodegenExclude]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public void WriteTickUnpacked(uint value)
+        {
+            WriteUInt32(value, AutoPackType.Unpacked);
+        }
+
+        /// <summary>
         /// Writes a GameObject. GameObject must be spawned over the network already or be a prefab with a NetworkObject attached.
         /// </summary>
         /// <param name="go"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void WriteGameObject(GameObject go)
         {
+            //There needs to be a header to indicate if null, nob, or nb.
             if (go == null)
             {
-                WriteNetworkObject(null);
+                WriteByte(0);
             }
             else
             {
-                NetworkObject nob = go.GetComponent<NetworkObject>();
-                WriteNetworkObject(nob);
+                //Try to write the NetworkObject first.
+                if (go.TryGetComponent<NetworkObject>(out NetworkObject nob))
+                {
+                    WriteByte(1);
+                    WriteNetworkObject(nob);
+                }
+                //If there was no nob try to write a NetworkBehaviour.
+                else if (go.TryGetComponent<NetworkBehaviour>(out NetworkBehaviour nb))
+                {
+                    WriteByte(2);
+                    WriteNetworkBehaviour(nb);
+                }
+                //Object cannot be serialized so write null.
+                else
+                {
+                    WriteByte(0);
+                    LogError($"GameObject {go.name} cannot be serialized because it does not have a NetworkObject nor NetworkBehaviour.");
+                }
             }
         }
 
@@ -932,6 +969,7 @@ namespace FishNet.Serializing
         /// Writes a ListCache.
         /// </summary>
         /// <param name="lc">ListCache to write.</param>
+        [CodegenExclude]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void WriteListCache<T>(ListCache<T> lc)
         {
@@ -941,6 +979,7 @@ namespace FishNet.Serializing
         /// Writes a list.
         /// </summary>
         /// <param name="value">Collection to write.</param>
+        [CodegenExclude]
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void WriteList<T>(List<T> value)
         {
@@ -949,6 +988,18 @@ namespace FishNet.Serializing
             else
                 WriteList<T>(value, 0, value.Count);
         }
+
+        /// <summary>
+        /// Writes a state update packet.
+        /// </summary>
+        /// <param name="tick"></param>
+        [CodegenExclude]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        internal void WriteStateUpdatePacket(uint lastPacketTick)
+        {
+            WriteTickUnpacked(lastPacketTick);
+        }
+
         #region Packed writers.
         /// <summary>
         /// ZigZag encode an integer. Move the sign bit to the right.
@@ -1261,7 +1312,8 @@ namespace FishNet.Serializing
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Write<T>(T value)
         {
-            if (IsAutoPackType<T>(out AutoPackType packType))
+            System.Type type = typeof(T);
+            if (IsAutoPackType(type, out AutoPackType packType))
             {
                 Action<Writer, T, AutoPackType> del = GenericWriter<T>.WriteAutoPack;
                 if (del == null)
@@ -1278,7 +1330,7 @@ namespace FishNet.Serializing
                     del.Invoke(this, value);
             }
 
-            string GetLogMessage() => $"Write method not found for {typeof(T).Name}. Use a supported type or create a custom serializer.";
+            string GetLogMessage() => $"Write method not found for {type.FullName}. Use a supported type or create a custom serializer.";
         }
 
         /// <summary>
@@ -1301,8 +1353,11 @@ namespace FishNet.Serializing
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal static bool IsAutoPackType<T>(out AutoPackType packType)
         {
-            //performance bench this against using a hash lookup.
             System.Type type = typeof(T);
+            return IsAutoPackType(type, out packType);
+        }
+        internal static bool IsAutoPackType(Type type, out AutoPackType packType)
+        {
             if (WriterExtensions.DefaultPackedTypes.Contains(type))
             {
                 packType = AutoPackType.Packed;

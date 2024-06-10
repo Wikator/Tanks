@@ -9,7 +9,7 @@ namespace FishNet.Connection
     /// <summary>
     /// A container for a connected client used to perform actions on and gather information for the declared client.
     /// </summary>
-    public partial class NetworkConnection : IEquatable<NetworkConnection>
+    public partial class NetworkConnection
     {
 #pragma warning disable CS0414
         #region Private.
@@ -33,6 +33,7 @@ namespace FishNet.Connection
         /// </summary>
         private const byte EXCESSIVE_PING_LIMIT = 10;
         #endregion
+
 #pragma warning restore CS0414
         /// <summary>
         /// Initializes for ping.
@@ -63,13 +64,18 @@ namespace FishNet.Connection
         {
             /* Only check ping conditions in build. Editors are prone to pausing which can
              * improperly kick clients. */
-#if UNITY_EDITOR
+#if !UNITY_EDITOR
             return true;
 #else
             TimeManager tm = (NetworkManager == null) ? InstanceFinder.TimeManager : NetworkManager.TimeManager;
-            //Server FPS is running low, timing isn't reliable enough to kick clients.
+            /* Server FPS is running low, timing isn't reliable enough to kick clients.
+             * Respond with clients ping and remove infractions just in case the
+             * client received some from other server instabilities. */
             if (tm.LowFrameRate)
-                return true;
+            {
+                _excessivePingCount = 0f;
+                return false;
+            }
 
             uint currentTick = tm.Tick;
             uint difference = (currentTick - _lastPingTick);

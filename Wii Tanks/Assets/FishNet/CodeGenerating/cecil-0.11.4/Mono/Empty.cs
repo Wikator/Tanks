@@ -8,56 +8,55 @@
 // Licensed under the MIT/X11 license.
 //
 
-using System;
 using MonoFN.Collections.Generic;
+using System;
 
-namespace MonoFN
-{
-    internal static class Empty<T>
-    {
-        public static readonly T[] Array = new T [0];
-    }
+namespace MonoFN {
 
-    internal class ArgumentNullOrEmptyException : ArgumentException
-    {
-        public ArgumentNullOrEmptyException(string paramName)
-            : base("Argument null or empty", paramName)
-        {
-        }
-    }
+	static class Empty<T> {
+
+		public static readonly T [] Array = new T [0];
+	}
+
+	class ArgumentNullOrEmptyException : ArgumentException {
+
+		public ArgumentNullOrEmptyException (string paramName)
+			: base ("Argument null or empty", paramName)
+		{
+		}
+	}
 }
 
-namespace MonoFN.Cecil
-{
-    internal static partial class Mixin
-    {
-        public static bool IsNullOrEmpty<T>(this T[] self)
-        {
-            return self == null || self.Length == 0;
-        }
+namespace MonoFN.Cecil {
 
-        public static bool IsNullOrEmpty<T>(this Collection<T> self)
-        {
-            return self == null || self.size == 0;
-        }
+	static partial class Mixin {
 
-        public static T[] Resize<T>(this T[] self, int length)
-        {
-            Array.Resize(ref self, length);
-            return self;
-        }
+		public static bool IsNullOrEmpty<T> (this T [] self)
+		{
+			return self == null || self.Length == 0;
+		}
 
-        public static T[] Add<T>(this T[] self, T item)
-        {
-            if (self == null)
-            {
-                self = new[] { item };
-                return self;
-            }
+		public static bool IsNullOrEmpty<T> (this Collection<T> self)
+		{
+			return self == null || self.size == 0;
+		}
 
-            self = self.Resize(self.Length + 1);
-            self[self.Length - 1] = item;
-            return self;
-        }
-    }
+		public static T [] Resize<T> (this T [] self, int length)
+		{
+			Array.Resize (ref self, length);
+			return self;
+		}
+
+		public static T [] Add<T> (this T [] self, T item)
+		{
+			if (self == null) {
+				self = new [] { item };
+				return self;
+			}
+
+			self = self.Resize (self.Length + 1);
+			self [self.Length - 1] = item;
+			return self;
+		}
+	}
 }

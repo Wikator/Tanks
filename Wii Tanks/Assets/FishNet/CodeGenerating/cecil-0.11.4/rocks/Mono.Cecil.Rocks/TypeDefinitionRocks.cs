@@ -12,54 +12,54 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MonoFN.Cecil.Rocks
-{
+namespace MonoFN.Cecil.Rocks {
+
 #if UNITY_EDITOR
-    public
+	public
 #endif
-        static class TypeDefinitionRocks
-    {
-        public static IEnumerable<MethodDefinition> GetConstructors(this TypeDefinition self)
-        {
-            if (self == null)
-                throw new ArgumentNullException("self");
+	static class TypeDefinitionRocks {
 
-            if (!self.HasMethods)
-                return Empty<MethodDefinition>.Array;
+		public static IEnumerable<MethodDefinition> GetConstructors (this TypeDefinition self)
+		{
+			if (self == null)
+				throw new ArgumentNullException ("self");
 
-            return self.Methods.Where(method => method.IsConstructor);
-        }
+			if (!self.HasMethods)
+				return Empty<MethodDefinition>.Array;
 
-        public static MethodDefinition GetStaticConstructor(this TypeDefinition self)
-        {
-            if (self == null)
-                throw new ArgumentNullException("self");
+			return self.Methods.Where (method => method.IsConstructor);
+		}
 
-            if (!self.HasMethods)
-                return null;
+		public static MethodDefinition GetStaticConstructor (this TypeDefinition self)
+		{
+			if (self == null)
+				throw new ArgumentNullException ("self");
 
-            return self.GetConstructors().FirstOrDefault(ctor => ctor.IsStatic);
-        }
+			if (!self.HasMethods)
+				return null;
 
-        public static IEnumerable<MethodDefinition> GetMethods(this TypeDefinition self)
-        {
-            if (self == null)
-                throw new ArgumentNullException("self");
+			return self.GetConstructors ().FirstOrDefault (ctor => ctor.IsStatic);
+		}
 
-            if (!self.HasMethods)
-                return Empty<MethodDefinition>.Array;
+		public static IEnumerable<MethodDefinition> GetMethods (this TypeDefinition self)
+		{
+			if (self == null)
+				throw new ArgumentNullException ("self");
 
-            return self.Methods.Where(method => !method.IsConstructor);
-        }
+			if (!self.HasMethods)
+				return Empty<MethodDefinition>.Array;
 
-        public static TypeReference GetEnumUnderlyingType(this TypeDefinition self)
-        {
-            if (self == null)
-                throw new ArgumentNullException("self");
-            if (!self.IsEnum)
-                throw new ArgumentException();
+			return self.Methods.Where (method => !method.IsConstructor);
+		}
 
-            return Mixin.GetEnumUnderlyingType(self);
-        }
-    }
+		public static TypeReference GetEnumUnderlyingType (this TypeDefinition self)
+		{
+			if (self == null)
+				throw new ArgumentNullException ("self");
+			if (!self.IsEnum)
+				throw new ArgumentException ();
+
+			return Mixin.GetEnumUnderlyingType (self);
+		}
+	}
 }

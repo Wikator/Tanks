@@ -1,8 +1,10 @@
 ﻿using FishNet.Connection;
 using FishNet.Managing;
+using FishNet.Managing.Timing;
 using FishNet.Object;
 using FishNet.Transporting;
 using FishNet.Utility;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -10,7 +12,49 @@ namespace FishNet.Component.Prediction
 {
     public partial class PredictedObject : NetworkBehaviour
     {
+#if !PREDICTION_V2
+        #region Types.
+        [System.Serializable]
+        public struct SmoothingData
+        {
+            /// <summary>
+            /// Percentage of ping to use as interpolation. Higher values will result in more interpolation.
+            /// </summary>
+            [Tooltip("Percentage of ping to use as interpolation. Higher values will result in more interpolation.")]
+            [Range(0.01f, 5f)]
+            public float InterpolationPercent;
+            /// <summary>
+            /// Percentage of ping to use as interpolation when colliding with an object local client owns.
+            /// This is used to speed up local interpolation when predicted objects collide with a player as well keep graphics closer to the objects root while colliding.
+            /// </summary>
+            [Tooltip("Percentage of ping to use as interpolation when colliding with an object local client owns." +
+                "This is used to speed up local interpolation when predicted objects collide with a player as well keep graphics closer to the objects root while colliding.")]
+            [Range(0.01f, 5f)]
+            public float CollisionInterpolationPercent;
+            /// <summary>
+            /// How much per tick to decrease to collision interpolation when colliding with a local player object.
+            /// Higher values will set interpolation to collision settings faster.
+            /// </summary>
+            [Tooltip("How much per tick to decrease to collision interpolation when colliding with a local player object. Higher values will set interpolation to collision settings faster.")]
+            [Range(1, byte.MaxValue)]
+            public byte InterpolationDecreaseStep;
+            /// <summary>
+            /// How much per tick to increase to normal interpolation when not colliding with a local player object.
+            /// Higher values will set interpolation to normal settings faster.
+            /// </summary>
+            [Tooltip("How much per tick to increase to normal interpolation when not colliding with a local player object. Higher values will set interpolation to normal settings faster.")]
+            [Range(1, byte.MaxValue)]
+            public byte InterpolationIncreaseStep;
+        }
+        #endregion
+
         #region All.
+        #region Internal.
+        /// <summary>
+        /// True if owner and implements prediction methods.
+        /// </summary>
+        internal bool IsPredictingOwner() => (base.IsOwner && _implementsPredictionMethods);
+        #endregion
         #region Private.
         /// <summary>
         /// Pauser for rigidbodies when they cannot be rolled back.
@@ -40,6 +84,69 @@ namespace FishNet.Component.Prediction
         /// Tick on the last received state.
         /// </summary>
         private uint _lastStateLocalTick;
+        /// <summary>
+        /// True if a connection is owner and prediction methods are implemented.
+        /// </summary>
+        private bool _isPredictingOwner(NetworkConnection c) => (c == base.Owner && _implementsPredictionMethods);
+        /// <summary>
+        /// Current interpolation value.
+        /// </summary>
+        private long _currentSpectatorInterpolation;
+        /// <summary>
+        /// Target interpolation when collision is exited.
+        /// </summary>
+        private uint _targetSpectatorInterpolation;
+        /// <summary>
+        /// Target interpolation when collision is entered.
+        /// </summary>
+        private uint _targetCollisionSpectatorInterpolation;
+        /// <summary>
+        /// How much per tick to decrease to collision interpolation when colliding with a local player object.
+        /// </summary>
+        private byte _interpolationDecreaseStep;
+        /// <summary>
+        /// How much per tick to increase to normal interpolation when not colliding with a local player object.
+        /// </summary>
+        private byte _interpolationIncreaseStep;
+        /// <summary>
+        /// Last local tick that collision has stayed with local client objects.
+        /// </summary>
+        private uint _collisionStayedTick;
+        /// <summary>
+        /// Local client objects this object is currently colliding with.
+        /// </summary>
+        private HashSet<GameObject> _localClientCollidedObjects = new HashSet<GameObject>();
+        /// <summary>
+        /// True if spectator prediction is paused.
+        /// </summary>
+        private bool _spectatorPaused;
+        ///// <summary>
+        ///// Target number of ticks to ignore when replaying.
+        ///// </summary>
+        //private uint _ignoredTicks;
+        #region Smoothing datas.
+        private static SmoothingData _accurateSmoothingData = new SmoothingData()
+        {
+            InterpolationPercent = 0.5f,
+            CollisionInterpolationPercent = 0.05f,
+            InterpolationDecreaseStep = 1,
+            InterpolationIncreaseStep = 2,
+        };
+        private static SmoothingData _mixedSmoothingData = new SmoothingData()
+        {
+            InterpolationPercent = 1f,
+            CollisionInterpolationPercent = 0.1f,
+            InterpolationDecreaseStep = 1,
+            InterpolationIncreaseStep = 3,
+        };
+        private static SmoothingData _gradualSmoothingData = new SmoothingData()
+        {
+            InterpolationPercent = 1.5f,
+            CollisionInterpolationPercent = 0.2f,
+            InterpolationDecreaseStep = 1,
+            InterpolationIncreaseStep = 5,
+        };
+        #endregion
         #endregion
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -52,7 +159,7 @@ namespace FishNet.Component.Prediction
             if (c.IsLocalClient)
                 return;
 
-            uint tick = c.LastPacketTick;
+            uint tick = c.PacketTick.RemoteTick;
             if (_predictionType == PredictionType.Rigidbody)
                 SendRigidbodyState(tick, c, true);
             else
@@ -96,7 +203,11 @@ namespace FishNet.Component.Prediction
             if (_graphicalAnimators.Length > 0)
             {
                 for (int i = 0; i < _graphicalAnimators.Length; i++)
+#if UNITY_2022_1_OR_NEWER
                     _graphicalAnimators[i].keepAnimatorStateOnDisable = true;
+#else
+                    _graphicalAnimators[i].keepAnimatorControllerStateOnDisable = true;
+#endif
 
                 /* True if at least one animator is on the graphical root. 
                 * Unity gets components in order so it's safe to assume
@@ -107,7 +218,6 @@ namespace FishNet.Component.Prediction
                     Transform graphicalHolder = new GameObject().transform;
                     graphicalHolder.name = "GraphicalObjectHolder";
                     graphicalHolder.SetParent(transform);
-                    //ref _graphicalInstantiatedOffsetPosition, ref _graphicalInstantiatedOffsetRotation);
                     graphicalHolder.localPosition = _graphicalInstantiatedOffsetPosition;
                     graphicalHolder.localRotation = _graphicalInstantiatedOffsetRotation;
                     graphicalHolder.localScale = _graphicalObject.localScale;
@@ -131,19 +241,23 @@ namespace FishNet.Component.Prediction
                 return;
 
             bool is2D = (_predictionType == PredictionType.Rigidbody2D);
-            uint localTick = base.TimeManager.LocalTick;
+            TrySetCollisionExited(is2D);
 
             /* Can check either one. They may not be initialized yet if host. */
             if (_rigidbodyStates.Initialized)
             {
+                if (_localTick == 0)
+                    _localTick = base.TimeManager.LocalTick;
+
                 if (!is2D)
-                    _rigidbodyStates.Add(new RigidbodyState(_rigidbody, localTick));
+                    _rigidbodyStates.Add(new RigidbodyState(_rigidbody, _localTick));
                 else
-                    _rigidbody2dStates.Add(new Rigidbody2DState(_rigidbody2d, localTick));
+                    _rigidbody2dStates.Add(new Rigidbody2DState(_rigidbody2d, _localTick));
             }
 
             if (CanPredict())
             {
+                UpdateSpectatorSmoothing();
                 if (!is2D)
                     PredictVelocity(gameObject.scene.GetPhysicsScene());
                 else
@@ -152,13 +266,32 @@ namespace FishNet.Component.Prediction
         }
 
         /// <summary>
+        /// Unsets collision values if collision was known to be entered but there are no longer any contact points.
+        /// </summary>
+        private void TrySetCollisionExited(bool is2d)
+        {
+            /* If this object is no longer
+             * colliding with local client objects
+             * then unset collision.
+             * This is done here instead of using
+             * OnCollisionExit because often collisionexit
+             * will be missed due to ignored ticks. 
+             * While not ignoring ticks is always an option
+             * its not ideal because ignoring ticks helps
+             * prevent over predicting. */
+            if (_collisionStayedTick != 0 && (base.TimeManager.LocalTick != _collisionStayedTick))
+                CollisionExited();
+        }
+
+        /// <summary>
         /// Called before performing a reconcile on NetworkBehaviour.
         /// </summary>
         private void Rigidbodies_TimeManager_OnPreReconcile(NetworkBehaviour nb)
         {
-            /* Exit if owner because the owner should
-             * only be using CSP to rollback. */
-            if (base.IsOwner)
+            /* Exit if owner and implements prediction methods
+             * because csp would be handled by prediction methods
+             * rather than predicted object. */
+            if (IsPredictingOwner())
                 return;
             if (nb.gameObject == gameObject)
                 return;
@@ -212,10 +345,30 @@ namespace FishNet.Component.Prediction
             if (!CanPredict())
                 return;
 
+            //if (_localTick - tick < _ignoredTicks)
+            //    _rigidbodyPauser.Pause();
+
             if (_predictionType == PredictionType.Rigidbody)
+            {
+                _preReplicateReplayCacheIndex = GetCachedStateIndex(tick, false);
+                if (_preReplicateReplayCacheIndex != -1)
+                {
+                    bool prevKinematic = _rigidbodyStates[_preReplicateReplayCacheIndex].IsKinematic;
+                    _rigidbody.isKinematic = prevKinematic;
+                }
                 PredictVelocity(ps);
+            }
             else if (_predictionType == PredictionType.Rigidbody2D)
+            {
+                _preReplicateReplayCacheIndex = GetCachedStateIndex(tick, true);
+                if (_preReplicateReplayCacheIndex != -1)
+                {
+                    Rigidbody2DState state = _rigidbody2dStates[_preReplicateReplayCacheIndex];
+                    _rigidbody2d.simulated = state.Simulated;
+                    _rigidbody2d.isKinematic = state.IsKinematic;
+                }
                 PredictVelocity(ps2d);
+            }
         }
 
         /// <summary>
@@ -231,16 +384,152 @@ namespace FishNet.Component.Prediction
 
             if (_predictionType == PredictionType.Rigidbody)
             {
-                int index = GetCachedStateIndex(tick, false);
+                int index = _preReplicateReplayCacheIndex;
                 if (index != -1)
-                    _rigidbodyStates[index] = new RigidbodyState(_rigidbody, tick);
+                {
+                    bool prevKinematic = _rigidbodyStates[index].IsKinematic;
+                    _rigidbodyStates[index] = new RigidbodyState(_rigidbody, prevKinematic, tick);
+                }
             }
             if (_predictionType == PredictionType.Rigidbody2D)
             {
                 int index = GetCachedStateIndex(tick, true);
                 if (index != -1)
-                    _rigidbody2dStates[index] = new Rigidbody2DState(_rigidbody2d, tick);
+                {
+                    bool prevSimulated = _rigidbody2dStates[index].Simulated;
+                    _rigidbody2dStates[index] = new Rigidbody2DState(_rigidbody2d, prevSimulated, tick);
+                }
             }
+        }
+
+        /// <summary>
+        /// Pauses corrections as a spectator object.
+        /// </summary>
+        public void SetPauseSpectatorCorrections_Experimental(bool pause)
+        {
+            _spectatorPaused = pause;
+            if (pause)
+            {
+                _rigidbodyStates.Clear();
+                _rigidbody2dStates.Clear();
+            }
+        }
+
+        /// <summary>
+        /// Called when ping updates for the local client.
+        /// </summary>
+        private void Rigidbodies_OnRoundTripTimeUpdated(long ping)
+        {
+            /* Only update periodically when ping changes.
+             * This is to prevent excessive interpolation
+             * changes. */
+            ulong difference = (ulong)Mathf.Abs(ping - _lastPing);
+            //Allow update if ping jump is large enough.
+            if (difference < 50)
+            {
+                uint tickInterval = base.TimeManager.TimeToTicks(5f, Managing.Timing.TickRounding.RoundUp);
+                if (base.TimeManager.LocalTick - _lastPingUpdateTick < tickInterval)
+                    return;
+            }
+            SetTargetSmoothing(ping, false);
+        }
+        /// <summary>
+        /// Sets target smoothing values.
+        /// </summary>
+        /// <param name="setImmediately">True to set current values to targets immediately.</param>
+        private void SetTargetSmoothing(long ping, bool setImmediately)
+        {
+            if (_spectatorSmoother == null)
+                return;
+
+            _lastPingUpdateTick = base.TimeManager.LocalTick;
+            _lastPing = ping;
+            SetValues();
+            //Ignored ticks will be less for predicted spawner.
+            //if (base.NetworkObject.PredictedSpawner.IsLocalClient)
+            //    _ignoredTicks /= 2;
+
+            //_igtt = _ignoredTicks;
+            //_ignoredTicks = 0;
+            //if (base.Owner.IsValid && (base.Owner != base.NetworkObject.PredictedSpawner))
+            //{
+            //    _ignoredTicks *= 4;
+            //    if (gameObject.name.Contains("Bullet"))
+            //        Debug.Log("Setting to " + _ignoredTicks);
+            //}
+            //if (base.Owner.IsValid && (base.Owner == base.NetworkObject.PredictedSpawner))// base.IsOwner)
+            //    _ignoredTicks = 0;
+
+            //_spectatorSmoother.SetIgnoredTicks(_ignoredTicks);
+
+            //If to apply values to targets immediately.
+            if (setImmediately)
+            {
+                _currentSpectatorInterpolation = (CollidingWithLocalClient()) ? _targetCollisionSpectatorInterpolation : _targetSpectatorInterpolation;
+                _spectatorSmoother.SetInterpolation((uint)_currentSpectatorInterpolation);
+            }
+
+            //Sets ranges to use based on smoothing type.
+            void SetValues()
+            {
+                SmoothingData data;
+                if (_spectatorSmoothingType == SpectatorSmoothingType.Accuracy)
+                    data = _accurateSmoothingData;
+                else if (_spectatorSmoothingType == SpectatorSmoothingType.Mixed)
+                    data = _mixedSmoothingData;
+                else if (_spectatorSmoothingType == SpectatorSmoothingType.Gradual)
+                    data = _gradualSmoothingData;
+                else
+                    data = _customSmoothingData;
+
+                TimeManager tm = base.TimeManager;
+                double interpolationTime = (ping / 1000d) * data.InterpolationPercent;
+                _targetSpectatorInterpolation = tm.TimeToTicks(interpolationTime, TickRounding.RoundUp);
+                double collisionInterpolationTime = (ping / 1000d) * data.CollisionInterpolationPercent;
+                _targetCollisionSpectatorInterpolation = tm.TimeToTicks(collisionInterpolationTime, TickRounding.RoundUp);
+
+                _interpolationDecreaseStep = data.InterpolationDecreaseStep;
+                _interpolationIncreaseStep = data.InterpolationIncreaseStep;
+            }
+        }
+
+        /// <summary>
+        /// Returns if this object is colliding with any local client objects.
+        /// </summary>
+        /// <returns></returns>
+        private bool CollidingWithLocalClient()
+        {
+            /* If it's been more than 1 tick since collision stayed
+             * then do not consider as collided. */
+            return (base.TimeManager.LocalTick - _collisionStayedTick) < 1;
+        }
+
+        private uint _igtt;
+        /// <summary>
+        /// Updates spectator smoothing values to move towards their targets.
+        /// </summary>
+        private void UpdateSpectatorSmoothing()
+        {
+            bool colliding = CollidingWithLocalClient();
+            if (colliding)
+                _currentSpectatorInterpolation -= _interpolationDecreaseStep;
+            else
+                _currentSpectatorInterpolation += _interpolationIncreaseStep;
+
+            _currentSpectatorInterpolation = (long)Mathf.Clamp(_currentSpectatorInterpolation, _targetCollisionSpectatorInterpolation, _targetSpectatorInterpolation);
+            _spectatorSmoother.SetInterpolation((uint)_currentSpectatorInterpolation);
+        }
+
+        /// <summary>
+        /// Called when a collision occurs and the smoothing type must perform operations.
+        /// </summary>
+        private bool CollisionEnteredLocalClientObject(GameObject go)
+        {
+            if (go.TryGetComponent<NetworkObject>(out NetworkObject nob))
+                return nob.Owner.IsLocalClient;
+
+            //Fall through.
+            return false;
         }
 
         /// <summary>
@@ -269,9 +558,10 @@ namespace FishNet.Component.Prediction
             if (!IsRigidbodyPrediction)
                 return;
             NetworkConnection nbOwner = nb.Owner;
-            //No need to send to self.
-            if (nbOwner == base.Owner)
+            //No need to send to self unless doesnt implement prediction methods.
+            if (_isPredictingOwner(nbOwner))
                 return;
+            //If clientHost.
             if (nbOwner.IsLocalClient)
                 return;
             /* Not an observer. SendTargetRpc normally
@@ -282,7 +572,7 @@ namespace FishNet.Component.Prediction
             if (!base.Observers.Contains(nbOwner))
                 return;
 
-            bool hasChanged = base.TransformMayChange();
+            bool hasChanged = base.PredictedTransformMayChange();
             if (!hasChanged)
             {
                 //Not changed but was previous tick. Reset resends.
@@ -496,7 +786,6 @@ namespace FishNet.Component.Prediction
             return false;
         }
 
-
         /// <summary>
         /// Returns if prediction can be used on this rigidbody.
         /// </summary>
@@ -505,7 +794,9 @@ namespace FishNet.Component.Prediction
         {
             if (!IsRigidbodyPrediction)
                 return false;
-            if (base.IsServer || base.IsOwner)
+            if (base.IsServer || IsPredictingOwner())
+                return false;
+            if (_spectatorPaused)
                 return false;
 
             return true;
@@ -540,6 +831,29 @@ namespace FishNet.Component.Prediction
         private PhysicsScene _physicsScene;
         #endregion
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (_predictionType != PredictionType.Rigidbody)
+                return;
+
+            GameObject go = collision.gameObject;
+            if (CollisionEnteredLocalClientObject(go))
+                CollisionEntered(go);
+        }
+
+
+        private void OnCollisionStay(Collision collision)
+        {
+            if (_predictionType != PredictionType.Rigidbody)
+                return;
+
+            if (_localClientCollidedObjects.Contains(collision.gameObject))
+                _collisionStayedTick = base.TimeManager.LocalTick;
+        }
+
+        /// <summary>
+        /// Resets the rigidbody to a state.
+        /// </summary>
         private void ResetRigidbodyToData(RigidbodyState state)
         {
             //Update transform and rigidbody.
@@ -590,10 +904,10 @@ namespace FishNet.Component.Prediction
         /// </summary>
         private void SendRigidbodyState(uint reconcileTick, NetworkConnection conn, bool applyImmediately)
         {
-            if (conn == base.Owner)
+            //No need to send to owner if they implement prediction methods.
+            if (_isPredictingOwner(conn))
                 return;
-
-            reconcileTick = (conn == base.NetworkObject.PredictedSpawner) ? conn.LastPacketTick : reconcileTick;
+            reconcileTick = (conn == base.NetworkObject.PredictedSpawner) ? conn.PacketTick.RemoteTick : reconcileTick;
             RigidbodyState state = new RigidbodyState(_rigidbody, reconcileTick);
             TargetSendRigidbodyState(conn, state, applyImmediately);
         }
@@ -615,34 +929,22 @@ namespace FishNet.Component.Prediction
                  * the case do not apply initial velocities, but so allow
                  * regular updates/corrections. */
                 if (base.NetworkObject.PredictedSpawner.IsLocalClient)
-                {
-                    //if (gameObject.name.Contains("Sp"))
-                    //    Debug.Log("Exiting because spawner " + base.TimeManager.LocalTick);
                     return;
-                }
             }
             else
             {
                 if (!CanProcessReceivedState(localTick))
-                {
-                    //if (gameObject.name.Contains("Sp"))
-                    //    Debug.Log("Cannot process state");
                     return;
-                }
             }
 
             if (applyImmediately)
             {
-                //if (gameObject.name.Contains("Sp"))
-                //    Debug.Log("Resetting to state immediately.");
                 _rigidbodyStates.Clear();
                 ResetRigidbodyToData(state);
             }
             else
             {
                 int index = GetCachedStateIndex(localTick, false);
-                //if (gameObject.name.Contains("Sp"))
-                //    Debug.Log("Trying to inject at index " + index + ". Tick " + state.LocalTick);
                 if (index != -1)
                     _rigidbodyStates[index] = state;
                 else
@@ -677,8 +979,56 @@ namespace FishNet.Component.Prediction
         /// PhysicsScene for this object when OnPreReconcile is called.
         /// </summary>
         private PhysicsScene2D _physicsScene2D;
+        /// <summary>
+        /// Last found cacheIndex during PreReplay.
+        /// </summary>
+        private int _preReplicateReplayCacheIndex;
+        /// <summary>
+        /// Last tick a ping update was received.
+        /// </summary>
+        private uint _lastPingUpdateTick;
+        /// <summary>
+        /// Last ping during a ping update.
+        /// </summary>
+        private long _lastPing;
         #endregion
 
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (_predictionType != PredictionType.Rigidbody2D)
+                return;
+
+            GameObject go = collision.gameObject;
+            if (CollisionEnteredLocalClientObject(go))
+                CollisionEntered(go);
+        }
+
+        private void OnCollisionStay2D(Collision2D collision)
+        {
+            if (_predictionType != PredictionType.Rigidbody2D)
+                return;
+
+            if (_localClientCollidedObjects.Contains(collision.gameObject))
+                _collisionStayedTick = base.TimeManager.LocalTick;
+        }
+
+        /// <summary>
+        /// Called when collision has entered a local clients object.
+        /// </summary>
+        private void CollisionEntered(GameObject go)
+        {
+            _collisionStayedTick = base.TimeManager.LocalTick;
+            _localClientCollidedObjects.Add(go);
+        }
+
+        /// <summary>
+        /// Called when collision has exited a local clients object.
+        /// </summary>
+        private void CollisionExited()
+        {
+            _localClientCollidedObjects.Clear();
+            _collisionStayedTick = 0;
+        }
 
         /// <summary>
         /// Resets the Rigidbody2D to last received data.
@@ -690,7 +1040,7 @@ namespace FishNet.Component.Prediction
             _rigidbody2d.transform.rotation = state.Rotation;
             bool simulated = state.Simulated;
             _rigidbody2d.simulated = simulated;
-            _rigidbody2d.isKinematic = !simulated;
+            _rigidbody2d.isKinematic = state.IsKinematic;
             if (simulated)
             {
                 _rigidbody2d.velocity = state.Velocity;
@@ -796,7 +1146,7 @@ namespace FishNet.Component.Prediction
             return true;
         }
         #endregion
-
+#endif
     }
 
 

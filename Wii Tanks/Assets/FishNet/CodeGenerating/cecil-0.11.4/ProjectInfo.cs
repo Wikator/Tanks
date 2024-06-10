@@ -10,11 +10,11 @@
 using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyProduct(Consts.AssemblyName)]
-[assembly: AssemblyCopyright("Copyright © 2008 - 2018 Jb Evain")]
+[assembly: AssemblyProduct (Consts.AssemblyName)]
+[assembly: AssemblyCopyright ("Copyright © 2008 - 2018 Jb Evain")]
 
-[assembly: ComVisible(false)]
+[assembly: ComVisible (false)]
 
-[assembly: AssemblyVersion("0.11.4.0")]
-[assembly: AssemblyFileVersion("0.11.4.0")]
-[assembly: AssemblyInformationalVersion("0.11.4.0")]
+[assembly: AssemblyVersion ("0.11.4.0")]
+[assembly: AssemblyFileVersion ("0.11.4.0")]
+[assembly: AssemblyInformationalVersion ("0.11.4.0")]

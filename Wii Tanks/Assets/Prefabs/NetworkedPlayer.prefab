@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8553539395858867804}
   - component: {fileID: 6060896626662120150}
-  - component: {fileID: 3999347678372537216}
-  - component: {fileID: 2729778058572300033}
+  - component: {fileID: -8972040071860721812}
+  - component: {fileID: -3638003203746608348}
   m_Layer: 0
   m_Name: NetworkedPlayer
   m_TagString: Untagged
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 0
-  _addedNetworkObject: {fileID: 3999347678372537216}
+  _addedNetworkObject: {fileID: -8972040071860721812}
   _networkObjectCache: {fileID: 0}
   ControlledPawn: {fileID: 0}
   color: 
@@ -55,7 +55,7 @@ MonoBehaviour:
   <PlayerSteamID>k__BackingField: 0
   <PlayerUsername>k__BackingField: 
   <IsReady>k__BackingField: 0
---- !u!114 &3999347678372537216
+--- !u!114 &-8972040071860721812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -84,7 +84,7 @@ MonoBehaviour:
   <SceneId>k__BackingField: 0
   <AssetPathHash>k__BackingField: 14746796781269019939
   _sceneNetworkObjects: []
---- !u!114 &2729778058572300033
+--- !u!114 &-3638003203746608348
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,5 +97,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _overrideType: 2
-  _updateHostVisibility: 1
+  _updateHostVisibility: 0
   _observerConditions: []

@@ -12,260 +12,250 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MonoFN.Cecil.Rocks
-{
-    public class DocCommentId
-    {
-        private readonly StringBuilder id;
+namespace MonoFN.Cecil.Rocks {
 
-        private DocCommentId()
-        {
-            id = new StringBuilder();
-        }
+	public class DocCommentId {
+		StringBuilder id;
 
-        private void WriteField(FieldDefinition field)
-        {
-            WriteDefinition('F', field);
-        }
+		DocCommentId ()
+		{
+			id = new StringBuilder ();
+		}
 
-        private void WriteEvent(EventDefinition @event)
-        {
-            WriteDefinition('E', @event);
-        }
+		void WriteField (FieldDefinition field)
+		{
+			WriteDefinition ('F', field);
+		}
 
-        private void WriteType(TypeDefinition type)
-        {
-            id.Append('T').Append(':');
-            WriteTypeFullName(type);
-        }
+		void WriteEvent (EventDefinition @event)
+		{
+			WriteDefinition ('E', @event);
+		}
 
-        private void WriteMethod(MethodDefinition method)
-        {
-            WriteDefinition('M', method);
+		void WriteType (TypeDefinition type)
+		{
+			id.Append ('T').Append (':');
+			WriteTypeFullName (type);
+		}
 
-            if (method.HasGenericParameters)
-            {
-                id.Append('`').Append('`');
-                id.Append(method.GenericParameters.Count);
-            }
+		void WriteMethod (MethodDefinition method)
+		{
+			WriteDefinition ('M', method);
 
-            if (method.HasParameters)
-                WriteParameters(method.Parameters);
+			if (method.HasGenericParameters) {
+				id.Append ('`').Append ('`');
+				id.Append (method.GenericParameters.Count);
+			}
 
-            if (IsConversionOperator(method))
-                WriteReturnType(method);
-        }
+			if (method.HasParameters)
+				WriteParameters (method.Parameters);
 
-        private static bool IsConversionOperator(MethodDefinition self)
-        {
-            if (self == null)
-                throw new ArgumentNullException("self");
+			if (IsConversionOperator (method))
+				WriteReturnType (method);
+		}
 
-            return self.IsSpecialName
-                   && (self.Name == "op_Explicit" || self.Name == "op_Implicit");
-        }
+		static bool IsConversionOperator (MethodDefinition self)
+		{
+			if (self == null)
+				throw new ArgumentNullException ("self");
 
-        private void WriteReturnType(MethodDefinition method)
-        {
-            id.Append('~');
-            WriteTypeSignature(method.ReturnType);
-        }
+			return self.IsSpecialName
+				&& (self.Name == "op_Explicit" || self.Name == "op_Implicit");
+		}
 
-        private void WriteProperty(PropertyDefinition property)
-        {
-            WriteDefinition('P', property);
+		void WriteReturnType (MethodDefinition method)
+		{
+			id.Append ('~');
+			WriteTypeSignature (method.ReturnType);
+		}
 
-            if (property.HasParameters)
-                WriteParameters(property.Parameters);
-        }
+		void WriteProperty (PropertyDefinition property)
+		{
+			WriteDefinition ('P', property);
 
-        private void WriteParameters(IList<ParameterDefinition> parameters)
-        {
-            id.Append('(');
-            WriteList(parameters, p => WriteTypeSignature(p.ParameterType));
-            id.Append(')');
-        }
+			if (property.HasParameters)
+				WriteParameters (property.Parameters);
+		}
 
-        private void WriteTypeSignature(TypeReference type)
-        {
-            switch (type.MetadataType)
-            {
-                case MetadataType.Array:
-                    WriteArrayTypeSignature((ArrayType)type);
-                    break;
-                case MetadataType.ByReference:
-                    WriteTypeSignature(((ByReferenceType)type).ElementType);
-                    id.Append('@');
-                    break;
-                case MetadataType.FunctionPointer:
-                    WriteFunctionPointerTypeSignature((FunctionPointerType)type);
-                    break;
-                case MetadataType.GenericInstance:
-                    WriteGenericInstanceTypeSignature((GenericInstanceType)type);
-                    break;
-                case MetadataType.Var:
-                    id.Append('`');
-                    id.Append(((GenericParameter)type).Position);
-                    break;
-                case MetadataType.MVar:
-                    id.Append('`').Append('`');
-                    id.Append(((GenericParameter)type).Position);
-                    break;
-                case MetadataType.OptionalModifier:
-                    WriteModiferTypeSignature((OptionalModifierType)type, '!');
-                    break;
-                case MetadataType.RequiredModifier:
-                    WriteModiferTypeSignature((RequiredModifierType)type, '|');
-                    break;
-                case MetadataType.Pointer:
-                    WriteTypeSignature(((PointerType)type).ElementType);
-                    id.Append('*');
-                    break;
-                default:
-                    WriteTypeFullName(type);
-                    break;
-            }
-        }
+		void WriteParameters (IList<ParameterDefinition> parameters)
+		{
+			id.Append ('(');
+			WriteList (parameters, p => WriteTypeSignature (p.ParameterType));
+			id.Append (')');
+		}
 
-        private void WriteGenericInstanceTypeSignature(GenericInstanceType type)
-        {
-            if (type.ElementType.IsTypeSpecification())
-                throw new NotSupportedException();
+		void WriteTypeSignature (TypeReference type)
+		{
+			switch (type.MetadataType) {
+			case MetadataType.Array:
+				WriteArrayTypeSignature ((ArrayType)type);
+				break;
+			case MetadataType.ByReference:
+				WriteTypeSignature (((ByReferenceType)type).ElementType);
+				id.Append ('@');
+				break;
+			case MetadataType.FunctionPointer:
+				WriteFunctionPointerTypeSignature ((FunctionPointerType)type);
+				break;
+			case MetadataType.GenericInstance:
+				WriteGenericInstanceTypeSignature ((GenericInstanceType)type);
+				break;
+			case MetadataType.Var:
+				id.Append ('`');
+				id.Append (((GenericParameter)type).Position);
+				break;
+			case MetadataType.MVar:
+				id.Append ('`').Append ('`');
+				id.Append (((GenericParameter)type).Position);
+				break;
+			case MetadataType.OptionalModifier:
+				WriteModiferTypeSignature ((OptionalModifierType)type, '!');
+				break;
+			case MetadataType.RequiredModifier:
+				WriteModiferTypeSignature ((RequiredModifierType)type, '|');
+				break;
+			case MetadataType.Pointer:
+				WriteTypeSignature (((PointerType)type).ElementType);
+				id.Append ('*');
+				break;
+			default:
+				WriteTypeFullName (type);
+				break;
+			}
+		}
 
-            WriteTypeFullName(type.ElementType, true);
-            id.Append('{');
-            WriteList(type.GenericArguments, WriteTypeSignature);
-            id.Append('}');
-        }
+		void WriteGenericInstanceTypeSignature (GenericInstanceType type)
+		{
+			if (type.ElementType.IsTypeSpecification ())
+				throw new NotSupportedException ();
 
-        private void WriteList<T>(IList<T> list, Action<T> action)
-        {
-            for (var i = 0; i < list.Count; i++)
-            {
-                if (i > 0)
-                    id.Append(',');
+			WriteTypeFullName (type.ElementType, stripGenericArity: true);
+			id.Append ('{');
+			WriteList (type.GenericArguments, WriteTypeSignature);
+			id.Append ('}');
+		}
 
-                action(list[i]);
-            }
-        }
+		void WriteList<T> (IList<T> list, Action<T> action)
+		{
+			for (int i = 0; i < list.Count; i++) {
+				if (i > 0)
+					id.Append (',');
 
-        private void WriteModiferTypeSignature(IModifierType type, char id)
-        {
-            WriteTypeSignature(type.ElementType);
-            this.id.Append(id);
-            WriteTypeSignature(type.ModifierType);
-        }
+				action (list [i]);
+			}
+		}
 
-        private void WriteFunctionPointerTypeSignature(FunctionPointerType type)
-        {
-            id.Append("=FUNC:");
-            WriteTypeSignature(type.ReturnType);
+		void WriteModiferTypeSignature (IModifierType type, char id)
+		{
+			WriteTypeSignature (type.ElementType);
+			this.id.Append (id);
+			WriteTypeSignature (type.ModifierType);
+		}
 
-            if (type.HasParameters)
-                WriteParameters(type.Parameters);
-        }
+		void WriteFunctionPointerTypeSignature (FunctionPointerType type)
+		{
+			id.Append ("=FUNC:");
+			WriteTypeSignature (type.ReturnType);
 
-        private void WriteArrayTypeSignature(ArrayType type)
-        {
-            WriteTypeSignature(type.ElementType);
+			if (type.HasParameters)
+				WriteParameters (type.Parameters);
+		}
 
-            if (type.IsVector)
-            {
-                id.Append("[]");
-                return;
-            }
+		void WriteArrayTypeSignature (ArrayType type)
+		{
+			WriteTypeSignature (type.ElementType);
 
-            id.Append("[");
+			if (type.IsVector) {
+				id.Append ("[]");
+				return;
+			}
 
-            WriteList(type.Dimensions, dimension =>
-            {
-                if (dimension.LowerBound.HasValue)
-                    id.Append(dimension.LowerBound.Value);
+			id.Append ("[");
 
-                id.Append(':');
+			WriteList (type.Dimensions, dimension => {
+				if (dimension.LowerBound.HasValue)
+					id.Append (dimension.LowerBound.Value);
 
-                if (dimension.UpperBound.HasValue)
-                    id.Append(dimension.UpperBound.Value - (dimension.LowerBound.GetValueOrDefault() + 1));
-            });
+				id.Append (':');
 
-            id.Append("]");
-        }
+				if (dimension.UpperBound.HasValue)
+					id.Append (dimension.UpperBound.Value - (dimension.LowerBound.GetValueOrDefault () + 1));
+			});
 
-        private void WriteDefinition(char id, IMemberDefinition member)
-        {
-            this.id.Append(id)
-                .Append(':');
+			id.Append ("]");
+		}
 
-            WriteTypeFullName(member.DeclaringType);
-            this.id.Append('.');
-            WriteItemName(member.Name);
-        }
+		void WriteDefinition (char id, IMemberDefinition member)
+		{
+			this.id.Append (id)
+				.Append (':');
 
-        private void WriteTypeFullName(TypeReference type, bool stripGenericArity = false)
-        {
-            if (type.DeclaringType != null)
-            {
-                WriteTypeFullName(type.DeclaringType);
-                id.Append('.');
-            }
+			WriteTypeFullName (member.DeclaringType);
+			this.id.Append ('.');
+			WriteItemName (member.Name);
+		}
 
-            if (!string.IsNullOrEmpty(type.Namespace))
-            {
-                id.Append(type.Namespace);
-                id.Append('.');
-            }
+		void WriteTypeFullName (TypeReference type, bool stripGenericArity = false)
+		{
+			if (type.DeclaringType != null) {
+				WriteTypeFullName (type.DeclaringType);
+				id.Append ('.');
+			}
 
-            var name = type.Name;
+			if (!string.IsNullOrEmpty (type.Namespace)) {
+				id.Append (type.Namespace);
+				id.Append ('.');
+			}
 
-            if (stripGenericArity)
-            {
-                var index = name.LastIndexOf('`');
-                if (index > 0)
-                    name = name.Substring(0, index);
-            }
+			var name = type.Name;
 
-            id.Append(name);
-        }
+			if (stripGenericArity) {
+				var index = name.LastIndexOf ('`');
+				if (index > 0)
+					name = name.Substring (0, index);
+			}
 
-        private void WriteItemName(string name)
-        {
-            id.Append(name.Replace('.', '#').Replace('<', '{').Replace('>', '}'));
-        }
+			id.Append (name);
+		}
 
-        public override string ToString()
-        {
-            return id.ToString();
-        }
+		void WriteItemName (string name)
+		{
+			id.Append (name.Replace ('.', '#').Replace ('<', '{').Replace ('>', '}'));
+		}
 
-        public static string GetDocCommentId(IMemberDefinition member)
-        {
-            if (member == null)
-                throw new ArgumentNullException("member");
+		public override string ToString ()
+		{
+			return id.ToString ();
+		}
 
-            var documentId = new DocCommentId();
+		public static string GetDocCommentId (IMemberDefinition member)
+		{
+			if (member == null)
+				throw new ArgumentNullException ("member");
 
-            switch (member.MetadataToken.TokenType)
-            {
-                case TokenType.Field:
-                    documentId.WriteField((FieldDefinition)member);
-                    break;
-                case TokenType.Method:
-                    documentId.WriteMethod((MethodDefinition)member);
-                    break;
-                case TokenType.TypeDef:
-                    documentId.WriteType((TypeDefinition)member);
-                    break;
-                case TokenType.Event:
-                    documentId.WriteEvent((EventDefinition)member);
-                    break;
-                case TokenType.Property:
-                    documentId.WriteProperty((PropertyDefinition)member);
-                    break;
-                default:
-                    throw new NotSupportedException(member.FullName);
-            }
+			var documentId = new DocCommentId ();
 
-            return documentId.ToString();
-        }
-    }
+			switch (member.MetadataToken.TokenType) {
+			case TokenType.Field:
+				documentId.WriteField ((FieldDefinition)member);
+				break;
+			case TokenType.Method:
+				documentId.WriteMethod ((MethodDefinition)member);
+				break;
+			case TokenType.TypeDef:
+				documentId.WriteType ((TypeDefinition)member);
+				break;
+			case TokenType.Event:
+				documentId.WriteEvent ((EventDefinition)member);
+				break;
+			case TokenType.Property:
+				documentId.WriteProperty ((PropertyDefinition)member);
+				break;
+			default:
+				throw new NotSupportedException (member.FullName);
+			}
+
+			return documentId.ToString ();
+		}
+	}
 }

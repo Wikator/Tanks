@@ -33,6 +33,8 @@
     <type fullname="FishNet.Component.Transforming.NetworkTransform" preserve="all" />
     <type fullname="FishNet.Object.NetworkObject" preserve="all" />
     <type fullname="FishNet.Observing.NetworkObserver" preserve="all" />
+    <type fullname="FishNet.Component.Prediction.PredictedObject/SmoothingData" preserve="nothing" serialized="true" />
+    <type fullname="FishNet.Component.Transforming.NetworkTransform/ComponentConfigurationType" preserve="nothing" serialized="true" />
     <type fullname="FishNet.Component.Transforming.NetworkTransform/SnappedAxes" preserve="nothing" serialized="true" />
     <type fullname="FishNet.Object.TransformProperties" preserve="nothing" serialized="true" />
     <type fullname="FishNet.Serializing.TransformPackingData" preserve="nothing" serialized="true" />

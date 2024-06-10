@@ -1,12 +1,13 @@
-﻿using System;
-using MonoFN.Cecil;
+﻿using MonoFN.Cecil;
+using System;
 
 namespace FishNet.CodeGenerating.Helping.Extension
 {
+
     internal static class ParameterDefinitionExtensions
     {
         /// <summary>
-        ///     Returns if parameterDef is Type.
+        /// Returns if parameterDef is Type.
         /// </summary>
         /// <param name="parameterDef"></param>
         /// <param name="type"></param>
@@ -15,5 +16,9 @@ namespace FishNet.CodeGenerating.Helping.Extension
         {
             return parameterDef.ParameterType.FullName == type.FullName;
         }
+
+
     }
+
+
 }

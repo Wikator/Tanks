@@ -1,9 +1,13 @@
-﻿using System.Runtime.InteropServices;
+﻿
+using System;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using UnityEngine;
 
 namespace FishNet.Serializing.Helping
 {
     /// <summary>
-    ///     Static class used for fast conversion of quaternion structs. Not thread safe!
+    /// Static class used for fast conversion of quaternion structs. Not thread safe!
     /// </summary>
     [StructLayout(LayoutKind.Explicit)]
     public struct QuaternionConverter
@@ -118,4 +122,5 @@ namespace FishNet.Serializing.Helping
         Z = 2,
         W = 3
     }
+
 }

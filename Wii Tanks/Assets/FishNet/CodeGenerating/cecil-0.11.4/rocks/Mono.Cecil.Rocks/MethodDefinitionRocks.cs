@@ -10,65 +10,63 @@
 
 using System;
 
-namespace MonoFN.Cecil.Rocks
-{
+namespace MonoFN.Cecil.Rocks {
+
 #if UNITY_EDITOR
-    public
+	public
 #endif
-        static class MethodDefinitionRocks
-    {
-        public static MethodDefinition GetBaseMethod(this MethodDefinition self)
-        {
-            if (self == null)
-                throw new ArgumentNullException("self");
-            if (!self.IsVirtual)
-                return self;
-            if (self.IsNewSlot)
-                return self;
+	static class MethodDefinitionRocks {
 
-            var base_type = ResolveBaseType(self.DeclaringType);
-            while (base_type != null)
-            {
-                var @base = GetMatchingMethod(base_type, self);
-                if (@base != null)
-                    return @base;
+		public static MethodDefinition GetBaseMethod (this MethodDefinition self)
+		{
+			if (self == null)
+				throw new ArgumentNullException ("self");
+			if (!self.IsVirtual)
+				return self;
+			if (self.IsNewSlot)
+				return self;
 
-                base_type = ResolveBaseType(base_type);
-            }
+			var base_type = ResolveBaseType (self.DeclaringType);
+			while (base_type != null) {
+				var @base = GetMatchingMethod (base_type, self);
+				if (@base != null)
+					return @base;
 
-            return self;
-        }
+				base_type = ResolveBaseType (base_type);
+			}
 
-        public static MethodDefinition GetOriginalBaseMethod(this MethodDefinition self)
-        {
-            if (self == null)
-                throw new ArgumentNullException("self");
+			return self;
+		}
 
-            while (true)
-            {
-                var @base = self.GetBaseMethod();
-                if (@base == self)
-                    return self;
+		public static MethodDefinition GetOriginalBaseMethod (this MethodDefinition self)
+		{
+			if (self == null)
+				throw new ArgumentNullException ("self");
 
-                self = @base;
-            }
-        }
+			while (true) {
+				var @base = self.GetBaseMethod ();
+				if (@base == self)
+					return self;
 
-        private static TypeDefinition ResolveBaseType(TypeDefinition type)
-        {
-            if (type == null)
-                return null;
+				self = @base;
+			}
+		}
 
-            var base_type = type.BaseType;
-            if (base_type == null)
-                return null;
+		static TypeDefinition ResolveBaseType (TypeDefinition type)
+		{
+			if (type == null)
+				return null;
 
-            return base_type.Resolve();
-        }
+			var base_type = type.BaseType;
+			if (base_type == null)
+				return null;
 
-        private static MethodDefinition GetMatchingMethod(TypeDefinition type, MethodDefinition method)
-        {
-            return MetadataResolver.GetMethod(type.Methods, method);
-        }
-    }
+			return base_type.Resolve ();
+		}
+
+		static MethodDefinition GetMatchingMethod (TypeDefinition type, MethodDefinition method)
+		{
+			return MetadataResolver.GetMethod (type.Methods, method);
+		}
+	}
 }

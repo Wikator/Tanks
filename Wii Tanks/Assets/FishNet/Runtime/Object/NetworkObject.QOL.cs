@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace FishNet.Object
 {
-    public sealed partial class NetworkObject : MonoBehaviour
+    public partial class NetworkObject : MonoBehaviour
     {
         #region Public.
         /// <summary>
@@ -24,6 +24,10 @@ namespace FishNet.Object
         /// True if predicted spawning is allowed for this object.
         /// </summary>
         internal bool AllowPredictedDespawning => (PredictedSpawn == null) ? false : PredictedSpawn.GetAllowDespawning();
+        /// <summary>
+        /// True to allow clients to predicted set syncTypes prior to spawning the item. Set values will be applied on the server and sent to other clients.
+        /// </summary>
+        internal bool AllowPredictedSyncTypes => (PredictedSpawn == null) ? false : PredictedSpawn.GetAllowSyncTypes();
         /// <summary>
         /// True if this object has been initialized on the client side.
         /// This is set true right before client callbacks.
@@ -258,7 +262,7 @@ namespace FishNet.Object
             int count;
             count = NetworkBehaviours.Length;
             for (int i = 0; i < count; i++)
-                NetworkBehaviours[i].OnOwnershipClient(prevOwner);
+                NetworkBehaviours[i].OnOwnershipClient_Internal(prevOwner);
             count = ChildNetworkObjects.Count;
             for (int i = 0; i < count; i++)
                 ChildNetworkObjects[i].SetLocalOwnership(caller);
@@ -278,6 +282,12 @@ namespace FishNet.Object
         /// <param name="handler">Action to invoke.</param>
         public void UnregisterInvokeOnInstance<T>(Action<UnityEngine.Component> handler) where T : UnityEngine.Component => NetworkManager.UnregisterInvokeOnInstance<T>(handler);
         /// <summary>
+        /// Returns if an instance exists for type.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public bool HasInstance<T>() where T : UnityEngine.Component => NetworkManager.HasInstance<T>();
+        /// <summary>
         /// Returns class of type if found within CodegenBase classes.
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -290,6 +300,21 @@ namespace FishNet.Object
         /// <param name="component">Reference of the component being registered.</param>
         /// <param name="replace">True to replace existing references.</param>
         public void RegisterInstance<T>(T component, bool replace = true) where T : UnityEngine.Component => NetworkManager.RegisterInstance<T>(component, replace);
+        /// <summary>
+        /// Tries to registers a new component to this NetworkManager.
+        /// This will not register the instance if another already exists.
+        /// </summary>
+        /// <typeparam name="T">Type to register.</typeparam>
+        /// <param name="component">Reference of the component being registered.</param>
+        /// <returns>True if was able to register, false if an instance is already registered.</returns>
+        public bool TryRegisterInstance<T>(T component) where T : UnityEngine.Component => NetworkManager.TryRegisterInstance<T>(component);
+        /// <summary>
+        /// Returns class of type from registered instances.
+        /// </summary>
+        /// <param name="component">Outputted component.</param>
+        /// <typeparam name="T">Type to get.</typeparam>
+        /// <returns>True if was able to get instance.</returns>
+        public bool TryGetInstance<T>(out T component) where T : UnityEngine.Component => NetworkManager.TryGetInstance<T>(out component);
         /// <summary>
         /// Unregisters a component from this NetworkManager.
         /// </summary>

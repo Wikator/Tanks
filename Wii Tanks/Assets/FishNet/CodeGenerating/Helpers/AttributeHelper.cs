@@ -5,79 +5,12 @@ using FishNet.Object.Prediction;
 using FishNet.Object.Synchronizing;
 using MonoFN.Cecil;
 
+
 namespace FishNet.CodeGenerating.Helping
 {
     internal class AttributeHelper : CodegenBase
     {
-        public override bool ImportReferences()
-        {
-            ServerAttribute_FullName = typeof(ServerAttribute).FullName;
-            ClientAttribute_FullName = typeof(ClientAttribute).FullName;
-            ServerRpcAttribute_FullName = typeof(ServerRpcAttribute).FullName;
-            ObserversRpcAttribute_FullName = typeof(ObserversRpcAttribute).FullName;
-            TargetRpcAttribute_FullName = typeof(TargetRpcAttribute).FullName;
-            SyncVarAttribute_FullName = typeof(SyncVarAttribute).FullName;
-            SyncObjectAttribute_FullName = typeof(SyncObjectAttribute).FullName;
-            ReplicateAttribute_FullName = typeof(ReplicateAttribute).FullName;
-            ReconcileAttribute_FullName = typeof(ReconcileAttribute).FullName;
-
-            return true;
-        }
-
-        /// <summary>
-        ///     Returns type of Rpc attributeFullName is for.
-        /// </summary>
-        /// <param name="attributeFullName"></param>
-        /// <returns></returns>
-        public RpcType GetRpcAttributeType(CustomAttribute ca)
-        {
-            if (ca.Is(ServerRpcAttribute_FullName))
-                return RpcType.Server;
-            if (ca.Is(ObserversRpcAttribute_FullName))
-                return RpcType.Observers;
-            if (ca.Is(TargetRpcAttribute_FullName))
-                return RpcType.Target;
-            return RpcType.None;
-        }
-
-
-        /// <summary>
-        ///     Returns type of Rpc attributeFullName is for.
-        /// </summary>
-        /// <param name="attributeFullName"></param>
-        /// <returns></returns>
-        internal QolAttributeType GetQolAttributeType(string attributeFullName)
-        {
-            if (attributeFullName == ServerAttribute_FullName)
-                return QolAttributeType.Server;
-            if (attributeFullName == ClientAttribute_FullName)
-                return QolAttributeType.Client;
-            return QolAttributeType.None;
-        }
-
-
-        /// <summary>
-        ///     Returns if attribute if a SyncVarAttribute.
-        /// </summary>
-        /// <param name="attributeFullName"></param>
-        /// <returns></returns>
-        public bool IsSyncVarAttribute(string attributeFullName)
-        {
-            return attributeFullName == SyncVarAttribute_FullName;
-        }
-
-        /// <summary>
-        ///     Returns if attribute if a SyncObjectAttribute.
-        /// </summary>
-        /// <param name="attributeFullName"></param>
-        /// <returns></returns>
-        public bool IsSyncObjectAttribute(string attributeFullName)
-        {
-            return attributeFullName == SyncObjectAttribute_FullName;
-        }
-
         #region Reflection references.
-
         internal string ReplicateAttribute_FullName;
         internal string ReconcileAttribute_FullName;
         private string ServerAttribute_FullName;
@@ -87,7 +20,79 @@ namespace FishNet.CodeGenerating.Helping
         private string TargetRpcAttribute_FullName;
         private string SyncVarAttribute_FullName;
         private string SyncObjectAttribute_FullName;
+        #endregion   
 
-        #endregion
+        public override bool ImportReferences()
+        {
+            ServerAttribute_FullName = typeof(ServerAttribute).FullName;
+            ClientAttribute_FullName = typeof(ClientAttribute).FullName;
+            ServerRpcAttribute_FullName = typeof(ServerRpcAttribute).FullName;
+            ObserversRpcAttribute_FullName = typeof(ObserversRpcAttribute).FullName;
+            TargetRpcAttribute_FullName = typeof(TargetRpcAttribute).FullName;
+            SyncVarAttribute_FullName = typeof(SyncVarAttribute).FullName;
+            SyncObjectAttribute_FullName = typeof(SyncObjectAttribute).FullName;
+#if !PREDICTION_V2
+            ReplicateAttribute_FullName = typeof(ReplicateAttribute).FullName;
+            ReconcileAttribute_FullName = typeof(ReconcileAttribute).FullName;
+#else
+            ReplicateAttribute_FullName = typeof(ReplicateV2Attribute).FullName;
+            ReconcileAttribute_FullName = typeof(ReconcileV2Attribute).FullName;
+#endif
+            return true;
+        }
+
+        /// <summary>
+        /// Returns type of Rpc attributeFullName is for.
+        /// </summary>
+        /// <param name="attributeFullName"></param>
+        /// <returns></returns>
+        public RpcType GetRpcAttributeType(CustomAttribute ca)
+        {
+            if (ca.Is(ServerRpcAttribute_FullName))
+                return RpcType.Server;
+            else if (ca.Is(ObserversRpcAttribute_FullName))
+                return RpcType.Observers;
+            else if (ca.Is(TargetRpcAttribute_FullName))
+                return RpcType.Target;
+            else
+                return RpcType.None;
+        }
+
+
+        /// <summary>
+        /// Returns type of Rpc attributeFullName is for.
+        /// </summary>
+        /// <param name="attributeFullName"></param>
+        /// <returns></returns>
+        internal QolAttributeType GetQolAttributeType(string attributeFullName)
+        {
+            if (attributeFullName == ServerAttribute_FullName)
+                return QolAttributeType.Server;
+            else if (attributeFullName == ClientAttribute_FullName)
+                return QolAttributeType.Client;
+            else
+                return QolAttributeType.None;
+        }
+
+
+        /// <summary>
+        /// Returns if attribute if a SyncVarAttribute.
+        /// </summary>
+        /// <param name="attributeFullName"></param>
+        /// <returns></returns>
+        public bool IsSyncVarAttribute(string attributeFullName)
+        {
+            return (attributeFullName == SyncVarAttribute_FullName);
+        }
+        /// <summary>
+        /// Returns if attribute if a SyncObjectAttribute.
+        /// </summary>
+        /// <param name="attributeFullName"></param>
+        /// <returns></returns>
+        public bool IsSyncObjectAttribute(string attributeFullName)
+        {
+            return (attributeFullName == SyncObjectAttribute_FullName);
+        }
     }
+
 }

@@ -1,9 +1,11 @@
+using FishNet.Managing.Logging;
+using LiteNetLib;
+using LiteNetLib.Layers;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using LiteNetLib;
-using LiteNetLib.Layers;
+using UnityEngine;
 
 namespace FishNet.Transporting.Tugboat.Client
 {
@@ -14,19 +16,66 @@ namespace FishNet.Transporting.Tugboat.Client
             StopConnection();
         }
 
+        #region Private.
+        #region Configuration.
         /// <summary>
-        ///     Initializes this for use.
+        /// Address to bind server to.
+        /// </summary>
+        private string _address = string.Empty;
+        /// <summary>
+        /// Port used by server.
+        /// </summary>
+        private ushort _port;
+        /// <summary>
+        /// MTU sizes for each channel.
+        /// </summary>
+        private int _mtu;
+        #endregion
+        #region Queues.
+        /// <summary>
+        /// Changes to the sockets local connection state.
+        /// </summary>
+        private Queue<LocalConnectionState> _localConnectionStates = new Queue<LocalConnectionState>();
+        /// <summary>
+        /// Inbound messages which need to be handled.
+        /// </summary>
+        private Queue<Packet> _incoming = new Queue<Packet>();
+        /// <summary>
+        /// Outbound messages which need to be handled.
+        /// </summary>
+        private Queue<Packet> _outgoing = new Queue<Packet>();
+        #endregion
+        /// <summary>
+        /// Client socket manager.
+        /// </summary>
+        private NetManager _client;
+        /// <summary>
+        /// How long in seconds until client times from server.
+        /// </summary>
+        private int _timeout;
+        /// <summary>
+        /// PacketLayer to use with LiteNetLib.
+        /// </summary>
+        private PacketLayerBase _packetLayer;
+        /// <summary>
+        /// Locks the NetManager to stop it.
+        /// </summary>
+        private readonly object _stopLock = new object();
+        #endregion
+
+        /// <summary>
+        /// Initializes this for use.
         /// </summary>
         /// <param name="t"></param>
         internal void Initialize(Transport t, int unreliableMTU, PacketLayerBase packetLayer)
         {
-            Transport = t;
+            base.Transport = t;
             _mtu = unreliableMTU;
             _packetLayer = packetLayer;
         }
 
         /// <summary>
-        ///     Updates the Timeout value as seconds.
+        /// Updates the Timeout value as seconds.
         /// </summary>
         internal void UpdateTimeout(int timeout)
         {
@@ -35,17 +84,17 @@ namespace FishNet.Transporting.Tugboat.Client
         }
 
         /// <summary>
-        ///     Threaded operation to process client actions.
+        /// Threaded operation to process client actions.
         /// </summary>
         private void ThreadedSocket()
         {
-            var listener = new EventBasedNetListener();
+            EventBasedNetListener listener = new EventBasedNetListener();
             listener.NetworkReceiveEvent += Listener_NetworkReceiveEvent;
             listener.PeerConnectedEvent += Listener_PeerConnectedEvent;
             listener.PeerDisconnectedEvent += Listener_PeerDisconnectedEvent;
 
             _client = new NetManager(listener, _packetLayer);
-            _client.MtuOverride = _mtu + NetConstants.FragmentedHeaderTotalSize;
+            _client.MtuOverride = (_mtu + NetConstants.FragmentedHeaderTotalSize);
 
             UpdateTimeout(_timeout);
 
@@ -56,14 +105,14 @@ namespace FishNet.Transporting.Tugboat.Client
 
 
         /// <summary>
-        ///     Stops the socket on a new thread.
+        /// Stops the socket on a new thread.
         /// </summary>
         private void StopSocketOnThread()
         {
             if (_client == null)
                 return;
 
-            var t = Task.Run(() =>
+            Task t = Task.Run(() =>
             {
                 lock (_stopLock)
                 {
@@ -72,13 +121,13 @@ namespace FishNet.Transporting.Tugboat.Client
                 }
 
                 //If not stopped yet also enqueue stop.
-                if (GetConnectionState() != LocalConnectionState.Stopped)
+                if (base.GetConnectionState() != LocalConnectionState.Stopped)
                     _localConnectionStates.Enqueue(LocalConnectionState.Stopped);
             });
         }
 
         /// <summary>
-        ///     Starts the client connection.
+        /// Starts the client connection.
         /// </summary>
         /// <param name="address"></param>
         /// <param name="port"></param>
@@ -86,53 +135,52 @@ namespace FishNet.Transporting.Tugboat.Client
         /// <param name="pollTime"></param>
         internal bool StartConnection(string address, ushort port)
         {
-            if (GetConnectionState() != LocalConnectionState.Stopped)
+            if (base.GetConnectionState() != LocalConnectionState.Stopped)
                 return false;
 
-            SetConnectionState(LocalConnectionState.Starting, false);
+            base.SetConnectionState(LocalConnectionState.Starting, false);
 
             //Assign properties.
             _port = port;
             _address = address;
 
             ResetQueues();
-            var t = Task.Run(() => ThreadedSocket());
+            Task t = Task.Run(() => ThreadedSocket());
 
             return true;
         }
 
 
         /// <summary>
-        ///     Stops the local socket.
+        /// Stops the local socket.
         /// </summary>
         internal bool StopConnection(DisconnectInfo? info = null)
         {
-            if (GetConnectionState() == LocalConnectionState.Stopped ||
-                GetConnectionState() == LocalConnectionState.Stopping)
+            if (base.GetConnectionState() == LocalConnectionState.Stopped || base.GetConnectionState() == LocalConnectionState.Stopping)
                 return false;
 
             if (info != null)
-                Transport.NetworkManager.Log($"Local client disconnect reason: {info.Value.Reason}.");
+                base.Transport.NetworkManager.Log($"Local client disconnect reason: {info.Value.Reason}.");
 
-            SetConnectionState(LocalConnectionState.Stopping, false);
+            base.SetConnectionState(LocalConnectionState.Stopping, false);
             StopSocketOnThread();
             return true;
         }
 
         /// <summary>
-        ///     Resets queues.
+        /// Resets queues.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void ResetQueues()
         {
             _localConnectionStates.Clear();
-            ClearPacketQueue(ref _incoming);
-            ClearPacketQueue(ref _outgoing);
+            base.ClearPacketQueue(ref _incoming);
+            base.ClearPacketQueue(ref _outgoing);
         }
 
 
         /// <summary>
-        ///     Called when disconnected from the server.
+        /// Called when disconnected from the server.
         /// </summary>
         private void Listener_PeerDisconnectedEvent(NetPeer peer, DisconnectInfo disconnectInfo)
         {
@@ -140,7 +188,7 @@ namespace FishNet.Transporting.Tugboat.Client
         }
 
         /// <summary>
-        ///     Called when connected to the server.
+        /// Called when connected to the server.
         /// </summary>
         private void Listener_PeerConnectedEvent(NetPeer peer)
         {
@@ -148,16 +196,15 @@ namespace FishNet.Transporting.Tugboat.Client
         }
 
         /// <summary>
-        ///     Called when data is received from a peer.
+        /// Called when data is received from a peer.
         /// </summary>
-        private void Listener_NetworkReceiveEvent(NetPeer fromPeer, NetPacketReader reader, byte channel,
-            DeliveryMethod deliveryMethod)
+        private void Listener_NetworkReceiveEvent(NetPeer fromPeer, NetPacketReader reader, byte channel, DeliveryMethod deliveryMethod)
         {
             base.Listener_NetworkReceiveEvent(_incoming, fromPeer, reader, deliveryMethod, _mtu);
         }
 
         /// <summary>
-        ///     Dequeues and processes outgoing.
+        /// Dequeues and processes outgoing.
         /// </summary>
         private void DequeueOutgoing()
         {
@@ -168,26 +215,24 @@ namespace FishNet.Transporting.Tugboat.Client
             if (peer == null)
             {
                 /* Only dequeue outgoing because other queues might have
-                 * relevant information, such as the local connection queue. */
-                ClearPacketQueue(ref _outgoing);
+                * relevant information, such as the local connection queue. */
+                base.ClearPacketQueue(ref _outgoing);
             }
             else
             {
-                var count = _outgoing.Count;
-                for (var i = 0; i < count; i++)
+                int count = _outgoing.Count;
+                for (int i = 0; i < count; i++)
                 {
-                    var outgoing = _outgoing.Dequeue();
+                    Packet outgoing = _outgoing.Dequeue();
 
-                    var segment = outgoing.GetArraySegment();
-                    var dm = outgoing.Channel == (byte)Channel.Reliable
-                        ? DeliveryMethod.ReliableOrdered
-                        : DeliveryMethod.Unreliable;
+                    ArraySegment<byte> segment = outgoing.GetArraySegment();
+                    DeliveryMethod dm = (outgoing.Channel == (byte)Channel.Reliable) ?
+                         DeliveryMethod.ReliableOrdered : DeliveryMethod.Unreliable;
 
                     //If over the MTU.
                     if (outgoing.Channel == (byte)Channel.Unreliable && segment.Count > _mtu)
                     {
-                        Transport.NetworkManager.LogWarning(
-                            $"Client is sending of {segment.Count} length on the unreliable channel, while the MTU is only {_mtu}. The channel has been changed to reliable for this send.");
+                        base.Transport.NetworkManager.LogWarning($"Client is sending of {segment.Count} length on the unreliable channel, while the MTU is only {_mtu}. The channel has been changed to reliable for this send.");
                         dm = DeliveryMethod.ReliableOrdered;
                     }
 
@@ -199,7 +244,7 @@ namespace FishNet.Transporting.Tugboat.Client
         }
 
         /// <summary>
-        ///     Allows for Outgoing queue to be iterated.
+        /// Allows for Outgoing queue to be iterated.
         /// </summary>
         internal void IterateOutgoing()
         {
@@ -207,20 +252,20 @@ namespace FishNet.Transporting.Tugboat.Client
         }
 
         /// <summary>
-        ///     Iterates the Incoming queue.
+        /// Iterates the Incoming queue.
         /// </summary>
         internal void IterateIncoming()
         {
             _client?.PollEvents();
 
             /* Run local connection states first so we can begin
-             * to read for data at the start of the frame, as that's
-             * where incoming is read. */
+            * to read for data at the start of the frame, as that's
+            * where incoming is read. */
             while (_localConnectionStates.Count > 0)
-                SetConnectionState(_localConnectionStates.Dequeue(), false);
+                base.SetConnectionState(_localConnectionStates.Dequeue(), false);
 
             //Not yet started, cannot continue.
-            var localState = GetConnectionState();
+            LocalConnectionState localState = base.GetConnectionState();
             if (localState != LocalConnectionState.Started)
             {
                 ResetQueues();
@@ -235,88 +280,28 @@ namespace FishNet.Transporting.Tugboat.Client
             /* Incoming. */
             while (_incoming.Count > 0)
             {
-                var incoming = _incoming.Dequeue();
-                var dataArgs = new ClientReceivedDataArgs(
+                Packet incoming = _incoming.Dequeue();
+                ClientReceivedDataArgs dataArgs = new ClientReceivedDataArgs(
                     incoming.GetArraySegment(),
-                    (Channel)incoming.Channel, Transport.Index);
-                Transport.HandleClientReceivedDataArgs(dataArgs);
+                    (Channel)incoming.Channel, base.Transport.Index);
+                base.Transport.HandleClientReceivedDataArgs(dataArgs);
                 //Dispose of packet.
                 incoming.Dispose();
             }
         }
 
         /// <summary>
-        ///     Sends a packet to the server.
+        /// Sends a packet to the server.
         /// </summary>
         internal void SendToServer(byte channelId, ArraySegment<byte> segment)
         {
             //Not started, cannot send.
-            if (GetConnectionState() != LocalConnectionState.Started)
+            if (base.GetConnectionState() != LocalConnectionState.Started)
                 return;
 
-            Send(ref _outgoing, channelId, segment, -1, _mtu);
+            base.Send(ref _outgoing, channelId, segment, -1, _mtu);
         }
 
-        #region Private.
 
-        #region Configuration.
-
-        /// <summary>
-        ///     Address to bind server to.
-        /// </summary>
-        private string _address = string.Empty;
-
-        /// <summary>
-        ///     Port used by server.
-        /// </summary>
-        private ushort _port;
-
-        /// <summary>
-        ///     MTU sizes for each channel.
-        /// </summary>
-        private int _mtu;
-
-        #endregion
-
-        #region Queues.
-
-        /// <summary>
-        ///     Changes to the sockets local connection state.
-        /// </summary>
-        private readonly Queue<LocalConnectionState> _localConnectionStates = new();
-
-        /// <summary>
-        ///     Inbound messages which need to be handled.
-        /// </summary>
-        private Queue<Packet> _incoming = new();
-
-        /// <summary>
-        ///     Outbound messages which need to be handled.
-        /// </summary>
-        private Queue<Packet> _outgoing = new();
-
-        #endregion
-
-        /// <summary>
-        ///     Client socket manager.
-        /// </summary>
-        private NetManager _client;
-
-        /// <summary>
-        ///     How long in seconds until client times from server.
-        /// </summary>
-        private int _timeout;
-
-        /// <summary>
-        ///     PacketLayer to use with LiteNetLib.
-        /// </summary>
-        private PacketLayerBase _packetLayer;
-
-        /// <summary>
-        ///     Locks the NetManager to stop it.
-        /// </summary>
-        private readonly object _stopLock = new();
-
-        #endregion
     }
 }

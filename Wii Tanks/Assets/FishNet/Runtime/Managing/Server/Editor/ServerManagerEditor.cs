@@ -11,6 +11,9 @@ namespace FishNet.Managing.Server.Editing
     public class ServerManagerEditor : Editor
     {
         private SerializedProperty _authenticator;
+        private SerializedProperty _remoteClientTimeout;
+        private SerializedProperty _remoteClientTimeoutDuration;
+        private SerializedProperty _syncTypeRate;
         private SerializedProperty SpawnPacking;
         private SerializedProperty _changeFrameRate;
         private SerializedProperty _frameRate;
@@ -21,6 +24,9 @@ namespace FishNet.Managing.Server.Editing
         protected virtual void OnEnable()
         {
             _authenticator = serializedObject.FindProperty(nameof(_authenticator));
+            _remoteClientTimeout = serializedObject.FindProperty(nameof(_remoteClientTimeout));           
+            _remoteClientTimeoutDuration = serializedObject.FindProperty(nameof(_remoteClientTimeoutDuration));
+            _syncTypeRate = serializedObject.FindProperty(nameof(_syncTypeRate));
             SpawnPacking = serializedObject.FindProperty(nameof(SpawnPacking));
             _changeFrameRate = serializedObject.FindProperty(nameof(_changeFrameRate));
             _frameRate = serializedObject.FindProperty(nameof(_frameRate));
@@ -37,8 +43,15 @@ namespace FishNet.Managing.Server.Editing
             EditorGUILayout.ObjectField("Script:", MonoScript.FromMonoBehaviour((ServerManager)target), typeof(ServerManager), false);
             GUI.enabled = true;
 
-
             EditorGUILayout.PropertyField(_authenticator);
+            EditorGUILayout.PropertyField(_remoteClientTimeout);
+            if ((ServerManager.RemoteTimeoutType)_remoteClientTimeout.intValue != ServerManager.RemoteTimeoutType.Disabled)
+            {
+                EditorGUI.indentLevel++;
+                EditorGUILayout.PropertyField(_remoteClientTimeoutDuration,new GUIContent("Timeout"));
+                EditorGUI.indentLevel--;
+            }
+            EditorGUILayout.PropertyField(_syncTypeRate);
             EditorGUILayout.PropertyField(SpawnPacking);
             EditorGUILayout.PropertyField(_changeFrameRate);
             if (_changeFrameRate.boolValue)

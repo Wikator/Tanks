@@ -4,29 +4,29 @@ namespace LiteNetLib
 {
     internal sealed class SequencedChannel : BaseChannel
     {
-        private readonly NetPacket _ackPacket;
-        private readonly byte _id;
+        private int _localSequence;
+        private ushort _remoteSequence;
         private readonly bool _reliable;
         private NetPacket _lastPacket;
-        private long _lastPacketSendTime;
-        private int _localSequence;
+        private readonly NetPacket _ackPacket;
         private bool _mustSendAck;
-        private ushort _remoteSequence;
+        private readonly byte _id;
+        private long _lastPacketSendTime;
 
         public SequencedChannel(NetPeer peer, bool reliable, byte id) : base(peer)
         {
             _id = id;
             _reliable = reliable;
             if (_reliable)
-                _ackPacket = new NetPacket(PacketProperty.Ack, 0) { ChannelId = id };
+                _ackPacket = new NetPacket(PacketProperty.Ack, 0) {ChannelId = id};
         }
 
         protected override bool SendNextPackets()
         {
             if (_reliable && OutgoingQueue.Count == 0)
             {
-                var currentTime = DateTime.UtcNow.Ticks;
-                var packetHoldTime = currentTime - _lastPacketSendTime;
+                long currentTime = DateTime.UtcNow.Ticks;
+                long packetHoldTime = currentTime - _lastPacketSendTime;
                 if (packetHoldTime >= Peer.ResendDelay * TimeSpan.TicksPerMillisecond)
                 {
                     var packet = _lastPacket;
@@ -78,9 +78,8 @@ namespace LiteNetLib
                     _lastPacket = null;
                 return false;
             }
-
-            var relative = NetUtils.RelativeSequenceNumber(packet.Sequence, _remoteSequence);
-            var packetProcessed = false;
+            int relative = NetUtils.RelativeSequenceNumber(packet.Sequence, _remoteSequence);
+            bool packetProcessed = false;
             if (packet.Sequence < NetConstants.MaxSequence && relative > 0)
             {
                 if (Peer.NetManager.EnableStatistics)

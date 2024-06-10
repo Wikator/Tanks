@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace LiteNetLib.Utils
@@ -51,17 +52,21 @@ namespace LiteNetLib.Utils
         [StructLayout(LayoutKind.Explicit)]
         private struct ConverterHelperDouble
         {
-            [FieldOffset(0)] public ulong Along;
+            [FieldOffset(0)]
+            public ulong Along;
 
-            [FieldOffset(0)] public double Adouble;
+            [FieldOffset(0)]
+            public double Adouble;
         }
 
         [StructLayout(LayoutKind.Explicit)]
         private struct ConverterHelperFloat
         {
-            [FieldOffset(0)] public int Aint;
+            [FieldOffset(0)]
+            public int Aint;
 
-            [FieldOffset(0)] public float Afloat;
+            [FieldOffset(0)]
+            public float Afloat;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -77,7 +82,7 @@ namespace LiteNetLib.Utils
             buffer[offset + 1] = (byte)(data >> 48);
             buffer[offset    ] = (byte)(data >> 56);
 #else
-            buffer[offset] = (byte)data;
+            buffer[offset] = (byte)(data);
             buffer[offset + 1] = (byte)(data >> 8);
             buffer[offset + 2] = (byte)(data >> 16);
             buffer[offset + 3] = (byte)(data >> 24);
@@ -97,7 +102,7 @@ namespace LiteNetLib.Utils
             buffer[offset + 1] = (byte)(data >> 16);
             buffer[offset    ] = (byte)(data >> 24);
 #else
-            buffer[offset] = (byte)data;
+            buffer[offset] = (byte)(data);
             buffer[offset + 1] = (byte)(data >> 8);
             buffer[offset + 2] = (byte)(data >> 16);
             buffer[offset + 3] = (byte)(data >> 24);
@@ -111,7 +116,7 @@ namespace LiteNetLib.Utils
             buffer[offset + 1] = (byte)(data);
             buffer[offset    ] = (byte)(data >> 8);
 #else
-            buffer[offset] = (byte)data;
+            buffer[offset] = (byte)(data);
             buffer[offset + 1] = (byte)(data >> 8);
 #endif
         }
@@ -119,14 +124,14 @@ namespace LiteNetLib.Utils
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void GetBytes(byte[] bytes, int startIndex, double value)
         {
-            var ch = new ConverterHelperDouble { Adouble = value };
+            ConverterHelperDouble ch = new ConverterHelperDouble { Adouble = value };
             WriteLittleEndian(bytes, startIndex, ch.Along);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void GetBytes(byte[] bytes, int startIndex, float value)
         {
-            var ch = new ConverterHelperFloat { Afloat = value };
+            ConverterHelperFloat ch = new ConverterHelperFloat { Afloat = value };
             WriteLittleEndian(bytes, startIndex, ch.Aint);
         }
 

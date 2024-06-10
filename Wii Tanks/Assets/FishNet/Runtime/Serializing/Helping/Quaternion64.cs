@@ -1,11 +1,12 @@
-﻿using System;
+﻿
+using System;
 using UnityEngine;
 
 namespace FishNet.Serializing.Helping
 {
     /// <summary>
-    ///     Credit to https://github.com/viliwonka
-    ///     https://github.com/FirstGearGames/FishNet/pull/23
+    /// Credit to https://github.com/viliwonka
+    /// https://github.com/FirstGearGames/FishNet/pull/23
     /// </summary>
     public static class Quaternion64Compression
     {
@@ -28,14 +29,14 @@ namespace FishNet.Serializing.Helping
 
         public static ulong Compress(Quaternion quaternion)
         {
-            var absX = Mathf.Abs(quaternion.x);
-            var absY = Mathf.Abs(quaternion.y);
-            var absZ = Mathf.Abs(quaternion.z);
-            var absW = Mathf.Abs(quaternion.w);
+            float absX = Mathf.Abs(quaternion.x);
+            float absY = Mathf.Abs(quaternion.y);
+            float absZ = Mathf.Abs(quaternion.z);
+            float absW = Mathf.Abs(quaternion.w);
 
-            var largestComponent = ComponentType.X;
-            var largestAbs = absX;
-            var largest = quaternion.x;
+            ComponentType largestComponent = ComponentType.X;
+            float largestAbs = absX;
+            float largest = quaternion.x;
 
             if (absY > largestAbs)
             {
@@ -43,14 +44,12 @@ namespace FishNet.Serializing.Helping
                 largestComponent = ComponentType.Y;
                 largest = quaternion.y;
             }
-
             if (absZ > largestAbs)
             {
                 largestAbs = absZ;
                 largestComponent = ComponentType.Z;
                 largest = quaternion.z;
             }
-
             if (absW > largestAbs)
             {
                 largestComponent = ComponentType.W;
@@ -92,29 +91,28 @@ namespace FishNet.Serializing.Helping
                 c = -c;
             }
 
-            var integerA = ScaleToUint_H(a);
-            var integerB = ScaleToUint_H(b);
-            var integerC = ScaleToUint_L(c);
+            ulong integerA = ScaleToUint_H(a);
+            ulong integerB = ScaleToUint_H(b);
+            ulong integerC = ScaleToUint_L(c);
 
-            return ((ulong)largestComponent << LargestComponentShift) | (integerA << AShift) | (integerB << BShift) |
-                   integerC;
+            return (((ulong)largestComponent) << LargestComponentShift) | (integerA << AShift) | (integerB << BShift) | integerC;
         }
 
         private static ulong ScaleToUint_H(float v)
         {
-            var normalized = v / Maximum;
+            float normalized = v / Maximum;
             return (ulong)Mathf.RoundToInt(normalized * IntScale_H) & IntMask_H;
         }
 
         private static ulong ScaleToUint_L(float v)
         {
-            var normalized = v / Maximum;
+            float normalized = v / Maximum;
             return (ulong)Mathf.RoundToInt(normalized * IntScale_L) & IntMask_L;
         }
 
         private static float ScaleToFloat_H(ulong v)
         {
-            var unscaled = v * Maximum / IntScale_H;
+            float unscaled = v * Maximum / IntScale_H;
 
             if (unscaled > Maximum)
                 unscaled -= Maximum * 2;
@@ -123,7 +121,7 @@ namespace FishNet.Serializing.Helping
 
         private static float ScaleToFloat_L(ulong v)
         {
-            var unscaled = v * Maximum / IntScale_L;
+            float unscaled = v * Maximum / IntScale_L;
 
             if (unscaled > Maximum)
                 unscaled -= Maximum * 2;
@@ -133,13 +131,13 @@ namespace FishNet.Serializing.Helping
         public static Quaternion Decompress(ulong compressed)
         {
             var largestComponentType = (ComponentType)(compressed >> LargestComponentShift);
-            var integerA = (compressed >> AShift) & IntMask_H;
-            var integerB = (compressed >> BShift) & IntMask_H;
-            var integerC = compressed & IntMask_L;
+            ulong integerA = (compressed >> AShift) & IntMask_H;
+            ulong integerB = (compressed >> BShift) & IntMask_H;
+            ulong integerC = compressed & IntMask_L;
 
-            var a = ScaleToFloat_H(integerA);
-            var b = ScaleToFloat_H(integerB);
-            var c = ScaleToFloat_L(integerC);
+            float a = ScaleToFloat_H(integerA);
+            float b = ScaleToFloat_H(integerB);
+            float c = ScaleToFloat_L(integerC);
 
             Quaternion rotation;
             switch (largestComponentType)
@@ -150,8 +148,8 @@ namespace FishNet.Serializing.Helping
                     rotation.z = b;
                     rotation.w = c;
                     rotation.x = Mathf.Sqrt(1 - rotation.y * rotation.y
-                                              - rotation.z * rotation.z
-                                              - rotation.w * rotation.w);
+                                               - rotation.z * rotation.z
+                                               - rotation.w * rotation.w);
                     break;
                 case ComponentType.Y:
                     // x (?) z w
@@ -159,8 +157,8 @@ namespace FishNet.Serializing.Helping
                     rotation.z = b;
                     rotation.w = c;
                     rotation.y = Mathf.Sqrt(1 - rotation.x * rotation.x
-                                              - rotation.z * rotation.z
-                                              - rotation.w * rotation.w);
+                                               - rotation.z * rotation.z
+                                               - rotation.w * rotation.w);
                     break;
                 case ComponentType.Z:
                     // x y (?) w
@@ -168,8 +166,8 @@ namespace FishNet.Serializing.Helping
                     rotation.y = b;
                     rotation.w = c;
                     rotation.z = Mathf.Sqrt(1 - rotation.x * rotation.x
-                                              - rotation.y * rotation.y
-                                              - rotation.w * rotation.w);
+                                               - rotation.y * rotation.y
+                                               - rotation.w * rotation.w);
                     break;
                 case ComponentType.W:
                     // x y z (?)
@@ -177,8 +175,8 @@ namespace FishNet.Serializing.Helping
                     rotation.y = b;
                     rotation.z = c;
                     rotation.w = Mathf.Sqrt(1 - rotation.x * rotation.x
-                                              - rotation.y * rotation.y
-                                              - rotation.z * rotation.z);
+                                               - rotation.y * rotation.y
+                                               - rotation.z * rotation.z);
                     break;
                 default:
                     // Should never happen!
@@ -188,5 +186,7 @@ namespace FishNet.Serializing.Helping
 
             return rotation;
         }
+
+
     }
 }

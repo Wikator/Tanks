@@ -196,33 +196,42 @@ namespace FishNet.Object.Synchronizing
             if (!base.IsRegistered)
                 return;
 
-            if (base.NetworkManager != null && base.Settings.WritePermission == WritePermission.ServerOnly && !base.NetworkBehaviour.IsServer)
+            /* asServer might be true if the client is setting the value
+            * through user code. Typically synctypes can only be set
+            * by the server, that's why it is assumed asServer via user code.
+            * However, when excluding owner for the synctype the client should
+            * have permission to update the value locally for use with
+            * prediction. */
+            bool asServerInvoke = (!base.IsNetworkInitialized || base.NetworkBehaviour.IsServer);
+
+            /* Only the adds asServer may set
+             * this synctype as dirty and add
+             * to pending changes. However, the event may still
+             * invoke for clientside. */
+            if (asServerInvoke)
             {
-                base.NetworkManager.LogWarning($"Cannot complete operation as server when server is not active.");
-                return;
+                /* Set as changed even if cannot dirty.
+                * Dirty is only set when there are observers,
+                * but even if there are not observers
+                * values must be marked as changed so when
+                * there are observers, new values are sent. */
+                _valuesChanged = true;
+
+                /* If unable to dirty then do not add to changed.
+                 * A dirty may fail if the server is not started
+                 * or if there's no observers. Changed doesn't need
+                 * to be populated in this situations because clients
+                 * will get the full collection on spawn. If we
+                 * were to also add to changed clients would get the full
+                 * collection as well the changed, which would double results. */
+                if (base.Dirty())
+                {
+                    ChangeData change = new ChangeData(operation, index, next);
+                    _changed.Add(change);
+                }
             }
 
-            /* Set as changed even if cannot dirty.
-            * Dirty is only set when there are observers,
-            * but even if there are not observers
-            * values must be marked as changed so when
-            * there are observers, new values are sent. */
-            _valuesChanged = true;
-
-            /* If unable to dirty then do not add to changed.
-             * A dirty may fail if the server is not started
-             * or if there's no observers. Changed doesn't need
-             * to be populated in this situations because clients
-             * will get the full collection on spawn. If we
-             * were to also add to changed clients would get the full
-             * collection as well the changed, which would double results. */
-            if (base.Dirty())
-            {
-                ChangeData change = new ChangeData(operation, index, next);
-                _changed.Add(change);
-            }
-            bool asServer = true;
-            InvokeOnChange(operation, index, prev, next, asServer);
+            InvokeOnChange(operation, index, prev, next, asServerInvoke);
         }
 
         /// <summary>
@@ -310,19 +319,22 @@ namespace FishNet.Object.Synchronizing
         }
 
         /// <summary>
-        /// Sets current values.
+        /// Reads and sets the current values for server or client.
         /// </summary>
-        /// <param name="reader"></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         [APIExclude]
-        public override void Read(PooledReader reader)
+        public override void Read(PooledReader reader, bool asServer)
         {
-            bool asServer = false;
             /* When !asServer don't make changes if server is running.
             * This is because changes would have already been made on
             * the server side and doing so again would result in duplicates
             * and potentially overwrite data not yet sent. */
             bool asClientAndHost = (!asServer && base.NetworkManager.IsServer);
+            //True to warn if this object was deinitialized on the server.
+            bool deinitialized = (asClientAndHost && !base.OnStartServerCalled);
+            if (deinitialized)
+                base.NetworkManager.LogWarning($"SyncType {GetType().Name} received a Read but was deinitialized on the server. Client callback values may be incorrect. This is a ClientHost limitation.");
+
             IList<T> collection = (asClientAndHost) ? ClientHostCollection : Collection;
 
             //Clear collection since it's a full write.
@@ -343,35 +355,46 @@ namespace FishNet.Object.Synchronizing
                 if (operation == SyncListOperation.Add)
                 {
                     next = reader.Read<T>();
-                    index = collection.Count;
-                    collection.Add(next);
+                    if (!deinitialized)
+                    {
+                        index = collection.Count;
+                        collection.Add(next);
+                    }
                 }
                 //Clear.
                 else if (operation == SyncListOperation.Clear)
                 {
-                    collection.Clear();
+                    if (!deinitialized)
+                        collection.Clear();
                 }
                 //Insert.
                 else if (operation == SyncListOperation.Insert)
                 {
                     index = reader.ReadInt32();
                     next = reader.Read<T>();
-                    collection.Insert(index, next);
+                    if (!deinitialized)
+                        collection.Insert(index, next);
                 }
                 //RemoveAt.
                 else if (operation == SyncListOperation.RemoveAt)
                 {
                     index = reader.ReadInt32();
-                    prev = collection[index];
-                    collection.RemoveAt(index);
+                    if (!deinitialized)
+                    {
+                        prev = collection[index];
+                        collection.RemoveAt(index);
+                    }
                 }
                 //Set
                 else if (operation == SyncListOperation.Set)
                 {
                     index = reader.ReadInt32();
                     next = reader.Read<T>();
-                    prev = collection[index];
-                    collection[index] = next;
+                    if (!deinitialized)
+                    {
+                        prev = collection[index];
+                        collection[index] = next;
+                    }
                 }
 
                 InvokeOnChange(operation, index, prev, next, false);
@@ -406,9 +429,9 @@ namespace FishNet.Object.Synchronizing
         /// <summary>
         /// Resets to initialized values.
         /// </summary>
-        public override void Reset()
+        public override void ResetState()
         {
-            base.Reset();
+            base.ResetState();
             _sendAll = false;
             _changed.Clear();
             ClientHostCollection.Clear();
@@ -432,6 +455,9 @@ namespace FishNet.Object.Synchronizing
         }
         private void Add(T item, bool asServer)
         {
+            if (!base.CanNetworkSetValues(true))
+                return;
+
             Collection.Add(item);
             if (asServer)
             {
@@ -459,6 +485,9 @@ namespace FishNet.Object.Synchronizing
         }
         private void Clear(bool asServer)
         {
+            if (!base.CanNetworkSetValues(true))
+                return;
+
             Collection.Clear();
             if (asServer)
             {
@@ -550,6 +579,9 @@ namespace FishNet.Object.Synchronizing
         }
         private void Insert(int index, T item, bool asServer)
         {
+            if (!base.CanNetworkSetValues(true))
+                return;
+
             Collection.Insert(index, item);
             if (asServer)
             {
@@ -599,6 +631,9 @@ namespace FishNet.Object.Synchronizing
         }
         private void RemoveAt(int index, bool asServer)
         {
+            if (!base.CanNetworkSetValues(true))
+                return;
+
             T oldItem = Collection[index];
             Collection.RemoveAt(index);
             if (asServer)
@@ -647,7 +682,7 @@ namespace FishNet.Object.Synchronizing
             if (!base.IsRegistered)
                 return;
 
-            if (base.NetworkManager != null && base.Settings.WritePermission == WritePermission.ServerOnly && !base.NetworkBehaviour.IsServer)
+            if (base.NetworkManager != null && !base.NetworkBehaviour.IsServer)
             {
                 base.NetworkManager.LogWarning($"Cannot complete operation as server when server is not active.");
                 return;
@@ -678,8 +713,10 @@ namespace FishNet.Object.Synchronizing
         /// <param name="index"></param>
         public void Dirty(int index)
         {
-            bool asServer = true;
+            if (!base.CanNetworkSetValues(true))
+                return;
 
+            bool asServer = true;
             T value = Collection[index];
             if (asServer)
                 AddOperation(SyncListOperation.Set, index, value, value);
@@ -695,6 +732,9 @@ namespace FishNet.Object.Synchronizing
         }
         private void Set(int index, T value, bool asServer, bool force)
         {
+            if (!base.CanNetworkSetValues(true))
+                return;
+
             bool sameValue = (!force && !_comparer.Equals(Collection[index], value));
             if (!sameValue)
             {

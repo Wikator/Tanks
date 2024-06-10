@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using MonoFN.Cecil;
+﻿using MonoFN.Cecil;
+using System.Collections.Generic;
 
 namespace FishNet.CodeGenerating.Helping
 {
@@ -29,4 +29,6 @@ namespace FishNet.CodeGenerating.Helping
             return obj.FullName.GetHashCode();
         }
     }
+
+
 }

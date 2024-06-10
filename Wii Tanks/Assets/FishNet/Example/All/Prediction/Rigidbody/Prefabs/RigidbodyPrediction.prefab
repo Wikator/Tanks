@@ -145,8 +145,7 @@ MonoBehaviour:
   _networkObjectCache: {fileID: 201277550}
   _jumpForce: 15
   _moveRate: 15
-  BulletPrefab: {fileID: 3624261834906416601, guid: 4e1673ccc2acac543871855a0e8bed71,
-    type: 3}
+  BulletPrefab: {fileID: 0}
 --- !u!114 &201277550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,6 +173,10 @@ MonoBehaviour:
   - {fileID: 1565754455094126377}
   <ParentNetworkObject>k__BackingField: {fileID: 0}
   <ChildNetworkObjects>k__BackingField: []
+  SerializedTransformProperties:
+    Position: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    LocalScale: {x: 0, y: 0, z: 0}
   _isNetworked: 1
   _isGlobal: 0
   _initializeOrder: 0
@@ -207,19 +210,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _componentIndexCache: 1
-  _addedNetworkObject: {fileID: 0}
+  _addedNetworkObject: {fileID: 201277550}
   _networkObjectCache: {fileID: 201277550}
+  _implementsPredictionMethods: 1
   _graphicalObject: {fileID: 303449599178274091}
   _enableTeleport: 0
   _teleportThreshold: 1
+  _ownerSmoothPosition: 1
+  _ownerSmoothRotation: 1
   _ownerInterpolation: 1
   _predictionType: 1
   _rigidbody: {fileID: 201277549}
   _rigidbody2d: {fileID: 0}
   _spectatorSmoothPosition: 1
   _spectatorSmoothRotation: 1
-  _spectatorInterpolation: 4
-  _overflowMultiplier: 0.1
+  _spectatorSmoothingType: 1
+  _customSmoothingData:
+    InterpolationPercent: 1
+    CollisionInterpolationPercent: 0.1
+    InterpolationDecreaseStep: 1
+    InterpolationIncreaseStep: 3
+  _preconfiguredSmoothingDataPreview:
+    InterpolationPercent: 1
+    CollisionInterpolationPercent: 0.1
+    InterpolationDecreaseStep: 1
+    InterpolationIncreaseStep: 3
   _maintainedVelocity: 0
   _resendType: 0
   _resendInterval: 30

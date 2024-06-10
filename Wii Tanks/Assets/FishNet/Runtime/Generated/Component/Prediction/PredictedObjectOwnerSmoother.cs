@@ -7,6 +7,8 @@ namespace FishNet.Component.Prediction
 {
     internal class PredictedObjectOwnerSmoother
     {
+#if !PREDICTION_V2
+
         #region Serialized.
         /// <summary>
         /// Transform which holds the graphical features of this object. This transform will be smoothed when desynchronizations occur.
@@ -188,7 +190,7 @@ namespace FishNet.Component.Prediction
             {
                 _positionMoveRate = -2f;
                 _rotationMoveRate = -2f;
-            }
+            } 
         }
 
         /// <summary>
@@ -206,12 +208,12 @@ namespace FishNet.Component.Prediction
         /// True to smooth position. When false the graphicalObjects property will not be updated.
         /// </summary>
         /// <returns></returns>
-        private bool SmoothPosition() => (_smoothPosition || _networkBehaviour.IsOwner);
+        private bool SmoothPosition() => (_smoothPosition && (_networkBehaviour.IsOwner || _networkBehaviour.IsHost));
         /// <summary>
         /// True to smooth rotation. When false the graphicalObjects property will not be updated.
         /// </summary>
         /// <returns></returns>
-        private bool SmoothRotation() => (_smoothRotation || _networkBehaviour.IsOwner);
+        private bool SmoothRotation() => (_smoothRotation && (_networkBehaviour.IsOwner || _networkBehaviour.IsHost));
 
         /// <summary>
         /// Sets Position and Rotation move rates to reach Target datas.
@@ -292,7 +294,7 @@ namespace FishNet.Component.Prediction
                 _graphicalObject.rotation = GetGraphicalGoalRotation();
         }
 
-
+#endif
     }
 
 
